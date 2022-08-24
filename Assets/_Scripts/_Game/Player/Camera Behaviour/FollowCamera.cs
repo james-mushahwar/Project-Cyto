@@ -57,8 +57,8 @@ public class FollowCamera : MonoBehaviour
         Vector3 topRightBounds = _camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, _fixedZOffset));
         Vector3 topLeftBounds = _camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, _fixedZOffset));
         Vector3 bounds = topRightBounds - topLeftBounds;
-        _cameraWidth = bounds.x * 0.5f;
-        _cameraHeight = bounds.y * 0.5f;
+        _cameraWidth = Mathf.Abs(bounds.x * 0.5f);
+        _cameraHeight = Mathf.Abs(bounds.y * 0.5f);
         Debug.Log("Camera bounds = " + _cameraWidth + " and " + _cameraHeight);
     }
 
@@ -66,22 +66,30 @@ public class FollowCamera : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 lerpSpeeds = GetLerpSpeed();
+        Vector3 newOffset;
+        Vector3 desiredPosition;
         TargetOffsets();
+
 
         if (_cameraBounds != null)
         {
             TargetCameraOffsets();
+
+            newOffset = new Vector3(_targetXOffset, _targetYOffset, _fixedZOffset);
+
+            desiredPosition = newOffset;
         }
         else
         {
             // follow behaviour X
             //_targetXOffset = _ctx.IsFacingRight == true ? _isFacingRightXOffset : -_isFacingRightXOffset;
+            newOffset = new Vector3(_targetXOffset, _targetYOffset, _fixedZOffset);
+
+            desiredPosition = _playerTransform.position + newOffset;
         }
+        DrawArrow.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x + _cameraWidth, transform.position.y, 0.0f));
+        DrawArrow.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x, transform.position.y + _cameraHeight, 0.0f));
 
-        
-        Vector3 newOffset = new Vector3(_targetXOffset, _targetYOffset, _fixedZOffset);
-
-        Vector3 desiredPosition = _playerTransform.position + newOffset;
         Vector3 smoothedPosition = new Vector3(Mathf.Lerp(transform.position.x, desiredPosition.x, lerpSpeeds.x * Time.deltaTime), Mathf.Lerp(transform.position.y, desiredPosition.y, lerpSpeeds.y * Time.deltaTime), desiredPosition.z);  //Vector3.Slerp(transform.position, desiredPosition, Time.deltaTime * lerpSpeeds);
 
         transform.position = smoothedPosition;
@@ -96,7 +104,7 @@ public class FollowCamera : MonoBehaviour
 
         if (_cameraBounds != null)
         {
-            return new Vector2(5.0f, 5.0f);
+            return new Vector2(_cameraBounds.LerpXSpeed, _cameraBounds.LerpYSpeed);
         }
 
         if (_ctx.CurrentState is GroundedMovementState)
@@ -170,8 +178,24 @@ public class FollowCamera : MonoBehaviour
 
     private void TargetCameraOffsets()
     {
-        _targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
-        //_cameraBounds
+        if (_cameraBounds is TargetCameraBounds)
+        {
+            _targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
+            //_cameraBounds
+            //if (_cameraBounds.)
+            float CameraX = 0.0f;
+            float CameraY = 0.0f;
+
+            if (_cameraBounds.Directions[0] == true) // up
+            {
+                CameraY = transform.position.y + _cameraHeight;
+                if (_cameraBounds.BoxCollider.bounds.extents.y <= CameraY)
+                {
+                    _targetYOffset = _cameraBounds.BoxCollider.bounds.extents.y - _cameraHeight;
+                }
+            }
+        }
+        
     }
 
     public void SetNewCameraBounds(BaseCameraBounds bounds)
@@ -181,6 +205,6 @@ public class FollowCamera : MonoBehaviour
             return;
         }
 
-
+        _cameraBounds = bounds;
     }
 }

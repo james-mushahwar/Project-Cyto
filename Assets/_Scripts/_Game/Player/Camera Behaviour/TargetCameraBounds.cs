@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FixedCameraBounds : BaseCameraBounds
+public class TargetCameraBounds : BaseCameraBounds
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,7 +12,7 @@ public class FixedCameraBounds : BaseCameraBounds
         if (player != null)
         {
             _followCamera.SetNewCameraBounds(this);
-        }    
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -23,6 +23,16 @@ public class FixedCameraBounds : BaseCameraBounds
         {
             _followCamera.SetNewCameraBounds(null);
         }
+    }
+
+    private void Awake()
+    {
+        Debug.Log("target awake");
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("target enabled");
     }
 
     // Start is called before the first frame update
