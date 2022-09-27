@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using _Scripts._Game.General;
 
-public class PlayerMovementStateMachine : MonoBehaviour
+public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
 {
     #region Input
     private Vector2 _currentMovementInput = Vector2.zero;
@@ -211,8 +212,10 @@ public class PlayerMovementStateMachine : MonoBehaviour
     public Vector3 BouncingPowerMultiplier { get => _bouncingPowerMultiplier; }
     #endregion
 
-    void Awake()
+    new void Awake()
     {
+        base.Awake();
+
         _playerInput = new PlayerInput();
 
         _playerInput.Enable();

@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using _Scripts._Game.General;
 
-public class FollowCamera : MonoBehaviour
+public class FollowCamera : Singleton<FollowCamera>
 {
     #region Camera constraints
     [SerializeField]

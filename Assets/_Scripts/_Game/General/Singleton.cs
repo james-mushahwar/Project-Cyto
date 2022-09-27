@@ -20,14 +20,16 @@ namespace _Scripts._Game.General {
             }
         }
 
-        public void Awake()
+        protected void Awake()
         {
             if (m_Instance != null && m_Instance != this as T)
             {
+                Debug.LogWarning("Destroy new singleton");
                 Destroy(this.gameObject);
             }
             else
             {
+                Debug.LogWarning("Awaken " + name + " singleton");
                 m_Instance = this as T;
             }
         }
