@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Scripts._Game.General.Managers {
-
-    public class AudioManager : PoolBehaviourManager<AudioSource>
+namespace _Scripts._Game.General.Managers{
+    
+    public class ParticleManager : PoolComponentManager<ParticleSystem>
     {
         protected new void Awake()
         {
@@ -14,18 +14,19 @@ namespace _Scripts._Game.General.Managers {
         // Start is called before the first frame update
         void Start()
         {
-
+            
         }
-
+    
         // Update is called once per frame
         void Update()
         {
-
+            
         }
 
-        protected override bool IsActive(AudioSource component)
+        protected override bool IsActive(ParticleSystem component)
         {
-            return component.isActiveAndEnabled || component.isPlaying;
+            return component.IsAlive();
         }
     }
+    
 }

@@ -10,6 +10,12 @@ public class GroundedMovementState : BaseMovementState
 
     public override bool CheckSwitchStates()
     {
+        if (_ctx.BouncingChargeTimer >= _ctx.BouncingFullChargeTime)
+        {
+            SwitchStates(_factory.GetState(MovementState.Bouncing));
+            return true;
+        }
+
         if (_ctx.IsGrounded == false)
         {
             SwitchStates(_factory.GetState(MovementState.Falling));
@@ -52,6 +58,8 @@ public class GroundedMovementState : BaseMovementState
 
     public override void ManagedStateTick()
     {
+        _ctx.BouncingChargeTimer = (_ctx.IsBounceInputValid == true) ? _ctx.BouncingChargeTimer + Time.deltaTime : 0.0f;
+
         if (CheckSwitchStates() == false)
         {
             // update - not switched states this frame

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using _Scripts._Game.General;
+using _Scripts._Game.General.SaveLoad;
 
-public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
+public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>, ISaveable
 {
     #region Input
     private Vector2 _currentMovementInput = Vector2.zero;
+    private Vector2 _currentDirectionInput = Vector2.zero;
     private bool _isMovementPressed = false;
+    private bool _isDirectionPressed = false;
     private bool _isJumpPressed = false;
     private bool _isDashPressed = false;
     private bool _isFloatPressed = false;
@@ -17,6 +20,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
     private bool _isBashPressed = false;
 
     public Vector2 CurrentMovementInput { get => _currentMovementInput; }
+    public Vector2 CurrentDirectionInput { get => _currentDirectionInput; }
     public bool IsMovementPressed { get => _isMovementPressed; }
     public bool IsJumpPressed { get => _isJumpPressed; }
     public bool IsDashPressed { get => _isDashPressed; }
@@ -195,7 +199,11 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
     private float _bouncingVelocityPower;
     [SerializeField]
     private Vector3 _bouncingPowerMultiplier;
+    [SerializeField]
+    private float _bouncingFullChargeTime;
+
     private int _bouncingCounter = 0;
+    private float _bouncingChargeTimer = 0.0f;
 
     public float BouncingUpwardGravityScale         { get => _bouncingUpwardGravityScale; }
     public float BouncingDownwardGravityScale       { get => _bouncingDownwardGravityScale; }
@@ -208,8 +216,22 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
     public float BouncingHorizontalAcceleration     { get => _bouncingHorizontalAcceleration; }
     public float BouncingHorizontalDeceleration     { get => _bouncingHorizontalDeceleration; }
     public int BouncingCounter { get => _bouncingCounter; set => _bouncingCounter = value; }
+    public float BouncingChargeTimer { get => _bouncingChargeTimer; set => _bouncingChargeTimer = value; }
+    public float BouncingFullChargeTime { get => _bouncingFullChargeTime; }
     public float BouncingVelocityPower { get => _bouncingVelocityPower; }
     public Vector3 BouncingPowerMultiplier { get => _bouncingPowerMultiplier; }
+
+    [Header("Collision detection")]
+    [SerializeField]
+    private Collider2D _closestCollider;
+    [SerializeField]
+    private LayerMask _collisionDetectionLayerMask;
+    [SerializeField]
+    private float _collidersDetectionDistance;
+    [SerializeField]
+    private float _directionToNormalThreshold = 0.5f;
+
+    public Collider2D ClosestCollider { get => _closestCollider; }
     #endregion
 
     new void Awake()
@@ -266,6 +288,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
     void FixedUpdate()
     {
         _isGrounded = IsGroundedCheck();
+        ClosestColliderToDirectionCheck();
         IsFacingRightCheck();
         _currentState.ManagedStateTick();
     }
@@ -274,6 +297,12 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
     {
         _currentMovementInput = context.ReadValue<Vector2>();
         _isMovementPressed = _currentMovementInput.magnitude != 0.0f;
+    }
+
+    void OnDirectionInput(InputAction.CallbackContext context)
+    {
+        _currentDirectionInput = context.ReadValue<Vector2>();
+        _isDirectionPressed = _currentDirectionInput.magnitude != 0.0f;
     }
 
     void OnJumpInput(InputAction.CallbackContext context)
@@ -324,6 +353,24 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
         return false;
     }
 
+    void ClosestColliderToDirectionCheck()
+    {
+        // directional check
+        _closestCollider = null;
+
+        if (_currentDirectionInput.magnitude > 0.0f)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, _currentDirectionInput, _collidersDetectionDistance, _collisionDetectionLayerMask);
+            if (hit.collider != null)
+            {
+                if (Vector3.Dot(hit.normal, _currentDirectionInput) >= _directionToNormalThreshold) // this may cause issues for more complex collision shapes
+                {
+                    _closestCollider = hit.collider;
+                }
+            }
+        }
+    }
+
     void IsFacingRightCheck()
     {
         if (Mathf.Abs(Rb.velocity.x) < 0.01f || _currentMovementInput.x == 0.0f)
@@ -353,5 +400,33 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>
             default:
                 break;
         }
+    }
+
+    public object SaveState()
+    {
+        return new SaveData()
+        {
+            MoveState = _states.GetMovementStateEnum(_currentState),
+            Location = this.gameObject.transform.position,
+            Velocity = this._rb.velocity
+        };
+    }
+
+    public void LoadState(object state)
+    {
+        var saveData = (SaveData)state;
+
+        _currentState = _states.GetState(saveData.MoveState);
+        gameObject.transform.position = saveData.Location;
+        _rb.velocity = saveData.Velocity;
+    }
+
+    [System.Serializable]
+    private struct SaveData
+    {
+        public MovementState MoveState;
+        // player world data
+        public Vector3 Location;
+        public Vector3 Velocity;
     }
 }

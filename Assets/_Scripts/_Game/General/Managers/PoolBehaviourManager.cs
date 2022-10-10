@@ -6,7 +6,7 @@ using _Scripts._Game.General;
 //https://www.sebaslab.com/zero-allocation-code-in-unity/
 namespace _Scripts._Game.General.Managers
 {   
-    public abstract class PoolManager<T> : Singleton<PoolManager<T>> where T : Behaviour
+    public abstract class PoolBehaviourManager<T> : Singleton<PoolBehaviourManager<T>> where T : Behaviour
     {
         private readonly Stack<T> m_Pool = new Stack<T>();
         private readonly LinkedList<T> m_Inuse = new LinkedList<T>();
@@ -19,10 +19,9 @@ namespace _Scripts._Game.General.Managers
         protected new void Awake()
         {
             base.Awake();
-            Debug.Log("PoolManager<T> awake check");
+            Debug.Log("PoolBehaviourManager<T> awake check");
             for (int i = 0; i < m_PoolCount; ++i)
             {
-                Debug.Log("Created component type T");
                 T comp = gameObject.AddComponent(typeof(T)) as T;
                 m_Pool.Push(comp);
             }

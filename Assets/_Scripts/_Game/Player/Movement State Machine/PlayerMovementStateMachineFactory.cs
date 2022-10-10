@@ -33,4 +33,17 @@ public class PlayerMovementStateMachineFactory
     {
         return _stateDict[state];
     }
+
+    public MovementState GetMovementStateEnum(BaseMovementState state)
+    {
+        foreach (KeyValuePair<MovementState, BaseMovementState> entry in _stateDict)
+        {
+            if (entry.Value == state)
+            {
+                return entry.Key;
+            }    
+        }
+
+        return MovementState.Grounded;
+    }
 }
