@@ -28,6 +28,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public bool IsBouncePressed { get => _isBouncePressed; }
     public bool IsAttackPressed { get => _isAttackPressed; }
     public bool IsBashPressed { get => _isBashPressed; }
+    public bool IsDirectionPressed { get => _isDirectionPressed; set => _isDirectionPressed = value; }
 
     private bool _isJumpInputValid = false;
     private bool _isDashInputValid = false;
@@ -201,6 +202,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private Vector3 _bouncingPowerMultiplier;
     [SerializeField]
     private float _bouncingFullChargeTime;
+    [SerializeField]
+    private Vector2 _bouncingChargeDirection;
 
     private int _bouncingCounter = 0;
     private float _bouncingChargeTimer = 0.0f;
@@ -220,6 +223,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public float BouncingFullChargeTime { get => _bouncingFullChargeTime; }
     public float BouncingVelocityPower { get => _bouncingVelocityPower; }
     public Vector3 BouncingPowerMultiplier { get => _bouncingPowerMultiplier; }
+    public Vector2 BouncingChargeDirection { get => _bouncingChargeDirection; }
 
     [Header("Collision detection")]
     [SerializeField]
@@ -246,6 +250,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         _playerInput.Player.Movement.started += OnMovementInput;
         _playerInput.Player.Movement.canceled += OnMovementInput;
         _playerInput.Player.Movement.performed += OnMovementInput;
+
+        _playerInput.Player.Direction.started += OnDirectionInput;
+        _playerInput.Player.Direction.canceled += OnDirectionInput;
+        _playerInput.Player.Direction.performed += OnDirectionInput;
 
         _playerInput.Player.Jump.started += OnJumpInput;
         _playerInput.Player.Jump.canceled += OnJumpInput;
@@ -303,6 +311,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         _currentDirectionInput = context.ReadValue<Vector2>();
         _isDirectionPressed = _currentDirectionInput.magnitude != 0.0f;
+        _bouncingChargeDirection = _currentDirectionInput * -1;
     }
 
     void OnJumpInput(InputAction.CallbackContext context)

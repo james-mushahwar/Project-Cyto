@@ -181,9 +181,9 @@ public class FollowCamera : Singleton<FollowCamera>
     {
         if (_cameraBounds is TargetCameraBounds)
         {
-            _targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
+            //_targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
+            _targetXOffset = 0.0f;
             //_cameraBounds
-            //if (_cameraBounds.)
             float CameraX = 0.0f;
             float CameraY = 0.0f;
 

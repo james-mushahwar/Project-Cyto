@@ -185,7 +185,8 @@ public class BouncingMovementState : BaseMovementState
         //Debug.Log("yVelocity is : " + _ctx.Rb.velocity.y + " and yRatio is: " + yRatio + " and upwardsForce is: " + upwardsForce + " and starting world Y coords is " + _ctx.transform.position.y);
 
         _ctx.Rb.velocity *= Vector2.right;
-        _ctx.Rb.AddForce(Vector2.up * upwardsForce, ForceMode2D.Impulse);
+        Vector2 direction = _ctx.IsDirectionPressed ? _ctx.BouncingChargeDirection : Vector2.up;
+        _ctx.Rb.AddForce(direction * upwardsForce, ForceMode2D.Impulse);
 
         CameraShaker.Instance.ShakeOnce(1.5f, 0.1f, 0.1f, 0.1f);
     }
