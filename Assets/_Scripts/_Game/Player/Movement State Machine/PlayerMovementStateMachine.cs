@@ -120,6 +120,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     [SerializeField]
     private float _fallingGravityScale;
     [SerializeField]
+    private float _fallingMaximumDownwardsVelocity;
+    [SerializeField]
     private float _fallingHorizontalVelocity;
     [SerializeField]
     private float _fallingAcceleration;
@@ -129,6 +131,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _fallingVelocityPower;
 
     public float FallingGravityScale { get => _fallingGravityScale; set => _fallingGravityScale = value; }
+    public float FallingMaximumDownwardsVelocity { get => _fallingMaximumDownwardsVelocity; }
     public float FallingHorizontalVelocity { get => _fallingHorizontalVelocity; }
     public float FallingAcceleration { get => _fallingAcceleration; }
     public float FallingDeceleration { get => _fallingDeceleration; }
@@ -187,7 +190,9 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     [SerializeField]
     private float _bouncingMaximumDownwardsVelocity;
     [SerializeField]
-    private float _bouncingDefaultDownwardsVelocity;
+    private float _bouncingMaximumImpactDownwardsVelocity;
+    [SerializeField]
+    private float _bouncingDefaultImpactDownwardsVelocity;
     [SerializeField]
     private float _bouncingInputForceDelay;
     [SerializeField]
@@ -197,27 +202,30 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     [SerializeField]
     private float _bouncingHorizontalDeceleration;
     [SerializeField]
+    private float _bouncingNoInputHorizontalDeceleration;
+    [SerializeField]
     private float _bouncingVelocityPower;
     [SerializeField]
     private Vector3 _bouncingPowerMultiplier;
     [SerializeField]
     private float _bouncingFullChargeTime;
-    [SerializeField]
-    private Vector2 _bouncingChargeDirection;
 
     private int _bouncingCounter = 0;
     private float _bouncingChargeTimer = 0.0f;
+    private Vector2 _bouncingChargeDirection;
 
-    public float BouncingUpwardGravityScale         { get => _bouncingUpwardGravityScale; }
-    public float BouncingDownwardGravityScale       { get => _bouncingDownwardGravityScale; }
-    public float BouncingMaximumHorizontalVelocity  { get => _bouncingMaximumHorizontalVelocity; }
-    public float BouncingDefaultHorizontalVelocity  { get => _bouncingDefaultHorizontalVelocity; }
-    public float BouncingMaximumDownwardsVelocity   { get => _bouncingMaximumDownwardsVelocity; }
-    public float BouncingDefaultDownwardsVelocity   { get => _bouncingDefaultDownwardsVelocity; }
-    public float BouncingInputForceDelay            { get => _bouncingInputForceDelay; }
-    public Vector2 BouncingMinMaxUpwardsBounceForce { get => _bouncingMinMaxUpwardsBounceForce; }
-    public float BouncingHorizontalAcceleration     { get => _bouncingHorizontalAcceleration; }
-    public float BouncingHorizontalDeceleration     { get => _bouncingHorizontalDeceleration; }
+    public float BouncingUpwardGravityScale             { get => _bouncingUpwardGravityScale; }
+    public float BouncingDownwardGravityScale           { get => _bouncingDownwardGravityScale; }
+    public float BouncingMaximumHorizontalVelocity      { get => _bouncingMaximumHorizontalVelocity; }
+    public float BouncingDefaultHorizontalVelocity      { get => _bouncingDefaultHorizontalVelocity; }
+    public float BouncingMaximumDownwardsVelocity       { get => _bouncingMaximumDownwardsVelocity; }
+    public float BouncingMaximumImpactDownwardsVelocity { get => _bouncingMaximumImpactDownwardsVelocity; }
+    public float BouncingDefaultImpactDownwardsVelocity { get => _bouncingDefaultImpactDownwardsVelocity; }
+    public float BouncingInputForceDelay                { get => _bouncingInputForceDelay; }
+    public Vector2 BouncingMinMaxUpwardsBounceForce     { get => _bouncingMinMaxUpwardsBounceForce; }
+    public float BouncingHorizontalAcceleration         { get => _bouncingHorizontalAcceleration; }
+    public float BouncingHorizontalDeceleration         { get => _bouncingHorizontalDeceleration; }
+    public float BouncingNoInputHorizontalDeceleration  { get => _bouncingNoInputHorizontalDeceleration; }
     public int BouncingCounter { get => _bouncingCounter; set => _bouncingCounter = value; }
     public float BouncingChargeTimer { get => _bouncingChargeTimer; set => _bouncingChargeTimer = value; }
     public float BouncingFullChargeTime { get => _bouncingFullChargeTime; }

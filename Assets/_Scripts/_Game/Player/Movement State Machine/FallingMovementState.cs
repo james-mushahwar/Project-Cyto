@@ -85,7 +85,15 @@ public class FallingMovementState : BaseMovementState
             // update 
             _jumpBufferTimer -= Time.deltaTime;
 
-            #region Run
+            // TIP: clamp Ymovement first before adding force - doesn't work other way round
+            #region YMovement
+            if (_ctx.Rb.velocity.y < _ctx.FallingMaximumDownwardsVelocity)
+            {
+                _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, _ctx.FallingMaximumDownwardsVelocity);
+            }
+            #endregion
+
+            #region XMovement
 
             float targetSpeed = _ctx.CurrentMovementInput.x * _ctx.FallingHorizontalVelocity;
             float speedDif = targetSpeed - _ctx.Rb.velocity.x;
@@ -95,6 +103,7 @@ public class FallingMovementState : BaseMovementState
             _ctx.Rb.AddForce(movement * Vector2.right);
 
             #endregion
+
         }
     }
 }

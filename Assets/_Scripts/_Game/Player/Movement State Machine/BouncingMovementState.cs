@@ -116,6 +116,14 @@ public class BouncingMovementState : BaseMovementState
 
         if (CheckSwitchStates() == false)
         {
+            // TIP: clamp Ymovement first before adding force - doesn't work other way round
+            #region YMovement
+            if (_ctx.Rb.velocity.y < _ctx.BouncingMaximumDownwardsVelocity)
+            {
+                _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, _ctx.BouncingMaximumDownwardsVelocity);
+            }
+            #endregion
+
             if (_ctx.IsGrounded == true && _ctx.Rb.velocity.y < 0.0f)
             {
                 Bounce();
@@ -123,7 +131,7 @@ public class BouncingMovementState : BaseMovementState
 
             float targetSpeed = _ctx.CurrentMovementInput.x * Mathf.Clamp(_cachedHorizontaVelocity * Mathf.Sign(_cachedHorizontaVelocity), _ctx.BouncingDefaultHorizontalVelocity, _ctx.BouncingMaximumHorizontalVelocity);
             float speedDif = targetSpeed - _ctx.Rb.velocity.x;
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.BouncingHorizontalAcceleration : _ctx.BouncingHorizontalDeceleration;
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.BouncingHorizontalAcceleration : (_ctx.CurrentMovementInput.x != 0.0f) ? _ctx.BouncingHorizontalDeceleration : _ctx.BouncingNoInputHorizontalDeceleration;
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.BouncingVelocityPower) * Mathf.Sign(speedDif);
 
             _ctx.Rb.AddForce(movement * Vector2.right);
@@ -151,8 +159,8 @@ public class BouncingMovementState : BaseMovementState
         float yVelocity = _ctx.Rb.velocity.y;
         float bouncingPowerMultiplier = _ctx.BouncingCounter >= 3 ? _ctx.BouncingPowerMultiplier.z : _ctx.BouncingCounter >= 2 ? _ctx.BouncingPowerMultiplier.y : _ctx.BouncingPowerMultiplier.x;
 
-        yVelocity = Mathf.Clamp(yVelocity * bouncingPowerMultiplier, _ctx.BouncingMaximumDownwardsVelocity, _ctx.BouncingDefaultDownwardsVelocity);
-        float yRatio = (yVelocity - _ctx.BouncingDefaultDownwardsVelocity) / (_ctx.BouncingMaximumDownwardsVelocity - _ctx.BouncingDefaultDownwardsVelocity);
+        yVelocity = Mathf.Clamp(yVelocity * bouncingPowerMultiplier, _ctx.BouncingMaximumImpactDownwardsVelocity, _ctx.BouncingDefaultImpactDownwardsVelocity);
+        float yRatio = (yVelocity - _ctx.BouncingDefaultImpactDownwardsVelocity) / (_ctx.BouncingMaximumImpactDownwardsVelocity - _ctx.BouncingDefaultImpactDownwardsVelocity);
 
         float upwardsForce = Mathf.Lerp(_ctx.BouncingMinMaxUpwardsBounceForce.x, _ctx.BouncingMinMaxUpwardsBounceForce.y, yRatio);
 
@@ -176,8 +184,8 @@ public class BouncingMovementState : BaseMovementState
         float yVelocity = _ctx.Rb.velocity.y;
         float bouncingPowerMultiplier = _ctx.BouncingCounter >= 3 ? _ctx.BouncingPowerMultiplier.z : _ctx.BouncingCounter >= 2 ? _ctx.BouncingPowerMultiplier.y : _ctx.BouncingPowerMultiplier.x;
 
-        yVelocity = Mathf.Clamp(yVelocity * bouncingPowerMultiplier, _ctx.BouncingMaximumDownwardsVelocity, _ctx.BouncingDefaultDownwardsVelocity);
-        //float yRatio = (yVelocity - _ctx.BouncingDefaultDownwardsVelocity) / (_ctx.BouncingMaximumDownwardsVelocity - _ctx.BouncingDefaultDownwardsVelocity);
+        yVelocity = Mathf.Clamp(yVelocity * bouncingPowerMultiplier, _ctx.BouncingMaximumImpactDownwardsVelocity, _ctx.BouncingDefaultImpactDownwardsVelocity);
+        //float yRatio = (yVelocity - _ctx.BouncingDefaultImpactDownwardsVelocity) / (_ctx.BouncingMaximumImpactDownwardsVelocity - _ctx.BouncingDefaultImpactDownwardsVelocity);
 
         //float upwardsForce = Mathf.Lerp(_ctx.BouncingMinMaxUpwardsBounceForce.x, _ctx.BouncingMinMaxUpwardsBounceForce.y, yRatio);
         float upwardsForce = _ctx.BouncingMinMaxUpwardsBounceForce.y;

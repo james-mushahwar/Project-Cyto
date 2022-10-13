@@ -154,6 +154,7 @@ MonoBehaviour:
   _coyoteTimeLimit: 0.35
   _jumpBufferLimit: 0.45
   _fallingGravityScale: 3.3
+  _fallingMaximumDownwardsVelocity: -50
   _fallingHorizontalVelocity: 10
   _fallingAcceleration: 8
   _fallingDeceleration: 8
@@ -173,15 +174,17 @@ MonoBehaviour:
   _bouncingDownwardGravityScale: 4.5
   _bouncingMaximumHorizontalVelocity: 15
   _bouncingDefaultHorizontalVelocity: 2
-  _bouncingMaximumDownwardsVelocity: -35
-  _bouncingDefaultDownwardsVelocity: -20
+  _bouncingMaximumDownwardsVelocity: -60
+  _bouncingMaximumImpactDownwardsVelocity: -35
+  _bouncingDefaultImpactDownwardsVelocity: -20
   _bouncingInputForceDelay: 0.1
   _bouncingMinMaxUpwardsBounceForce: {x: 16, y: 30}
   _bouncingHorizontalAcceleration: 7
   _bouncingHorizontalDeceleration: 6
+  _bouncingNoInputHorizontalDeceleration: 1
   _bouncingVelocityPower: 1
   _bouncingPowerMultiplier: {x: 1, y: 1.1, z: 1.25}
-  _bouncingFullChargeTime: 1
+  _bouncingFullChargeTime: 0.5
   _closestCollider: {fileID: 0}
   _collisionDetectionLayerMask:
     serializedVersion: 2
