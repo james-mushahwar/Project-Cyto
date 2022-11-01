@@ -6,7 +6,7 @@ namespace _Scripts._Game.General.Managers{
     
     public abstract class PoolComponentManager<T> : Singleton<PoolComponentManager<T>> where T : Component
     {
-        private readonly Stack<T> m_Pool = new Stack<T>();
+        protected readonly Stack<T> m_Pool = new Stack<T>();
         private readonly LinkedList<T> m_Inuse = new LinkedList<T>();
         private readonly Stack<LinkedListNode<T>> m_NodePool = new Stack<LinkedListNode<T>>();
 

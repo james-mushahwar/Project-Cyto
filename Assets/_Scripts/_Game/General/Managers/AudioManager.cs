@@ -4,11 +4,16 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers {
 
-    public class AudioManager : PoolBehaviourManager<AudioSource>
+    public class AudioManager : PoolComponentManager<AudioSource>
     {
         protected new void Awake()
         {
             base.Awake();
+
+            foreach (AudioSource aSource in m_Pool)
+            {
+                aSource.playOnAwake = false;
+            }
         }
 
         // Start is called before the first frame update
@@ -26,6 +31,20 @@ namespace _Scripts._Game.General.Managers {
         protected override bool IsActive(AudioSource component)
         {
             return component.isActiveAndEnabled || component.isPlaying;
+        }
+
+        AudioSource TryPlayAudioSourceAtLocation(AudioClip audioClip, Vector3 worldLoc)
+        {
+            AudioSource pooledComp = GetPooledComponent();
+
+            if (pooledComp)
+            {
+                pooledComp.gameObject.transform.position = worldLoc;
+                pooledComp.clip = audioClip;
+                pooledComp.Play();
+            }
+            
+            return pooledComp;
         }
     }
 }
