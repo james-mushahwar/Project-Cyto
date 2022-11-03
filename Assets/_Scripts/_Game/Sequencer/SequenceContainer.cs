@@ -12,7 +12,7 @@ namespace _Scripts._Game.Sequencer{
         private bool _isSimultaneous;
 
         [SerializeField]
-        private List<Sequenceable> _sequencables = new List<Sequenceable>();
+        private List<SequenceableGroup> _sequenceableGroups = new List<SequenceableGroup>();
         // Start is called before the first frame update
         void Start()
         {

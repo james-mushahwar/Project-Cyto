@@ -461,7 +461,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1209876763}
-  - component: {fileID: 1209876762}
+  - component: {fileID: 1209876765}
+  - component: {fileID: 1209876764}
   m_Layer: 0
   m_Name: SContainer
   m_TagString: Untagged
@@ -469,21 +470,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1209876762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209876761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8702a19ba79856489fd94f5de1bd211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canBeQueued: 0
-  _isSimultaneous: 0
-  _sequencables: []
 --- !u!4 &1209876763
 Transform:
   m_ObjectHideFlags: 0
@@ -499,6 +485,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1209876764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209876761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42985724cbfe94d50a69592d59c62786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sequenceablesInGroup:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1209876765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209876761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8702a19ba79856489fd94f5de1bd211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canBeQueued: 0
+  _isSimultaneous: 0
+  _sequenceableGroups:
+  - {fileID: 0}
 --- !u!1 &1240905192
 GameObject:
   m_ObjectHideFlags: 0
