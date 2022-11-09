@@ -21,6 +21,12 @@ namespace _Scripts._Game.General.SceneLoading{
 
         private IEnumerator[] _asyncSceneOperation = new IEnumerator[2];
         // Start is called before the first frame update
+
+        void OnDrawGizmos()
+        {
+            
+        }
+
         void Start()
         {
             for (int i = 0; i < 2; ++i)
@@ -31,12 +37,6 @@ namespace _Scripts._Game.General.SceneLoading{
                     ssc.Init(this, i);
                 }
             }
-        }
-    
-        // Update is called once per frame
-        void Update()
-        {
-            
         }
 
         // used to load scene on player exited collider event

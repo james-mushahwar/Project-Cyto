@@ -18,10 +18,19 @@ namespace _Scripts._Game.General.SceneLoading{
         [SerializeField]
         private UnityEvent<int> _collisionExitEvent;
 
-        // Start is called before the first frame update
-        void Start()
+        private void OnDrawGizmos()
         {
-            
+            // shows right direction of scene switcher collider
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.position + (5.0f * transform.right));
+
+            //draw collider bounds as cube
+            BoxCollider2D box2D = GetComponent<Collider2D>() as BoxCollider2D;
+            if (box2D)
+            {
+                Gizmos.color = new Color(0, 1, 0, 1.0f);
+                Gizmos.DrawCube(transform.position + new Vector3(box2D.offset.x, box2D.offset.y, 0), new Vector3(box2D.size.x, box2D.offset.y, 10.0f));
+            } 
         }
 
         public void Init(SceneSwitcher ss, int index)
@@ -47,23 +56,6 @@ namespace _Scripts._Game.General.SceneLoading{
                 }
                 
             }
-        }
-
-        private void Update()
-        {
-            //if (_justLeft)
-            //{
-            //    _debugTimer -= Time.deltaTime;
-
-            //    if (_debugTimer < 0)
-            //    {
-            //        _justLeft = false;
-            //    }
-
-            //    ContactPoint2D[] contacts = new ContactPoint2D[1];
-            //    _cachedCollider2D.GetContacts(contacts);
-            //    DrawArrow.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x, transform.position.y + _cameraHeight, 0.0f));
-            //}
         }
     }
     
