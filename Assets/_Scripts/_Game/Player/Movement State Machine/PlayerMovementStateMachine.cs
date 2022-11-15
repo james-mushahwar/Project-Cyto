@@ -419,6 +419,15 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         }
     }
 
+    [System.Serializable]
+    private struct SaveData
+    {
+        public MovementState MoveState;
+        // player world data
+        public Vector3 Location;
+        public Vector3 Velocity;
+    }
+
     public object SaveState()
     {
         return new SaveData()
@@ -431,19 +440,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     public void LoadState(object state)
     {
-        var saveData = (SaveData)state;
+        SaveData saveData = (SaveData)state;
 
         _currentState = _states.GetState(saveData.MoveState);
         gameObject.transform.position = saveData.Location;
         _rb.velocity = saveData.Velocity;
-    }
-
-    [System.Serializable]
-    private struct SaveData
-    {
-        public MovementState MoveState;
-        // player world data
-        public Vector3 Location;
-        public Vector3 Velocity;
     }
 }

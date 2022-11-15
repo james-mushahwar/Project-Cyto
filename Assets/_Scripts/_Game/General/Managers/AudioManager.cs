@@ -1,11 +1,29 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Scripts._Game.General.Managers {
 
+    public enum EAudioType
+    {
+        AC_TorchWoosh,
+        COUNT
+    }
+
     public class AudioManager : PoolComponentManager<AudioSource>
     {
+        private static EAudioType[] _AudioTypes =
+        {
+            EAudioType.AC_TorchWoosh,
+        };
+
+        private string[] _AudioLocations;
+
+        private Dictionary<EAudioType, string> _AudioTypeLocationsDict = new Dictionary<EAudioType, string>();
+
+        private AudioClip[] _AudioClips = new AudioClip[(int) EAudioType.COUNT];
+
         protected new void Awake()
         {
             base.Awake();
@@ -14,18 +32,13 @@ namespace _Scripts._Game.General.Managers {
             {
                 aSource.playOnAwake = false;
             }
-        }
 
-        // Start is called before the first frame update
-        void Start()
-        {
+            //_AudioLocations = GetValues(typeof(EAudioType));
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            for (int i = 0; i < (int)EAudioType.COUNT; ++i)
+            {
+                _AudioTypeLocationsDict.Add((EAudioType)i, Enum.GetName(typeof(EAudioType), (EAudioType)i));
+            }
         }
 
         protected override bool IsActive(AudioSource component)
@@ -33,15 +46,19 @@ namespace _Scripts._Game.General.Managers {
             return component.isActiveAndEnabled || component.isPlaying;
         }
 
-        AudioSource TryPlayAudioSourceAtLocation(AudioClip audioClip, Vector3 worldLoc)
+        public AudioSource TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc)
         {
             AudioSource pooledComp = GetPooledComponent();
 
             if (pooledComp)
             {
                 pooledComp.gameObject.transform.position = worldLoc;
-                pooledComp.clip = audioClip;
+                pooledComp.clip = (AudioClip)Resources.Load(_AudioTypeLocationsDict[audioType]);
                 pooledComp.Play();
+            }
+            else
+            {
+                Debug.Log("No more pooled audio components");
             }
             
             return pooledComp;

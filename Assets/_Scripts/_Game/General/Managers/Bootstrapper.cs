@@ -9,7 +9,7 @@ namespace _Scripts._Game.General.Managers{
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Execute()
         {
-            Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load("Managers")));
+            Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load("Prefabs/Managers")));
             Debug.LogWarning("Bootstrapper Execute");
         }
     }

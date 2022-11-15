@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using _Scripts._Game.General.Managers;
 
 public class JumpingMovementState : BaseMovementState
 {
@@ -55,6 +56,11 @@ public class JumpingMovementState : BaseMovementState
         _stateTimer = 0.0f;
         _ctx.JumpCounter++;
         _ctx.NullifyInput(MovementState.Jumping);
+
+        AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.AC_TorchWoosh, Camera.main.transform.position);
+        if (pooledSource){
+            Debug.Log("Playing source!");
+        }
     }
 
     public override void ExitState()
