@@ -43,7 +43,7 @@ namespace _Scripts._Game.General.Managers {
 
         protected override bool IsActive(AudioSource component)
         {
-            return component.isActiveAndEnabled || component.isPlaying;
+            return component.isPlaying;
         }
 
         public AudioSource TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc)
@@ -53,7 +53,7 @@ namespace _Scripts._Game.General.Managers {
             if (pooledComp)
             {
                 pooledComp.gameObject.transform.position = worldLoc;
-                pooledComp.clip = (AudioClip)Resources.Load(_AudioTypeLocationsDict[audioType]);
+                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _AudioTypeLocationsDict[audioType]);
                 pooledComp.Play();
             }
             else
