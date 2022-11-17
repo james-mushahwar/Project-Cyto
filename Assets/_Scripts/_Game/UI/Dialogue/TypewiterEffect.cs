@@ -21,10 +21,14 @@ namespace _Scripts._Game.UI.Dialogue{
             while (charIndex < textToType.Length)
             {
                 t += Time.deltaTime;
-                charIndex = Mathf.FloorToInt(t);
-                charIndex = Mathf.Clamp(charIndex, 0, textToType.Length);
+                int newcharIndex = Mathf.FloorToInt(t);
 
-                textLabel.text = textToType.Substring(0, charIndex);
+                if (newcharIndex > charIndex)
+                {
+                    charIndex = Mathf.Clamp(newcharIndex, 0, textToType.Length);
+
+                    textLabel.text = textToType.Substring(0, charIndex);
+                }
 
                 yield return null;
             }
