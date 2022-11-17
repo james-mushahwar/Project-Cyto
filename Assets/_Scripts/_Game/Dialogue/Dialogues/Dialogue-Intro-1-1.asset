@@ -12,8 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d3671a02747445ba57d8117b1fe1a4, type: 3}
   m_Name: Dialogue-Intro-1-1
   m_EditorClassIdentifier: 
-  dialogue:
-  - {fileID: 11400000, guid: d0de0471a6dbe4dc78a5b967355f6082, type: 2}
-  - {fileID: 11400000, guid: e6133ac6758d44159bf3e10102eb6eee, type: 2}
-  - {fileID: 11400000, guid: bb4dc112b04514826999a6f0e6031bed, type: 2}
-  - {fileID: 11400000, guid: 076fe1a724e304893a05cad5c8ce3594, type: 2}
+  _dialogueType: 0
+  _dialogue: []
+  _phrases:
+  - _phrase: Bzzt Approaching large plasma matter.
+    _receiveInput: 0
+    _isSkipable: 0
+    _isAuto: 1
+    _textSpeed: 1
+    _fasterTextSpeed: 2
+    _startOfPhraseWait: 0
+    _endOfPhraseWait: 2
+  - _phrase: Good. Let's end this pitiful attempt of human salvation.
+    _receiveInput: 0
+    _isSkipable: 0
+    _isAuto: 1
+    _textSpeed: 1
+    _fasterTextSpeed: 2
+    _startOfPhraseWait: 0
+    _endOfPhraseWait: 2
+  - _phrase: Make short work of this and fire when ready, I want not a single trace
+      of these lifeforms once we're done.
+    _receiveInput: 0
+    _isSkipable: 0
+    _isAuto: 1
+    _textSpeed: 1
+    _fasterTextSpeed: 2
+    _startOfPhraseWait: 0
+    _endOfPhraseWait: 2
+  - _phrase: Bzzt Affirmative. Engaging large plasma matter.
+    _receiveInput: 0
+    _isSkipable: 0
+    _isAuto: 1
+    _textSpeed: 1
+    _fasterTextSpeed: 2
+    _startOfPhraseWait: 0
+    _endOfPhraseWait: 2
