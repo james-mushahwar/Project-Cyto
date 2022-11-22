@@ -13,14 +13,60 @@ namespace _Scripts._Game.Sequencer{
 
         private int _sequenceIndex;
 
-        public Sequenceable GetCurrentSequence()
+        public void TickSequenceableGroup()
         {
-            return _sequenceables[_sequenceIndex];
+            if (_isSimultaneousGroup)
+            {
+
+            }
+            else
+            {
+                Sequenceable seq = GetCurrentSequence();
+
+                if (seq.IsComplete())
+                {
+                    seq = GetNextSequence();
+                }
+
+                if (seq)
+                {
+                    seq.Tick();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
 
         public bool IsComplete()
         {
-            return true;
+            if (_isSimultaneousGroup)
+            {
+                return false;
+            }
+            else
+            {
+                return _sequenceIndex >= _sequenceables.Count;
+            }
+        }
+
+        private Sequenceable GetCurrentSequence()
+        {
+            return _sequenceables[_sequenceIndex];
+        }
+
+        private Sequenceable GetNextSequence()
+        {
+            _sequenceIndex++;
+            if (IsComplete())
+            {
+                return null;
+            }
+            else
+            {
+                return _sequenceables[_sequenceIndex];
+            }
         }
     }
 
