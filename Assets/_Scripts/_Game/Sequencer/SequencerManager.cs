@@ -5,72 +5,121 @@ using _Scripts._Game.General;
 using _Scripts._Game.Sequencer;
 using System.Linq;
 
-// public struct SequenceHandlers
-// {
-//     public SequenceHandlers(int length) 
-//     {
-//         _sequenceContainers = new Sequence[length];
-//         _queuedSequences = new Sequence[length];
-//     }
+ namespace _Scripts._Game.Sequencer{
+  
+    public class SequencerManager : Singleton<SequencerManager>
+    {
+        private bool _isSequenceActive = false;
+        private SequenceContainer _sequenceContainer;
+        private SequenceContainer[] _queuedSequenceContainers;
+        [SerializeField] private int _maxQueuedContainers;
+        private int _nextFreeSlot;
+        private int _queueHeadSlot;
+        private int _freeQueueSlots;
 
-//     public Sequence[] _sequenceContainers;
+         // Start is called before the first frame update
+         void Start()
+         {
+            _queuedSequenceContainers = new SequenceContainer[_maxQueuedContainers];
+            _nextFreeSlot = _maxQueuedContainers - 1;
+            _queueHeadSlot = -1;
+            _freeQueueSlots = _maxQueuedContainers;
+         }
+  
+         void FixedUpdate()
+         {
+            if (_sequenceContainer == null)
+            {
+                if (_freeQueueSlots < _maxQueuedContainers)
+                {
+                    // take next queued sequence
+                    _sequenceContainer = GetNextQueuedSequence();
+                }
+            }
 
-//     private Sequence[] _queuedSequences;
-//     private int _nextFreeIndex;
-//     private int _nextQueuedIndex;
-// }
+            if (_sequenceContainer)
+            {
+                float deltaTime = Time.deltaTime;
+                TickSequenceableContainer(deltaTime);
+            }
+         }
 
-// public struct Sequence
-// {
-//     public SequenceContainer[] _sequenceContainers;
-// }
+         public void TryNewSequenceContainer(SequenceContainer seqContainer)
+         {
+            if (_isSequenceActive)
+            {
+                if (_freeQueueSlots > 0 && !SequenceContainerIsQueued(seqContainer))
+                {
+                    if (seqContainer.CanBeQueued)
+                    {
+                        QueueSequenceContainer(seqContainer);
+                    }
+                }
 
-// namespace _Scripts._Game.Sequencer{
-    
-//     public class SequencerManager : Singleton<SequencerManager>
-//     {
-//         private Sequence _sequence = new Sequence();
+                return;
+            }
 
-//         // Start is called before the first frame update
-//         void Start()
-//         {
-            
-//         }
-    
-//         // Update is called once per frame
-//         void Update()
-//         {
-            
-//         }
+            _sequenceContainer = seqContainer;
+         }
 
-//         public void TryQueueSequence(Sequence seq)
-//         {
-//             // is empty
-//             if (_sequence._sequenceContainers.Length == 0)
-//             {
-//                 _sequence._sequenceContainers = seq._sequenceContainers;
-//             }
-//             else
-//             {
-//                 _queuedSequences[_nextFreeIndex]._sequenceContainers = seq._sequenceContainers;
+         private bool SequenceContainerIsQueued(SequenceContainer seqContainer)
+         {
+            for (int i = _maxQueuedContainers - 1; i >= 0; --i)
+            {
+                if (_queuedSequenceContainers[i] == seqContainer)
+                {
+                    return true;
+                }
+            }
 
-//                 _nextFreeIndex++;
-//                 if (_nextFreeIndex > 4)
-//                 {
-//                     _nextFreeIndex = 0;
-//                 }
-//             }
-//         }
+            return false;
+         }
 
-//         protected void PushSequence()
-//         {
+        private void QueueSequenceContainer(SequenceContainer seqContainer)
+        {
+            _queuedSequenceContainers[_nextFreeSlot] = seqContainer;
+            if (_queueHeadSlot == -1)
+            {
+                _queueHeadSlot = _nextFreeSlot;
+            }
+            _freeQueueSlots--;
+            if (_freeQueueSlots > 0)
+            {
+                _nextFreeSlot--;
+                if (_nextFreeSlot == -1)
+                {
+                    _nextFreeSlot = _maxQueuedContainers - 1;
+                }
+            }
+            else
+            {
+                _nextFreeSlot = -1;
+            }
+        }
+     
+        private SequenceContainer GetNextQueuedSequence()
+        {
+            if (_freeQueueSlots >= _maxQueuedContainers - 1)
+            {
+                return null;
+            }
 
-//         }
+            SequenceContainer seqCont = _queuedSequenceContainers[_queueHeadSlot];
+            _queuedSequenceContainers[_queueHeadSlot] = null;
 
-//         protected void PopSequence()
-//         {
+            _queueHeadSlot--;
+            if (_queueHeadSlot < 0)
+            {
+                _queueHeadSlot = _maxQueuedContainers - 1;
+            } 
 
-//         }
-//     }
-    
-//}
+            return seqCont;
+        }
+
+        private void TickSequenceableContainer(float deltaTime)
+        {
+            _sequenceContainer.TickSequenceContainer();
+        }
+    }
+  
+}

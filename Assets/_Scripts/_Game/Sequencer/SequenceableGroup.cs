@@ -9,7 +9,19 @@ namespace _Scripts._Game.Sequencer{
         [SerializeField]
         private bool _isSimultaneousGroup;
         [SerializeField]
-        public List<Sequenceable> sequenceablesInGroup = new List<Sequenceable>();
+        public List<Sequenceable> _sequenceables = new List<Sequenceable>();
+
+        private int _sequenceIndex;
+
+        public Sequenceable GetCurrentSequence()
+        {
+            return _sequenceables[_sequenceIndex];
+        }
+
+        public bool IsComplete()
+        {
+            return true;
+        }
     }
 
 }
