@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.UI.Dialogue{
     
-    public class TypewiterEffect : MonoBehaviour
+    public class TypewriterEffect : MonoBehaviour
     {
         public void Run(string textToType, TMP_Text textLabel)
         {
