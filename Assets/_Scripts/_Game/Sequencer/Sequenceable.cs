@@ -11,6 +11,7 @@ namespace _Scripts._Game.Sequencer {
         public abstract void Begin();
         public abstract void Stop();
         public abstract void Tick();
+        public abstract bool IsComplete();
     }
 
 }

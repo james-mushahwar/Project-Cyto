@@ -35,18 +35,41 @@ namespace _Scripts._Game.Sequencer{
 
             if (group.IsComplete()) 
             {
-
+                group = GetNextGroup();
             }
-        }
 
-        public SequenceableGroup GetCurrentGroup()
-        {
-            return _sequenceableGroups[groupIndex];
+            if (group)
+            {
+                group.TickSequenceableGroup();
+            }
+            else
+            {
+                return;
+            }
+
         }
 
         public bool IsContainerComplete()
         {
             return groupIndex >= _sequenceableGroups.Count;
+        }
+
+        private SequenceableGroup GetCurrentGroup()
+        {
+            return _sequenceableGroups[groupIndex];
+        }
+
+        private SequenceableGroup GetNextGroup()
+        {
+            groupIndex++;
+            if (IsContainerComplete())
+            {
+                return null;
+            }
+            else
+            {
+                return _sequenceableGroups[groupIndex];
+            }
         }
     }
     

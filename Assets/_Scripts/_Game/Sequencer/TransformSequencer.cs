@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.Sequencer{
     
-    public class TransformSequencer : Sequenceable
+    public class TextSequencer : Sequenceable
     {
         public override void Begin()
         {
@@ -17,6 +17,11 @@ namespace _Scripts._Game.Sequencer{
         }
 
         public override void Tick()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool IsComplete()
         {
             throw new System.NotImplementedException();
         }
