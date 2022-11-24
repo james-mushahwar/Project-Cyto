@@ -42,6 +42,18 @@ namespace _Scripts._Game.Dialogue{
         [SerializeField] private EDialogueType _dialogueType;
 
         [SerializeField] private Phrase[] _phrases;
+
+        public Phrase GetPhrase(int index)
+        {
+            Phrase phrase = null;
+
+            if (index < _phrases.Length)
+            {
+                phrase = _phrases[index];
+            }
+
+            return phrase;
+        }
     }
     
 }

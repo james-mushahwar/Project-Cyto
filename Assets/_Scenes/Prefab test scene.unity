@@ -557,7 +557,7 @@ GameObject:
   - component: {fileID: 977552740}
   - component: {fileID: 977552741}
   m_Layer: 0
-  m_Name: TextSequencer
+  m_Name: TextSequenceable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -591,6 +591,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceptInput: 0
+  _scriptableDialogue: {fileID: 11400000, guid: a38bdf4a98d564af3abe96ccb924f3f6, type: 2}
+  _dialogueType: 0
 --- !u!1 &1106629044
 GameObject:
   m_ObjectHideFlags: 0

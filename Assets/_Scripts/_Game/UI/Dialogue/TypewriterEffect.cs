@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.Dialogue;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
@@ -6,14 +7,14 @@ using UnityEngine;
 
 namespace _Scripts._Game.UI.Dialogue{
     
-    public class TypewriterEffect : MonoBehaviour
+    public class TypewriterEffect : BaseWriterEffect
     {
-        public void Run(string textToType, TMP_Text textLabel)
+        public override Coroutine Run(string textToType, TMP_Text textLabel)
         {
-            StartCoroutine(TypeText(textToType, textLabel));
+            return StartCoroutine(TypeText(textToType, textLabel));
         }
 
-        private IEnumerator TypeText(string textToType, TMP_Text textLabel)
+        public override IEnumerator TypeText(string textToType, TMP_Text textLabel)
         {
             float t = 0;
             int charIndex = 0;
@@ -32,6 +33,16 @@ namespace _Scripts._Game.UI.Dialogue{
 
                 yield return null;
             }
+        }
+
+        public override Coroutine Run(Phrase phrase, TMP_Text textLabel)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override IEnumerator TypeText(Phrase phrase, TMP_Text textLabel)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

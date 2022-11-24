@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using _Scripts._Game.Dialogue;
+using Unity.Mathematics;
 
 namespace _Scripts._Game.Sequencer.Dialogue{
     
@@ -25,6 +26,11 @@ namespace _Scripts._Game.Sequencer.Dialogue{
         public override void Tick()
         {
             
+        }
+
+        public override bool IsComplete()
+        {
+            return false;
         }
 
     }

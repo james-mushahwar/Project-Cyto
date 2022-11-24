@@ -1,13 +1,19 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.Dialogue;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace _Scripts._Game.UI.Dialogue{
     
     public abstract class BaseWriterEffect : MonoBehaviour
     {
-        public abstract Coroutine Run();
-        public abstract IEnumerator TypeText();
+        public abstract Coroutine Run(string textToType, TMP_Text textLabel);
+        public abstract IEnumerator TypeText(string textToType, TMP_Text textLabel);
+
+        // pass phrases in
+        public abstract Coroutine Run(Phrase phrase, TMP_Text textLabel);
+        public abstract IEnumerator TypeText(Phrase phrase, TMP_Text textLabel);
     }
     
 }
