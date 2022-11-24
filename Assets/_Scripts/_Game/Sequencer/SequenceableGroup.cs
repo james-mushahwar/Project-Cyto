@@ -23,9 +23,12 @@ namespace _Scripts._Game.Sequencer{
             {
                 Sequenceable seq = GetCurrentSequence();
 
-                if (seq.IsComplete())
+                if (seq)
                 {
-                    seq = GetNextSequence();
+                    if (seq.IsComplete())
+                    {
+                        seq = GetNextSequence();
+                    }
                 }
 
                 if (seq)
@@ -34,6 +37,7 @@ namespace _Scripts._Game.Sequencer{
                 }
                 else
                 {
+                    ResetSequenceGroup();
                     return;
                 }
             }
@@ -67,6 +71,11 @@ namespace _Scripts._Game.Sequencer{
             {
                 return _sequenceables[_sequenceIndex];
             }
+        }
+
+        private void ResetSequenceGroup()
+        {
+
         }
     }
 
