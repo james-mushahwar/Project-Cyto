@@ -58,9 +58,6 @@ public class JumpingMovementState : BaseMovementState
         _ctx.NullifyInput(MovementState.Jumping);
 
         AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.AC_TorchWoosh, Camera.main.transform.position);
-        if (pooledSource){
-            Debug.Log("Playing source!");
-        }
     }
 
     public override void ExitState()
