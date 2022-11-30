@@ -35,9 +35,10 @@ namespace _Scripts._Game.UI.Dialogue{
             }
         }
 
+        // phrase methods
         public override Coroutine Run(Phrase phrase, TMP_Text textLabel)
         {
-            throw new System.NotImplementedException();
+            return StartCoroutine(TypeText(phrase, textLabel));
         }
 
         public override IEnumerator TypeText(Phrase phrase, TMP_Text textLabel)

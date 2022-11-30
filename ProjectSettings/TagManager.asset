@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - UI_Overview
+  - UI_CharacterOverview
+  - UI_World
+  - UI_CharacterWorld
   layers:
   - Default
   - TransparentFX
