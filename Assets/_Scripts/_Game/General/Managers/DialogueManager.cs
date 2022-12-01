@@ -45,7 +45,7 @@ namespace _Scripts._Game.General.Managers{
             _writerEffects = GetComponents<BaseWriterEffect>();
         }
 
-        public void PostText(string text, EDialogueType dialogueType)
+        public void PostText<T>(T text, EDialogueType dialogueType)
         {
             // recieve a post request 
             TMP_Text textBox = GetDialogueTextBox(dialogueType);
@@ -65,11 +65,27 @@ namespace _Scripts._Game.General.Managers{
             }
 
             // start new coroutine
-            Coroutine writerRun = writerEffect.Run(text, textBox);
-            if (writerRun != null)
+            string TString = (string)(object)text;
+            if (TString != null)
             {
-                _dialogueCoroutines[dialogueType] = writerRun;
+                Coroutine writerRun = writerEffect.Run(TString, textBox);
+                if (writerRun != null)
+                {
+                    _dialogueCoroutines[dialogueType] = writerRun;
+                }
             }
+            else
+            {
+                Phrase TPhrase = (Phrase)(object)text;
+                if (TPhrase != null)
+                {
+                    Coroutine writerRun = writerEffect.Run(TPhrase, textBox);
+                    if (writerRun != null)
+                    {
+                        _dialogueCoroutines[dialogueType] = writerRun;
+                    }
+                }
+            } 
 
             TMP_Text GetDialogueTextBox(EDialogueType dialogueType)
             {
@@ -77,8 +93,6 @@ namespace _Scripts._Game.General.Managers{
                 return textBox;
             }
         }
-
-        
     }
     
 }

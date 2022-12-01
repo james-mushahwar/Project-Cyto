@@ -16,7 +16,7 @@ namespace _Scripts._Game.Dialogue{
     [Serializable]
     public class Phrase
     {
-        [SerializeField] private string _phrase;
+        [SerializeField] private string _text;
         [SerializeField] private bool _receiveInput; // can this phrase receive input
         [SerializeField] private bool _isSkipable; // can we skip to end of phrase with input
         [SerializeField] private bool _isAuto;      // does text move onto next automatically?
@@ -34,6 +34,8 @@ namespace _Scripts._Game.Dialogue{
             _startOfPhraseWait = 0.25f;
             _endOfPhraseWait = 1.0f;
         }
+
+        public string Text { get { return _text; } }
     }
 
     [CreateAssetMenu(menuName ="Dialogue/Dialogue")]
