@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using _Scripts._Game.General;
 using _Scripts._Game.General.SaveLoad;
+using _Scripts._Game.General.Managers;
 
 public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>, ISaveable
 {
@@ -250,38 +251,74 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         base.Awake();
 
-        _playerInput = new PlayerInput();
-
-        _playerInput.Enable();
-
-        // set up player input callbacks
-        _playerInput.Player.Movement.started += OnMovementInput;
-        _playerInput.Player.Movement.canceled += OnMovementInput;
-        _playerInput.Player.Movement.performed += OnMovementInput;
-
-        _playerInput.Player.Direction.started += OnDirectionInput;
-        _playerInput.Player.Direction.canceled += OnDirectionInput;
-        _playerInput.Player.Direction.performed += OnDirectionInput;
-
-        _playerInput.Player.Jump.started += OnJumpInput;
-        _playerInput.Player.Jump.canceled += OnJumpInput;
-
-        _playerInput.Player.Dash.started += OnDashInput;
-        _playerInput.Player.Dash.canceled += OnDashInput;
-
-        _playerInput.Player.Float.started += OnFloatInput;
-        _playerInput.Player.Float.canceled += OnFloatInput;
-        _playerInput.Player.Float.performed += OnFloatInput;
-
-        _playerInput.Player.Bounce.started += OnBounceInput;
-        _playerInput.Player.Bounce.canceled += OnBounceInput;
-        _playerInput.Player.Bounce.performed += OnBounceInput;
-
-        _playerInput.Player.Bash.started += OnBashInput;
-        _playerInput.Player.Bash.canceled += OnBashInput;
-
         _states = new PlayerMovementStateMachineFactory(this);
         _currentState = _states.GetState(MovementState.Grounded);
+    }
+
+    void OnEnable()
+    {
+        PlayerInput playerInput = InputManager.Instance.PlayerInput;
+
+        //playerInput.Player.Enable();
+
+        // set up player input callbacks
+        playerInput.Player.Movement.started += OnMovementInput;
+        playerInput.Player.Movement.canceled += OnMovementInput;
+        playerInput.Player.Movement.performed += OnMovementInput;
+
+        playerInput.Player.Direction.started += OnDirectionInput;
+        playerInput.Player.Direction.canceled += OnDirectionInput;
+        playerInput.Player.Direction.performed += OnDirectionInput;
+
+        playerInput.Player.Jump.started += OnJumpInput;
+        playerInput.Player.Jump.canceled += OnJumpInput;
+
+        playerInput.Player.Dash.started += OnDashInput;
+        playerInput.Player.Dash.canceled += OnDashInput;
+
+        playerInput.Player.Float.started += OnFloatInput;
+        playerInput.Player.Float.canceled += OnFloatInput;
+        playerInput.Player.Float.performed += OnFloatInput;
+
+        playerInput.Player.Bounce.started += OnBounceInput;
+        playerInput.Player.Bounce.canceled += OnBounceInput;
+        playerInput.Player.Bounce.performed += OnBounceInput;
+
+        playerInput.Player.Bash.started += OnBashInput;
+        playerInput.Player.Bash.canceled += OnBashInput;
+
+        InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
+    }
+
+    void OnDisable()
+    {
+        PlayerInput playerInput = InputManager.Instance.PlayerInput;
+
+        // set up player input callbacks
+        playerInput.Player.Movement.started -= OnMovementInput;
+        playerInput.Player.Movement.canceled -= OnMovementInput;
+        playerInput.Player.Movement.performed -= OnMovementInput;
+
+        playerInput.Player.Direction.started -= OnDirectionInput;
+        playerInput.Player.Direction.canceled -= OnDirectionInput;
+        playerInput.Player.Direction.performed -= OnDirectionInput;
+
+        playerInput.Player.Jump.started -= OnJumpInput;
+        playerInput.Player.Jump.canceled -= OnJumpInput;
+
+        playerInput.Player.Dash.started -= OnDashInput;
+        playerInput.Player.Dash.canceled -= OnDashInput;
+
+        playerInput.Player.Float.started -= OnFloatInput;
+        playerInput.Player.Float.canceled -= OnFloatInput;
+        playerInput.Player.Float.performed -= OnFloatInput;
+
+        playerInput.Player.Bounce.started -= OnBounceInput;
+        playerInput.Player.Bounce.canceled -= OnBounceInput;
+        playerInput.Player.Bounce.performed -= OnBounceInput;
+
+        playerInput.Player.Bash.started -= OnBashInput;
+        playerInput.Player.Bash.canceled -= OnBashInput;
     }
 
     // Start is called before the first frame update

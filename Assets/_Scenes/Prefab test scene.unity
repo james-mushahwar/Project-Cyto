@@ -522,6 +522,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -590,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ebec7d6423343dcb6c86ad893e69f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceptInput: 0
+  _acceptInput: 1
   _scriptableDialogue: {fileID: 11400000, guid: a38bdf4a98d564af3abe96ccb924f3f6, type: 2}
   _dialogueType: 0
 --- !u!1 &1106629044
@@ -672,7 +673,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isSimultaneousGroup: 0
-  _sequenceables: []
+  _sequenceables:
+  - {fileID: 977552741}
 --- !u!1 &1207726918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,7 +1239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
@@ -1265,6 +1266,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1292285659}
     m_Modifications:
     - target: {fileID: 416694167506982298, guid: 79d45966ce8c51a4e8d6f5dc8a4d33e6, type: 3}
@@ -1316,12 +1318,14 @@ PrefabInstance:
       value: TargetCameraBounds
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 79d45966ce8c51a4e8d6f5dc8a4d33e6, type: 3}
 --- !u!1001 &1250535425862569508
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1292285659}
     m_Modifications:
     - target: {fileID: 1250535426988439320, guid: 68e2a87eb31834048a388f4aff13d499, type: 3}
@@ -1373,12 +1377,14 @@ PrefabInstance:
       value: FixedCameraBounds
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 68e2a87eb31834048a388f4aff13d499, type: 3}
 --- !u!1001 &5581101032792513857
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1141511179750088506, guid: 11ecbb44b37fa3f4d91e43e64532a41a, type: 3}
@@ -1450,12 +1456,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 11ecbb44b37fa3f4d91e43e64532a41a, type: 3}
 --- !u!1001 &6544084828604381599
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6544084828829350066, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
@@ -1511,4 +1519,5 @@ PrefabInstance:
       value: Camera Holder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
