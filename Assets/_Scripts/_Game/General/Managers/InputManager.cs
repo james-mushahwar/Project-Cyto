@@ -40,16 +40,16 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
+        // this method may not be needed since all action maps are disabled in TryEnableActionMap first
         public void TryDisableActionMap(EInputSystem inputType)
         {
-            _playerInput.Disable();
             switch (inputType)
             {
                 case EInputSystem.Menu:
-                    _playerInput.Menu.Enable();
+                    _playerInput.Menu.Disable();
                     break;
                 case EInputSystem.Player:
-                    _playerInput.Player.Enable();
+                    _playerInput.Player.Disable();
                     break;
                 default:
                     break;
