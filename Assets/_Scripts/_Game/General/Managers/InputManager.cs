@@ -18,20 +18,38 @@ namespace _Scripts._Game.General.Managers{
 
         public PlayerInput PlayerInput => _playerInput;
 
-        private void Awake()
+        private new void Awake()
         {
+            base.Awake();
             _playerInput = new PlayerInput();
         }
 
         public void TryEnableActionMap(EInputSystem inputType)
         {
+            _playerInput.Disable();
             switch (inputType)
             {
                 case EInputSystem.Menu:
-                    _playerInput.Player.Enable();
+                    _playerInput.Menu.Enable();
                     break;
                 case EInputSystem.Player:
+                    _playerInput.Player.Enable();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void TryDisableActionMap(EInputSystem inputType)
+        {
+            _playerInput.Disable();
+            switch (inputType)
+            {
+                case EInputSystem.Menu:
                     _playerInput.Menu.Enable();
+                    break;
+                case EInputSystem.Player:
+                    _playerInput.Player.Enable();
                     break;
                 default:
                     break;

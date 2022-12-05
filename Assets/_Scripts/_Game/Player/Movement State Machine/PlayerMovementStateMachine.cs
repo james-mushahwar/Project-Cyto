@@ -292,33 +292,35 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnDisable()
     {
-        PlayerInput playerInput = InputManager.Instance.PlayerInput;
+        //PlayerInput playerInput = InputManager.Instance.PlayerInput;
 
-        // set up player input callbacks
-        playerInput.Player.Movement.started -= OnMovementInput;
-        playerInput.Player.Movement.canceled -= OnMovementInput;
-        playerInput.Player.Movement.performed -= OnMovementInput;
+        //// set up player input callbacks
+        //playerInput.Player.Movement.started -= OnMovementInput;
+        //playerInput.Player.Movement.canceled -= OnMovementInput;
+        //playerInput.Player.Movement.performed -= OnMovementInput;
 
-        playerInput.Player.Direction.started -= OnDirectionInput;
-        playerInput.Player.Direction.canceled -= OnDirectionInput;
-        playerInput.Player.Direction.performed -= OnDirectionInput;
+        //playerInput.Player.Direction.started -= OnDirectionInput;
+        //playerInput.Player.Direction.canceled -= OnDirectionInput;
+        //playerInput.Player.Direction.performed -= OnDirectionInput;
 
-        playerInput.Player.Jump.started -= OnJumpInput;
-        playerInput.Player.Jump.canceled -= OnJumpInput;
+        //playerInput.Player.Jump.started -= OnJumpInput;
+        //playerInput.Player.Jump.canceled -= OnJumpInput;
 
-        playerInput.Player.Dash.started -= OnDashInput;
-        playerInput.Player.Dash.canceled -= OnDashInput;
+        //playerInput.Player.Dash.started -= OnDashInput;
+        //playerInput.Player.Dash.canceled -= OnDashInput;
 
-        playerInput.Player.Float.started -= OnFloatInput;
-        playerInput.Player.Float.canceled -= OnFloatInput;
-        playerInput.Player.Float.performed -= OnFloatInput;
+        //playerInput.Player.Float.started -= OnFloatInput;
+        //playerInput.Player.Float.canceled -= OnFloatInput;
+        //playerInput.Player.Float.performed -= OnFloatInput;
 
-        playerInput.Player.Bounce.started -= OnBounceInput;
-        playerInput.Player.Bounce.canceled -= OnBounceInput;
-        playerInput.Player.Bounce.performed -= OnBounceInput;
+        //playerInput.Player.Bounce.started -= OnBounceInput;
+        //playerInput.Player.Bounce.canceled -= OnBounceInput;
+        //playerInput.Player.Bounce.performed -= OnBounceInput;
 
-        playerInput.Player.Bash.started -= OnBashInput;
-        playerInput.Player.Bash.canceled -= OnBashInput;
+        //playerInput.Player.Bash.started -= OnBashInput;
+        //playerInput.Player.Bash.canceled -= OnBashInput;
+
+        //InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
     }
 
     // Start is called before the first frame update

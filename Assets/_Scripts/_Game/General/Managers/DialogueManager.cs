@@ -9,36 +9,66 @@ namespace _Scripts._Game.General.Managers{
     
     public class DialogueManager : Singleton<DialogueManager>
     {
+        private Dictionary<EDialogueType, GameObject> _textGameObjectDictionary = new Dictionary<EDialogueType, GameObject>();
         private Dictionary<EDialogueType, TMP_Text> _textBoxDictionary = new Dictionary<EDialogueType, TMP_Text>();
 
         private BaseWriterEffect[] _writerEffects;
 
         private Dictionary<EDialogueType, Coroutine> _dialogueCoroutines = new Dictionary<EDialogueType, Coroutine>();
 
+        private new void Awake()
+        {
+            base.Awake();
+        }
+
         void Start()
         {
-            TMP_Text overviewTextBox = GameObject.FindGameObjectWithTag("UI_Overview").GetComponent<TMP_Text>();
-            if (overviewTextBox)
+            GameObject overviewGameObject = GameObject.FindGameObjectWithTag("UI_Overview");
+            if (overviewGameObject)
             {
-                _textBoxDictionary.Add(EDialogueType.Overview, overviewTextBox);
+                TMP_Text overviewTextBox = overviewGameObject.GetComponentInChildren<TMP_Text>();
+                overviewGameObject.SetActive(false);
+                _textGameObjectDictionary.Add(EDialogueType.Overview, overviewGameObject);
+                if (overviewTextBox)
+                {
+                    _textBoxDictionary.Add(EDialogueType.Overview, overviewTextBox);
+                }
             }
 
-            TMP_Text characterOverviewTextBox = GameObject.FindGameObjectWithTag("UI_CharacterOverview").GetComponent<TMP_Text>();
-            if (characterOverviewTextBox)
+            GameObject characterOverviewGameObject = GameObject.FindGameObjectWithTag("UI_CharacterOverview");
+            if (characterOverviewGameObject)
             {
-                _textBoxDictionary.Add(EDialogueType.CharacterOverview, characterOverviewTextBox);
+                TMP_Text characterOverviewTextBox = characterOverviewGameObject.GetComponentInChildren<TMP_Text>();
+                characterOverviewGameObject.SetActive(false);
+                _textGameObjectDictionary.Add(EDialogueType.CharacterOverview, characterOverviewGameObject);
+                if (characterOverviewTextBox)
+                {
+                    _textBoxDictionary.Add(EDialogueType.CharacterOverview, characterOverviewTextBox);
+                }
             }
 
-            TMP_Text characterWorldTextBox = GameObject.FindGameObjectWithTag("UI_CharacterWorld").GetComponent<TMP_Text>();
-            if (characterWorldTextBox)
+            GameObject characterWorldGameObject = GameObject.FindGameObjectWithTag("UI_CharacterWorld");
+            if (characterWorldGameObject)
             {
-                _textBoxDictionary.Add(EDialogueType.CharacterWorld, characterWorldTextBox);
+                TMP_Text characterWorldTextBox = characterWorldGameObject.GetComponentInChildren<TMP_Text>();
+                characterWorldGameObject.SetActive(false);
+                _textGameObjectDictionary.Add(EDialogueType.CharacterWorld, characterWorldGameObject);
+                if (characterWorldTextBox)
+                {
+                    _textBoxDictionary.Add(EDialogueType.CharacterWorld, characterWorldTextBox);
+                }
             }
 
-            TMP_Text worldTextBox = GameObject.FindGameObjectWithTag("UI_World").GetComponent<TMP_Text>();
-            if (worldTextBox)
+            GameObject worldGameObject = GameObject.FindGameObjectWithTag("UI_World");
+            if (worldGameObject)
             {
-                _textBoxDictionary.Add(EDialogueType.World, worldTextBox);
+                TMP_Text worldTextBox = worldGameObject.GetComponentInChildren<TMP_Text>();
+                worldGameObject.SetActive(false);
+                _textGameObjectDictionary.Add(EDialogueType.World, worldGameObject);
+                if (worldTextBox)
+                {
+                    _textBoxDictionary.Add(EDialogueType.World, worldTextBox);
+                }
             }
 
             // writer effects
