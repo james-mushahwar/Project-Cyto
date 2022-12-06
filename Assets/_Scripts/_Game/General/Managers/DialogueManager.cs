@@ -1,5 +1,4 @@
 ﻿using _Scripts._Game.Dialogue;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -14,7 +13,7 @@ namespace _Scripts._Game.General.Managers{
 
         private BaseWriterEffect[] _writerEffects;
 
-        private Dictionary<EDialogueType, Coroutine> _dialogueCoroutines = new Dictionary<EDialogueType, Coroutine>();
+        private Dictionary<EDialogueType, Task> _dialogueTasks = new Dictionary<EDialogueType, Task>();
 
         private new void Awake()
         {
@@ -88,20 +87,20 @@ namespace _Scripts._Game.General.Managers{
             BaseWriterEffect writerEffect = _writerEffects[0]; // for now get first writer effect
 
             // check if dictionary already has coroutine running
-            if (_dialogueCoroutines[dialogueType] != null)
+            if (IsTextTaskRunning(dialogueType))
             {
-                StopCoroutine(_dialogueCoroutines[dialogueType]);
-                _dialogueCoroutines[dialogueType] = null;
+                _dialogueTasks[dialogueType].Stop();
+                _dialogueTasks[dialogueType] = null;
             }
 
-            // start new coroutine
+            // start new Task coroutine
             string TString = (string)(object)text;
             if (TString != null)
             {
-                Coroutine writerRun = writerEffect.Run(TString, textBox);
-                if (writerRun != null)
+                Task writerTask = new Task(writerEffect.Run(TString, textBox), true);
+                if (writerTask != null)
                 {
-                    _dialogueCoroutines[dialogueType] = writerRun;
+                    _dialogueTasks[dialogueType] = writerTask;
                 }
             }
             else
@@ -109,10 +108,10 @@ namespace _Scripts._Game.General.Managers{
                 Phrase TPhrase = (Phrase)(object)text;
                 if (TPhrase != null)
                 {
-                    Coroutine writerRun = writerEffect.Run(TPhrase, textBox);
-                    if (writerRun != null)
+                    Task writerTask = new Task(writerEffect.Run(TPhrase, textBox), true);
+                    if (writerTask != null)
                     {
-                        _dialogueCoroutines[dialogueType] = writerRun;
+                        _dialogueTasks[dialogueType] = writerTask;
                     }
                 }
             } 
@@ -121,6 +120,16 @@ namespace _Scripts._Game.General.Managers{
             {
                 _textBoxDictionary.TryGetValue(dialogueType, out TMP_Text textBox);
                 return textBox;
+            }
+
+            bool IsTextTaskRunning(EDialogueType dialogueType)
+            {
+                if (_dialogueTasks[dialogueType] != null)
+                {
+                    return _dialogueTasks[dialogueType].Running;
+                }
+
+                return false;
             }
         }
     }
