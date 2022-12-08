@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Dialogue-Intro-1-1
   m_EditorClassIdentifier: 
   _dialogueType: 0
-  _dialogue: []
   _phrases:
-  - _phrase: Bzzt Approaching large plasma matter.
+  - _text: Hello
     _receiveInput: 0
     _isSkipable: 0
     _isAuto: 1
@@ -23,7 +22,7 @@ MonoBehaviour:
     _fasterTextSpeed: 2
     _startOfPhraseWait: 0
     _endOfPhraseWait: 2
-  - _phrase: Good. Let's end this pitiful attempt of human salvation.
+  - _text: This is a text test
     _receiveInput: 0
     _isSkipable: 0
     _isAuto: 1
@@ -31,16 +30,7 @@ MonoBehaviour:
     _fasterTextSpeed: 2
     _startOfPhraseWait: 0
     _endOfPhraseWait: 2
-  - _phrase: Make short work of this and fire when ready, I want not a single trace
-      of these lifeforms once we're done.
-    _receiveInput: 0
-    _isSkipable: 0
-    _isAuto: 1
-    _textSpeed: 1
-    _fasterTextSpeed: 2
-    _startOfPhraseWait: 0
-    _endOfPhraseWait: 2
-  - _phrase: Bzzt Affirmative. Engaging large plasma matter.
+  - _text: Just checking it works
     _receiveInput: 0
     _isSkipable: 0
     _isAuto: 1

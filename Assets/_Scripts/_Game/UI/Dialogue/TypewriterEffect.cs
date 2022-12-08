@@ -9,10 +9,10 @@ namespace _Scripts._Game.UI.Dialogue{
     
     public class TypewriterEffect : BaseWriterEffect
     {
-        public override IEnumerator Run(string textToType, TMP_Text textLabel)
-        {
-            return (TypeText(textToType, textLabel));
-        }
+        // public override IEnumerator Run(string textToType, TMP_Text textLabel)
+        // {
+        //     return (TypeText(textToType, textLabel));
+        // }
 
         public override IEnumerator TypeText(string textToType, TMP_Text textLabel)
         {
@@ -37,10 +37,10 @@ namespace _Scripts._Game.UI.Dialogue{
         }
 
         // phrase methods
-        public override IEnumerator Run(Phrase phrase, TMP_Text textLabel)
-        {
-            return (TypeText(phrase, textLabel));
-        }
+        // public override IEnumerator Run(Phrase phrase, TMP_Text textLabel)
+        // {
+        //     return (TypeText(phrase, textLabel));
+        // }
 
         public override IEnumerator TypeText(Phrase phrase, TMP_Text textLabel)
         {

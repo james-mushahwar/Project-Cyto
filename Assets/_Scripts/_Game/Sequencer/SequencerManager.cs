@@ -24,6 +24,16 @@ using System.Linq;
             _nextFreeSlot = _maxQueuedContainers - 1;
             _queueHeadSlot = -1;
             _freeQueueSlots = _maxQueuedContainers;
+
+            foreach (var container in FindObjectsOfType<SequenceContainer>())
+            {
+                Debug.Log("Found seqcontainer");
+                QueueSequenceContainer(container);
+                if (_sequenceContainer == null)
+                {
+                    _sequenceContainer = _queuedSequenceContainers[4];
+                }
+            }
          }
   
          void FixedUpdate()
@@ -39,6 +49,7 @@ using System.Linq;
 
             if (_sequenceContainer)
             {
+                Debug.Log("Tick SeqManager");
                 float deltaTime = Time.deltaTime;
                 TickSequenceableContainer(deltaTime);
             }

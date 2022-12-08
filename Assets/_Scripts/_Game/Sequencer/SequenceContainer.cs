@@ -31,6 +31,7 @@ namespace _Scripts._Game.Sequencer{
 
         public void TickSequenceContainer()
         {
+            Debug.Log("Tick SeqCont");
             SequenceableGroup group = GetCurrentGroup();
 
             if (group.IsComplete()) 

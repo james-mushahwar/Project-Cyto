@@ -74,13 +74,13 @@ namespace _Scripts._Game.General.Managers{
             _writerEffects = GetComponents<BaseWriterEffect>();
         }
 
-        public void PostText<T>(T text, EDialogueType dialogueType)
+        public Task PostText<T>(T text, EDialogueType dialogueType)
         {
             // recieve a post request 
             TMP_Text textBox = GetDialogueTextBox(dialogueType);
             if (textBox == null)
             {
-                return;
+                return null;
             }
 
             // decide what ui it's going to occupy and what writer effect to use
@@ -95,12 +95,14 @@ namespace _Scripts._Game.General.Managers{
 
             // start new Task coroutine
             string TString = (string)(object)text;
+            Task returnTask = null;
+
             if (TString != null)
             {
-                Task writerTask = new Task(writerEffect.Run(TString, textBox), true);
-                if (writerTask != null)
+                returnTask = new Task(writerEffect.TypeText(TString, textBox), true);
+                if (returnTask != null)
                 {
-                    _dialogueTasks[dialogueType] = writerTask;
+                    _dialogueTasks[dialogueType] = returnTask;
                 }
             }
             else
@@ -108,13 +110,17 @@ namespace _Scripts._Game.General.Managers{
                 Phrase TPhrase = (Phrase)(object)text;
                 if (TPhrase != null)
                 {
-                    Task writerTask = new Task(writerEffect.Run(TPhrase, textBox), true);
-                    if (writerTask != null)
+                    returnTask = new Task(writerEffect.TypeText(TPhrase, textBox), true);
+                    if (returnTask != null)
                     {
-                        _dialogueTasks[dialogueType] = writerTask;
+                        _dialogueTasks[dialogueType] = returnTask;
                     }
                 }
             } 
+
+            _textGameObjectDictionary[dialogueType].SetActive(false);
+
+            return returnTask;
 
             TMP_Text GetDialogueTextBox(EDialogueType dialogueType)
             {
@@ -124,9 +130,10 @@ namespace _Scripts._Game.General.Managers{
 
             bool IsTextTaskRunning(EDialogueType dialogueType)
             {
-                if (_dialogueTasks[dialogueType] != null)
+                _dialogueTasks.TryGetValue(dialogueType, out Task textTask);
+                if (textTask != null)
                 {
-                    return _dialogueTasks[dialogueType].Running;
+                    return textTask.Running;
                 }
 
                 return false;
