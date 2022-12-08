@@ -83,6 +83,11 @@ namespace _Scripts._Game.General.Managers{
                 return null;
             }
 
+            if (text == null)
+            {
+                return null;
+            }
+
             // decide what ui it's going to occupy and what writer effect to use
             BaseWriterEffect writerEffect = _writerEffects[0]; // for now get first writer effect
 
@@ -94,7 +99,7 @@ namespace _Scripts._Game.General.Managers{
             }
 
             // start new Task coroutine
-            string TString = (string)(object)text;
+            string TString = (object)text as string;
             Task returnTask = null;
 
             if (TString != null)
@@ -107,7 +112,7 @@ namespace _Scripts._Game.General.Managers{
             }
             else
             {
-                Phrase TPhrase = (Phrase)(object)text;
+                Phrase TPhrase = (object)text as Phrase;
                 if (TPhrase != null)
                 {
                     returnTask = new Task(writerEffect.TypeText(TPhrase, textBox), true);
@@ -118,7 +123,7 @@ namespace _Scripts._Game.General.Managers{
                 }
             } 
 
-            _textGameObjectDictionary[dialogueType].SetActive(false);
+            _textGameObjectDictionary[dialogueType].SetActive(true);
 
             return returnTask;
 
@@ -138,6 +143,11 @@ namespace _Scripts._Game.General.Managers{
 
                 return false;
             }
+        }
+
+        public void OnDialogueFinished()
+        {
+            Debug.Log("DIALOGUE TASK FIN");
         }
     }
     

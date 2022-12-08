@@ -18,23 +18,23 @@ MonoBehaviour:
     _receiveInput: 0
     _isSkipable: 0
     _isAuto: 1
-    _textSpeed: 1
+    _textSpeed: 8
     _fasterTextSpeed: 2
-    _startOfPhraseWait: 0
+    _startOfPhraseWait: 1
     _endOfPhraseWait: 2
   - _text: This is a text test
     _receiveInput: 0
     _isSkipable: 0
     _isAuto: 1
-    _textSpeed: 1
+    _textSpeed: 8
     _fasterTextSpeed: 2
-    _startOfPhraseWait: 0
+    _startOfPhraseWait: 1
     _endOfPhraseWait: 2
   - _text: Just checking it works
     _receiveInput: 0
     _isSkipable: 0
     _isAuto: 1
-    _textSpeed: 1
+    _textSpeed: 8
     _fasterTextSpeed: 2
-    _startOfPhraseWait: 0
+    _startOfPhraseWait: 1
     _endOfPhraseWait: 2

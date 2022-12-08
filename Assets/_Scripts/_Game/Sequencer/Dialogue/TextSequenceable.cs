@@ -56,6 +56,7 @@ namespace _Scripts._Game.Sequencer.Dialogue{
 
                 if (_taskRef == null)
                 {
+                    DialogueManager.Instance.OnDialogueFinished();
                     return true;
                 }
             }
@@ -66,8 +67,17 @@ namespace _Scripts._Game.Sequencer.Dialogue{
             }
             else
             {
-                return true;
+                _taskRef = DialogueManager.Instance.PostText<Phrase>(_scriptableDialogue.GetPhrase(_phrasesIndex), _dialogueType);
+                _phrasesIndex++;
+
+                if (_taskRef == null)
+                {
+                    DialogueManager.Instance.OnDialogueFinished();
+                    return true;
+                }
             }
+
+            return false;
         }
 
     }

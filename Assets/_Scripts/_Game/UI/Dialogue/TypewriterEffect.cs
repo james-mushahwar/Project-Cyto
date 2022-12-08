@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.Dialogue;
+using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -49,9 +50,12 @@ namespace _Scripts._Game.UI.Dialogue{
             int charIndex = 0;
             string textToType = phrase.Text;
 
+            yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.StartOfPhraseWait);
+
             while (charIndex < textToType.Length)
             {
-                t += Time.deltaTime;
+                t += Time.deltaTime * phrase.TextSpeed;
+
                 int newcharIndex = Mathf.FloorToInt(t);
 
                 if (newcharIndex > charIndex)
@@ -63,6 +67,9 @@ namespace _Scripts._Game.UI.Dialogue{
 
                 yield return null;
             }
+
+            yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.EndOfPhraseWait);
+            textLabel.text = "";
         }
     }
 }

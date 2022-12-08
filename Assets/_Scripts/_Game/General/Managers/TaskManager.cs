@@ -193,6 +193,17 @@ namespace _Scripts._Game.General.Managers{
 
     public class TaskManager : Singleton<TaskManager>
     {
+        private WaitForSecondsPool _waitForSecondsPool;
+
+        public WaitForSecondsPool WaitForSecondsPool { get { return _waitForSecondsPool; } }
+
+        private new void Awake()
+        {
+            base.Awake();
+
+            _waitForSecondsPool = new WaitForSecondsPool();
+        }
+
         public static TaskState CreateTask(IEnumerator coroutine)
         {
             return new TaskState(coroutine);
