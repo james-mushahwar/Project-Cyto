@@ -14,7 +14,7 @@ namespace _Scripts._Game.Sequencer{
         [SerializeField]
         private List<SequenceableGroup> _sequenceableGroups = new List<SequenceableGroup>();
 
-        private int groupIndex;
+        private int _groupIndex;
 
         public bool CanBeQueued { get => _canBeQueued; }
         // Start is called before the first frame update
@@ -31,15 +31,15 @@ namespace _Scripts._Game.Sequencer{
 
         public void TickSequenceContainer()
         {
-            Debug.Log("Tick SeqCont");
             SequenceableGroup group = GetCurrentGroup();
 
-            if (group.IsComplete()) 
+
+            if (group == null || group.IsComplete()) 
             {
                 group = GetNextGroup();
             }
 
-            if (group)
+            if (group != null)
             {
                 group.TickSequenceableGroup();
             }
@@ -52,24 +52,29 @@ namespace _Scripts._Game.Sequencer{
 
         public bool IsContainerComplete()
         {
-            return groupIndex >= _sequenceableGroups.Count;
+            return _groupIndex >= _sequenceableGroups.Count;
         }
 
         private SequenceableGroup GetCurrentGroup()
         {
-            return _sequenceableGroups[groupIndex];
+            if (_groupIndex < _sequenceableGroups.Count)
+            {
+                return _sequenceableGroups[_groupIndex];
+            }
+
+            return null;
         }
 
         private SequenceableGroup GetNextGroup()
         {
-            groupIndex++;
+            _groupIndex++;
             if (IsContainerComplete())
             {
                 return null;
             }
             else
             {
-                return _sequenceableGroups[groupIndex];
+                return _sequenceableGroups[_groupIndex];
             }
         }
     }

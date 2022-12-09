@@ -57,6 +57,10 @@ namespace _Scripts._Game.Sequencer{
 
         private Sequenceable GetCurrentSequence()
         {
+            if (_sequenceIndex >= _sequenceables.Count)
+            {
+                return null;
+            }
             return _sequenceables[_sequenceIndex];
         }
 

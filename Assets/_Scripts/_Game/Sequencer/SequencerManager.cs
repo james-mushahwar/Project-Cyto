@@ -46,10 +46,17 @@ using System.Linq;
                     _sequenceContainer = GetNextQueuedSequence();
                 }
             }
+            else if (_sequenceContainer.IsContainerComplete())
+            {
+                if (_freeQueueSlots < _maxQueuedContainers)
+                {
+                    // take next queued sequence
+                    _sequenceContainer = GetNextQueuedSequence();
+                }
+            }
 
             if (_sequenceContainer)
             {
-                Debug.Log("Tick SeqManager");
                 float deltaTime = Time.deltaTime;
                 TickSequenceableContainer(deltaTime);
             }

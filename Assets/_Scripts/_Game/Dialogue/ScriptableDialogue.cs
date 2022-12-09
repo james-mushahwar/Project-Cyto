@@ -10,7 +10,8 @@ namespace _Scripts._Game.Dialogue{
         Overview,
         CharacterOverview,
         CharacterWorld,
-        World
+        World,
+        INVALID
     }
 
     [Serializable]

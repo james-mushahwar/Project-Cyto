@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using _Scripts._Game.UI.Dialogue;
+using Newtonsoft.Json.Bson;
 
 namespace _Scripts._Game.General.Managers{
     
@@ -74,6 +75,18 @@ namespace _Scripts._Game.General.Managers{
             _writerEffects = GetComponents<BaseWriterEffect>();
         }
 
+        private void Update()
+        {
+            if (_dialogueTasks[EDialogueType.Overview] != null)
+            {
+                _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task textTask);
+                if (textTask == null)
+                {
+                    _textGameObjectDictionary[EDialogueType.Overview].SetActive(false);
+                }
+            }
+        }
+
         public Task PostText<T>(T text, EDialogueType dialogueType)
         {
             // recieve a post request 
@@ -127,11 +140,6 @@ namespace _Scripts._Game.General.Managers{
 
             return returnTask;
 
-            TMP_Text GetDialogueTextBox(EDialogueType dialogueType)
-            {
-                _textBoxDictionary.TryGetValue(dialogueType, out TMP_Text textBox);
-                return textBox;
-            }
 
             bool IsTextTaskRunning(EDialogueType dialogueType)
             {
@@ -144,6 +152,13 @@ namespace _Scripts._Game.General.Managers{
                 return false;
             }
         }
+
+        private TMP_Text GetDialogueTextBox(EDialogueType dialogueType)
+        {
+            _textBoxDictionary.TryGetValue(dialogueType, out TMP_Text textBox);
+            return textBox;
+        }
+
 
         public void OnDialogueFinished()
         {
