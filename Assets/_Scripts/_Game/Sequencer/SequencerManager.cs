@@ -27,8 +27,7 @@ using System.Linq;
 
             foreach (var container in FindObjectsOfType<SequenceContainer>())
             {
-                Debug.Log("Found seqcontainer");
-                QueueSequenceContainer(container);
+                TryNewSequenceContainer(container);
                 if (_sequenceContainer == null)
                 {
                     _sequenceContainer = _queuedSequenceContainers[4];
@@ -43,6 +42,7 @@ using System.Linq;
                 if (_freeQueueSlots < _maxQueuedContainers)
                 {
                     // take next queued sequence
+                    Debug.Log("Seqcontainer is null");
                     _sequenceContainer = GetNextQueuedSequence();
                 }
             }
@@ -51,6 +51,7 @@ using System.Linq;
                 if (_freeQueueSlots < _maxQueuedContainers)
                 {
                     // take next queued sequence
+                    Debug.Log("Seqcontainer is complete");
                     _sequenceContainer = GetNextQueuedSequence();
                 }
             }

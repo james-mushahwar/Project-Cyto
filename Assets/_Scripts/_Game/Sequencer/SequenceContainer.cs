@@ -33,7 +33,6 @@ namespace _Scripts._Game.Sequencer{
         {
             SequenceableGroup group = GetCurrentGroup();
 
-
             if (group == null || group.IsComplete()) 
             {
                 group = GetNextGroup();

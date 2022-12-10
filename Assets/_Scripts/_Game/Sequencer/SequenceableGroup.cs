@@ -27,6 +27,7 @@ namespace _Scripts._Game.Sequencer{
                 {
                     if (seq.IsComplete())
                     {
+                        seq.Stop(); // clean up
                         seq = GetNextSequence();
                     }
                 }
@@ -51,7 +52,12 @@ namespace _Scripts._Game.Sequencer{
             }
             else
             {
-                return _sequenceIndex >= _sequenceables.Count;
+                bool complete = _sequenceIndex >= _sequenceables.Count;
+                if (complete)
+                {
+                    _sequenceIndex = 0;
+                }
+                return complete;
             }
         }
 
@@ -77,9 +83,9 @@ namespace _Scripts._Game.Sequencer{
             }
         }
 
-        private void ResetSequenceGroup()
+        public void ResetSequenceGroup()
         {
-
+            
         }
     }
 

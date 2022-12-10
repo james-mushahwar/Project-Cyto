@@ -30,7 +30,7 @@ MonoBehaviour:
     _fasterTextSpeed: 64
     _startOfPhraseWait: 0
     _endOfPhraseWait: 0
-  - _text: blah
+  - _text: '                       blah'
     _receiveInput: 0
     _isSkipable: 0
     _isAuto: 1
