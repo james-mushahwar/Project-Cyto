@@ -53,6 +53,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d2c8558-9869-4ddc-a9e5-e731a1b45dc3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -231,6 +240,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fd48b07-96ab-4d23-b43c-5d56412bf597"",
+                    ""path"": ""*/{Menu}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c19fcef-56ea-44d4-86b3-130217fa2206"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -309,6 +340,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7665c6d-f90c-4e24-ad10-5dc88a12341e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -476,6 +516,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Direction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4e8bf58-0d63-42ac-9ddc-616968a529fc"",
+                    ""path"": ""*/{Menu}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e2364bd-e4a3-47fe-a16a-50cf6913e98f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -515,6 +577,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Menu_Movement = m_Menu.FindAction("Movement", throwIfNotFound: true);
         m_Menu_Enter = m_Menu.FindAction("Enter", throwIfNotFound: true);
         m_Menu_Back = m_Menu.FindAction("Back", throwIfNotFound: true);
+        m_Menu_Pause = m_Menu.FindAction("Pause", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
@@ -525,6 +588,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_Bash = m_Player.FindAction("Bash", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Direction = m_Player.FindAction("Direction", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -587,6 +651,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_Movement;
     private readonly InputAction m_Menu_Enter;
     private readonly InputAction m_Menu_Back;
+    private readonly InputAction m_Menu_Pause;
     public struct MenuActions
     {
         private @PlayerInput m_Wrapper;
@@ -594,6 +659,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Menu_Movement;
         public InputAction @Enter => m_Wrapper.m_Menu_Enter;
         public InputAction @Back => m_Wrapper.m_Menu_Back;
+        public InputAction @Pause => m_Wrapper.m_Menu_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -612,6 +678,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Back.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
                 @Back.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
                 @Back.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
+                @Pause.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -625,6 +694,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Back.started += instance.OnBack;
                 @Back.performed += instance.OnBack;
                 @Back.canceled += instance.OnBack;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -641,6 +713,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Bash;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Direction;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -653,6 +726,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Bash => m_Wrapper.m_Player_Bash;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Direction => m_Wrapper.m_Player_Direction;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -686,6 +760,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Direction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
                 @Direction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
                 @Direction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDirection;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -714,6 +791,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Direction.started += instance.OnDirection;
                 @Direction.performed += instance.OnDirection;
                 @Direction.canceled += instance.OnDirection;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -741,6 +821,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {
@@ -752,5 +833,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnBash(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDirection(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
