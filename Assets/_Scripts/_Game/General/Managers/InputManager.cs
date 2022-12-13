@@ -22,8 +22,6 @@ namespace _Scripts._Game.General.Managers{
         {
             base.Awake();
             _playerInput = new PlayerInput();
-
-            enabled = false;
         }
 
         public void TryEnableActionMap(EInputSystem inputType)

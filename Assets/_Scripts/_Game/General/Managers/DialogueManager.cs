@@ -75,7 +75,7 @@ namespace _Scripts._Game.General.Managers{
             _writerEffects = GetComponents<BaseWriterEffect>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (_dialogueTasks[EDialogueType.Overview] != null)
             {
