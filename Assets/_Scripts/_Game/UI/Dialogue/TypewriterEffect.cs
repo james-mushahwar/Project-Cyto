@@ -10,10 +10,6 @@ namespace _Scripts._Game.UI.Dialogue{
     
     public class TypewriterEffect : BaseWriterEffect
     {
-        // public override IEnumerator Run(string textToType, TMP_Text textLabel)
-        // {
-        //     return (TypeText(textToType, textLabel));
-        // }
 
         public override IEnumerator TypeText(string textToType, TMP_Text textLabel)
         {
@@ -37,12 +33,6 @@ namespace _Scripts._Game.UI.Dialogue{
             }
         }
 
-        // phrase methods
-        // public override IEnumerator Run(Phrase phrase, TMP_Text textLabel)
-        // {
-        //     return (TypeText(phrase, textLabel));
-        // }
-
         public override IEnumerator TypeText(Phrase phrase, TMP_Text textLabel)
         {
             textLabel.text = "";
@@ -50,7 +40,10 @@ namespace _Scripts._Game.UI.Dialogue{
             int charIndex = 0;
             string textToType = phrase.Text;
 
-            yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.StartOfPhraseWait);
+            if (phrase.StartOfPhraseWait > 0.0f)
+            {
+                yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.StartOfPhraseWait);
+            }
 
             while (charIndex < textToType.Length)
             {
@@ -68,7 +61,11 @@ namespace _Scripts._Game.UI.Dialogue{
                 yield return null;
             }
 
-            yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.EndOfPhraseWait);
+            if (phrase.EndOfPhraseWait > 0.0f)
+            {
+                yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.EndOfPhraseWait);
+            }
+            
             textLabel.text = "";
         }
     }
