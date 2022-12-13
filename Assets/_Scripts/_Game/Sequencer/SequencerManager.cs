@@ -18,13 +18,16 @@ using System.Linq;
         private int _freeQueueSlots;
 
          // Start is called before the first frame update
-         void Start()
+         private new void Awake()
          {
+            base.Awake();
+
             _queuedSequenceContainers = new SequenceContainer[_maxQueuedContainers];
             _nextFreeSlot = _maxQueuedContainers - 1;
             _queueHeadSlot = -1;
             _freeQueueSlots = _maxQueuedContainers;
 
+            // temporary test to get it working
             foreach (var container in FindObjectsOfType<SequenceContainer>())
             {
                 TryNewSequenceContainer(container);
@@ -33,6 +36,8 @@ using System.Linq;
                     _sequenceContainer = _queuedSequenceContainers[4];
                 }
             }
+
+            enabled = false;
          }
   
          void FixedUpdate()

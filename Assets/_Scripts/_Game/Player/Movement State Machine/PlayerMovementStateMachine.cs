@@ -287,8 +287,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         playerInput.Player.Bash.started += OnBashInput;
         playerInput.Player.Bash.canceled += OnBashInput;
 
-        playerInput.Player.Pause.started += OnBashInput;
-        playerInput.Player.Pause.canceled += OnBashInput;
+        playerInput.Player.Pause.started += OnPauseInput;
 
         InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
     }
@@ -404,7 +403,14 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnPauseInput(InputAction.CallbackContext context)
     {
-        
+        if (PauseManager.Instance != null)
+        {
+            PauseManager.Instance.TogglePause();
+        }
+        else
+        {
+            Debug.Log("Pause instance not valid");
+        }
     }
 
     bool IsGroundedCheck()

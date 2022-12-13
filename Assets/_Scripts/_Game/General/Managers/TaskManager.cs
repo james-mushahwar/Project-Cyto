@@ -202,6 +202,8 @@ namespace _Scripts._Game.General.Managers{
             base.Awake();
 
             _waitForSecondsPool = new WaitForSecondsPool();
+
+            enabled = false;
         }
 
         public static TaskState CreateTask(IEnumerator coroutine)
