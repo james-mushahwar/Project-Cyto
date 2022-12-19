@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 5581101032986800017}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5581101032112713362
 SpriteRenderer:
@@ -143,18 +143,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _distanceToGroundThreshold: 0.05
-  _groundedGravityScale: 1
+  _groundedGravityScale: 1.6
   _groundedHorizontalVelocity: 12
   _groundedAcceleration: 9
   _groundedDeceleration: 9
   _groundedVelocityPower: 1.2
   _jumpForce: 14.5
-  _jumpingGravityScale: 1.2
+  _jumpingGravityScale: 2
   _jumpInputForceDelay: 0.1
   _jumpInputDuration: 0.3
   _coyoteTimeLimit: 0.35
   _jumpBufferLimit: 0.45
-  _fallingGravityScale: 3.3
+  _fallingGravityScale: 5
   _fallingMaximumDownwardsVelocity: -50
   _fallingHorizontalVelocity: 10
   _fallingAcceleration: 8
@@ -172,7 +172,7 @@ MonoBehaviour:
   _floatingHorizontalAcceleration: 5
   _floatingHorizontalDeceleration: 3
   _bouncingUpwardGravityScale: 2.2
-  _bouncingDownwardGravityScale: 4.5
+  _bouncingDownwardGravityScale: 6
   _bouncingMaximumHorizontalVelocity: 15
   _bouncingDefaultHorizontalVelocity: 2
   _bouncingMaximumDownwardsVelocity: -60

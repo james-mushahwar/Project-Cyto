@@ -27,6 +27,7 @@ namespace _Scripts._Game.Dialogue{
         [Header("Wait properties")]
         [SerializeField] private float _startOfPhraseWait = 0.5f;
         [SerializeField] private float _endOfPhraseWait = 2.0f;
+        [SerializeField] private bool _closeTextBox = false;
 
         public Phrase()
         {
@@ -45,6 +46,7 @@ namespace _Scripts._Game.Dialogue{
         public float FasterTextSpeed { get { return _fasterTextSpeed; } }
         public float StartOfPhraseWait { get { return _startOfPhraseWait; } }
         public float EndOfPhraseWait { get { return _endOfPhraseWait; } }
+        public bool CloseTextBox { get { return _closeTextBox; } }
     }
 
     [CreateAssetMenu(menuName = "Dialogue/Dialogue")]

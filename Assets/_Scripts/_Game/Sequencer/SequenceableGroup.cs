@@ -53,10 +53,10 @@ namespace _Scripts._Game.Sequencer{
             else
             {
                 bool complete = _sequenceIndex >= _sequenceables.Count;
-                if (complete)
-                {
-                    _sequenceIndex = 0;
-                }
+                //if (complete)
+                //{
+                //    _sequenceIndex = 0;
+                //}
                 return complete;
             }
         }
