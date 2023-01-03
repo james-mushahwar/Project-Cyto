@@ -148,13 +148,15 @@ MonoBehaviour:
   _groundedAcceleration: 9
   _groundedDeceleration: 9
   _groundedVelocityPower: 1.2
-  _jumpForce: 14.5
-  _jumpingGravityScale: 2
-  _jumpInputForceDelay: 0.1
-  _jumpInputDuration: 0.3
+  _jumpForce: 15
+  _jumpingGravityScale: 1.55
+  _jumpInputForceDelay: 0.15
+  _jumpInputDuration: 0.4
   _coyoteTimeLimit: 0.35
   _jumpBufferLimit: 0.45
   _fallingGravityScale: 5
+  _fallingEnterMaximumYVelocity: 0
+  _fallingEnterClampedYVelocity: 0
   _fallingMaximumDownwardsVelocity: -50
   _fallingHorizontalVelocity: 10
   _fallingAcceleration: 8

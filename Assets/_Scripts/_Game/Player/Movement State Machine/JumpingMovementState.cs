@@ -16,7 +16,6 @@ public class JumpingMovementState : BaseMovementState
             SwitchStates(_factory.GetState(MovementState.Grounded));
             return true;
         }
-
         
         if ((_ctx.IsJumpPressed == false && _stateTimer >= _ctx.JumpInputForceDelay) || _stateTimer >= _ctx.JumpInputDuration)
         {

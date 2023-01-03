@@ -121,6 +121,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     [SerializeField]
     private float _fallingGravityScale;
     [SerializeField]
+    private float _fallingEnterMaximumYVelocity;
+    [SerializeField]
+    private float _fallingEnterClampedYVelocity;
+    [SerializeField]
     private float _fallingMaximumDownwardsVelocity;
     [SerializeField]
     private float _fallingHorizontalVelocity;
@@ -132,6 +136,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _fallingVelocityPower;
 
     public float FallingGravityScale { get => _fallingGravityScale; set => _fallingGravityScale = value; }
+    public float FallingEnterMaximumYVelocity { get => _fallingEnterMaximumYVelocity; }
+    public float FallingEnterClampedYVelocity { get => _fallingEnterClampedYVelocity; }
     public float FallingMaximumDownwardsVelocity { get => _fallingMaximumDownwardsVelocity; }
     public float FallingHorizontalVelocity { get => _fallingHorizontalVelocity; }
     public float FallingAcceleration { get => _fallingAcceleration; }

@@ -20,7 +20,7 @@ namespace _Scripts._Game.General {
             }
         }
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             if (m_Instance != null && m_Instance != this as T)
             {

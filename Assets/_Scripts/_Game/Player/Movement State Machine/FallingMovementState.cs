@@ -66,6 +66,13 @@ public class FallingMovementState : BaseMovementState
         Debug.Log("Hello I'm falling!!");
         _ctx.Rb.gravityScale = _ctx.FallingGravityScale;
         _jumpBufferTimer = -1.0f;
+
+        //float newYVelocity = 0.0f;
+        //if (_ctx.Rb.velocity.y > 0.0f)
+        //{
+        //    newYVelocity = _ctx.Rb.velocity.y * 0.5f;
+        //    _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, newYVelocity);
+        //}
     }
 
     public override void ExitState()

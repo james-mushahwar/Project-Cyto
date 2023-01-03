@@ -25,7 +25,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public LayerMask GroundedLayer { get => _groundedLayer; }
         #endregion
 
-        new void Awake()
+        protected override void Awake()
         {
             base.Awake();
 
