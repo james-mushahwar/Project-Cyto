@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Scripts._Game.AI.MovementStateMachine.Flying{
+namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     
     public class BombDroidAIMovementStateMachine : FlyingAIMovementStateMachine
     {
@@ -27,18 +27,25 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
         private float _patrolSpeed;
         [SerializeField]
         private Waypoints _waypoints;
+
+        public Waypoints Waypoints { get => _waypoints; }
         #endregion
 
         protected override void Awake()
         {
             base.Awake();
+
+            CurrentState = _states.GetState(AIMovementState.Idle);
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             _seeker = GetComponent<Seeker>();
-            _rb = GetComponent<Rigidbody2D>();
             _destinationSetter = GetComponent<AIDestinationSetter>();
+
+            CurrentState.EnterState();
         }
     
         void Update()
@@ -46,9 +53,9 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
             
         }
 
-        protected override void SetUpStateMachineFactory()
+        void FixedUpdate()
         {
-
+            CurrentState.ManagedStateTick();
         }
     }
     

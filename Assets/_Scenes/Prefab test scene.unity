@@ -2297,13 +2297,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2119089609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c32e9038df50d4c498c97af65cd3082b, type: 3}
+  m_Script: {fileID: 11500000, guid: 794e2373d43d58341bf6b6fa3d8879d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _groundedLayer:
     serializedVersion: 2
     m_Bits: 0
-  _patrolSpeed: 0
+  _patrolSpeed: 2
   _waypoints: {fileID: 1743297278}
 --- !u!50 &2119089614
 Rigidbody2D:

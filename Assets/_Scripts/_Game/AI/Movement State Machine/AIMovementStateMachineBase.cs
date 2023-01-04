@@ -34,22 +34,16 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         }
 
         // Start is called before the first frame update
-        void Start()
+        protected virtual void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
             _capsule = GetComponent<CapsuleCollider2D>();
-            _currentState.EnterState();
         }
     
         // Update is called once per frame
         void Update()
         {
             
-        }
-
-        protected virtual void SetUpStateMachineFactory()
-        {
-
         }
 
         // ISaveable

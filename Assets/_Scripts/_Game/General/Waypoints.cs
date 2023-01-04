@@ -20,6 +20,18 @@ namespace _Scripts._Game.General{
                 i++;
             }
         }
+
+        public Transform GetWaypoint(int index)
+        {
+            if (index >= _waypointTransforms.Length || index < 0)
+            {
+                return _waypointTransforms[0];
+            }
+            else 
+            {
+                return _waypointTransforms[index];
+            }
+        }
     }
     
 }
