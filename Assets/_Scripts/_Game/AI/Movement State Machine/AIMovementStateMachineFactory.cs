@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.AI.MovementStateMachine.Flying;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +7,11 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
     public enum AIMovementState
     {
-        Idle,
+        Asleep,
         Waking,
-        Walking,
-        Flying,
-        Jumping,
-        Falling,
-        Landing
+        Idle,
+        Patrolling,
+        Chasing
     }
 
     public class AIMovementStateMachineFactory : MonoBehaviour
@@ -23,6 +22,13 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public AIMovementStateMachineFactory(AIMovementStateMachineBase sm)
         {
             _moveStateMachine = sm;
+
+            BombDroidAIMovementStateMachine bombDroid = _moveStateMachine as BombDroidAIMovementStateMachine;
+
+            if (bombDroid)
+            {
+                //_stateDict.Add(MovementState)
+            }
         }
 
         public BaseAIMovementState GetState(AIMovementState state)
@@ -43,10 +49,10 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             return AIMovementState.Idle;
         }
 
-        public void AddState(AIMovementState state)
-        {
+        //public void AddState(AIMovementState state)
+        //{
             
-        }
+        //}
     }
     
 }

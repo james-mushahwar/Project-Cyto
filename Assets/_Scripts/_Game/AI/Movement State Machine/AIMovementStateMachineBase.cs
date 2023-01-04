@@ -11,7 +11,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
     {
         #region State Machine
         private BaseAIMovementState _currentState;
-        private AIMovementStateMachineFactory _states;
+        protected AIMovementStateMachineFactory _states;
         public BaseAIMovementState CurrentState { get => _currentState; set => _currentState = value; }
         #endregion
 
@@ -45,6 +45,11 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         void Update()
         {
             
+        }
+
+        protected virtual void SetUpStateMachineFactory()
+        {
+
         }
 
         // ISaveable
