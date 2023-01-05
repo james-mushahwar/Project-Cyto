@@ -10,13 +10,11 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     {
         #region Components
         private Seeker _seeker;
-        private Rigidbody2D _rb;
-        private Path _path;
+        private AIPath _aiPath;
         private AIDestinationSetter _destinationSetter;
 
         public Seeker Seeker { get => _seeker; }
-        public Rigidbody2D Rb { get => _rb; }
-        public Path Path { get => _path; }
+        public AIPath AIPath { get => _aiPath; }
         public AIDestinationSetter DestinationSetter { get => _destinationSetter; }
         #endregion
 
@@ -26,8 +24,11 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         [SerializeField]
         private float _patrolSpeed;
         [SerializeField]
+        private Vector2 _patrolWaitTimeRange;
+        [SerializeField]
         private Waypoints _waypoints;
 
+        public Vector2 PatrolWaitTimeRange { get => _patrolWaitTimeRange; }
         public Waypoints Waypoints { get => _waypoints; }
         #endregion
 
@@ -44,6 +45,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
             _seeker = GetComponent<Seeker>();
             _destinationSetter = GetComponent<AIDestinationSetter>();
+            _aiPath = GetComponent<AIPath>();
 
             CurrentState.EnterState();
         }
@@ -56,6 +58,23 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         void FixedUpdate()
         {
             CurrentState.ManagedStateTick();
+        }
+
+        // ISaveable
+        [System.Serializable]
+        private struct SaveData
+        {
+
+        }
+
+        public override object SaveState()
+        {
+            return new SaveData();
+        }
+
+        public override void LoadState(object state)
+        {
+            SaveData saveData = (SaveData)state;
         }
     }
     

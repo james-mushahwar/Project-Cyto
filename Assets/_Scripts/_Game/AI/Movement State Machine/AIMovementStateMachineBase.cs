@@ -39,26 +39,21 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _rb = GetComponent<Rigidbody2D>();
             _capsule = GetComponent<CapsuleCollider2D>();
         }
-    
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+   
 
         // ISaveable
         [System.Serializable]
-        protected struct SaveData
+        private struct SaveData
         {
 
         }
 
-        public object SaveState()
+        public virtual object SaveState()
         {
             return new SaveData();
         }
 
-        public void LoadState(object state)
+        public virtual void LoadState(object state)
         {
             SaveData saveData = (SaveData)state;
         }

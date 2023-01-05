@@ -38,7 +38,12 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override void ManagedStateTick()
         {
-            // do nothing :)
+            _stateTimer += Time.deltaTime;
+
+            if (CheckSwitchStates() == false)
+            {
+                // do nothing :) 
+            }
         }
     }
 

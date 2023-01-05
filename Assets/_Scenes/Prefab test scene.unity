@@ -184,6 +184,8 @@ Transform:
   m_Children:
   - {fileID: 1304876658}
   - {fileID: 216243026}
+  - {fileID: 804652968}
+  - {fileID: 955561728}
   m_Father: {fileID: 252518561}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -321,7 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 289681760}
   - component: {fileID: 289681761}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: BombDroid Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,6 +566,64 @@ Transform:
   m_Father: {fileID: 1743297279}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &804652967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804652968}
+  - component: {fileID: 804652969}
+  m_Layer: 6
+  m_Name: Floor collider (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &804652968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804652967}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.22, y: 13.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 57430821}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &804652969
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804652967}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -20.643803, y: -8.343882}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 28.877998, y: 1.687768}
+  m_EdgeRadius: 0
 --- !u!1 &812789711
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAAIeyL1xJpYQIAABUFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzqVjDAHSW2sI6YGECenk4ouw1liDLHn0wUcy/PeuZBu79BTlvbe7bz/MF+HSVJBZpVeas7ViQH4MiH+Tb4OOfIYz3Su55Z/Qaj44s4UX0aB5o5YrxEc+zKgSrObZT7kXXhwh6CTPlS6XbA+JMtYgnFNhACmtrI+WCH0NyBn/DB99yAVf8cy/PvH1GA2u+MxAWtCdNI4b5UOjq2VOZoKWFTDvuVPPp23eWiaxm0bhnWdKCG4aK8ReqtBqQivjsBEUME6xtVB/9H2CQAF8X1ifsB/+mucGbNO5ppcF1zijOi/5perBldQcamdHKpyvNJ0EU3XO9X/0cBToXKvyuS07inwJW/Ds8EYvGTW2N9g+vOg5D/M5UXGgOwEfBcgXtdLKSYak1c6HOgPxovv31llSQHbo8NrqHeiqbuDtHtst+h6uoflzIni581QYJAJbocLAw/JB42p+o+FwGqZJgah38cfAO933b6ghnrg2FqmmS+nt7ZTTXkqWYWa+G2cTpSUEuDFdgaTCXjaYxt5v8I7rlb1jnqj/WpriDdd+BHchAe70UXRHbdTptixTqNMaTPHqrOASOtOeeME5JUrK+sD6M2nDtk7nNOuF7R1n/54WmcBkNp3EY8jpfP4QRcN4HGU5o9PHWb6bj+dTEm6PS+yTik1ttBkPbk12ySXeWfsjMlhpWoVjZ5qeVvyzVH2DXOZqm2kA+VqnuDkHjVXwu2RLxnFCW7CWy7Bw8pUSobIDsPRWMw2tLs9W07TLkpKKH5X1SEqS8LOREg/fjnmj4cjh5Iu3ya7k+hdQSwMEFAAACAgAAAAh7I7EjydtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJJJqom5mYmRcWpaooWFqYGBrpGxQXJaSqKZpXlakoWxhZlSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAAh7IvXEmlhAgAAFQUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAAh7I7EjydtAAAAeAAAAAkAJAAAAAAAAAAAAAAArgIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABmAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAAIeyJ5tumYgIAABQFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziVjDCHQW2sI6YGECe3k4ouw1liDLHn0ESAM/70r2cYuPVl++3b37Yd0IVyaCjKr9EpztlYMyPcB8WfybdAZX+BE90pu+Re0nA/ObOFJNHDeqeUK8ZF3M6oEq3n2Q+6FJ0cIOslzpcsl20OijDUI51QYQJNW1ntLhC4DcsLPcO5dzniKn/zpC0/zaHDFYwbSgu6ocdwwHxteTXMyE7SsgHnNHXs2bePWNInVNAyvPFNCcNNIIfZchVITWhmHhSCBcYqlhfzxg89YAN8X1v/23d/y3IBtKtf0vOAae1THJT9V3biSmkOt7JMK5zNNJ0FUHXP9n3k4CuZcq/KlTTuKfApb8OzwTs8ZNbbX2D686JSPQn+OVBzoTsBHAfJVrbRykqHRauddnYF40f3eKksKyA4dXku9A13VNbydYztFX8M1FH9KBC933vQwqYGtUKHhYfigcTS/UHBYDdOEQNSr+GPgN933d6gxPHNtLJqaKqWXt1NOeypZhp75apxNlJYQ4EZ0BZIKe95gGHs/wTtbL+2d5Zn629Ikb2ztJbhzCXDHj6I700Ydb8MyhTquwRRvzgouoRPtDa/Yp0RJWS9Yvyet29bpnGY9t73j7N/VIhOYPE0n8RhyOps9RtEwHkdZzuh0/pTvZuPZlITd4xLrpGJTC23ag1OTXXCJe9Y+IoOVplVYdqbpccW/StVrOZe52mYaQL7VEW7CQWMSvJZsyTg2aAvWchnmTS4pESo7AEtvgdJQ6fJkNU27KCmp+KeyHklJEl6NlHj4tssbDZ8cjj55G+xKrn8BUEsDBBQAAAgIAAAAIexCFDmzcwAAAIQAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgTilmSkgdrSSSaqJuZmJkXFqWqKFhamBga6RsUFyWkqimaV5WpKFsYWZko5CXmlOTixQV0llQapfYm4qRGdAYklGWmZeSmZeup57UWaKO8gCmOpaAFBLAQItABQAAAgIAAAAIeyJ5tumYgIAABQFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAAIexCFDmzcwAAAIQAAAAJACQAAAAAAAAAAAAAAK8CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAbQMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -960,6 +1020,64 @@ Transform:
   m_Father: {fileID: 1209876763}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &955561727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955561728}
+  - component: {fileID: 955561729}
+  m_Layer: 6
+  m_Name: Floor collider (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &955561728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955561727}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 19.8, y: 34.59, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 57430821}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &955561729
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955561727}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -20.643803, y: -8.343882}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 21.05, y: 1.687768}
+  m_EdgeRadius: 0
 --- !u!1 &977552739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,7 +1352,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.18}
@@ -1887,6 +2005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1743297279}
   - component: {fileID: 1743297278}
+  - component: {fileID: 1743297280}
   m_Layer: 0
   m_Name: Waypoints
   m_TagString: Untagged
@@ -1914,7 +2033,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743297277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.97, y: 7.18, z: 0}
+  m_LocalPosition: {x: -1.97, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1925,6 +2044,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1743297280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743297277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632ae7eb1d4ce49d38a1e38ee7efe7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 0f03006882681093-4acf1e9f7eae1727
 --- !u!1 &1747370406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,11 +2349,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2119089612}
   - component: {fileID: 2119089613}
-  - component: {fileID: 2119089615}
   - component: {fileID: 2119089611}
+  - component: {fileID: 2119089615}
+  - component: {fileID: 2119089616}
   - component: {fileID: 2119089610}
   - component: {fileID: 2119089614}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: BombDroid (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2238,7 +2371,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.18}
@@ -2280,7 +2413,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119089609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3, y: 9, z: 3.6746588}
+  m_LocalPosition: {x: -7.3, y: 21.08, z: 3.6746588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2304,6 +2437,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _patrolSpeed: 2
+  _patrolWaitTimeRange: {x: 1.5, y: 2.2}
   _waypoints: {fileID: 1743297278}
 --- !u!50 &2119089614
 Rigidbody2D:
@@ -2333,13 +2467,55 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119089609}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
+--- !u!114 &2119089616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119089609}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 1.97
+  height: 1
+  canMove: 1
+  maxSpeed: 4
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 1
+  enableRotation: 0
+  autoRepath:
+    mode: 0
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: 5
+  rotationSpeed: 360
+  slowdownDistance: 1.94
+  pickNextWaypointDist: 1.67
+  endReachedDistance: 1
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
 --- !u!1001 &5581101032792513857
 PrefabInstance:
   m_ObjectHideFlags: 0
