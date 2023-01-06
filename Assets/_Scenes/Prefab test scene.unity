@@ -323,6 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 289681760}
   - component: {fileID: 289681761}
+  - component: {fileID: 289681762}
   m_Layer: 6
   m_Name: BombDroid Sprite
   m_TagString: Untagged
@@ -386,7 +387,7 @@ SpriteRenderer:
   m_SortingLayerID: 2051981439
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 14247772, guid: 383495af364a67f448daecc940220bb1, type: 3}
+  m_Sprite: {fileID: -1078829578, guid: 383495af364a67f448daecc940220bb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -397,6 +398,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &289681762
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289681759}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eebc47d7f49b73042a994e03db985ba0, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &401382322
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAAIeyJ5tumYgIAABQFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziVjDCHQW2sI6YGECe3k4ouw1liDLHn0ESAM/70r2cYuPVl++3b37Yd0IVyaCjKr9EpztlYMyPcB8WfybdAZX+BE90pu+Re0nA/ObOFJNHDeqeUK8ZF3M6oEq3n2Q+6FJ0cIOslzpcsl20OijDUI51QYQJNW1ntLhC4DcsLPcO5dzniKn/zpC0/zaHDFYwbSgu6ocdwwHxteTXMyE7SsgHnNHXs2bePWNInVNAyvPFNCcNNIIfZchVITWhmHhSCBcYqlhfzxg89YAN8X1v/23d/y3IBtKtf0vOAae1THJT9V3biSmkOt7JMK5zNNJ0FUHXP9n3k4CuZcq/KlTTuKfApb8OzwTs8ZNbbX2D686JSPQn+OVBzoTsBHAfJVrbRykqHRauddnYF40f3eKksKyA4dXku9A13VNbydYztFX8M1FH9KBC933vQwqYGtUKHhYfigcTS/UHBYDdOEQNSr+GPgN933d6gxPHNtLJqaKqWXt1NOeypZhp75apxNlJYQ4EZ0BZIKe95gGHs/wTtbL+2d5Zn629Ikb2ztJbhzCXDHj6I700Ydb8MyhTquwRRvzgouoRPtDa/Yp0RJWS9Yvyet29bpnGY9t73j7N/VIhOYPE0n8RhyOps9RtEwHkdZzuh0/pTvZuPZlITd4xLrpGJTC23ag1OTXXCJe9Y+IoOVplVYdqbpccW/StVrOZe52mYaQL7VEW7CQWMSvJZsyTg2aAvWchnmTS4pESo7AEtvgdJQ6fJkNU27KCmp+KeyHklJEl6NlHj4tssbDZ8cjj55G+xKrn8BUEsDBBQAAAgIAAAAIexCFDmzcwAAAIQAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgTilmSkgdrSSSaqJuZmJkXFqWqKFhamBga6RsUFyWkqimaV5WpKFsYWZko5CXmlOTixQV0llQapfYm4qRGdAYklGWmZeSmZeup57UWaKO8gCmOpaAFBLAQItABQAAAgIAAAAIeyJ5tumYgIAABQFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAAIexCFDmzcwAAAIQAAAAJACQAAAAAAAAAAAAAAK8CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAbQMAAAAA
+    dataString: UEsDBBQAAAgIAAAAIeyJ5tumYgIAABQFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziVjDCHQW2sI6YGECe3k4ouw1liDLHn0ESAM/70r2cYuPVl++3b37Yd0IVyaCjKr9EpztlYMyPcB8WfybdAZX+BE90pu+Re0nA/ObOFJNHDeqeUK8ZF3M6oEq3n2Q+6FJ0cIOslzpcsl20OijDUI51QYQJNW1ntLhC4DcsLPcO5dzniKn/zpC0/zaHDFYwbSgu6ocdwwHxteTXMyE7SsgHnNHXs2bePWNInVNAyvPFNCcNNIIfZchVITWhmHhSCBcYqlhfzxg89YAN8X1v/23d/y3IBtKtf0vOAae1THJT9V3biSmkOt7JMK5zNNJ0FUHXP9n3k4CuZcq/KlTTuKfApb8OzwTs8ZNbbX2D686JSPQn+OVBzoTsBHAfJVrbRykqHRauddnYF40f3eKksKyA4dXku9A13VNbydYztFX8M1FH9KBC933vQwqYGtUKHhYfigcTS/UHBYDdOEQNSr+GPgN933d6gxPHNtLJqaKqWXt1NOeypZhp75apxNlJYQ4EZ0BZIKe95gGHs/wTtbL+2d5Zn629Ikb2ztJbhzCXDHj6I700Ydb8MyhTquwRRvzgouoRPtDa/Yp0RJWS9Yvyet29bpnGY9t73j7N/VIhOYPE0n8RhyOps9RtEwHkdZzuh0/pTvZuPZlITd4xLrpGJTC23ag1OTXXCJe9Y+IoOVplVYdqbpccW/StVrOZe52mYaQL7VEW7CQWMSvJZsyTg2aAvWchnmTS4pESo7AEtvgdJQ6fJkNU27KCmp+KeyHklJEl6NlHj4tssbDZ8cjj55G+xKrn8BUEsDBBQAAAgIAAAAIeyOxI8nbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSSaqJuZmJkXFqWqKFhamBga6RsUFyWkqimaV5WpKFsYWZUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAAIeyJ5tumYgIAABQFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAAIeyOxI8nbQAAAHgAAAAJACQAAAAAAAAAAAAAAK8CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAZwMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -2439,6 +2460,8 @@ MonoBehaviour:
   _patrolSpeed: 2
   _patrolWaitTimeRange: {x: 1.5, y: 2.2}
   _waypoints: {fileID: 1743297278}
+  _chaseSpeed: 0
+  _startStopChaseDistances: {x: 0, y: 0}
 --- !u!50 &2119089614
 Rigidbody2D:
   serializedVersion: 4

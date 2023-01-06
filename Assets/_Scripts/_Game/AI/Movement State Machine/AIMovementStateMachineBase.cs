@@ -7,7 +7,7 @@ using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
-    public class AIMovementStateMachineBase : Singleton<AIMovementStateMachineBase>, ISaveable
+    public class AIMovementStateMachineBase : MonoBehaviour, ISaveable
     {
         #region State Machine
         private BaseAIMovementState _currentState;
@@ -25,10 +25,8 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public LayerMask GroundedLayer { get => _groundedLayer; }
         #endregion
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
-
             _states = new AIMovementStateMachineFactory(this);
             //_currentState = _states.GetState(MovementState.Grounded);
         }

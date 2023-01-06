@@ -19,7 +19,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         #endregion
 
         #region Enemy Stats
-
         [Header("Patrol Properties")]
         [SerializeField]
         private float _patrolSpeed;
@@ -30,6 +29,12 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public Vector2 PatrolWaitTimeRange { get => _patrolWaitTimeRange; }
         public Waypoints Waypoints { get => _waypoints; }
+
+        [Header("Chase Properties")]
+        [SerializeField]
+        private float _chaseSpeed;
+        [SerializeField]
+        private Vector2 _startStopChaseDistances;
         #endregion
 
         protected override void Awake()
