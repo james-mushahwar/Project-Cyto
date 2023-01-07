@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,7 +105,239 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: move_0
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 585
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c83bf17294886c948abb9fbf70d8decb
+      internalID: 1365005986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 508
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07f013680e7190447a6974b6162cfd82
+      internalID: -1867281750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_2
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 431
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6fc2300da273da4083a526aa3d951ab
+      internalID: 1666521923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_3
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 354
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04620c5cce9b29345bef5a7fa4270df0
+      internalID: -1372832833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_4
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 277
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5438f8920c84eec4f8d9b56bc5f9c004
+      internalID: 1431163782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_5
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 200
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: beea1850a40e6d54e996e2fd33c4778e
+      internalID: 2144833856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_6
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 123
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1454aa8021eb2324aa254b267ca0e709
+      internalID: 1239504738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: move_7
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 46
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      physicsShape:
+      - - {x: 0, y: -33}
+        - {x: 32, y: 0}
+        - {x: 0, y: 33}
+        - {x: -32, y: 0}
+      tessellationDetail: 0
+      bones: []
+      spriteID: e02fbbeffbda85447920e27486252af0
+      internalID: 228338016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -116,7 +348,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      move_3: -1372832833
+      move_7: 228338016
+      move_0: 1365005986
+      move_6: 1239504738
+      move_2: 1666521923
+      move_5: 2144833856
+      move_1: -1867281750
+      move_4: 1431163782
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
