@@ -197,7 +197,7 @@ namespace _Scripts._Game.General.Managers{
 
         public WaitForSecondsPool WaitForSecondsPool { get { return _waitForSecondsPool; } }
 
-        private new void Awake()
+        protected override void Awake()
         {
             base.Awake();
 

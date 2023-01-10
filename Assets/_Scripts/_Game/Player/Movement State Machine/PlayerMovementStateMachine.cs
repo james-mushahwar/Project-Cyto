@@ -251,7 +251,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public Collider2D ClosestCollider { get => _closestCollider; }
     #endregion
 
-    new void Awake()
+    protected override void Awake()
     {
         base.Awake();
 

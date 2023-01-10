@@ -14,7 +14,7 @@ namespace _Scripts._Game.General.Managers{
         [SerializeField]
         protected int m_PoolCount;
 
-        protected new void Awake()
+        protected override void Awake()
         {
             base.Awake();
             Debug.Log("PoolComponentManager<T> awake check");

@@ -16,7 +16,7 @@ namespace _Scripts._Game.General.Managers{
 
         private Dictionary<EDialogueType, Task> _dialogueTasks = new Dictionary<EDialogueType, Task>();
 
-        private new void Awake()
+        protected override void Awake()
         {
             base.Awake();
         }

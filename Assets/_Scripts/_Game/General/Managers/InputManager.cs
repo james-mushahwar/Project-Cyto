@@ -18,7 +18,7 @@ namespace _Scripts._Game.General.Managers{
 
         public PlayerInput PlayerInput => _playerInput;
 
-        private new void Awake()
+        protected override void Awake()
         {
             base.Awake();
             _playerInput = new PlayerInput();

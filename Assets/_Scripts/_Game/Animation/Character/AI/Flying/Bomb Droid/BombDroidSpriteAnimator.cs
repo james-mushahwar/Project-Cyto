@@ -13,6 +13,7 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
         #region Hashed States
         public static readonly int Idle = Animator.StringToHash("BombDroidAnim_Idle");
         public static readonly int Patrol = Animator.StringToHash("BombDroidAnim_Patrol");
+        public static readonly int Chase = Animator.StringToHash("BombDroidAnim_Chase");
         #endregion
 
         protected override void Awake()
@@ -51,7 +52,7 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
             }
             else if (currentMovementState is BombDroidChaseAIMovementState)
             {
-                return Idle;
+                return Chase;
             }
             return Idle;
 

@@ -6,7 +6,7 @@ namespace _Scripts._Game.General.Managers{
     
     public class ParticleManager : PoolComponentManager<ParticleSystem>
     {
-        protected new void Awake()
+        protected override void Awake()
         {
             base.Awake();
         }

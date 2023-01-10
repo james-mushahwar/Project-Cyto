@@ -24,7 +24,7 @@ namespace _Scripts._Game.General.Managers {
 
         private AudioClip[] _AudioClips = new AudioClip[(int) EAudioType.COUNT];
 
-        protected new void Awake()
+        protected override void Awake()
         {
             base.Awake();
 
