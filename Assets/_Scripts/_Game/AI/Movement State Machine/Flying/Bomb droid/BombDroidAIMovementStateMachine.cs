@@ -32,9 +32,16 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         [Header("Chase Properties")]
         [SerializeField]
+        private float _chaseDetectionRange;
+        [SerializeField]
+        private float _chaseLostDetectionRange;
+        [SerializeField]
         private float _chaseSpeed;
         [SerializeField]
         private Vector2 _startStopChaseDistances;
+
+        public float ChaseDetectionRange { get => _chaseDetectionRange; }
+        public float ChaseLostDetectionRange { get => _chaseLostDetectionRange; }
         #endregion
 
         protected override void Awake()

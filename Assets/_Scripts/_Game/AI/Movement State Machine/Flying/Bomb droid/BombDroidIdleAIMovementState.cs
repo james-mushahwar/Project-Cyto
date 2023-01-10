@@ -12,6 +12,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override bool CheckSwitchStates()
         {
+
             if (_stateTimer >= 2.0f)
             {
                 SwitchStates(_factory.GetState(AIMovementState.Patrol));

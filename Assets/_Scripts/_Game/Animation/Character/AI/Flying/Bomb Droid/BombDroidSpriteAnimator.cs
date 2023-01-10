@@ -25,9 +25,9 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
 
         private void FixedUpdate()
         {            
-            if (_ctx.Rb.velocity.x != 0)
+            if (_ctx.AIPath.velocity.x != 0)
             {
-                Renderer.flipX = _ctx.Rb.velocity.x < 0;
+                Renderer.flipX = _ctx.AIPath.velocity.x < 0;
             } 
 
             int state = GetState();

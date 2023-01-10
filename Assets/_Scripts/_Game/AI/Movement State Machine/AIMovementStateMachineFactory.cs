@@ -17,8 +17,8 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
     public class AIMovementStateMachineFactory
     {
-        AIMovementStateMachineBase _moveStateMachine;
-        Dictionary<AIMovementState, BaseAIMovementState> _stateDict = new Dictionary<AIMovementState, BaseAIMovementState>();
+        private AIMovementStateMachineBase _moveStateMachine;
+        private Dictionary<AIMovementState, BaseAIMovementState> _stateDict = new Dictionary<AIMovementState, BaseAIMovementState>();
 
         public AIMovementStateMachineFactory(AIMovementStateMachineBase sm)
         {

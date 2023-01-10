@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,7 +105,343 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: bomb without VFX _0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1196
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58749ce8aacb5504e901974bd6382677
+      internalID: 530300368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1119
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd77673291089564fa4539139cbe3b23
+      internalID: -574306097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1042
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e31dff713716bc74d9badff94b0dfaf3
+      internalID: 1187264872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _3
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 965
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66bc481f4d87e2f47ba89dfcf6ddf35b
+      internalID: 386715822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _4
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 888
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42ba1f9525dcce346aaf6f7f347e3e2f
+      internalID: 761016843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _5
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 811
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b9270f6cc8c30d4cb5ba5a6f951914a
+      internalID: -1830568238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _6
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 734
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b48820c3e35ea63428cac41e23946f5b
+      internalID: 1658865921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _7
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 657
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e0d05fc370d8484985e933871b983e7
+      internalID: 551717149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _8
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 580
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ba34b8deef41fc408761ee88be0b3f1
+      internalID: -9750538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _9
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 503
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8c480886a0f08b4ab8aff25db82d567
+      internalID: 346187103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _10
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 426
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20c1491331e6d9d4785b7b1727227479
+      internalID: 1024635320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _11
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 349
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 749c7e163a68f4241970fa26f87a7183
+      internalID: 1012792122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _12
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 272
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7d95087a5942f45a2d3dc2bb686807
+      internalID: 2031216505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _13
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 195
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0587e406244c9b44d82e5160ac51d1ec
+      internalID: -425517519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _14
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 118
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d08edbf97dd2944c81dddf0b3d0b4db
+      internalID: -852592464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomb without VFX _15
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 41
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f108a93fd130a940868db7c35c20a44
+      internalID: -1081023072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -116,7 +452,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bomb without VFX _5: -1830568238
+      bomb without VFX _12: 2031216505
+      bomb without VFX _9: 346187103
+      bomb without VFX _11: 1012792122
+      bomb without VFX _6: 1658865921
+      bomb without VFX _14: -852592464
+      bomb without VFX _3: 386715822
+      bomb without VFX _13: -425517519
+      bomb without VFX _4: 761016843
+      bomb without VFX _1: -574306097
+      bomb without VFX _10: 1024635320
+      bomb without VFX _8: -9750538
+      bomb without VFX _15: -1081023072
+      bomb without VFX _0: 530300368
+      bomb without VFX _2: 1187264872
+      bomb without VFX _7: 551717149
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
