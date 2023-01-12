@@ -20,9 +20,17 @@ namespace _Scripts._Game.Player{
         public PlayerSpriteAnimator SpriteAnimator { get => _spriteAnimator; set => _spriteAnimator = value; }
         #endregion
 
+        #region Player Components
+        private PlayerHealthStats _playerHealthStats;
+
+        public PlayerHealthStats PlayerHealthStats { get => _playerHealthStats; }
+        #endregion
+
         protected override void Awake()
         {
             base.Awake();
+
+            _playerHealthStats = new PlayerHealthStats(10.0f, 10.0f);
         }
     }
     
