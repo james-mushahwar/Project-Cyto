@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using _Scripts._Game.General;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.Player;
 
 public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>, ISaveable
 {
@@ -16,7 +17,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private bool _isFloatPressed = false;
     private bool _isBouncePressed = false;
     private bool _isAttackPressed = false;
-    private bool _isBashPressed = false;
+    private bool _isBondPressed = false;
 
     public Vector2 CurrentMovementInput { get => _currentMovementInput; }
     public Vector2 CurrentDirectionInput { get => _currentDirectionInput; }
@@ -26,7 +27,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public bool IsFloatPressed { get => _isFloatPressed; }
     public bool IsBouncePressed { get => _isBouncePressed; }
     public bool IsAttackPressed { get => _isAttackPressed; }
-    public bool IsBashPressed { get => _isBashPressed; }
+    public bool IsBondPressed { get => _isBondPressed; }
     public bool IsDirectionPressed { get => _isDirectionPressed; set => _isDirectionPressed = value; }
 
     private bool _isJumpInputValid = false;
@@ -34,14 +35,14 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private bool _isFloatInputValid = false;
     private bool _isBounceInputValid = false;
     private bool _isAttackInputValid = false;
-    private bool _isBashInputValid = false;
+    private bool _isBondInputValid = false;
 
     public bool IsJumpInputValid { get => _isJumpInputValid; }
     public bool IsDashInputValid { get => _isDashInputValid; }
     public bool IsFloatInputValid { get => _isFloatInputValid; }
     public bool IsBounceInputValid { get => _isBounceInputValid; }
     public bool IsAttackInputValid { get => _isAttackInputValid; }
-    public bool IsBashInputValid { get => _isBashInputValid; }
+    public bool IsBondInputValid { get => _isBondInputValid; }
 
     private PlayerInput _playerInput;
     private bool _isFacingRight = true;
@@ -251,12 +252,24 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public Collider2D ClosestCollider { get => _closestCollider; }
     #endregion
 
+    #region External References
+    private PlayerEntity _playerEntity;
+
+    public PlayerEntity PlayerEntity { get => _playerEntity; }
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
 
         _states = new PlayerMovementStateMachineFactory(this);
         _currentState = _states.GetState(MovementState.Grounded);
+
+        _playerEntity = GetComponent<PlayerEntity>();
+        if (_playerEntity)
+        {
+            _playerEntity.MovementSM = this;
+        }
     }
 
     void OnEnable()
@@ -288,8 +301,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         playerInput.Player.Bounce.canceled += OnBounceInput;
         playerInput.Player.Bounce.performed += OnBounceInput;
 
-        playerInput.Player.Bash.started += OnBashInput;
-        playerInput.Player.Bash.canceled += OnBashInput;
+        playerInput.Player.Bond.started += OnBondInput;
+        playerInput.Player.Bond.canceled += OnBondInput;
 
         playerInput.Player.Pause.performed += OnPauseInput;
 
@@ -323,8 +336,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         //playerInput.Player.Bounce.canceled -= OnBounceInput;
         //playerInput.Player.Bounce.performed -= OnBounceInput;
 
-        //playerInput.Player.Bash.started -= OnBashInput;
-        //playerInput.Player.Bash.canceled -= OnBashInput;
+        //playerInput.Player.Bond.started -= OnBondInput;
+        //playerInput.Player.Bond.canceled -= OnBondInput;
 
         //InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
     }
@@ -399,10 +412,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         _isAttackInputValid = _isAttackPressed;
     }
 
-    void OnBashInput(InputAction.CallbackContext context)
+    void OnBondInput(InputAction.CallbackContext context)
     {
-        _isBashPressed = context.ReadValueAsButton();
-        _isBashInputValid = _isBashPressed;
+        _isBondPressed = context.ReadValueAsButton();
+        _isBondInputValid = _isBondPressed;
     }
 
     void OnPauseInput(InputAction.CallbackContext context)

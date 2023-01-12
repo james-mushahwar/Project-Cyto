@@ -315,7 +315,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Bash"",
+                    ""name"": ""Bond"",
                     ""type"": ""Button"",
                     ""id"": ""e7ef311d-74ca-4f74-ba1c-674ae49d46c0"",
                     ""expectedControlType"": ""Button"",
@@ -436,7 +436,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Bash"",
+                    ""action"": ""Bond"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -585,7 +585,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Float = m_Player.FindAction("Float", throwIfNotFound: true);
         m_Player_Bounce = m_Player.FindAction("Bounce", throwIfNotFound: true);
-        m_Player_Bash = m_Player.FindAction("Bash", throwIfNotFound: true);
+        m_Player_Bond = m_Player.FindAction("Bond", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Direction = m_Player.FindAction("Direction", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
@@ -710,7 +710,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Float;
     private readonly InputAction m_Player_Bounce;
-    private readonly InputAction m_Player_Bash;
+    private readonly InputAction m_Player_Bond;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Direction;
     private readonly InputAction m_Player_Pause;
@@ -723,7 +723,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Float => m_Wrapper.m_Player_Float;
         public InputAction @Bounce => m_Wrapper.m_Player_Bounce;
-        public InputAction @Bash => m_Wrapper.m_Player_Bash;
+        public InputAction @Bond => m_Wrapper.m_Player_Bond;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Direction => m_Wrapper.m_Player_Direction;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
@@ -751,9 +751,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Bounce.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBounce;
                 @Bounce.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBounce;
                 @Bounce.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBounce;
-                @Bash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBash;
-                @Bash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBash;
-                @Bash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBash;
+                @Bond.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBond;
+                @Bond.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBond;
+                @Bond.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBond;
                 @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
@@ -782,9 +782,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Bounce.started += instance.OnBounce;
                 @Bounce.performed += instance.OnBounce;
                 @Bounce.canceled += instance.OnBounce;
-                @Bash.started += instance.OnBash;
-                @Bash.performed += instance.OnBash;
-                @Bash.canceled += instance.OnBash;
+                @Bond.started += instance.OnBond;
+                @Bond.performed += instance.OnBond;
+                @Bond.canceled += instance.OnBond;
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
@@ -830,7 +830,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnFloat(InputAction.CallbackContext context);
         void OnBounce(InputAction.CallbackContext context);
-        void OnBash(InputAction.CallbackContext context);
+        void OnBond(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDirection(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
