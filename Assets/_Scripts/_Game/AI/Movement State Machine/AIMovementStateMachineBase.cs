@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using _Scripts._Game.General;
 using _Scripts._Game.General.SaveLoad;
-using _Scripts._Game.General.Managers;
+using _Scripts._Game.AI.Bonding;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
-    public class AIMovementStateMachineBase : MonoBehaviour, ISaveable
+    public class AIMovementStateMachineBase : MonoBehaviour, ISaveable, IBondable
     {
         #region State Machine
         private BaseAIMovementState _currentState;
@@ -23,6 +23,11 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         public Rigidbody2D Rb { get => _rb; }
         public LayerMask GroundedLayer { get => _groundedLayer; }
+        #endregion
+
+        #region Bonding
+        private Dictionary<BondInput, Action<InputAction.CallbackContext>> _bondInputsDict = new Dictionary<BondInput, Action<InputAction.CallbackContext>> ();
+        public Dictionary<BondInput, Action<InputAction.CallbackContext>> BondInputsDict { get => _bondInputsDict; }
         #endregion
 
         protected virtual void Awake()
@@ -54,6 +59,57 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public virtual void LoadState(object state)
         {
             SaveData saveData = (SaveData)state;
+        }
+
+        // IBondable
+        public virtual void OnMovementInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnDirectionInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnNorthButtonInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnSouthButtonInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnEastButtonInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnWestButtonInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnLeftBumperInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnRightBumperInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnLeftTriggerInput(InputAction.CallbackContext context)
+        {
+            
+        }
+        public virtual void OnRightTriggerInput(InputAction.CallbackContext context)
+        {
+            
+        }
+
+        public virtual void OnBonded()
+        {
+            
+        }
+        public virtual void OnUnbonded()
+        {
+            
         }
     }
 }

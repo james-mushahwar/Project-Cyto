@@ -23,23 +23,28 @@ namespace _Scripts._Game.AI.Bonding{
     public interface IBondable
     {
         #region Inputs
-        Dictionary<BondInput, Action> BondInputsDict { get; }
+        public Dictionary<BondInput, Action<InputAction.CallbackContext>> BondInputsDict { get; }
 
         // sticks
-        void OnMovementInput(InputAction.CallbackContext context); // left stick
-        void OnDirectionInput(InputAction.CallbackContext context); // right stick
+        public void OnMovementInput(InputAction.CallbackContext context); // left stick
+        public void OnDirectionInput(InputAction.CallbackContext context); // right stick
 
         // buttons
-        void OnNorthButtonInput(InputAction.CallbackContext context); // Y button
-        void OnSouthButtonInput(InputAction.CallbackContext context); // A button
-        void OnEastButtonInput(InputAction.CallbackContext context); // B button
-        void OnWestButtonInput(InputAction.CallbackContext context); // X button
+        public void OnNorthButtonInput(InputAction.CallbackContext context); // Y button
+        public void OnSouthButtonInput(InputAction.CallbackContext context); // A button
+        public void OnEastButtonInput(InputAction.CallbackContext context); // B button
+        public void OnWestButtonInput(InputAction.CallbackContext context); // X button
 
         // bumpers and triggers
-        void OnLeftBumperInput(InputAction.CallbackContext context); // LB button
-        void OnRightBumperInput(InputAction.CallbackContext context); // RB button
-        void OnLeftTriggerInput(InputAction.CallbackContext context); // LT button
-        void OnRightTriggerInput(InputAction.CallbackContext context); // LT button
+        public void OnLeftBumperInput(InputAction.CallbackContext context); // LB button
+        public void OnRightBumperInput(InputAction.CallbackContext context); // RB button
+        public void OnLeftTriggerInput(InputAction.CallbackContext context); // LT button
+        public void OnRightTriggerInput(InputAction.CallbackContext context); // RT button
+        #endregion
+
+        #region Bonding
+        public void OnBonded();
+        public void OnUnbonded();
         #endregion
     }
 
