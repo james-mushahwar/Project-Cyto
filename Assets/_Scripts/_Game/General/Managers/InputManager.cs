@@ -10,6 +10,7 @@ namespace _Scripts._Game.General.Managers{
     {
         Menu,
         Player,
+        BondedPlayer,
     }
 
     public class InputManager : Singleton<InputManager>
@@ -35,6 +36,9 @@ namespace _Scripts._Game.General.Managers{
                 case EInputSystem.Player:
                     _playerInput.Player.Enable();
                     break;
+                case EInputSystem.BondedPlayer:
+                    _playerInput.BondedPlayer.Enable();
+                    break;
                 default:
                     break;
             }
@@ -50,6 +54,9 @@ namespace _Scripts._Game.General.Managers{
                     break;
                 case EInputSystem.Player:
                     _playerInput.Player.Disable();
+                    break;
+                case EInputSystem.BondedPlayer:
+                    _playerInput.BondedPlayer.Disable();
                     break;
                 default:
                     break;

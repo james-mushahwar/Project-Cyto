@@ -540,6 +540,322 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""BondedPlayer"",
+            ""id"": ""267a358b-cd68-405f-b6f4-99dcafe78042"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""1e815a54-03e7-472a-a07d-c516016a5148"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Direction"",
+                    ""type"": ""Value"",
+                    ""id"": ""ef17322c-fef7-439d-8188-0f62110b1752"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""NorthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a1916ec-7f05-420f-99dd-14cc1120f646"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SouthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""6e130bd3-df42-494a-afb2-1c72cf941a8d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EastButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""65f27a78-c031-4c90-a94b-fa5cc088e7e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WestButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0d85371-1479-4c72-ad13-1f11647a51b6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftBumper"",
+                    ""type"": ""Button"",
+                    ""id"": ""32808ad3-4efb-4bf5-9279-fa624827e244"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightBumper"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2e69619-d6a5-4f4b-9a35-5ed6f474eda4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b0cd893-a086-48c3-9ef5-41c31eebe217"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a775050-5974-4a89-a4a5-5e9fdbbb10fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a68d067a-eb01-49ab-96de-0620a42857d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8f28d059-a7dd-4562-a383-91029c473b0d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53834998-5b62-4907-af8e-a458bf84f0b9"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4611ea8-49aa-424b-a694-a3f25278a95f"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RightTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2eb9581-d201-41ef-9d7a-ebb50992cd5f"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RightBumper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e1f6d7b-074b-425a-a286-8a567405e9e8"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""RightBumper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""15873373-3e56-4b54-a8d1-19517036d707"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f3bb33f1-8029-4db2-aa8a-8e50d13fc8ef"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""eeb707b0-2c15-4875-ab3d-462d3fd7daba"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""e53c9760-f42d-4245-a595-9a0e416a7f12"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""317baad1-c553-466e-9f50-a3d371882365"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""133219f2-3edd-4fac-b350-f5eea64f6d89"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee81bdaa-8c26-4dc2-83f9-1a0a3084a695"",
+                    ""path"": ""*/{Menu}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4b57af7-ac11-4094-85f6-42e7ee958892"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c0d95ba-2488-4e9f-b95b-e613178dc195"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2218198-88eb-4308-9eae-06d046122ba0"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""NorthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0f34aa7-c508-4c11-8fcf-d17f07e895ae"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""WestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53799b4e-aacd-4530-a628-e627f4f844cb"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LeftBumper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d84b3a78-8e06-4300-94a7-d0b671b7dd2c"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LeftTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c20d080-ac27-4188-a85c-ee37e23dafb9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""EastButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -589,6 +905,19 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Direction = m_Player.FindAction("Direction", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        // BondedPlayer
+        m_BondedPlayer = asset.FindActionMap("BondedPlayer", throwIfNotFound: true);
+        m_BondedPlayer_Movement = m_BondedPlayer.FindAction("Movement", throwIfNotFound: true);
+        m_BondedPlayer_Direction = m_BondedPlayer.FindAction("Direction", throwIfNotFound: true);
+        m_BondedPlayer_NorthButton = m_BondedPlayer.FindAction("NorthButton", throwIfNotFound: true);
+        m_BondedPlayer_SouthButton = m_BondedPlayer.FindAction("SouthButton", throwIfNotFound: true);
+        m_BondedPlayer_EastButton = m_BondedPlayer.FindAction("EastButton", throwIfNotFound: true);
+        m_BondedPlayer_WestButton = m_BondedPlayer.FindAction("WestButton", throwIfNotFound: true);
+        m_BondedPlayer_LeftBumper = m_BondedPlayer.FindAction("LeftBumper", throwIfNotFound: true);
+        m_BondedPlayer_RightBumper = m_BondedPlayer.FindAction("RightBumper", throwIfNotFound: true);
+        m_BondedPlayer_LeftTrigger = m_BondedPlayer.FindAction("LeftTrigger", throwIfNotFound: true);
+        m_BondedPlayer_RightTrigger = m_BondedPlayer.FindAction("RightTrigger", throwIfNotFound: true);
+        m_BondedPlayer_Pause = m_BondedPlayer.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -798,6 +1127,119 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // BondedPlayer
+    private readonly InputActionMap m_BondedPlayer;
+    private IBondedPlayerActions m_BondedPlayerActionsCallbackInterface;
+    private readonly InputAction m_BondedPlayer_Movement;
+    private readonly InputAction m_BondedPlayer_Direction;
+    private readonly InputAction m_BondedPlayer_NorthButton;
+    private readonly InputAction m_BondedPlayer_SouthButton;
+    private readonly InputAction m_BondedPlayer_EastButton;
+    private readonly InputAction m_BondedPlayer_WestButton;
+    private readonly InputAction m_BondedPlayer_LeftBumper;
+    private readonly InputAction m_BondedPlayer_RightBumper;
+    private readonly InputAction m_BondedPlayer_LeftTrigger;
+    private readonly InputAction m_BondedPlayer_RightTrigger;
+    private readonly InputAction m_BondedPlayer_Pause;
+    public struct BondedPlayerActions
+    {
+        private @PlayerInput m_Wrapper;
+        public BondedPlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_BondedPlayer_Movement;
+        public InputAction @Direction => m_Wrapper.m_BondedPlayer_Direction;
+        public InputAction @NorthButton => m_Wrapper.m_BondedPlayer_NorthButton;
+        public InputAction @SouthButton => m_Wrapper.m_BondedPlayer_SouthButton;
+        public InputAction @EastButton => m_Wrapper.m_BondedPlayer_EastButton;
+        public InputAction @WestButton => m_Wrapper.m_BondedPlayer_WestButton;
+        public InputAction @LeftBumper => m_Wrapper.m_BondedPlayer_LeftBumper;
+        public InputAction @RightBumper => m_Wrapper.m_BondedPlayer_RightBumper;
+        public InputAction @LeftTrigger => m_Wrapper.m_BondedPlayer_LeftTrigger;
+        public InputAction @RightTrigger => m_Wrapper.m_BondedPlayer_RightTrigger;
+        public InputAction @Pause => m_Wrapper.m_BondedPlayer_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_BondedPlayer; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BondedPlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IBondedPlayerActions instance)
+        {
+            if (m_Wrapper.m_BondedPlayerActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnMovement;
+                @Direction.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnDirection;
+                @Direction.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnDirection;
+                @Direction.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnDirection;
+                @NorthButton.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnNorthButton;
+                @NorthButton.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnNorthButton;
+                @NorthButton.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnNorthButton;
+                @SouthButton.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnSouthButton;
+                @SouthButton.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnSouthButton;
+                @SouthButton.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnSouthButton;
+                @EastButton.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnEastButton;
+                @EastButton.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnEastButton;
+                @EastButton.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnEastButton;
+                @WestButton.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnWestButton;
+                @WestButton.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnWestButton;
+                @WestButton.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnWestButton;
+                @LeftBumper.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnLeftBumper;
+                @LeftBumper.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnLeftBumper;
+                @LeftBumper.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnLeftBumper;
+                @RightBumper.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnRightBumper;
+                @RightBumper.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnRightBumper;
+                @RightBumper.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnRightBumper;
+                @LeftTrigger.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnLeftTrigger;
+                @LeftTrigger.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnLeftTrigger;
+                @LeftTrigger.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnLeftTrigger;
+                @RightTrigger.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnRightTrigger;
+                @RightTrigger.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnRightTrigger;
+                @RightTrigger.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnRightTrigger;
+                @Pause.started -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_BondedPlayerActionsCallbackInterface.OnPause;
+            }
+            m_Wrapper.m_BondedPlayerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Direction.started += instance.OnDirection;
+                @Direction.performed += instance.OnDirection;
+                @Direction.canceled += instance.OnDirection;
+                @NorthButton.started += instance.OnNorthButton;
+                @NorthButton.performed += instance.OnNorthButton;
+                @NorthButton.canceled += instance.OnNorthButton;
+                @SouthButton.started += instance.OnSouthButton;
+                @SouthButton.performed += instance.OnSouthButton;
+                @SouthButton.canceled += instance.OnSouthButton;
+                @EastButton.started += instance.OnEastButton;
+                @EastButton.performed += instance.OnEastButton;
+                @EastButton.canceled += instance.OnEastButton;
+                @WestButton.started += instance.OnWestButton;
+                @WestButton.performed += instance.OnWestButton;
+                @WestButton.canceled += instance.OnWestButton;
+                @LeftBumper.started += instance.OnLeftBumper;
+                @LeftBumper.performed += instance.OnLeftBumper;
+                @LeftBumper.canceled += instance.OnLeftBumper;
+                @RightBumper.started += instance.OnRightBumper;
+                @RightBumper.performed += instance.OnRightBumper;
+                @RightBumper.canceled += instance.OnRightBumper;
+                @LeftTrigger.started += instance.OnLeftTrigger;
+                @LeftTrigger.performed += instance.OnLeftTrigger;
+                @LeftTrigger.canceled += instance.OnLeftTrigger;
+                @RightTrigger.started += instance.OnRightTrigger;
+                @RightTrigger.performed += instance.OnRightTrigger;
+                @RightTrigger.canceled += instance.OnRightTrigger;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+            }
+        }
+    }
+    public BondedPlayerActions @BondedPlayer => new BondedPlayerActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -833,6 +1275,20 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnBond(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDirection(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IBondedPlayerActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnDirection(InputAction.CallbackContext context);
+        void OnNorthButton(InputAction.CallbackContext context);
+        void OnSouthButton(InputAction.CallbackContext context);
+        void OnEastButton(InputAction.CallbackContext context);
+        void OnWestButton(InputAction.CallbackContext context);
+        void OnLeftBumper(InputAction.CallbackContext context);
+        void OnRightBumper(InputAction.CallbackContext context);
+        void OnLeftTrigger(InputAction.CallbackContext context);
+        void OnRightTrigger(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
     }
 }

@@ -18,6 +18,7 @@ namespace _Scripts._Game.AI.Bonding{
         RBumper,
         LTrigger,
         RTrigger,
+        COUNT
     }
 
     public interface IBondable

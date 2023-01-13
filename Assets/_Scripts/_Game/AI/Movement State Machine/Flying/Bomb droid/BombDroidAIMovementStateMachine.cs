@@ -1,7 +1,8 @@
-﻿using _Scripts._Game.General;
+﻿using _Scripts._Game.AI.Bonding;
+using _Scripts._Game.General;
+using _Scripts._Game.General.Managers;
 using Pathfinding;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,7 +52,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
             CurrentState = _states.GetState(AIMovementState.Idle);
 
-            BondInputsDict.Add(Bonding.BondInput.Movement, OnMovementInput);
+            BondInputsDict.Add(BondInput.Movement, OnMovementInput);
         }
 
         protected override void Start()
@@ -93,14 +94,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         }
 
-        public override void OnBonded()
-        {
-
-        }
-        public override void OnUnbonded()
-        {
-
-        }
     }
     
 }
