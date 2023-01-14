@@ -41,7 +41,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             }
             else
             {
-                _ctx.CurrentState = newState;
+                _ctx.AbilityAttackCurrentState = newState;
             }
         }
 

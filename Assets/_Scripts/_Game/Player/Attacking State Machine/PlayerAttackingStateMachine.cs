@@ -23,10 +23,10 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         #endregion
 
         #region State Machine
-        private BaseAttackingState _currentState; // states that determine player movement
+        private BaseAttackingState _abilityAttackCurrentState; // states that determine player movement
         private BaseAttackingState _basicAttackCurrentState; // just for X attack - doesn't affect movement
 
-        public BaseAttackingState CurrentState { get => _currentState; set => _currentState = value; }
+        public BaseAttackingState AbilityAttackCurrentState { get => _abilityAttackCurrentState; set => _abilityAttackCurrentState = value; }
         public BaseAttackingState BasicAttackCurrentState { get => _basicAttackCurrentState; set => _basicAttackCurrentState = value; }
 
         private PlayerAttackingStateMachineFactory _states;
@@ -36,13 +36,14 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         [SerializeField]
         private int _basicComboLimit;
         [SerializeField]
-        private int[] _basicComboWaitTimes = new int[5]; // wait for next combo to be ready
-        private int[] _basicComboBufferTimes = new int[5]; // how long can the buffer be open for the next combo
+        private float[] _basicComboWaitTimes = new float[5]; // wait for next combo to be ready
+        [SerializeField]
+        private float[] _basicComboBufferTimes = new float[5]; // how long can the buffer be open for the next combo
         private int _currentBasicAttackCombo = 0;
 
         public int BasicComboLimit { get => _basicComboLimit; }
-        public int[] BasicComboWaitTimes { get => _basicComboWaitTimes; }
-        public int[] BasicComboBufferTimes { get => _basicComboBufferTimes; }
+        public float[] BasicComboWaitTimes { get => _basicComboWaitTimes; }
+        public float[] BasicComboBufferTimes { get => _basicComboBufferTimes; }
         public int CurrentBasicAttackCombo { get => _currentBasicAttackCombo; set => _currentBasicAttackCombo = value; }
         #endregion
 
@@ -55,13 +56,17 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             playerInput.Player.Attack.started += OnAttackInput;
             playerInput.Player.Attack.canceled += OnAttackInput;
 
+            _states = new PlayerAttackingStateMachineFactory(this);
+            _basicAttackCurrentState = _states.GetState(AttackingState.Basic_Idle);
+            //_abilityAttackCurrentState = _states.GetState(AttackingState.Ability_Idle);
+
             PlayerEntity.Instance.AttackingSM = this;
         }
 
         void FixedUpdate()
         {
             _basicAttackCurrentState.ManagedStateTick();
-            _currentState.ManagedStateTick();
+            //_abilityAttackCurrentState.ManagedStateTick();
         }
 
         void OnAttackInput(InputAction.CallbackContext context)

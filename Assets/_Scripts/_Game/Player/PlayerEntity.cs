@@ -41,7 +41,7 @@ namespace _Scripts._Game.Player{
 
         void OnDisable()
         {
-            InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
+            //InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
         }
 
         // IPossessable

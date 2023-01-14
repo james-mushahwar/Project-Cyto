@@ -7,7 +7,8 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
     public class BasicAttackAttackingState : BaseAttackingState
     {
         private float _comboWaitDuration;
-        private float _comboBufferDuration;
+        private float _comboBufferStartTime;
+        private bool _isAttackBuffered;
 
         public BasicAttackAttackingState(PlayerAttackingStateMachine ctx, PlayerAttackingStateMachineFactory factory) : base(ctx, factory)
         {
@@ -15,16 +16,53 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public override bool CheckSwitchStates()
         {
+            if (_stateTimer >= _comboBufferStartTime && _isAttackBuffered == false)
+            {
+                if (_ctx.IsAttackInputValid == true)
+                {
+                    _isAttackBuffered = true;
+                }
+            }
+
+            if (_stateTimer >= _comboWaitDuration)
+            {
+                if (_isAttackBuffered)
+                {
+                    if (_ctx.CurrentBasicAttackCombo >= _ctx.BasicComboLimit)
+                    {
+                        SwitchStates(_factory.GetState(AttackingState.Basic_Idle));
+                        return true;
+                    }
+                    else
+                    {
+                        SwitchStates(_factory.GetState(AttackingState.Basic_Attack));
+                        return true;
+                    }
+                }
+                else
+                {
+                    SwitchStates(_factory.GetState(AttackingState.Basic_Idle));
+                    return true;
+                }
+            }
+
             return false;
         }
 
         public override void EnterState()
         {
             _stateTimer = 0.0f;
+
             int comboIndex = _ctx.CurrentBasicAttackCombo;
             _comboWaitDuration = _ctx.BasicComboWaitTimes[comboIndex];
-            _comboBufferDuration = _ctx.BasicComboBufferTimes[comboIndex];
+            _comboBufferStartTime = _comboWaitDuration - _ctx.BasicComboBufferTimes[comboIndex];
+            _isAttackBuffered = false;
+
             _ctx.CurrentBasicAttackCombo++;
+
+            _ctx.NullifyInput(AttackingState.Basic_Attack);
+
+            Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
         }
 
         public override void ExitState()
@@ -39,7 +77,12 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public override void ManagedStateTick()
         {
-            return;
+            _stateTimer += Time.deltaTime;
+            
+            if (CheckSwitchStates() == false)
+            {
+
+            }
         }
     }
 

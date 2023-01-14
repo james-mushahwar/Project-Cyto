@@ -2504,10 +2504,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera Holder
       objectReference: {fileID: 0}
-    - target: {fileID: 6544084828957508064, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
-      propertyPath: orthographic size
-      value: 16.875
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
