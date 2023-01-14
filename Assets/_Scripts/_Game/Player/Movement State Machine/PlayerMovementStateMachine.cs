@@ -252,24 +252,13 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public Collider2D ClosestCollider { get => _closestCollider; }
     #endregion
 
-    #region External References
-    private PlayerEntity _playerEntity;
-
-    public PlayerEntity PlayerEntity { get => _playerEntity; }
-    #endregion
-
     protected override void Awake()
     {
         base.Awake();
 
         _states = new PlayerMovementStateMachineFactory(this);
         _currentState = _states.GetState(MovementState.Grounded);
-
-        _playerEntity = GetComponent<PlayerEntity>();
-        if (_playerEntity)
-        {
-            _playerEntity.MovementSM = this;
-        }
+        PlayerEntity.Instance.MovementSM = this;
     }
 
     void OnEnable()

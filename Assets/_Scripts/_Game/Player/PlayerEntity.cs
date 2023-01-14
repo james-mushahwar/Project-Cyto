@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.Player{
     
-    public class PlayerEntity : Singleton<PlayerEntity>
+    public class PlayerEntity : Singleton<PlayerEntity>, IPossessable
     {
         #region State Machines
         private PlayerMovementStateMachine _movementSM;
@@ -31,6 +31,22 @@ namespace _Scripts._Game.Player{
             base.Awake();
 
             _playerHealthStats = new PlayerHealthStats(10.0f, 10.0f);
+        }
+
+        // IPossessable
+        public void OnPossess()
+        {
+            // return possesssion of player
+        }
+
+        public void OnDispossess()
+        {
+            // dispossess this player for something else
+        }
+
+        public HealthStats GetHealthStats()
+        {
+            return _playerHealthStats;
         }
     }
     

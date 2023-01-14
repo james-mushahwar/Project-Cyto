@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.Animation.Character.Player {
     
-    public class PlayerSpriteAnimator : MonoBehaviour
+    public class PlayerSpriteAnimator : SpriteAnimator
     {
         // Start is called before the first frame update
         void Start()
@@ -16,6 +16,11 @@ namespace _Scripts._Game.Animation.Character.Player {
         void Update()
         {
             
+        }
+
+        protected override int GetState()
+        {
+            throw new System.NotImplementedException();
         }
     }
     

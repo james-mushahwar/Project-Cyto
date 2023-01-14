@@ -1,0 +1,14 @@
+﻿using _Scripts._Game.General;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace _Scripts._Game.Player{
+    
+    public interface IPossessable
+    {
+        void OnPossess();
+        void OnDispossess();
+        HealthStats GetHealthStats();
+    }
+}

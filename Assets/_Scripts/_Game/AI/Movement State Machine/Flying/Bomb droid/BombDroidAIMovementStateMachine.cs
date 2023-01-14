@@ -88,12 +88,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             SaveData saveData = (SaveData)state;
         }
 
-        // IBondable
-        public override void OnMovementInput(InputAction.CallbackContext context)
-        {
-
-        }
-
     }
     
 }

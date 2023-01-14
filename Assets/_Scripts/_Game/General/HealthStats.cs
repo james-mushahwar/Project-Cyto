@@ -30,6 +30,11 @@ namespace _Scripts._Game.General{
 
         public abstract float AddHitPoints(int amount, bool react = false);
         public abstract float RemoveHitPoints(int amount, bool react = false);
+
+        public bool IsAlive()
+        {
+            return (HitPoints > 0.0f);
+        }
     }
 
     public class PlayerHealthStats : HealthStats, ISaveable

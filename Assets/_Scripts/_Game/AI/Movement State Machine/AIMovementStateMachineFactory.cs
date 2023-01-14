@@ -12,13 +12,26 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         Wake,
         Idle,
         Patrol,
-        Chase
+        Chase,
+        Attack,
+        Bonded,
+    }
+
+    public enum AIBondedMovementState
+    {
+        Grounded,
+        Jumping,
+        Falling, 
+        Flying,
+        Dashing,
+        Attacking
     }
 
     public class AIMovementStateMachineFactory
     {
         private AIMovementStateMachineBase _moveStateMachine;
         private Dictionary<AIMovementState, BaseAIMovementState> _stateDict = new Dictionary<AIMovementState, BaseAIMovementState>();
+        private Dictionary<AIBondedMovementState, BaseAIBondedMovementState> _bondedStateDict = new Dictionary<AIBondedMovementState, BaseAIBondedMovementState>();
 
         public AIMovementStateMachineFactory(AIMovementStateMachineBase sm)
         {
@@ -31,6 +44,8 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                 _stateDict.Add(AIMovementState.Idle,   new BombDroidIdleAIMovementState(sm, this));
                 _stateDict.Add(AIMovementState.Patrol, new BombDroidPatrolAIMovementState(sm, this));
                 _stateDict.Add(AIMovementState.Chase,  new BombDroidChaseAIMovementState(sm, this));
+
+                //_bondedStateDict.Add(AIBondedMovementState.Flying, )
             }
         }
 
@@ -52,5 +67,22 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             return AIMovementState.Idle;
         }
 
+        public BaseAIBondedMovementState GetState(AIBondedMovementState state)
+        {
+            return _bondedStateDict[state];
+        }
+
+        public AIBondedMovementState GetMovementStateEnum(BaseAIBondedMovementState state)
+        {
+            foreach (KeyValuePair<AIBondedMovementState, BaseAIBondedMovementState> entry in _bondedStateDict)
+            {
+                if (entry.Value == state)
+                {
+                    return entry.Key;
+                }
+            }
+
+            return AIBondedMovementState.Grounded;
+        }
     }
 }

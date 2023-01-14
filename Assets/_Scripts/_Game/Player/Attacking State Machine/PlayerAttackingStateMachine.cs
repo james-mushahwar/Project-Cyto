@@ -16,21 +16,11 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         public BaseAttackingState CurrentState { get => _currentState; set => _currentState = value; }
         #endregion
 
-        #region External References
-        private PlayerEntity _playerEntity;
-
-        public PlayerEntity PlayerEntity { get => _playerEntity; }
-        #endregion
-
         protected override void Awake()
         {
             base.Awake();
 
-            _playerEntity = GetComponent<PlayerEntity>();
-            if (_playerEntity)
-            {
-                _playerEntity.AttackingSM = this;
-            }
+            PlayerEntity.Instance.AttackingSM = this;
         }
 
         // Start is called before the first frame update
