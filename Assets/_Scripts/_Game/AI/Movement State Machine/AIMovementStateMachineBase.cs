@@ -5,6 +5,7 @@ using _Scripts._Game.AI.Bonding;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.Player;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
@@ -73,10 +74,21 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public Dictionary<BondInput, Action<InputAction.CallbackContext>> BondInputsDict { get => _bondInputsDict; }
         #endregion
 
+        #region AI Entity
+        private AIEntity _entity;
+
+        public AIEntity Entity { get => _entity; }
+        #endregion
+
         protected virtual void Awake()
         {
             _states = new AIMovementStateMachineFactory(this);
-            //_currentState = _states.GetState(MovementState.Grounded);
+
+            _entity = GetComponent<AIEntity>();
+            if (_entity)
+            {
+                _entity.MovementSM = this;
+            }
         }
 
         // Start is called before the first frame update

@@ -13,6 +13,9 @@ namespace _Scripts._Game.AI{
         #region State Machines
         private AIMovementStateMachineBase _movementSM;
         private SpriteAnimator _spriteAnimator;
+
+        public AIMovementStateMachineBase MovementSM { get => _movementSM; set => _movementSM = value; }
+        public SpriteAnimator SpriteAnimator { get => _spriteAnimator; set => _spriteAnimator = value; }
         #endregion
 
         #region AI Components

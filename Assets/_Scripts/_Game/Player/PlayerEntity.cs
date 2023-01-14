@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.Animation;
 using _Scripts._Game.Animation.Character.Player;
 using _Scripts._Game.General;
+using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player.AttackingStateMachine;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,16 @@ namespace _Scripts._Game.Player{
             base.Awake();
 
             _playerHealthStats = new PlayerHealthStats(10.0f, 10.0f);
+        }
+
+        void OnEnable()
+        {
+            InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
+        }
+
+        void OnDisable()
+        {
+            InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
         }
 
         // IPossessable

@@ -35,7 +35,14 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             newState.EnterState();
 
-            _ctx.CurrentState = newState;
+            if (this is BasicAttackAttackingState || this is BasicAttackIdleState)
+            {
+                _ctx.BasicAttackCurrentState = newState;
+            }
+            else
+            {
+                _ctx.CurrentState = newState;
+            }
         }
 
         void SetSuperState() { }

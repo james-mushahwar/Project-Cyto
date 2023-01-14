@@ -256,17 +256,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         base.Awake();
 
-        _states = new PlayerMovementStateMachineFactory(this);
-        _currentState = _states.GetState(MovementState.Grounded);
-        PlayerEntity.Instance.MovementSM = this;
-    }
-
-    void OnEnable()
-    {
         PlayerInput playerInput = InputManager.Instance.PlayerInput;
-
-        //playerInput.Player.Enable();
-
         // set up player input callbacks
         playerInput.Player.Movement.started += OnMovementInput;
         playerInput.Player.Movement.canceled += OnMovementInput;
@@ -295,11 +285,15 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
         playerInput.Player.Pause.performed += OnPauseInput;
 
-        InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
+        _states = new PlayerMovementStateMachineFactory(this);
+        _currentState = _states.GetState(MovementState.Grounded);
+
+        PlayerEntity.Instance.MovementSM = this;
     }
 
     void OnDisable()
     {
+        #region Comment - Disable Player Input callbacks
         //PlayerInput playerInput = InputManager.Instance.PlayerInput;
 
         //// set up player input callbacks
@@ -327,8 +321,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
         //playerInput.Player.Bond.started -= OnBondInput;
         //playerInput.Player.Bond.canceled -= OnBondInput;
-
-        //InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
+        #endregion
     }
 
     // Start is called before the first frame update
