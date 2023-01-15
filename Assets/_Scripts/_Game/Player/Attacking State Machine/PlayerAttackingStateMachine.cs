@@ -38,11 +38,14 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         [SerializeField]
         private float[] _basicComboWaitTimes = new float[5]; // wait for next combo to be ready
         [SerializeField]
+        private float[] _basicComboElapseTimes = new float[5]; // wait to return to idle state
+        [SerializeField]
         private float[] _basicComboBufferTimes = new float[5]; // how long can the buffer be open for the next combo
         private int _currentBasicAttackCombo = 0;
 
         public int BasicComboLimit { get => _basicComboLimit; }
         public float[] BasicComboWaitTimes { get => _basicComboWaitTimes; }
+        public float[] BasicComboElapseTimes { get => _basicComboElapseTimes; }
         public float[] BasicComboBufferTimes { get => _basicComboBufferTimes; }
         public int CurrentBasicAttackCombo { get => _currentBasicAttackCombo; set => _currentBasicAttackCombo = value; }
         #endregion

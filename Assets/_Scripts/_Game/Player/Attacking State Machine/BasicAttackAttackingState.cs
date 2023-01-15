@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace _Scripts._Game.Player.AttackingStateMachine{
@@ -7,6 +8,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
     public class BasicAttackAttackingState : BaseAttackingState
     {
         private float _comboWaitDuration;
+        private float _comboElapseTime;
         private float _comboBufferStartTime;
         private bool _isAttackBuffered;
 
@@ -28,18 +30,14 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             {
                 if (_isAttackBuffered)
                 {
-                    if (_ctx.CurrentBasicAttackCombo >= _ctx.BasicComboLimit)
-                    {
-                        SwitchStates(_factory.GetState(AttackingState.Basic_Idle));
-                        return true;
-                    }
-                    else
+                    if (_ctx.CurrentBasicAttackCombo < _ctx.BasicComboLimit)
                     {
                         SwitchStates(_factory.GetState(AttackingState.Basic_Attack));
                         return true;
                     }
                 }
-                else
+                
+                if (_stateTimer >= _comboElapseTime)
                 {
                     SwitchStates(_factory.GetState(AttackingState.Basic_Idle));
                     return true;
@@ -55,6 +53,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             int comboIndex = _ctx.CurrentBasicAttackCombo;
             _comboWaitDuration = _ctx.BasicComboWaitTimes[comboIndex];
+            _comboElapseTime = _ctx.BasicComboElapseTimes[comboIndex];
             _comboBufferStartTime = _comboWaitDuration - _ctx.BasicComboBufferTimes[comboIndex];
             _isAttackBuffered = false;
 
@@ -62,6 +61,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             _ctx.NullifyInput(AttackingState.Basic_Attack);
 
+            Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
             Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
         }
 
