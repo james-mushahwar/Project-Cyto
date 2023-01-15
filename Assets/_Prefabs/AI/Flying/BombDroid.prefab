@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8527710219251885142}
   - component: {fileID: 8527710219251885141}
   - component: {fileID: 8527710219251885140}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: BombDroid Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 8527710219603585255}
   - component: {fileID: 8527710219603585277}
   - component: {fileID: 8527710219603585273}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: BombDroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ Transform:
   m_Children:
   - {fileID: 8527710219251885143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2639065142676816087
 MonoBehaviour:

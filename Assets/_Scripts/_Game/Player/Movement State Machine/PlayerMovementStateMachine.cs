@@ -4,6 +4,7 @@ using _Scripts._Game.General;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using System.Collections.Generic;
 
 public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>, ISaveable
 {
@@ -239,6 +240,16 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public Vector3 BouncingPowerMultiplier { get => _bouncingPowerMultiplier; }
     public Vector2 BouncingChargeDirection { get => _bouncingChargeDirection; }
 
+    [Header("Bonding properties")]
+    [SerializeField]
+    private float _bondingOverlapRange;
+    [SerializeField]
+    private ContactFilter2D _bondingContactFilter;
+
+    private Collider2D[] _aiColliders = new Collider2D[20];
+    private IPossessable _bondableTarget;
+    public IPossessable BondableTarget { get => _bondableTarget; set => _bondableTarget = value; }
+
     [Header("Collision detection")]
     [SerializeField]
     private Collider2D _closestCollider;
@@ -413,6 +424,26 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
             return true;
         }
         return false;
+    }
+
+    IPossessable FindBestPossessable()
+    {
+        int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _bondingOverlapRange, _bondingContactFilter, _aiColliders);
+
+        if (aiOverlapCount > 0)
+        {
+            float bestScore = -10000000.0f;
+            IPossessable bestPossessable = null;
+            return null;
+            foreach (Collider2D col in _aiColliders)
+            {
+                
+            }
+        }
+        else
+        {
+            return null;
+        }
     }
 
     void ClosestColliderToDirectionCheck()
