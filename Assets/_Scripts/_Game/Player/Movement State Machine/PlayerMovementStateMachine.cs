@@ -245,6 +245,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _bondingOverlapRange;
     [SerializeField]
     private ContactFilter2D _bondingContactFilter;
+    [SerializeField]
+    private float _maxDotProductScore;
+    [SerializeField]
+    private float _maxDistanceScore;
 
     private Collider2D[] _aiColliders = new Collider2D[20];
     private IPossessable _bondableTarget;
@@ -434,11 +438,42 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         {
             float bestScore = -10000000.0f;
             IPossessable bestPossessable = null;
-            return null;
+            IPossessable currentPossessable = null; 
+
             foreach (Collider2D col in _aiColliders)
             {
-                
+                GameObject currentGO = col.gameObject;
+                currentPossessable = currentGO.GetComponent<IPossessable>();
+
+                if (currentPossessable != null)
+                {
+                    if (currentPossessable.CanBePossessed() == false)
+                    {   
+                        continue;
+                    }
+
+                    if (bestPossessable == null)
+                    {
+                        bestPossessable = currentPossessable;
+                        continue;
+                    }
+
+                    // calculate then compare scores
+                    float currentScore = 0.0f;
+                    float currentDistanceScore = 0.0f;
+                    float currenDotProductScore = 0.0f;
+                    // dot poduct aim direction
+                    if (Mathf.Abs(_currentMovementInput.x) > 0.0f || Mathf.Abs(_currentMovementInput.y) > 0.0f)
+                    {
+                        Vector2 inputNormalDirection = _currentMovementInput; //TO-DO: make normalised
+                        Vector2 directionPlayerToPossessable = ((Vector2)currentGO.transform.position - Rb.position); //TO-DO: make normalised
+
+
+                    }
+                }
             }
+
+            return bestPossessable;
         }
         else
         {

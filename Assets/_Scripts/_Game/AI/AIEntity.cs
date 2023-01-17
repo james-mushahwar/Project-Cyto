@@ -10,6 +10,7 @@ namespace _Scripts._Game.AI{
     
     public class AIEntity : MonoBehaviour, IPossessable
     {
+        private bool _isPossessed;
         #region State Machines
         private AIMovementStateMachineBase _movementSM;
         private SpriteAnimator _spriteAnimator;
@@ -30,19 +31,36 @@ namespace _Scripts._Game.AI{
         }
 
         // IPossessable
-        public void OnDispossess()
+        public bool IsPossessed()
         {
-            // dispossess this AI
+            return _isPossessed;
         }
-
+        public bool CanBePossessed()
+        {
+            return true;
+        }
         public void OnPossess()
         {
             // possess control of this AI
         }
-
+        public void OnDispossess()
+        {
+            // dispossess this AI
+        }
         public HealthStats GetHealthStats()
         {
             return _enemyHealthStats;
+        }
+        public Vector2 GetMovementInput()
+        {
+            if (_isPossessed)
+            {
+                return _movementSM.CurrentMovementInput;
+            }
+            else
+            {
+                return new Vector2(0,0);
+            }
         }
     }
     
