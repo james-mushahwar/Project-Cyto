@@ -51,6 +51,9 @@ namespace _Scripts._Game.AI{
         {
             return _enemyHealthStats;
         }
+
+        public Transform PossessableTransform { get => transform; }
+
         public Vector2 GetMovementInput()
         {
             if (_isPossessed)

@@ -358,6 +358,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void FixedUpdate()
     {
+        _bondableTarget = FindBestPossessable();
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
         IsFacingRightCheck();
@@ -436,7 +437,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
         if (aiOverlapCount > 0)
         {
-            float bestScore = -10000000.0f;
+            float bestScore = -1.0f;
             IPossessable bestPossessable = null;
             IPossessable currentPossessable = null; 
 
@@ -459,16 +460,12 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
                     }
 
                     // calculate then compare scores
-                    float currentScore = 0.0f;
-                    float currentDistanceScore = 0.0f;
-                    float currenDotProductScore = 0.0f;
+                    float currentScore = TargetManager.Instance.GetPossessableTargetScore(PlayerEntity.Instance, currentPossessable);
                     // dot poduct aim direction
-                    if (Mathf.Abs(_currentMovementInput.x) > 0.0f || Mathf.Abs(_currentMovementInput.y) > 0.0f)
+                    if (currentScore > bestScore)
                     {
-                        Vector2 inputNormalDirection = _currentMovementInput; //TO-DO: make normalised
-                        Vector2 directionPlayerToPossessable = ((Vector2)currentGO.transform.position - Rb.position); //TO-DO: make normalised
-
-
+                        bestScore = currentScore;
+                        bestPossessable = currentPossessable;
                     }
                 }
             }

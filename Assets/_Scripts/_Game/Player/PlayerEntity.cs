@@ -51,24 +51,31 @@ namespace _Scripts._Game.Player{
         {
             return _isPossessed;
         }
+
         public bool CanBePossessed()
         {
             return false;
         }
+
         public void OnPossess()
         {
             // return possesssion of player
             _isPossessed = true;
         }
+
         public void OnDispossess()
         {
             // dispossess this player for something else
             _isPossessed = false;
         }
+
         public HealthStats GetHealthStats()
         {
             return _playerHealthStats;
         }
+
+        public Transform PossessableTransform { get => transform; }
+
         public Vector2 GetMovementInput()
         {
             return _movementSM.CurrentMovementInput;

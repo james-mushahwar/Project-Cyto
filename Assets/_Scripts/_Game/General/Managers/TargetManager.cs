@@ -17,6 +17,43 @@ namespace _Scripts._Game.General.Managers{
 
     public class TargetManager : Singleton<TargetManager> 
     {
+        [System.Serializable]
+        private struct TargetingParameters
+        {
+            [Header("Target parameters")]
+            [SerializeField]
+            ETargetType _targetType;
+            [SerializeField]
+            float _maxSqDistance;
+            [SerializeField]
+            float _minDotProduct;
+
+            [Header("Score Multiplers")]
+            [SerializeField]
+            float _threatScoreMultiplier;
+            [SerializeField]
+            float _angleScoreMultiplier;
+            [SerializeField]
+            float _distanceScoreMultiplier;
+
+            [Header("Modifiers")]
+            [SerializeField]
+            bool _ignoreDotProductScore;
+            [SerializeField]
+            bool _ignoreDistanceScore;
+
+            public ETargetType TargetType { get => _targetType; }
+            public float MaxSqDistance { get => _maxSqDistance; }
+            public float MinDotProduct { get => _minDotProduct; }
+
+            public float ThreatScoreMultiplier { get => _threatScoreMultiplier; }
+            public float AngleScoreMultiplier { get => _angleScoreMultiplier; }
+            public float DistanceScoreMultiplier { get => _distanceScoreMultiplier; }
+
+            public bool IgnoreDotProductScore { get => _ignoreDotProductScore; }
+            public bool IgnoreDistanceScore { get => _ignoreDistanceScore; }
+        }
+
         private Dictionary<ETargetType, ITarget> _targetsDict = new Dictionary<ETargetType, ITarget>();
 
         [Header("Targeting Parameters")]
@@ -35,11 +72,49 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public float GetTargetScore(ETargetType targetType, Transform targetTransform, IPossessable possessable)
+        public float GetPossessableTargetScore(IPossessable pInstigator, IPossessable pTarget)
         {
-            TargetingParameters tp = GetTargetingParameters(targetType);
-            //Vector2 inputDirection =;
-            return 1.0f;
+            TargetingParameters tp = GetTargetingParameters(ETargetType.Possessable);
+            Vector2 inputDirection = pInstigator.GetMovementInput();
+
+            float finalScore = 0.0f;
+            float distanceScore = 0.0f;
+            float angleScore = 0.0f;
+
+            Vector2 targetVector = pTarget.PossessableTransform.position - pInstigator.PossessableTransform.position;
+
+            if (!tp.IgnoreDotProductScore)
+            {
+                float dotProductDiff = Vector2.Dot(targetVector.normalized, inputDirection.normalized);
+
+                if (dotProductDiff > tp.MinDotProduct)
+                {
+                    float dotRange = 1 - tp.MinDotProduct;
+                    float alpha = Mathf.Lerp(0.1f, 1.0f, (dotProductDiff - tp.MinDotProduct) / dotRange);
+                    angleScore = alpha * tp.AngleScoreMultiplier;
+                }
+                else
+                {
+                    return -100.0f;
+                }
+            }
+
+            if (!tp.IgnoreDistanceScore)
+            {
+                float distanceToTarget = targetVector.SqrMagnitude();
+                if (distanceToTarget < tp.MaxSqDistance)
+                {
+                    distanceScore = 1.0f - (distanceToTarget / tp.MaxSqDistance) * tp.DistanceScoreMultiplier;
+                }
+                else
+                {
+                    return -100.0f;
+                }
+            }
+
+            finalScore = (distanceScore + angleScore);
+
+            return finalScore;
         }
 
         private TargetingParameters GetTargetingParameters(ETargetType targetType)
@@ -56,23 +131,6 @@ namespace _Scripts._Game.General.Managers{
                     return _damageableTargetParameters;
                     break;
             }
-        }
-
-        [System.Serializable]
-        private struct TargetingParameters
-        {
-            [Header("Target parameters")]
-            ETargetType _targetType;
-            float _maxDistance;
-            float _minDotProduct;
-
-            [Header("Score Multiplers")]
-            float _threatScoreMultiplier;
-            float _angleScoreMultiplier;
-            float _distanceScoreMultiplier;
-
-            [Header("Modifiers")]
-            bool _ignoreDistanceScore;
         }
     }
     

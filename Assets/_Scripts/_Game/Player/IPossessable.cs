@@ -12,6 +12,8 @@ namespace _Scripts._Game.Player{
         void OnPossess();
         void OnDispossess();
         HealthStats GetHealthStats();
+        //Components
+        Transform PossessableTransform { get; }
         //Inputs
         Vector2 GetMovementInput();
     }
