@@ -373,6 +373,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9b6564797208443830b782f7c940f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _possessableTargetParameters:
+    _targetType: 0
+    _maxSqDistance: 0
+    _minDotProduct: 0
+    _threatScoreMultiplier: 0
+    _angleScoreMultiplier: 0
+    _distanceScoreMultiplier: 0
+    _ignoreDotProductScore: 0
+    _ignoreDistanceScore: 0
+  _damageableTargetParameters:
+    _targetType: 0
+    _maxSqDistance: 0
+    _minDotProduct: 0
+    _threatScoreMultiplier: 0
+    _angleScoreMultiplier: 0
+    _distanceScoreMultiplier: 0
+    _ignoreDotProductScore: 0
+    _ignoreDistanceScore: 0
 --- !u!4 &562201027
 Transform:
   m_ObjectHideFlags: 0

@@ -37,7 +37,6 @@ namespace _Scripts._Game.Player{
 
         void OnEnable()
         {
-            InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
             OnPossess();
         }
 
@@ -54,18 +53,19 @@ namespace _Scripts._Game.Player{
 
         public bool CanBePossessed()
         {
-            return false;
+            return !_isPossessed && GetHealthStats().IsAlive();
         }
 
         public void OnPossess()
         {
-            // return possesssion of player
+            InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
             _isPossessed = true;
         }
 
         public void OnDispossess()
         {
             // dispossess this player for something else
+            InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
             _isPossessed = false;
         }
 

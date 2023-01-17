@@ -5,6 +5,7 @@ using _Scripts._Game.Player;
 using _Scripts._Game.AI.MovementStateMachine;
 using _Scripts._Game.Animation;
 using _Scripts._Game.General;
+using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.AI{
     
@@ -35,18 +36,26 @@ namespace _Scripts._Game.AI{
         {
             return _isPossessed;
         }
+
         public bool CanBePossessed()
         {
-            return true;
+            return !_isPossessed && GetHealthStats().IsAlive();
         }
+
         public void OnPossess()
         {
             // possess control of this AI
+            InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
+            _isPossessed = true;
         }
+
         public void OnDispossess()
         {
             // dispossess this AI
+            InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
+            _isPossessed = false;
         }
+
         public HealthStats GetHealthStats()
         {
             return _enemyHealthStats;

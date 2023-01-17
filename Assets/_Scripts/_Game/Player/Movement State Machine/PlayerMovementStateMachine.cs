@@ -245,10 +245,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _bondingOverlapRange;
     [SerializeField]
     private ContactFilter2D _bondingContactFilter;
-    [SerializeField]
-    private float _maxDotProductScore;
-    [SerializeField]
-    private float _maxDistanceScore;
 
     private Collider2D[] _aiColliders = new Collider2D[20];
     private IPossessable _bondableTarget;
@@ -358,7 +354,12 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void FixedUpdate()
     {
-        _bondableTarget = FindBestPossessable();
+        IPossessable newTarget = FindBestPossessable();
+        if (newTarget != _bondableTarget && newTarget != null)
+        {
+            _bondableTarget = newTarget;
+            Debug.Log("New bondable target = " + _bondableTarget.PossessableTransform.name);
+        }
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
         IsFacingRightCheck();
@@ -439,12 +440,18 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         {
             float bestScore = -1.0f;
             IPossessable bestPossessable = null;
-            IPossessable currentPossessable = null; 
+            IPossessable currentPossessable = null;
 
-            foreach (Collider2D col in _aiColliders)
-            {
-                GameObject currentGO = col.gameObject;
-                currentPossessable = currentGO.GetComponent<IPossessable>();
+            Collider2D col = null;
+
+            for (int i = 0; i < aiOverlapCount; i++)
+            {       
+                col = _aiColliders[i];
+                if (col == null)
+                {
+                    continue;
+                }
+                currentPossessable = col.gameObject.GetComponent<IPossessable>();
 
                 if (currentPossessable != null)
                 {
