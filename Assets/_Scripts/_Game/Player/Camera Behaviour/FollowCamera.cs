@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using _Scripts._Game.General;
+using _Scripts.Editortools.Draw;
 
 public class FollowCamera : Singleton<FollowCamera>
 {
@@ -88,8 +89,8 @@ public class FollowCamera : Singleton<FollowCamera>
 
             desiredPosition = _playerTransform.position + newOffset;
         }
-        DrawArrow.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x + _cameraWidth, transform.position.y, 0.0f));
-        DrawArrow.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x, transform.position.y + _cameraHeight, 0.0f));
+        DrawGizmos.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x + _cameraWidth, transform.position.y, 0.0f));
+        DrawGizmos.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x, transform.position.y + _cameraHeight, 0.0f));
 
         Vector3 smoothedPosition = new Vector3(Mathf.Lerp(transform.position.x, desiredPosition.x, lerpSpeeds.x * Time.deltaTime), Mathf.Lerp(transform.position.y, desiredPosition.y, lerpSpeeds.y * Time.deltaTime), desiredPosition.z);  //Vector3.Slerp(transform.position, desiredPosition, Time.deltaTime * lerpSpeeds);
 

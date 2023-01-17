@@ -233,7 +233,7 @@ MonoBehaviour:
   _bouncingVelocityPower: 1
   _bouncingPowerMultiplier: {x: 1, y: 1.1, z: 1.25}
   _bouncingFullChargeTime: 0.5
-  _bondingOverlapRange: 1000
+  _bondingOverlapRange: 10
   _bondingContactFilter:
     useTriggers: 1
     useLayerMask: 1

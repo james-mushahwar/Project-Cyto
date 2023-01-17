@@ -4,6 +4,7 @@ using _Scripts._Game.General;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using _Scripts.Editortools.Draw;
 using System.Collections.Generic;
 
 public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>, ISaveable
@@ -348,17 +349,26 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    void OnDrawGizmos()
+    {
         // scene debug updates
-        DrawArrow.ForPointsDebug(transform.position, transform.position + (-(Vector3)Vector2.up * (_distToGround + DistanceToGroundThreshold)));
+        DrawGizmos.ForPointsDebug(transform.position, transform.position + (-(Vector3)Vector2.up * (_distToGround + DistanceToGroundThreshold)));
+        DrawGizmos.DrawSphereDebug(transform.position, _bondingOverlapRange);
     }
 
     void FixedUpdate()
     {
         IPossessable newTarget = FindBestPossessable();
-        if (newTarget != _bondableTarget && newTarget != null)
+        if (newTarget != _bondableTarget)
         {
             _bondableTarget = newTarget;
-            Debug.Log("New bondable target = " + _bondableTarget.PossessableTransform.name);
+            if (_bondableTarget != null)
+            {
+                Debug.Log("New bondable target = " + _bondableTarget.PossessableTransform.name);
+            }
         }
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();

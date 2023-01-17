@@ -1490,7 +1490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _possessableTargetParameters:
     _targetType: 1
-    _maxSqDistance: 2500
+    _maxSqDistance: 100
     _minDotProduct: -1
     _threatScoreMultiplier: 0
     _angleScoreMultiplier: 2
