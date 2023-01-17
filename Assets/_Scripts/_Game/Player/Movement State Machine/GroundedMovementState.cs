@@ -10,6 +10,15 @@ public class GroundedMovementState : BaseMovementState
 
     public override bool CheckSwitchStates()
     {
+        if (_ctx.IsBondInputValid == true)
+        {
+            if (_ctx.BondableTarget != null)
+            {
+                SwitchStates(_factory.GetState(MovementState.Bonding));
+                return true;
+            }
+        }
+
         if (_ctx.BouncingChargeTimer >= _ctx.BouncingFullChargeTime)
         {
             SwitchStates(_factory.GetState(MovementState.Bouncing));

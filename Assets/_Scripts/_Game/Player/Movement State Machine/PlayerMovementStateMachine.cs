@@ -18,7 +18,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private bool _isDashPressed = false;
     private bool _isFloatPressed = false;
     private bool _isBouncePressed = false;
-    private bool _isAttackPressed = false;
     private bool _isBondPressed = false;
 
     public Vector2 CurrentMovementInput { get => _currentMovementInput; }
@@ -28,7 +27,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public bool IsDashPressed { get => _isDashPressed; }
     public bool IsFloatPressed { get => _isFloatPressed; }
     public bool IsBouncePressed { get => _isBouncePressed; }
-    public bool IsAttackPressed { get => _isAttackPressed; }
     public bool IsBondPressed { get => _isBondPressed; }
     public bool IsDirectionPressed { get => _isDirectionPressed; set => _isDirectionPressed = value; }
 
@@ -43,7 +41,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public bool IsDashInputValid { get => _isDashInputValid; }
     public bool IsFloatInputValid { get => _isFloatInputValid; }
     public bool IsBounceInputValid { get => _isBounceInputValid; }
-    public bool IsAttackInputValid { get => _isAttackInputValid; }
     public bool IsBondInputValid { get => _isBondInputValid; }
 
     private PlayerInput _playerInput;
@@ -249,7 +246,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     private Collider2D[] _aiColliders = new Collider2D[20];
     private IPossessable _bondableTarget;
-    public IPossessable BondableTarget { get => _bondableTarget; set => _bondableTarget = value; }
+    public IPossessable BondableTarget { get => _bondableTarget; }
 
     [Header("Collision detection")]
     [SerializeField]
@@ -365,15 +362,18 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         if (newTarget != _bondableTarget)
         {
             _bondableTarget = newTarget;
-            if (_bondableTarget != null)
-            {
-                Debug.Log("New bondable target = " + _bondableTarget.PossessableTransform.name);
-            }
+            //if (_bondableTarget != null)
+            //{
+            //    Debug.Log("New bondable target = " + _bondableTarget.PossessableTransform.name);
+            //}
         }
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
         IsFacingRightCheck();
         _currentState.ManagedStateTick();
+
+        //nullify any inputs
+        NullifyInput(MovementState.Bonding);
     }
 
     void OnMovementInput(InputAction.CallbackContext context)
@@ -413,12 +413,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         _isBouncePressed = context.ReadValueAsButton();
         _isBounceInputValid = _isBouncePressed;
-    }
-
-    void OnAttackInput(InputAction.CallbackContext context)
-    {
-        _isAttackPressed = context.ReadValueAsButton();
-        _isAttackInputValid = _isAttackPressed;
     }
 
     void OnBondInput(InputAction.CallbackContext context)
@@ -538,6 +532,9 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
                 break;
             case MovementState.Bouncing:
                 _isBounceInputValid = false;
+                break;
+            case MovementState.Bonding:
+                _isBondInputValid = false;
                 break;
             default:
                 break;

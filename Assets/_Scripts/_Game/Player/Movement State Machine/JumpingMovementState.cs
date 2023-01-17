@@ -11,6 +11,15 @@ public class JumpingMovementState : BaseMovementState
 
     public override bool CheckSwitchStates()
     {
+        if (_ctx.IsBondInputValid == true)
+        {
+            if (_ctx.BondableTarget != null)
+            {
+                SwitchStates(_factory.GetState(MovementState.Bonding));
+                return true;
+            }
+        }
+
         if (_ctx.Rb.velocity.y < 0.0f && _ctx.IsGrounded == true && _stateTimer > 0.33f)
         {
             SwitchStates(_factory.GetState(MovementState.Grounded));

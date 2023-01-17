@@ -12,6 +12,15 @@ public class FloatingMovementState : BaseMovementState
 
     public override bool CheckSwitchStates()
     {
+        if (_ctx.IsBondInputValid == true)
+        {
+            if (_ctx.BondableTarget != null)
+            {
+                SwitchStates(_factory.GetState(MovementState.Bonding));
+                return true;
+            }
+        }
+
         if (_ctx.IsJumpInputValid == true && _ctx.IsJumpPressed == true)
         {
             _jumpBufferTimer = _ctx.JumpBufferLimit;

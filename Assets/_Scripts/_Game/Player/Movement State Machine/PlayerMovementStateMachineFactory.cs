@@ -1,3 +1,4 @@
+using _Scripts._Game.Player.MovementStateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,8 @@ public enum MovementState
     Falling,
     Dashing,
     Bouncing,
-    Floating
+    Floating,
+    Bonding,
 }
 
 public class PlayerMovementStateMachineFactory
@@ -25,6 +27,7 @@ public class PlayerMovementStateMachineFactory
         _stateDict.Add(MovementState.Dashing, new DashingMovementState(sm, this));
         _stateDict.Add(MovementState.Bouncing, new BouncingMovementState(sm, this));
         _stateDict.Add(MovementState.Floating, new FloatingMovementState(sm, this));
+        _stateDict.Add(MovementState.Bonding, new BondingMovementState(sm, this));
 
         _moveStateMachine = sm;
     }
