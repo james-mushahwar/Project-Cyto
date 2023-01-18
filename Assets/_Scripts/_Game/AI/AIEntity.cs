@@ -45,14 +45,16 @@ namespace _Scripts._Game.AI{
         public void OnPossess()
         {
             // possess control of this AI
-            InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
+            _movementSM.OnBonded();
+            //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = true;
         }
 
         public void OnDispossess()
         {
             // dispossess this AI
-            InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
+            _movementSM.OnUnbonded();
+            //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
         }
 

@@ -29,13 +29,13 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         void UpdateStates() { }
 
-        protected void SwitchStates(BaseAIMovementState newState)
+        protected void SwitchStates(BaseAIBondedMovementState newState)
         {
             ExitState();
 
             newState.EnterState();
 
-            _ctx.CurrentState = newState;
+            _ctx.CurrentBondedState = newState;
         }
     }
 

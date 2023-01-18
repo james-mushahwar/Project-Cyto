@@ -60,6 +60,10 @@ namespace _Scripts._Game.Player{
         {
             InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
             _isPossessed = true;
+
+            _movementSM.enabled = true;
+            _attackingSM.enabled = true;
+            _spriteAnimator.enabled = true;
         }
 
         public void OnDispossess()
@@ -67,6 +71,15 @@ namespace _Scripts._Game.Player{
             // dispossess this player for something else
             InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
             _isPossessed = false;
+
+            if (_movementSM.BondableTarget != null)
+            {
+                _movementSM.BondableTarget.OnPossess();
+            }
+
+            _movementSM.enabled = false;
+            _attackingSM.enabled = false;
+            _spriteAnimator.enabled = false;
         }
 
         public HealthStats GetHealthStats()

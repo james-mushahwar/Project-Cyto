@@ -221,7 +221,7 @@ namespace Pathfinding {
 
 #if UNITY_2018_1_OR_NEWER
 			updateCheckDownload = UnityWebRequest.Get(query);
-			updateCheckDownload.SendWebRequest();
+			//updateCheckDownload.SendWebRequest(); //Note: commented out to prevent errors when editor recompiles
 #else
 			updateCheckDownload = new WWW(query);
 #endif

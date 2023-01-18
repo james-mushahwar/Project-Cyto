@@ -63,6 +63,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private LayerMask _groundedLayer;
 
     public Rigidbody2D Rb { get => _rb; }
+    public CapsuleCollider2D Capsule { get => _capsule; }
     public LayerMask GroundedLayer { get => _groundedLayer; }
 
     [Header("Grounded properties")]
@@ -243,10 +244,17 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _bondingOverlapRange;
     [SerializeField]
     private ContactFilter2D _bondingContactFilter;
+    [SerializeField]
+    private float _bondTransitionDuration;
+    [SerializeField]
+    private float _bondingExitForce;
 
     private Collider2D[] _aiColliders = new Collider2D[20];
     private IPossessable _bondableTarget;
+
+    public float BondingExitForce { get => _bondingExitForce; }
     public IPossessable BondableTarget { get => _bondableTarget; }
+    public float BondTransitionDuration { get => _bondTransitionDuration; }
 
     [Header("Collision detection")]
     [SerializeField]

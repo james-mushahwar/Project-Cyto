@@ -29,6 +29,15 @@ namespace _Scripts._Game.Animation{
         public SpriteRenderer Renderer { get => _renderer; }
         #endregion
 
+        private void OnEnable()
+        {
+            _renderer.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            _renderer.enabled = false;
+        }
 
         protected virtual void Awake()
         {
