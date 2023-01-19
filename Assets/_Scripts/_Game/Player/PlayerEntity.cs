@@ -12,6 +12,7 @@ namespace _Scripts._Game.Player{
     public class PlayerEntity : Singleton<PlayerEntity>, IPossessable
     {
         private bool _isPossessed;
+
         #region State Machines
         private PlayerMovementStateMachine _movementSM;
         private PlayerAttackingStateMachine _attackingSM;
@@ -35,14 +36,9 @@ namespace _Scripts._Game.Player{
             _playerHealthStats = new PlayerHealthStats(10.0f, 10.0f);
         }
 
-        void OnEnable()
+        void Start()
         {
             OnPossess();
-        }
-
-        void OnDisable()
-        {
-            //InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
         }
 
         // IPossessable

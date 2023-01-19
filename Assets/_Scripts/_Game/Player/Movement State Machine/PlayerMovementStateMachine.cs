@@ -272,6 +272,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         base.Awake();
 
+        _rb = GetComponent<Rigidbody2D>();
+        _capsule = GetComponent<CapsuleCollider2D>();
+        _distToGround = _capsule.bounds.extents.y;
+
         PlayerInput playerInput = InputManager.Instance.PlayerInput;
         // set up player input callbacks
         playerInput.Player.Movement.started += OnMovementInput;
@@ -343,10 +347,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     // Start is called before the first frame update
     void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _capsule = GetComponent<CapsuleCollider2D>();
-        _distToGround = _capsule.bounds.extents.y;
-
         _currentState.EnterState();
     }
 

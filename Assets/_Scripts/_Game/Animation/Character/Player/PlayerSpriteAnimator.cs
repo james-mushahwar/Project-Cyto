@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace _Scripts._Game.Animation.Character.Player {
@@ -14,9 +15,24 @@ namespace _Scripts._Game.Animation.Character.Player {
             PlayerEntity.Instance.SpriteAnimator = this;
         }
 
+        protected override void FixedUpdate()
+        {
+            //base.FixedUpdate();
+        }
+
+        protected override float GetSpeed(int state)
+        {
+            return 1.0f;
+        }
+
         protected override int GetState()
         {
-            throw new System.NotImplementedException();
+            return 0;
+        }
+
+        protected override void SpriteDirection()
+        {
+            
         }
     }
     

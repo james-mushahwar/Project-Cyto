@@ -12,6 +12,7 @@ namespace _Scripts._Game.AI{
     public class AIEntity : MonoBehaviour, IPossessable
     {
         private bool _isPossessed;
+
         #region State Machines
         private AIMovementStateMachineBase _movementSM;
         private SpriteAnimator _spriteAnimator;
@@ -48,6 +49,7 @@ namespace _Scripts._Game.AI{
             _movementSM.OnBonded();
             _movementSM.CurrentState.ExitState();
             _movementSM.CurrentBondedState.EnterState();
+            _movementSM.Collider.isTrigger = false;
             //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = true;
         }
@@ -58,6 +60,7 @@ namespace _Scripts._Game.AI{
             _movementSM.OnUnbonded();
             _movementSM.CurrentBondedState.ExitState();
             _movementSM.CurrentState.EnterState();
+            _movementSM.Collider.isTrigger = true;
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
 

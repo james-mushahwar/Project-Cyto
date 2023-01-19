@@ -1391,6 +1391,31 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.18}
   serializedVersion: 2
   m_Radius: 1.24
+--- !u!1 &1202578967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 104437372805157711, guid: 11ecbb44b37fa3f4d91e43e64532a41a, type: 3}
+  m_PrefabInstance: {fileID: 5581101032792513857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1202578971
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202578967}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1207726918
 GameObject:
   m_ObjectHideFlags: 0

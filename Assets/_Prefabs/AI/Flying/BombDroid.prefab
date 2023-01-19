@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa810291659eb44a9ae1e7e3e1934fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bondedMovementAnimSpeedRange: {x: 0.75, y: 1.5}
 --- !u!1 &8527710219603585278
 GameObject:
   m_ObjectHideFlags: 0

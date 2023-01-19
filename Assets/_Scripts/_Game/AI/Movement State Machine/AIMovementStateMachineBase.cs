@@ -26,11 +26,12 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         #region AI Components
         private Rigidbody2D _rb;
-        private CapsuleCollider2D _capsule;
+        private Collider2D _collider;
         [SerializeField]
         private LayerMask _groundedLayer;
 
         public Rigidbody2D Rb { get => _rb; }
+        public Collider2D Collider {  get => _collider; }
         public LayerMask GroundedLayer { get => _groundedLayer; }
         #endregion
 
@@ -98,7 +99,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         protected virtual void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _capsule = GetComponent<CapsuleCollider2D>();
+            _collider = GetComponent<Collider2D>();
         }
 
         protected virtual void FixedUpdate()
