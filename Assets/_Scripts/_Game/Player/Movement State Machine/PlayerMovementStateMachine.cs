@@ -34,7 +34,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private bool _isDashInputValid = false;
     private bool _isFloatInputValid = false;
     private bool _isBounceInputValid = false;
-    private bool _isAttackInputValid = false;
     private bool _isBondInputValid = false;
 
     public bool IsJumpInputValid { get => _isJumpInputValid; }

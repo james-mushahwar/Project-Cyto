@@ -45,7 +45,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                 _stateDict.Add(AIMovementState.Patrol, new BombDroidPatrolAIMovementState(sm, this));
                 _stateDict.Add(AIMovementState.Chase,  new BombDroidChaseAIMovementState(sm, this));
 
-                //_bondedStateDict.Add(AIBondedMovementState.Flying, )
+                _bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
             }
         }
 

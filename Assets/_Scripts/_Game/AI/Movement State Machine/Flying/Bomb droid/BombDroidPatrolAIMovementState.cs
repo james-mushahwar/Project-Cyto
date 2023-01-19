@@ -38,12 +38,12 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override void ExitState()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void InitialiseState()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void ManagedStateTick()

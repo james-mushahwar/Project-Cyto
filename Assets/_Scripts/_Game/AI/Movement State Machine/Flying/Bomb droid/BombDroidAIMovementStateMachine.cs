@@ -20,7 +20,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         public AIDestinationSetter DestinationSetter { get => _destinationSetter; }
         #endregion
 
-        #region Enemy Stats
+        #region Bomb Droid Stats
         [Header("Patrol Properties")]
         [SerializeField]
         private float _patrolSpeed;
@@ -46,11 +46,47 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         public float ChaseLostDetectionRange { get => _chaseLostDetectionRange; }
         #endregion
 
+        #region Bonded Bomb Droid Stats
+
+        [Header("Bonded Flying Properties")]
+        [SerializeField]
+        private float _flyingHorizontalVelocity;
+        [SerializeField]
+        private float _flyingVerticalVelocity;
+        [SerializeField]
+        private float _flyingMaximumHorizontalVelocity;
+        [SerializeField]
+        private float _flyingMaximumVerticalVelocity;
+        [SerializeField]
+        private float _flyingHorizontalAcceleration;
+        [SerializeField]
+        private float _flyingHorizontalDeceleration;
+        [SerializeField]
+        private float _flyingVerticalAcceleration;
+        [SerializeField]
+        private float _flyingVerticalDeceleration;
+
+        [SerializeField]
+        private float _flyingMovementDirectionThrust;
+
+        public float FlyingHorizontalVelocity { get => _flyingHorizontalVelocity; }
+        public float FlyingVerticalVelocity { get => _flyingVerticalVelocity; }
+        public float FlyingMaximumVerticalVelocity { get => _flyingMaximumVerticalVelocity; }
+        public float FlyingMaximumHorizontalVelocity { get => _flyingMaximumHorizontalVelocity; }
+        public float FlyingHorizontalAcceleration { get => _flyingHorizontalAcceleration; }
+        public float FlyingHorizontalDeceleration { get => _flyingHorizontalDeceleration; }
+        public float FlyingVerticalAcceleration { get => _flyingVerticalAcceleration; }
+        public float FlyingVerticalDeceleration { get => _flyingVerticalDeceleration; }
+        public float FlyingMovementDirectionThrust { get => _flyingMovementDirectionThrust; }
+
+        #endregion
+
         protected override void Awake()
         {
             base.Awake();
 
             CurrentState = _states.GetState(AIMovementState.Idle);
+            CurrentBondedState = _states.GetState(AIBondedMovementState.Flying);
 
             BondInputsDict.Add(BondInput.Movement, OnMovementInput);
         }
@@ -64,11 +100,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             _aiPath = GetComponent<AIPath>();
 
             CurrentState.EnterState();
-        }
-
-        void FixedUpdate()
-        {
-            CurrentState.ManagedStateTick();
         }
 
         // ISaveable

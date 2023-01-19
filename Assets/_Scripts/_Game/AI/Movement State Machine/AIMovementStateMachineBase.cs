@@ -100,6 +100,18 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _rb = GetComponent<Rigidbody2D>();
             _capsule = GetComponent<CapsuleCollider2D>();
         }
+
+        protected virtual void FixedUpdate()
+        {
+            if (!Entity.IsPossessed())
+            {
+                CurrentState.ManagedStateTick();
+            }
+            else
+            {
+                CurrentBondedState.ManagedStateTick();
+            }
+        }
    
 
         // ISaveable
@@ -218,11 +230,13 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                         case BondInput.Movement:
                             playerInput.BondedPlayer.Movement.started += bondedAction;
                             playerInput.BondedPlayer.Movement.canceled += bondedAction;
+                            playerInput.BondedPlayer.Movement.performed += bondedAction;
                             break;
 
                         case BondInput.Direction:
                             playerInput.BondedPlayer.Direction.started += bondedAction;
                             playerInput.BondedPlayer.Direction.canceled += bondedAction;
+                            playerInput.BondedPlayer.Direction.performed += bondedAction;
                             break;
                         case BondInput.NButton:
                             playerInput.BondedPlayer.NorthButton.started += bondedAction;

@@ -123,13 +123,10 @@ namespace _Scripts._Game.General.Managers{
             {
                 case ETargetType.Possessable:
                     return _possessableTargetParameters;
-                    break;
                 case ETargetType.Damageable:
                     return _damageableTargetParameters;
-                    break;
                 default:
                     return _damageableTargetParameters;
-                    break;
             }
         }
     }

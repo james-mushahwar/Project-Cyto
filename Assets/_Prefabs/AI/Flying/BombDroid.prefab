@@ -191,6 +191,15 @@ MonoBehaviour:
   _chaseLostDetectionRange: 0
   _chaseSpeed: 0
   _startStopChaseDistances: {x: 0, y: 0}
+  _flyingHorizontalVelocity: 0
+  _flyingVerticalVelocity: 0
+  _flyingMaximumHorizontalVelocity: 8
+  _flyingMaximumVerticalVelocity: 8
+  _flyingHorizontalAcceleration: 0
+  _flyingHorizontalDeceleration: 0
+  _flyingVerticalAcceleration: 0
+  _flyingVerticalDeceleration: 0
+  _flyingMovementDirectionThrust: 20
 --- !u!114 &8527710219603585276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +313,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

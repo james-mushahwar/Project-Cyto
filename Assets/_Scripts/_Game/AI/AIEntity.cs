@@ -46,6 +46,8 @@ namespace _Scripts._Game.AI{
         {
             // possess control of this AI
             _movementSM.OnBonded();
+            _movementSM.CurrentState.ExitState();
+            _movementSM.CurrentBondedState.EnterState();
             //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = true;
         }
@@ -54,6 +56,8 @@ namespace _Scripts._Game.AI{
         {
             // dispossess this AI
             _movementSM.OnUnbonded();
+            _movementSM.CurrentBondedState.ExitState();
+            _movementSM.CurrentState.EnterState();
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
 
