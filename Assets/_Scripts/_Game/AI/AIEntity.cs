@@ -56,6 +56,8 @@ namespace _Scripts._Game.AI{
             _movementSM.OnUnbonded();
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
+
+            PlayerEntity.Instance.OnPossess();
         }
 
         public HealthStats GetHealthStats()

@@ -61,6 +61,7 @@ namespace _Scripts._Game.Player{
             InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
             _isPossessed = true;
 
+            _movementSM.Rb.isKinematic = false;
             _movementSM.enabled = true;
             _attackingSM.enabled = true;
             _spriteAnimator.enabled = true;
@@ -77,6 +78,9 @@ namespace _Scripts._Game.Player{
                 _movementSM.BondableTarget.OnPossess();
             }
 
+            gameObject.transform.SetParent(_movementSM.BondableTarget.PossessableTransform);
+
+            _movementSM.Rb.isKinematic = true;
             _movementSM.enabled = false;
             _attackingSM.enabled = false;
             _spriteAnimator.enabled = false;

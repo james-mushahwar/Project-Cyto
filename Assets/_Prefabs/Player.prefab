@@ -261,8 +261,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  _bondTransitionDuration: 2
-  _bondingExitForce: 10
+  _bondTransitionDuration: 0.66
+  _bondingExitForce: 25
   _closestCollider: {fileID: 0}
   _collisionDetectionLayerMask:
     serializedVersion: 2

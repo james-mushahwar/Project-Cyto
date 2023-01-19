@@ -89,6 +89,9 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             {
                 _entity.MovementSM = this;
             }
+
+            //Inputs for all AI
+            BondInputsDict.Add(BondInput.NButton, OnNorthButtonInput);
         }
 
         // Start is called before the first frame update
@@ -131,6 +134,9 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         {
             _isNorthButtonPressed = context.ReadValueAsButton();
             _isNorthInputValid = _isNorthButtonPressed;
+
+            //temp dispossess
+            _entity.OnDispossess();
         }
         public void OnSouthButtonInput(InputAction.CallbackContext context)
         {
