@@ -6,6 +6,7 @@ using _Scripts._Game.AI.MovementStateMachine;
 using _Scripts._Game.Animation;
 using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.AI.AttackStateMachine;
 
 namespace _Scripts._Game.AI{
     
@@ -15,9 +16,11 @@ namespace _Scripts._Game.AI{
 
         #region State Machines
         private AIMovementStateMachineBase _movementSM;
+        private AIAttackStateMachineBase _attackSM;
         private SpriteAnimator _spriteAnimator;
 
         public AIMovementStateMachineBase MovementSM { get => _movementSM; set => _movementSM = value; }
+        public AIAttackStateMachineBase AttackSM { get => _attackSM; set => _attackSM = value; }
         public SpriteAnimator SpriteAnimator { get => _spriteAnimator; set => _spriteAnimator = value; }
         #endregion
 
@@ -50,6 +53,8 @@ namespace _Scripts._Game.AI{
             _movementSM.CurrentState.ExitState();
             _movementSM.CurrentBondedState.EnterState();
             _movementSM.Collider.isTrigger = false;
+
+            _attackSM.OnBonded();
             //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = true;
         }
@@ -61,6 +66,8 @@ namespace _Scripts._Game.AI{
             _movementSM.CurrentBondedState.ExitState();
             _movementSM.CurrentState.EnterState();
             _movementSM.Collider.isTrigger = true;
+
+            _attackSM.OnUnbonded();
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
 

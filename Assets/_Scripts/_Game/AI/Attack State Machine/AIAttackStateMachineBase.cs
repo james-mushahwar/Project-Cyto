@@ -1,36 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using _Scripts._Game.AI.Bonding;
+using _Scripts._Game.AI.MovementStateMachine;
+using _Scripts._Game.General.Managers;
 using _Scripts._Game.General.SaveLoad;
-using _Scripts._Game.AI.Bonding;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using _Scripts._Game.General.Managers;
-using _Scripts._Game.Player;
 
-namespace _Scripts._Game.AI.MovementStateMachine{
+namespace _Scripts._Game.AI.AttackStateMachine{
     
-    public class AIMovementStateMachineBase : MonoBehaviour, ISaveable, IBondable
+    public class AIAttackStateMachineBase : MonoBehaviour, ISaveable, IBondable
     {
         #region State Machine
         //Movement
-        private BaseAIMovementState _currentState;
-        private BaseAIBondedMovementState _currentBondedState;
+        private BaseAIAttackState _currentState;
+        //private BaseAIBondedMovementState _currentBondedState;
 
-        public BaseAIMovementState CurrentState { get => _currentState; set => _currentState = value; }
-        public BaseAIBondedMovementState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
+        public BaseAIAttackState CurrentState { get => _currentState; set => _currentState = value; }
+        //public BaseAIBondedMovementState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
 
-        protected AIMovementStateMachineFactory _states;
-        #endregion
-
-        #region AI Components
-        private Rigidbody2D _rb;
-        private Collider2D _collider;
-        [SerializeField]
-        private LayerMask _groundedLayer;
-
-        public Rigidbody2D Rb { get => _rb; }
-        public Collider2D Collider {  get => _collider; }
-        public LayerMask GroundedLayer { get => _groundedLayer; }
+        protected AIAttackStateMachineFactory _states;
         #endregion
 
         #region Bond Inputs
@@ -38,7 +28,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         private static Vector2 _currentDirectionInput = Vector2.zero;
         private static bool _isMovementPressed = false;
         private static bool _isDirectionPressed = false;
-        private static bool _isNorthButtonPressed = false;
+        //private static bool _isNorthButtonPressed = false; // ignore north- used for bonding
         private static bool _isSouthButtonPressed = false;
         private static bool _isEastButtonPressed = false;
         private static bool _isWestButtonPressed = false;
@@ -51,7 +41,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public Vector2 CurrentDirectionInput { get => _currentDirectionInput; }
         public bool IsMovementPressed { get => _isMovementPressed; }
         public bool IsDirectionPressed { get => _isDirectionPressed; }
-        public bool IsNorthButtonPressed { get => _isNorthButtonPressed; }
+        //public bool IsNorthButtonPressed { get => _isNorthButtonPressed; }
         public bool IsSouthButtonPressed { get => _isSouthButtonPressed; }
         public bool IsEastButtonPressed { get => _isEastButtonPressed; }
         public bool IsWestButtonPressed { get => _isWestButtonPressed; }
@@ -60,7 +50,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public bool IsLeftTriggerPressed { get => _isLeftTriggerPressed; }
         public bool IsRightTriggerPressed { get => _isRightTriggerPressed; }
 
-        private static bool _isNorthInputValid = false;
+        //private static bool _isNorthInputValid = false;
         private static bool _isSouthInputValid = false;
         private static bool _isEastInputValid = false;
         private static bool _isWestInputValid = false;
@@ -69,7 +59,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         private static bool _isLeftTriggerInputValid = false;
         private static bool _isRightTriggerInputValid = false;
 
-        private Dictionary<BondInput, Action<InputAction.CallbackContext>> _bondInputsDict = new Dictionary<BondInput, Action<InputAction.CallbackContext>> ();
+        private Dictionary<BondInput, Action<InputAction.CallbackContext>> _bondInputsDict = new Dictionary<BondInput, Action<InputAction.CallbackContext>>();
         public Dictionary<BondInput, Action<InputAction.CallbackContext>> BondInputsDict { get => _bondInputsDict; }
         #endregion
 
@@ -81,53 +71,16 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         protected virtual void Awake()
         {
-            _states = new AIMovementStateMachineFactory(this);
+            _states = new AIAttackStateMachineFactory(this);
 
             _entity = GetComponent<AIEntity>();
             if (_entity)
             {
-                _entity.MovementSM = this;
+                _entity.AttackSM = this;
             }
 
             //Inputs for all AI
             BondInputsDict.Add(BondInput.NButton, OnNorthButtonInput);
-        }
-
-        // Start is called before the first frame update
-        protected virtual void Start()
-        {
-            _rb = GetComponent<Rigidbody2D>();
-            _collider = GetComponent<Collider2D>();
-        }
-
-        protected virtual void FixedUpdate()
-        {
-            if (!Entity.IsPossessed())
-            {
-                CurrentState.ManagedStateTick();
-            }
-            else
-            {
-                CurrentBondedState.ManagedStateTick();
-            }
-        }
-   
-
-        // ISaveable
-        [System.Serializable]
-        private struct SaveData
-        {
-
-        }
-
-        public virtual object SaveState()
-        {
-            return new SaveData();
-        }
-
-        public virtual void LoadState(object state)
-        {
-            SaveData saveData = (SaveData)state;
         }
 
         // IBondable
@@ -143,11 +96,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         }
         public void OnNorthButtonInput(InputAction.CallbackContext context)
         {
-            _isNorthButtonPressed = context.ReadValueAsButton();
-            _isNorthInputValid = _isNorthButtonPressed;
-
-            //temp dispossess
-            _entity.OnDispossess();
+            
         }
         public void OnSouthButtonInput(InputAction.CallbackContext context)
         {
@@ -191,7 +140,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _currentDirectionInput = Vector2.zero;
             _isMovementPressed = false;
             _isDirectionPressed = false;
-            _isNorthButtonPressed = false;
+            //_isNorthButtonPressed = false;
             _isSouthButtonPressed = false;
             _isEastButtonPressed = false;
             _isWestButtonPressed = false;
@@ -200,7 +149,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _isLeftTriggerPressed = false;
             _isRightTriggerPressed = false;
 
-            _isNorthInputValid = false;
+            //_isNorthInputValid = false;
             _isSouthInputValid = false;
             _isEastInputValid = false;
             _isWestInputValid = false;
@@ -354,7 +303,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _currentDirectionInput = Vector2.zero;
             _isMovementPressed = false;
             _isDirectionPressed = false;
-            _isNorthButtonPressed = false;
+            //_isNorthButtonPressed = false;
             _isSouthButtonPressed = false;
             _isEastButtonPressed = false;
             _isWestButtonPressed = false;
@@ -363,7 +312,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _isLeftTriggerPressed = false;
             _isRightTriggerPressed = false;
 
-            _isNorthInputValid = false;
+            //_isNorthInputValid = false;
             _isSouthInputValid = false;
             _isEastInputValid = false;
             _isWestInputValid = false;
@@ -372,5 +321,16 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _isLeftTriggerInputValid = false;
             _isRightTriggerInputValid = false;
         }
+
+        public object SaveState()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadState(object state)
+        {
+            throw new NotImplementedException();
+        }
     }
+    
 }

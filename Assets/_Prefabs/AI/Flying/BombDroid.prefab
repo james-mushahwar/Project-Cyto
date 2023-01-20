@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 8527710219603585276}
   - component: {fileID: 8527710219603585272}
   - component: {fileID: 8527710219603585255}
+  - component: {fileID: 4454979531169731600}
   - component: {fileID: 8527710219603585277}
   - component: {fileID: 8527710219603585273}
   m_Layer: 8
@@ -156,7 +157,7 @@ Transform:
   m_Children:
   - {fileID: 8527710219251885143}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2639065142676816087
 MonoBehaviour:
@@ -285,6 +286,18 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+--- !u!114 &4454979531169731600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527710219603585278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!58 &8527710219603585277
 CircleCollider2D:
   m_ObjectHideFlags: 0

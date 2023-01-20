@@ -10,16 +10,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     
     public class BombDroidAIMovementStateMachine : FlyingAIMovementStateMachine
     {
-        #region Components
-        private Seeker _seeker;
-        private AIPath _aiPath;
-        private AIDestinationSetter _destinationSetter;
-
-        public Seeker Seeker { get => _seeker; }
-        public AIPath AIPath { get => _aiPath; }
-        public AIDestinationSetter DestinationSetter { get => _destinationSetter; }
-        #endregion
-
         #region Bomb Droid Stats
         [Header("Patrol Properties")]
         [SerializeField]
@@ -47,7 +37,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         #endregion
 
         #region Bonded Bomb Droid Stats
-
         [Header("Bonded Flying Properties")]
         [SerializeField]
         private float _flyingHorizontalVelocity;
@@ -80,27 +69,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         public float FlyingMovementDirectionThrust { get => _flyingMovementDirectionThrust; }
 
         #endregion
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            CurrentState = _states.GetState(AIMovementState.Idle);
-            CurrentBondedState = _states.GetState(AIBondedMovementState.Flying);
-
-            BondInputsDict.Add(BondInput.Movement, OnMovementInput);
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-
-            _seeker = GetComponent<Seeker>();
-            _destinationSetter = GetComponent<AIDestinationSetter>();
-            _aiPath = GetComponent<AIPath>();
-
-            CurrentState.EnterState();
-        }
 
         // ISaveable
         [System.Serializable]
