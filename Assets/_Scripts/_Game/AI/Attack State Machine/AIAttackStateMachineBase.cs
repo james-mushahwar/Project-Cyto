@@ -21,6 +21,8 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         //public BaseAIBondedMovementState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
 
         protected AIAttackStateMachineFactory _states;
+
+        public AIAttackStateMachineFactory States { get => _states; }
         #endregion
 
         #region Bond Inputs
@@ -71,14 +73,13 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
         protected virtual void Awake()
         {
-            _states = new AIAttackStateMachineFactory(this);
-
             _entity = GetComponent<AIEntity>();
             if (_entity)
             {
                 _entity.AttackSM = this;
             }
-
+            
+            _states = new AIAttackStateMachineFactory(this);
         }
 
         // IBondable

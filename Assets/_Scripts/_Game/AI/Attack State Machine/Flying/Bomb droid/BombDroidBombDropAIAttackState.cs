@@ -12,27 +12,27 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public override bool CheckSwitchStates()
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         public override void EnterState()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("BOOOOM Bomb drop!");
         }
 
         public override void ExitState()
         {
-            throw new System.NotImplementedException();
+           
         }
 
         public override void InitialiseState()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void ManagedStateTick()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
     

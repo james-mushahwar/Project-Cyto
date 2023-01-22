@@ -11,9 +11,9 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         #region Bomb Droid Attack Stats
         [Header("Idle Properties")]
         [SerializeField]
-        private float _attackCooldown;
+        private float _bombDropCooldown;
 
-        public float AttackCooldown { get => _attackCooldown; set => _attackCooldown = value; }
+        public float BombDropCooldown { get => _bombDropCooldown; set => _bombDropCooldown = value; }
 
         [Header("Bomb drop attack properties")]
         [SerializeField]

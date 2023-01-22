@@ -9,11 +9,11 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
     public enum AIAttackState
     {
+        NOTHING, // unconnected state
         Idle,
         Attack1,
         Attack2,
         Attack3,
-        NOTHING // unconnected state
     }
 
     public class AIAttackStateMachineFactory
@@ -42,7 +42,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             return _stateDict[state];
         }
 
-        public AIAttackState GetMovementStateEnum(BaseAIAttackState state)
+        public AIAttackState GetAttackStateEnum(BaseAIAttackState state)
         {
             foreach (KeyValuePair<AIAttackState, BaseAIAttackState> entry in _stateDict)
             {

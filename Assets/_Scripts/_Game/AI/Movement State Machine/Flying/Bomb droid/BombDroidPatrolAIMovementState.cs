@@ -50,7 +50,9 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override void ExitState()
         {
-            
+            _bdCtx.Seeker.enabled = false;
+            _bdCtx.DestinationSetter.enabled = false;
+            _bdCtx.AIPath.enabled = false;
         }
 
         public override void InitialiseState()

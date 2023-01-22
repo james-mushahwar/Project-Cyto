@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using _Scripts._Game.AI.AttackStateMachine;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
@@ -14,12 +15,15 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         #region State Machine
         //Movement
         private BaseAIMovementState _currentState;
+        private BaseAIMovementState _previousState;
         private BaseAIBondedMovementState _currentBondedState;
 
         public BaseAIMovementState CurrentState { get => _currentState; set => _currentState = value; }
+        public BaseAIMovementState PreviousState { get => _previousState; set => _previousState = value; }
         public BaseAIBondedMovementState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
 
         protected AIMovementStateMachineFactory _states;
+
         #endregion
 
         #region AI Components
@@ -81,13 +85,13 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         protected virtual void Awake()
         {
-            _states = new AIMovementStateMachineFactory(this);
-
             _entity = GetComponent<AIEntity>();
             if (_entity)
             {
                 _entity.MovementSM = this;
             }
+
+            _states = new AIMovementStateMachineFactory(this);
 
             //Inputs for all AI
             BondInputsDict.Add(BondInput.NButton, OnNorthButtonInput);
@@ -104,6 +108,14 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         {
             if (!Entity.IsPossessed())
             {
+                // if attacking we disable all movement
+                if (_states.GetMovementStateEnum(CurrentState) != AIMovementState.Attack)
+                {
+                    if (Entity.AttackSM.States.GetAttackStateEnum(Entity.AttackSM.CurrentState) > AIAttackState.Idle)
+                    {
+                        OverrideState(AIMovementState.Attack);
+                    }
+                }
                 CurrentState.ManagedStateTick();
             }
             else
@@ -112,10 +124,10 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             }
         }
 
-        private void OverrideState()
+        private void OverrideState(AIMovementState state)
         {
             CurrentState.ExitState();
-            CurrentState = _states.GetState(AIMovementState.NOTHING);
+            CurrentState = _states.GetState(state);
             CurrentState.EnterState();
         }
 

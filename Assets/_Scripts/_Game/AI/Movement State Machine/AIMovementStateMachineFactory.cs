@@ -14,8 +14,6 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         Patrol,
         Chase,
         Attack,
-        Bonded,
-        NOTHING
     }
 
     public enum AIBondedMovementState
@@ -45,6 +43,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                 _stateDict.Add(AIMovementState.Idle,   new BombDroidIdleAIMovementState(sm, this));
                 _stateDict.Add(AIMovementState.Patrol, new BombDroidPatrolAIMovementState(sm, this));
                 _stateDict.Add(AIMovementState.Chase,  new BombDroidChaseAIMovementState(sm, this));
+                _stateDict.Add(AIMovementState.Attack,  new AttackAIMovementState(sm, this));
 
                 _bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
             }

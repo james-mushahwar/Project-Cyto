@@ -27,6 +27,8 @@
 
         protected void SwitchStates(BaseAIMovementState newState)
         {
+            _ctx.PreviousState = this;
+
             ExitState();
 
             newState.EnterState();

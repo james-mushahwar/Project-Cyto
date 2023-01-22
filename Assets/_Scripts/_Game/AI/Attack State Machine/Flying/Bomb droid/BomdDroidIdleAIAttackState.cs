@@ -16,17 +16,16 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public override bool CheckSwitchStates()
         {
-            if (_stateTimer >= _bdCtx.AttackCooldown)
+            if (_stateTimer >= _bdCtx.BombDropCooldown)
             {
                 GameObject playerGO = PlayerEntity.Instance.GetControlledGameObject();
                 bool isAbovePlayer = playerGO.transform.position.y < _bdCtx.transform.position.y + _bdCtx.BombDropMinimumYDistance;
 
                 if (isAbovePlayer)
                 {
-                    bool isWithinXLimits = Mathf.Abs(playerGO.transform.position.y - _bdCtx.transform.position.y) <= _bdCtx.BombDropMaximumXLimit;
+                    bool isWithinXLimits = Mathf.Abs(playerGO.transform.position.x - _bdCtx.transform.position.x) <= _bdCtx.BombDropMaximumXLimit;
                     if (isWithinXLimits)
                     {
-                        //_bdCtx.Entity.MovementSM.OverrideState();
                         SwitchStates(_factory.GetState(AIAttackState.Attack1));
                         return true;
                     }
@@ -44,12 +43,12 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public override void ExitState()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void InitialiseState()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void ManagedStateTick()
@@ -58,7 +57,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
             if (CheckSwitchStates() == false)
             {
-
+                // do nothing
             }
         }
     }

@@ -298,7 +298,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackCooldown: 3
+  _bombDropCooldown: 0
+  _bombDropMinimumYDistance: 5
+  _bombDropMaximumXLimit: 1.5
   _bombDropStateDuration: 2.5
   _bombDropUpwardsForce: 10
   _bombDropBuildUpDuration: 2
