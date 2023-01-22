@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using _Scripts._Game.Player;
+using _Scripts._Game.AI.Bonding;
+using System;
+using UnityEngine.InputSystem;
 
 namespace _Scripts._Game.General.Managers{
     
@@ -54,13 +57,15 @@ namespace _Scripts._Game.General.Managers{
             public bool IgnoreDistanceScore { get => _ignoreDistanceScore; }
         }
 
-        private Dictionary<ETargetType, ITarget> _targetsDict = new Dictionary<ETargetType, ITarget>();
-
         [Header("Targeting Parameters")]
         [SerializeField]
         private TargetingParameters _possessableTargetParameters;
         [SerializeField]
         private TargetingParameters _damageableTargetParameters;
+
+        [Header("Target type transforms")]
+        private Dictionary<ETargetType, ITarget> _targetsDict = new Dictionary<ETargetType, ITarget>();
+        private int _targetsIndex = 0;
 
         private void Start()
         {
@@ -69,6 +74,28 @@ namespace _Scripts._Game.General.Managers{
             for (int i = 0; i < targets.Count(); ++i)
             {
                 _targetsDict.Add(targets.ElementAt(i).TargetType, targets.ElementAt(i));
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            ManagedTargetsTick();
+        }
+
+        private void ManagedTargetsTick()
+        {
+            ETargetType tickType = (ETargetType)_targetsIndex;
+            _targetsDict.TryGetValue(tickType, out ITarget target);
+
+            if (target != null)
+            {
+                target.ManagedTargetTick();
+            }
+
+            _targetsIndex++;
+            if (_targetsIndex >= (int)ETargetType.INVALID)
+            {
+                _targetsIndex = 0;
             }
         }
 
@@ -129,11 +156,23 @@ namespace _Scripts._Game.General.Managers{
                     return _damageableTargetParameters;
             }
         }
+
+        public Transform GetTargetTypeTransform(ETargetType type)
+        {
+            _targetsDict.TryGetValue(type, out ITarget target);
+            if (target != null)
+            {
+                return target.GetTargetTransform();
+            }
+            return transform;
+        }
+
     }
     
     public interface ITarget
     {
         public ETargetType TargetType { get; }
         public Transform GetTargetTransform();
+        public void ManagedTargetTick();
     }
 }

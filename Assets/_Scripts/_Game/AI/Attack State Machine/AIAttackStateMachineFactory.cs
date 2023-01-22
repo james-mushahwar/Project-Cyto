@@ -1,4 +1,5 @@
-﻿using _Scripts._Game.AI.MovementStateMachine;
+﻿using _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid;
+using _Scripts._Game.AI.MovementStateMachine;
 using _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
     public enum AIAttackState
     {
-        Nothing,
+        Idle,
         Attack1,
         Attack2,
         Attack3,
+        NOTHING // unconnected state
     }
 
     public class AIAttackStateMachineFactory
@@ -22,17 +24,17 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         public AIAttackStateMachineFactory(AIAttackStateMachineBase sm)
         {
             _attackStateMachine = sm;
+            _stateDict.Add(AIAttackState.NOTHING, new BaseAINothingAttackState(sm, this));
 
-            //BombDroidAIMovementStateMachine bombDroid = _attackStateMachine as BombDroidAIMovementStateMachine;
+            BombDroidAIAttackStateMachine bombDroid = _attackStateMachine as BombDroidAIAttackStateMachine;
 
-            //if (bombDroid)
-            //{
-            //    _stateDict.Add(AIMovementState.Idle, new BombDroidIdleAIMovementState(sm, this));
-            //    _stateDict.Add(AIMovementState.Patrol, new BombDroidPatrolAIMovementState(sm, this));
-            //    _stateDict.Add(AIMovementState.Chase, new BombDroidChaseAIMovementState(sm, this));
-
-            //    _bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
-            //}
+            if (bombDroid)
+            {
+                _stateDict.Add(AIAttackState.Idle, new BomdDroidIdleAIAttackState(sm, this));
+                _stateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIAttackState(sm, this));
+   
+                //_bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
+            }
         }
 
         public BaseAIAttackState GetState(AIAttackState state)
@@ -50,7 +52,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
                 }
             }
 
-            return AIAttackState.Nothing;
+            return AIAttackState.NOTHING;
         }
     }
     

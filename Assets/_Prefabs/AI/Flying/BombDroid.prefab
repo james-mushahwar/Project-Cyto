@@ -157,7 +157,7 @@ Transform:
   m_Children:
   - {fileID: 8527710219251885143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2639065142676816087
 MonoBehaviour:
@@ -189,9 +189,9 @@ MonoBehaviour:
   _patrolSpeed: 2
   _patrolWaitTimeRange: {x: 1.5, y: 2.2}
   _waypoints: {fileID: 0}
-  _chaseDetectionRange: 0
-  _chaseLostDetectionRange: 0
-  _chaseSpeed: 0
+  _chaseDetectionSqRange: 225
+  _chaseLostDetectionSqRange: 506.25
+  _chaseSpeed: 3
   _startStopChaseDistances: {x: 0, y: 0}
   _flyingHorizontalVelocity: 0
   _flyingVerticalVelocity: 0
@@ -298,6 +298,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackCooldown: 3
+  _bombDropStateDuration: 2.5
+  _bombDropUpwardsForce: 10
+  _bombDropBuildUpDuration: 2
 --- !u!58 &8527710219603585277
 CircleCollider2D:
   m_ObjectHideFlags: 0

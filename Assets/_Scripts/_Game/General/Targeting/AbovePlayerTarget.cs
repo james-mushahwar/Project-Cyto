@@ -29,20 +29,23 @@ namespace _Scripts._Game.General.Targeting{
 
         public Transform GetTargetTransform()
         {
+            return _centralTransform;
+        }
+
+        public void ManagedTargetTick()
+        {
             PlayerMovementStateMachine playerMovementStateMachine = PlayerMovementStateMachine.Instance;
 
             Vector3 playerPosition = playerMovementStateMachine.gameObject.transform.position;
-            Vector3 newPosition = transform.position + (Vector3)(_raycastDirection * _raycastDistance);
+            Vector3 newPosition = playerPosition + (Vector3)(_raycastDirection * _raycastDistance);
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, _raycastDirection, _raycastDistance, _groundedLayer);
+            RaycastHit2D hit = Physics2D.Raycast(playerPosition, _raycastDirection, _raycastDistance, _groundedLayer);
             if (hit.collider != null)
             {
-                newPosition = hit.collider.transform.position;
+                newPosition = hit.point;
             }
 
             _centralTransform.position = newPosition;
-
-            return _centralTransform;
         }
     }
     

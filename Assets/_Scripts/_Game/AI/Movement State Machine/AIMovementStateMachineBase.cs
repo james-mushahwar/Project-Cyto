@@ -111,7 +111,13 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                 CurrentBondedState.ManagedStateTick();
             }
         }
-   
+
+        private void OverrideState()
+        {
+            CurrentState.ExitState();
+            CurrentState = _states.GetState(AIMovementState.NOTHING);
+            CurrentState.EnterState();
+        }
 
         // ISaveable
         [System.Serializable]
@@ -134,12 +140,12 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public void OnMovementInput(InputAction.CallbackContext context)
         {
             _currentMovementInput = context.ReadValue<Vector2>();
-            _isMovementPressed = _currentMovementInput.magnitude != 0.0f;
+            _isMovementPressed = _currentMovementInput.sqrMagnitude != 0.0f;
         }
         public void OnDirectionInput(InputAction.CallbackContext context)
         {
             _currentDirectionInput = context.ReadValue<Vector2>();
-            _isDirectionPressed = _currentDirectionInput.magnitude != 0.0f;
+            _isDirectionPressed = _currentDirectionInput.sqrMagnitude != 0.0f;
         }
         public void OnNorthButtonInput(InputAction.CallbackContext context)
         {

@@ -24,16 +24,16 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         [Header("Chase Properties")]
         [SerializeField]
-        private float _chaseDetectionRange;
+        private float _chaseDetectionSqRange;
         [SerializeField]
-        private float _chaseLostDetectionRange;
+        private float _chaseLostDetectionSqRange;
         [SerializeField]
         private float _chaseSpeed;
         [SerializeField]
         private Vector2 _startStopChaseDistances;
 
-        public float ChaseDetectionRange { get => _chaseDetectionRange; }
-        public float ChaseLostDetectionRange { get => _chaseLostDetectionRange; }
+        public float ChaseDetectionSqRange { get => _chaseDetectionSqRange; }
+        public float ChaseLostDetectionSqRange { get => _chaseLostDetectionSqRange; }
         #endregion
 
         #region Bonded Bomb Droid Stats

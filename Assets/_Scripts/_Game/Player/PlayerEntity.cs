@@ -12,6 +12,7 @@ namespace _Scripts._Game.Player{
     public class PlayerEntity : Singleton<PlayerEntity>, IPossessable
     {
         private bool _isPossessed;
+        private IPossessable _possessed; //save what we're possessing
 
         #region State Machines
         private PlayerMovementStateMachine _movementSM;
@@ -41,6 +42,18 @@ namespace _Scripts._Game.Player{
             OnPossess();
         }
 
+        public GameObject GetControlledGameObject()
+        {
+            if (!IsPossessed())
+            {
+                return _possessed.PossessableTransform.gameObject; 
+            }
+            else
+            {
+                return PossessableTransform.gameObject;
+            }
+        }
+
         // IPossessable
         public bool IsPossessed()
         {
@@ -56,6 +69,7 @@ namespace _Scripts._Game.Player{
         {
             InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
             _isPossessed = true;
+            _possessed = null;
 
             _movementSM.Rb.isKinematic = false;
             _movementSM.enabled = true;
@@ -71,7 +85,8 @@ namespace _Scripts._Game.Player{
 
             if (_movementSM.BondableTarget != null)
             {
-                _movementSM.BondableTarget.OnPossess();
+                _possessed = _movementSM.BondableTarget;
+                _possessed.OnPossess();
             }
 
             gameObject.transform.SetParent(_movementSM.BondableTarget.PossessableTransform);

@@ -386,13 +386,13 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     void OnMovementInput(InputAction.CallbackContext context)
     {
         _currentMovementInput = context.ReadValue<Vector2>();
-        _isMovementPressed = _currentMovementInput.magnitude != 0.0f;
+        _isMovementPressed = _currentMovementInput.sqrMagnitude != 0.0f;
     }
 
     void OnDirectionInput(InputAction.CallbackContext context)
     {
         _currentDirectionInput = context.ReadValue<Vector2>();
-        _isDirectionPressed = _currentDirectionInput.magnitude != 0.0f;
+        _isDirectionPressed = _currentDirectionInput.sqrMagnitude != 0.0f;
         _bouncingChargeDirection = _currentDirectionInput * -1;
     }
 
@@ -501,7 +501,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         // directional check
         _closestCollider = null;
 
-        if (_currentDirectionInput.magnitude > 0.0f)
+        if (_currentDirectionInput.sqrMagnitude > 0.0f)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _currentDirectionInput, _collidersDetectionDistance, _collisionDetectionLayerMask);
             if (hit.collider != null)

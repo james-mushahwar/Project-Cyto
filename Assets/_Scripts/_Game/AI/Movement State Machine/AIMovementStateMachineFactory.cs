@@ -15,6 +15,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         Chase,
         Attack,
         Bonded,
+        NOTHING
     }
 
     public enum AIBondedMovementState
