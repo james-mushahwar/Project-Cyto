@@ -2,6 +2,7 @@
 using UnityEditor;
 using System;
 using System.IO;
+using Unity.VisualScripting;
 
 namespace _Scripts.Editortools.Windows.AI{
     
@@ -10,31 +11,37 @@ namespace _Scripts.Editortools.Windows.AI{
         BombDroid,
         MushroomArcher,
         DaggerMushroom,
+        COUNT
     }
 
     public class AIGenerator : EditorWindow
     {
-        [MenuItem("Window/AI Generator")]
-        public static void ShowWindow()
-        {
-            GetWindow<AIGenerator>("AI Generator");
-        }
+        #region General
+        private const string _aiTemplatePath = "Assets/_Scripts/Editor tools/Templates/AI/";
 
-
+        private Vector2 _scrollPos = Vector2.zero;
+        #endregion
 
         #region Chosen AI
         AIType _chosenAI = AIType.BombDroid;
 
-        string[] _movementStatePaths = new string[3]
+        string[] _namePrefixes = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Flying/Bomb droid", // Bomb Droid
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Mushroom Archer", // Mushroom Archer
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Dagger Mushroom", // Dagger Mushroom
+            "BombDroid",        // Bomb Droid
+            "MushroomArcher",   // Mushroom Archer
+            "DaggerMushroom",   // Dagger Mushroom
         };
 
-        string[] _attackStatePaths = new string[3]
+        string[] _movementStatePaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb droid", // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Flying/Bomb droid",        // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Mushroom Archer",   // Mushroom Archer
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Dagger Mushroom",   // Dagger Mushroom
+        };
+
+        string[] _attackStatePaths = new string[(int)AIType.COUNT]
+        {
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb droid",      // Bomb Droid
             "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Mushroom Archer", // Mushroom Archer
             "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom", // Dagger Mushroom
         };
@@ -48,8 +55,16 @@ namespace _Scripts.Editortools.Windows.AI{
         bool _bondedMovementGroupEnabled = true;
         #endregion
 
+        [MenuItem("Window/AI Generator")]
+        public static void ShowWindow()
+        {
+            GetWindow<AIGenerator>("AI Generator");
+        }
+
         private void OnGUI()
         {
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+
             #region General
             _chosenAI = (AIType) EditorGUILayout.EnumPopup("Chosen AI:", _chosenAI);
 
@@ -80,7 +95,9 @@ namespace _Scripts.Editortools.Windows.AI{
             EditorGUILayout.EndToggleGroup();
 
             if (GUILayout.Button("Generate states!"))
+            {
                 Generate();
+            }
 
             GUILayout.Space(20);
             #endregion
@@ -89,6 +106,8 @@ namespace _Scripts.Editortools.Windows.AI{
             GUILayout.Label("Attack States", EditorStyles.boldLabel);
 
             GUILayout.Label("Animator", EditorStyles.boldLabel);
+
+            EditorGUILayout.EndScrollView();
 
             this.Repaint();
         }
@@ -99,10 +118,23 @@ namespace _Scripts.Editortools.Windows.AI{
             //FileInfo file = new FileInfo(_movementStatePaths[(int)_chosenAI]);
             //file.Directory.Create(); // If the directory already exists, this method does nothing.
 
-            if (!Directory.Exists(_movementStatePaths[(int)_chosenAI]))
+            /// make all dirctories first
+            for (int i = 0; i < (int)AIType.COUNT; i++)
             {
-                Directory.CreateDirectory(_movementStatePaths[(int)_chosenAI]);
+                if (_movementStatePaths[i] != "" && !Directory.Exists(_movementStatePaths[i]))
+                {
+                    Debug.Log("Created Movement Directory: " + _movementStatePaths[i]);
+                    Directory.CreateDirectory(_movementStatePaths[i]);
+                }
+
+                if (_attackStatePaths[i] != "" && !Directory.Exists(_attackStatePaths[i]))
+                {
+                    Debug.Log("Created Attack Directory: " + _attackStatePaths[i]);
+                    Directory.CreateDirectory(_attackStatePaths[i]);
+                }
             }
+
+
             #endregion
         }
     }
