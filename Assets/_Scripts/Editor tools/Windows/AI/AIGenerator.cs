@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System;
 using System.IO;
-using Unity.VisualScripting;
 
 namespace _Scripts.Editortools.Windows.AI{
     
@@ -134,8 +132,89 @@ namespace _Scripts.Editortools.Windows.AI{
                 }
             }
 
+            
+            string newGenScriptName = "";
+            if (_movementGroupEnabled)
+            {
+                //string folderPath = _movementStatePaths[(int)_chosenAI];
+                //var obj = AssetDatabase.LoadAssetAtPath<DefaultAsset>(folderPath);
+                //EditorGUIUtility.PingObject(obj);
+
+                string scriptType = "AIMovementState.cs.txt";
+                string scriptBaseType = "AIMovementState";
+
+                if (_movementStates[0])
+                {
+                    CreateNewCSScript(scriptType, "Sleep", scriptBaseType);
+                }
+                if (_movementStates[1])
+                {
+                    CreateNewCSScript(scriptType, "Wake", scriptBaseType);
+                }
+                if (_movementStates[2])
+                {
+                    CreateNewCSScript(scriptType, "Idle", scriptBaseType);
+                }
+                if (_movementStates[3])
+                {
+                    CreateNewCSScript(scriptType, "Patrol", scriptBaseType);
+                }
+                if (_movementStates[4])
+                {
+                    CreateNewCSScript(scriptType, "Chase", scriptBaseType);
+                }
+                if (_movementStates[5])
+                {
+                    CreateNewCSScript(scriptType, "Attack", scriptBaseType);
+                }
+            }
+            if (_bondedMovementGroupEnabled)
+            {
+                //string folderPath = _movementStatePaths[(int)_chosenAI];
+                //var obj = AssetDatabase.LoadAssetAtPath<DefaultAsset>(folderPath);
+                //EditorGUIUtility.PingObject(obj);
+
+                string scriptType = "AIBondedMovementState.cs.txt";
+                string scriptBaseType = "AIBondedMovementState";
+
+                if (_bondedMovementStates[0])
+                {
+                    CreateNewCSScript(scriptType, "Grounded", scriptBaseType);
+                }
+                if (_bondedMovementStates[1])
+                {
+                    CreateNewCSScript(scriptType, "Jumping", scriptBaseType);
+                }
+                if (_bondedMovementStates[2])
+                {
+                    CreateNewCSScript(scriptType, "Falling", scriptBaseType);
+                }
+                if (_bondedMovementStates[3])
+                {
+                    CreateNewCSScript(scriptType, "Flying", scriptBaseType);
+                }
+                if (_bondedMovementStates[4])
+                {
+                    CreateNewCSScript(scriptType, "Dashing", scriptBaseType);
+                }
+                if (_bondedMovementStates[5])
+                {
+                    CreateNewCSScript(scriptType, "Attacking", scriptBaseType);
+                }
+            }
 
             #endregion
+
+            void CreateNewCSScript(string templateType, string actionType, string baseType)
+            {
+                newGenScriptName = _namePrefixes[(int)_chosenAI] + actionType + baseType + ".cs";
+                if (!System.IO.File.Exists(_movementStatePaths[(int)_chosenAI] + newGenScriptName))
+                {
+                    //do stuff
+                    ProjectWindowUtil.CreateScriptAssetFromTemplateFile(_aiTemplatePath + templateType, _movementStatePaths[(int)_chosenAI] + "/" + newGenScriptName);
+                    Debug.Log("Created C# script: " + newGenScriptName);
+                }
+            }
         }
     }
     
