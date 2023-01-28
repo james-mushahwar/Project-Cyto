@@ -53,6 +53,13 @@ namespace _Scripts.Editortools.Windows.AI{
         bool _bondedMovementGroupEnabled = true;
         #endregion
 
+        #region Attack
+        string[] _attackStates = new string[3];
+        bool _attackGroupEnabled = true;
+        string[] _bondedAttackStates = new string[3];
+        bool _bondedAttackGroupEnabled = true;
+        #endregion
+
         [MenuItem("Window/AI Generator")]
         public static void ShowWindow()
         {
@@ -74,7 +81,7 @@ namespace _Scripts.Editortools.Windows.AI{
 
             #region Movement
             GUILayout.Label("Movement States", EditorStyles.boldLabel);
-            _movementGroupEnabled = EditorGUILayout.BeginToggleGroup("MovementStates", _movementGroupEnabled);
+            _movementGroupEnabled = EditorGUILayout.BeginToggleGroup("Movement States", _movementGroupEnabled);
             _movementStates[0] = EditorGUILayout.Toggle("Sleep", _movementStates[0]);
             _movementStates[1] = EditorGUILayout.Toggle("Wake", _movementStates[1]);
             _movementStates[2] = EditorGUILayout.Toggle("Idle", _movementStates[2]);
@@ -83,7 +90,7 @@ namespace _Scripts.Editortools.Windows.AI{
             _movementStates[5] = EditorGUILayout.Toggle("Attack", _movementStates[5]);
             EditorGUILayout.EndToggleGroup();
 
-            _bondedMovementGroupEnabled = EditorGUILayout.BeginToggleGroup("BondedMovementStates", _bondedMovementGroupEnabled);
+            _bondedMovementGroupEnabled = EditorGUILayout.BeginToggleGroup("Bonded Movement States", _bondedMovementGroupEnabled);
             _bondedMovementStates[0] = EditorGUILayout.Toggle("Grounded", _bondedMovementStates[0]);
             _bondedMovementStates[1] = EditorGUILayout.Toggle("Jumping", _bondedMovementStates[1]);
             _bondedMovementStates[2] = EditorGUILayout.Toggle("Falling", _bondedMovementStates[2]);
@@ -92,19 +99,30 @@ namespace _Scripts.Editortools.Windows.AI{
             _bondedMovementStates[5] = EditorGUILayout.Toggle("Attacking", _bondedMovementStates[5]);
             EditorGUILayout.EndToggleGroup();
 
-            if (GUILayout.Button("Generate states!"))
-            {
-                Generate();
-            }
+            GUILayout.Space(20);
+            #endregion
+
+            #region Attack
+            GUILayout.Label("Attack States", EditorStyles.boldLabel);
+            _attackGroupEnabled = EditorGUILayout.BeginToggleGroup("Attack States", _attackGroupEnabled);
+            _attackStates[0] = EditorGUILayout.TextField("Attack 1", _attackStates[0]);
+            _attackStates[1] = EditorGUILayout.TextField("Attack 2", _attackStates[1]);
+            _attackStates[2] = EditorGUILayout.TextField("Attack 3", _attackStates[2]);
+            EditorGUILayout.EndToggleGroup();
 
             GUILayout.Space(20);
             #endregion
 
-
-            GUILayout.Label("Attack States", EditorStyles.boldLabel);
-
+            #region Animator
             GUILayout.Label("Animator", EditorStyles.boldLabel);
+            GUILayout.Space(20);
+            #endregion
 
+
+            if (GUILayout.Button("Generate states!"))
+            {
+                Generate();
+            }
             EditorGUILayout.EndScrollView();
 
             this.Repaint();
@@ -112,11 +130,7 @@ namespace _Scripts.Editortools.Windows.AI{
 
         void Generate()
         {
-            #region Movement
-            //FileInfo file = new FileInfo(_movementStatePaths[(int)_chosenAI]);
-            //file.Directory.Create(); // If the directory already exists, this method does nothing.
-
-            /// make all dirctories first
+            // make all dirctories first
             for (int i = 0; i < (int)AIType.COUNT; i++)
             {
                 if (_movementStatePaths[i] != "" && !Directory.Exists(_movementStatePaths[i]))
@@ -132,86 +146,107 @@ namespace _Scripts.Editortools.Windows.AI{
                 }
             }
 
-            
+            #region Movement
+
             string newGenScriptName = "";
             if (_movementGroupEnabled)
             {
-                //string folderPath = _movementStatePaths[(int)_chosenAI];
-                //var obj = AssetDatabase.LoadAssetAtPath<DefaultAsset>(folderPath);
-                //EditorGUIUtility.PingObject(obj);
 
                 string scriptType = "AIMovementState.cs.txt";
                 string scriptBaseType = "AIMovementState";
 
                 if (_movementStates[0])
                 {
-                    CreateNewCSScript(scriptType, "Sleep", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Sleep", scriptBaseType);
                 }
                 if (_movementStates[1])
                 {
-                    CreateNewCSScript(scriptType, "Wake", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Wake", scriptBaseType);
                 }
                 if (_movementStates[2])
                 {
-                    CreateNewCSScript(scriptType, "Idle", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Idle", scriptBaseType);
                 }
                 if (_movementStates[3])
                 {
-                    CreateNewCSScript(scriptType, "Patrol", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Patrol", scriptBaseType);
                 }
                 if (_movementStates[4])
                 {
-                    CreateNewCSScript(scriptType, "Chase", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Chase", scriptBaseType);
                 }
                 if (_movementStates[5])
                 {
-                    CreateNewCSScript(scriptType, "Attack", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Attack", scriptBaseType);
                 }
             }
             if (_bondedMovementGroupEnabled)
             {
-                //string folderPath = _movementStatePaths[(int)_chosenAI];
-                //var obj = AssetDatabase.LoadAssetAtPath<DefaultAsset>(folderPath);
-                //EditorGUIUtility.PingObject(obj);
 
                 string scriptType = "AIBondedMovementState.cs.txt";
                 string scriptBaseType = "AIBondedMovementState";
 
                 if (_bondedMovementStates[0])
                 {
-                    CreateNewCSScript(scriptType, "Grounded", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Grounded", scriptBaseType);
                 }
                 if (_bondedMovementStates[1])
                 {
-                    CreateNewCSScript(scriptType, "Jumping", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Jumping", scriptBaseType);
                 }
                 if (_bondedMovementStates[2])
                 {
-                    CreateNewCSScript(scriptType, "Falling", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Falling", scriptBaseType);
                 }
                 if (_bondedMovementStates[3])
                 {
-                    CreateNewCSScript(scriptType, "Flying", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Flying", scriptBaseType);
                 }
                 if (_bondedMovementStates[4])
                 {
-                    CreateNewCSScript(scriptType, "Dashing", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Dashing", scriptBaseType);
                 }
                 if (_bondedMovementStates[5])
                 {
-                    CreateNewCSScript(scriptType, "Attacking", scriptBaseType);
+                    CreateNewCSScript(_movementStatePaths[(int)_chosenAI], scriptType, "Attacking", scriptBaseType);
                 }
             }
 
             #endregion
 
-            void CreateNewCSScript(string templateType, string actionType, string baseType)
+            #region Attack States
+
+            if (_attackGroupEnabled)
+            {
+                string scriptType = "AIAttackState.cs.txt";
+                string scriptBaseType = "AIAttackState";
+
+                CreateNewCSScript(_attackStatePaths[(int)_chosenAI], scriptType, "Idle", scriptBaseType);
+                if (_attackStates[0] != "")
+                {
+                    CreateNewCSScript(_attackStatePaths[(int)_chosenAI], scriptType, _attackStates[0], scriptBaseType);
+                    _attackStates[0] = "";
+                }
+                if (_attackStates[1] != "")
+                {
+                    CreateNewCSScript(_attackStatePaths[(int)_chosenAI], scriptType, _attackStates[1], scriptBaseType);
+                    _attackStates[1] = "";
+                }
+                if (_attackStates[2] != "")
+                {
+                    CreateNewCSScript(_attackStatePaths[(int)_chosenAI], scriptType, _attackStates[2], scriptBaseType);
+                    _attackStates[2] = "";
+                }
+            }
+
+            #endregion
+
+            void CreateNewCSScript(string pathName, string templateType, string actionType, string baseType)
             {
                 newGenScriptName = _namePrefixes[(int)_chosenAI] + actionType + baseType + ".cs";
-                if (!System.IO.File.Exists(_movementStatePaths[(int)_chosenAI] + newGenScriptName))
+                if (!System.IO.File.Exists(pathName + "/" + newGenScriptName))
                 {
-                    //do stuff
-                    ProjectWindowUtil.CreateScriptAssetFromTemplateFile(_aiTemplatePath + templateType, _movementStatePaths[(int)_chosenAI] + "/" + newGenScriptName);
+                    ProjectWindowUtil.CreateScriptAssetFromTemplateFile(_aiTemplatePath + templateType, pathName + "/" + newGenScriptName);
                     Debug.Log("Created C# script: " + newGenScriptName);
                 }
             }
