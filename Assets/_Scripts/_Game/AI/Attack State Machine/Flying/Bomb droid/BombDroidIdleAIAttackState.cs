@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
-    public class BomdDroidIdleAIAttackState : BaseAIAttackState
+    public class BombDroidIdleAIAttackState : BaseAIAttackState
     {
         private BombDroidAIAttackStateMachine _bdCtx;
 
-        public BomdDroidIdleAIAttackState(AIAttackStateMachineBase ctx, AIAttackStateMachineFactory factory) : base(ctx, factory)
+        public BombDroidIdleAIAttackState(AIAttackStateMachineBase ctx, AIAttackStateMachineFactory factory) : base(ctx, factory)
         {
             _bdCtx = ctx as BombDroidAIAttackStateMachine;
         }

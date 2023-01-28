@@ -30,7 +30,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
             if (bombDroid)
             {
-                _stateDict.Add(AIAttackState.Idle, new BomdDroidIdleAIAttackState(sm, this));
+                _stateDict.Add(AIAttackState.Idle, new BombDroidIdleAIAttackState(sm, this));
                 _stateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIAttackState(sm, this));
    
                 //_bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));

@@ -244,10 +244,15 @@ namespace _Scripts.Editortools.Windows.AI{
             void CreateNewCSScript(string pathName, string templateType, string actionType, string baseType)
             {
                 newGenScriptName = _namePrefixes[(int)_chosenAI] + actionType + baseType + ".cs";
+                Debug.Log(pathName + "/" + newGenScriptName);
                 if (!System.IO.File.Exists(pathName + "/" + newGenScriptName))
                 {
                     ProjectWindowUtil.CreateScriptAssetFromTemplateFile(_aiTemplatePath + templateType, pathName + "/" + newGenScriptName);
                     Debug.Log("Created C# script: " + newGenScriptName);
+                }
+                else
+                {
+                    Debug.Log("Not generating duplicate file: " + pathName + "/" + newGenScriptName);
                 }
             }
         }
