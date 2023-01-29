@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 2864650383287836162}
   - component: {fileID: 2864650383287836163}
   - component: {fileID: 2864650383287836160}
-  - component: {fileID: 2864650383287836161}
   m_Layer: 8
-  m_Name: BombDroid Sprite
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,19 +105,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2864650383287836161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2864650383287836221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa810291659eb44a9ae1e7e3e1934fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bondedMovementAnimSpeedRange: {x: 0.75, y: 1.5}
 --- !u!1 &2864650384981643947
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,11 +115,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2864650384981643950}
   - component: {fileID: 8432459068352428674}
-  - component: {fileID: 2864650384981643951}
   - component: {fileID: 2864650384981643945}
   - component: {fileID: 2864650384981643949}
   - component: {fileID: 2864650384981643954}
-  - component: {fileID: 7803206930166902341}
   - component: {fileID: 2864650384981643944}
   - component: {fileID: 2864650384981643948}
   m_Layer: 8
@@ -171,37 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0ab3890a744b1409705bbfdbafa410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2864650384981643951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2864650384981643947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 794e2373d43d58341bf6b6fa3d8879d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _groundedLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _patrolSpeed: 2
-  _patrolWaitTimeRange: {x: 1.5, y: 2.2}
-  _waypoints: {fileID: 0}
-  _chaseDetectionSqRange: 225
-  _chaseLostDetectionSqRange: 506.25
-  _chaseSpeed: 3
-  _startStopChaseDistances: {x: 0, y: 0}
-  _flyingHorizontalVelocity: 0
-  _flyingVerticalVelocity: 0
-  _flyingMaximumHorizontalVelocity: 8
-  _flyingMaximumVerticalVelocity: 8
-  _flyingHorizontalAcceleration: 0
-  _flyingHorizontalDeceleration: 0
-  _flyingVerticalAcceleration: 0
-  _flyingVerticalDeceleration: 0
-  _flyingMovementDirectionThrust: 20
 --- !u!114 &2864650384981643945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +182,7 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: 1
+    value: 0
 --- !u!114 &2864650384981643949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,24 +239,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &7803206930166902341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2864650384981643947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bombDropCooldown: 2
-  _bombDropMinimumYDistance: 5
-  _bombDropMaximumXLimit: 1.5
-  _bombDropStateDuration: 2.5
-  _bombDropUpwardsForce: 10
-  _bombDropBuildUpDuration: 1
 --- !u!58 &2864650384981643944
 CircleCollider2D:
   m_ObjectHideFlags: 0

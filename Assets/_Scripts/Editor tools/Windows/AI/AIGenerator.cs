@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
+using Pathfinding;
 
 namespace _Scripts.Editortools.Windows.AI{
     
@@ -53,6 +54,13 @@ namespace _Scripts.Editortools.Windows.AI{
 
         };
 
+        string[] _prefabPaths = new string[(int)AIType.COUNT]
+        {
+            "Assets/_Prefabs/AI/Flying/Bomb Droid",      // Bomb Droid
+            "Assets/_Prefabs/AI/Ground/Mushroom Archer", // Mushroom Archer
+            "Assets/_Prefabs/AI/Ground/Dagger Mushroom", // Dagger Mushroom
+        };
+
         #endregion
 
         #region Movement
@@ -72,6 +80,10 @@ namespace _Scripts.Editortools.Windows.AI{
 
         #region Sprite Animator
         bool _spriteGroupEnabled = true;
+        #endregion
+
+        #region Prefab 
+        bool _createPrefab = false;
         #endregion
 
         [MenuItem("Window/AI Generator")]
@@ -145,6 +157,12 @@ namespace _Scripts.Editortools.Windows.AI{
             GUILayout.Space(20);
             #endregion
 
+            #region Prefab
+            GUILayout.Label("Prefab", EditorStyles.boldLabel);
+            _createPrefab = EditorGUILayout.BeginToggleGroup("Create prefab", _createPrefab);
+            EditorGUILayout.EndToggleGroup();
+            GUILayout.Space(20);
+            #endregion
 
             if (GUILayout.Button("Generate scripts!"))
             {
@@ -176,6 +194,12 @@ namespace _Scripts.Editortools.Windows.AI{
                 {
                     Debug.Log("Created Animator Directory: " + _animatorPaths[i]);
                     Directory.CreateDirectory(_animatorPaths[i]);
+                }
+
+                if (_prefabPaths[i] != "" && !Directory.Exists(_prefabPaths[i]))
+                {
+                    Debug.Log("Created Prefab Directory: " + _prefabPaths[i]);
+                    Directory.CreateDirectory(_prefabPaths[i]);
                 }
             }
 
@@ -306,7 +330,55 @@ namespace _Scripts.Editortools.Windows.AI{
                 }
                 #endregion
 
+                #region Prefab
+                if (_createPrefab)
+                {
+                    string localPath = _prefabPaths[i] + "/" + _namePrefixes[i] + ".prefab";
+                    if (!System.IO.File.Exists(localPath))
+                    {
+                        //localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
+
+                        GameObject aiTemplateGO = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/_Prefabs/AI/AITemplate.prefab", typeof(GameObject));
+                        GameObject newGO = GameObject.Instantiate(aiTemplateGO);
+                        newGO.name = _namePrefixes[i];
+
+                        #region AddComponents
+                        if (newGO.name == "BombDroid")
+                        {
+                            
+                        }
+                        else if (newGO.name == "MushroomArcher")
+                        {
+
+                        }
+                        else if (newGO.name == "DaggerMushroom")
+                        {
+
+                        }
+                        #endregion
+
+                        bool prefabSuccess;
+                        Object prefab = PrefabUtility.SaveAsPrefabAsset(newGO, localPath, out prefabSuccess);
+                        if (prefabSuccess == true)
+                        {
+                            Debug.Log(_namePrefixes[i] + " Prefab was saved successfully");
+                        }
+                        else
+                        {
+                            Debug.Log("Prefab failed to save" + prefabSuccess);
+                        }
+                        DestroyImmediate(newGO);
+                    }
+                    else
+                    {
+                        Debug.Log(_namePrefixes[i] + " Prefab already exists - not creating new one");
+                    }
+                    
+                }
+                #endregion
+
                 _selectAll = false;
+                _createPrefab = false;
             }
 
             void CreateNewCSScript(int index, string pathName, string templateType, string actionType, string baseType)
