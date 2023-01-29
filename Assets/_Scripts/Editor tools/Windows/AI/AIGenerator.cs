@@ -46,12 +46,20 @@ namespace _Scripts.Editortools.Windows.AI{
             "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom", // Dagger Mushroom
         };
 
+        //Animator scripts
         string[] _animatorPaths = new string[(int)AIType.COUNT]
         {
             "Assets/_Scripts/_Game/Animation/Character/AI/Flying/Bomb Droid",      // Bomb Droid
             "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Mushroom Archer", // Mushroom Archer
             "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Dagger Mushroom", // Dagger Mushroom
+        };
 
+        //Animation assets
+        string[] _animationPaths = new string[(int)AIType.COUNT]
+        {
+            "Assets/_Animation/AI/Flying/Bomb Droid",      // Bomb Droid
+            "Assets/_Animation/AI/Ground/Mushroom Archer", // Mushroom Archer
+            "Assets/_Animation/AI/Ground/Dagger Mushroom", // Dagger Mushroom
         };
 
         string[] _prefabPaths = new string[(int)AIType.COUNT]
