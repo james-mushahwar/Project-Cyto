@@ -71,6 +71,12 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         public AIEntity Entity { get => _entity; }
         #endregion
 
+        #region General
+        private bool _isAttackInterrupted = false;
+
+        public bool IsAttackInterrupted { get => _isAttackInterrupted; set => _isAttackInterrupted = value; }
+        #endregion
+
         protected virtual void Awake()
         {
             _entity = GetComponent<AIEntity>();

@@ -190,6 +190,21 @@ namespace _Scripts.Editortools.Windows.AI{
 
             for (int i = index; i < lastIndex; i++)
             {
+                #region State Machines
+                string stateType = "";
+                string stateBaseType = "";
+
+                //movement state machine
+                stateType = _movementStatePaths[i].Contains("Flying") ? "FlyingAIMovementStateMachine.cs.txt" : "GroundAIMovementStateMachine.cs.txt";
+                stateBaseType = "AIMovementStateMachine";
+                CreateNewCSScript(i, _movementStatePaths[i], stateType, "", stateBaseType);
+
+                //attacking state machine
+                stateType = "AIAttackStateMachine.cs.txt";
+                stateBaseType = "AIAttackStateMachineBase";
+                CreateNewCSScript(i, _attackStatePaths[i], stateType, "", stateBaseType);
+                #endregion
+
                 #region Movement
                 if (_movementGroupEnabled)
                 {
@@ -290,6 +305,8 @@ namespace _Scripts.Editortools.Windows.AI{
                     CreateNewCSScript(i, _animatorPaths[i], scriptType, "", scriptBaseType);
                 }
                 #endregion
+
+                _selectAll = false;
             }
 
             void CreateNewCSScript(int index, string pathName, string templateType, string actionType, string baseType)

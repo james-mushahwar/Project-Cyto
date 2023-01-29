@@ -37,10 +37,6 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         #region Bonded Bomb Droid Attack Stats
         #endregion
 
-        private bool _isAttackInterrupted = false;
-
-        public bool IsAttackInterrupted { get => _isAttackInterrupted; set => _isAttackInterrupted = value; }
-
         protected override void Awake()
         {
             base.Awake();
@@ -61,9 +57,9 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
                 //CurrentBondedState.ManagedStateTick();
             }
 
-            if (_isAttackInterrupted)
+            if (IsAttackInterrupted)
             {
-                _isAttackInterrupted = false;
+                IsAttackInterrupted = false;
             }
         }
     }
