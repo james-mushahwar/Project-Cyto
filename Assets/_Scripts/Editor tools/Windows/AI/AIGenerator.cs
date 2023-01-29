@@ -89,6 +89,7 @@ namespace _Scripts.Editortools.Windows.AI{
         #region Sprite Animator
         bool _spriteGroupEnabled = true;
         bool _animController = false;
+        bool[] _animationClips = new bool[6] { false, false, false, false, false, false };
         #endregion
 
         #region Prefab 
@@ -162,7 +163,13 @@ namespace _Scripts.Editortools.Windows.AI{
             #region Animator
             GUILayout.Label("Animator", EditorStyles.boldLabel);
             _spriteGroupEnabled = EditorGUILayout.BeginToggleGroup("Sprite animator", _spriteGroupEnabled);
-            _animController = EditorGUILayout.Toggle("Create Controller", _animController);
+            _animController = EditorGUILayout.Toggle("Anim Controller", _animController);
+            _animationClips[0] = EditorGUILayout.Toggle("Sleep", _animationClips[0]);
+            _animationClips[1] = EditorGUILayout.Toggle("Wake", _animationClips[1]);
+            _animationClips[2] = EditorGUILayout.Toggle("Idle", _animationClips[2]);
+            _animationClips[3] = EditorGUILayout.Toggle("Patrol", _animationClips[3]);
+            _animationClips[4] = EditorGUILayout.Toggle("Chase", _animationClips[4]);
+            _animationClips[5] = EditorGUILayout.Toggle("Attack", _animationClips[5]);
             EditorGUILayout.EndToggleGroup();
             GUILayout.Space(20);
             #endregion
@@ -367,6 +374,61 @@ namespace _Scripts.Editortools.Windows.AI{
                             }
                         }
                         
+                    }
+
+                    if (_animationClips[0])
+                    {
+                        string localPath = _animationPaths[i] + "/" + _namePrefixes[i] + "Anim_Sleep.anim";
+                        if (!System.IO.File.Exists(localPath))
+                        {
+                            AnimationClip clip = new AnimationClip();
+                            AssetDatabase.CreateAsset(clip, localPath);
+                        }
+                    }
+                    if (_animationClips[1])
+                    {
+                        string localPath = _animationPaths[i] + "/" + _namePrefixes[i] + "Anim_Wake.anim";
+                        if (!System.IO.File.Exists(localPath))
+                        {
+                            AnimationClip clip = new AnimationClip();
+                            AssetDatabase.CreateAsset(clip, localPath);
+                        }
+                    }
+                    if (_animationClips[2])
+                    {
+                        string localPath = _animationPaths[i] + "/" + _namePrefixes[i] + "Anim_Idle.anim";
+                        if (!System.IO.File.Exists(localPath))
+                        {
+                            AnimationClip clip = new AnimationClip();
+                            AssetDatabase.CreateAsset(clip, localPath);
+                        }
+                    }
+                    if (_animationClips[3])
+                    {
+                        string localPath = _animationPaths[i] + "/" + _namePrefixes[i] + "Anim_Patrol.anim";
+                        if (!System.IO.File.Exists(localPath))
+                        {
+                            AnimationClip clip = new AnimationClip();
+                            AssetDatabase.CreateAsset(clip, localPath);
+                        }
+                    }
+                    if (_animationClips[4])
+                    {
+                        string localPath = _animationPaths[i] + "/" + _namePrefixes[i] + "Anim_Chase.anim";
+                        if (!System.IO.File.Exists(localPath))
+                        {
+                            AnimationClip clip = new AnimationClip();
+                            AssetDatabase.CreateAsset(clip, localPath);
+                        }
+                    }
+                    if (_animationClips[5])
+                    {
+                        string localPath = _animationPaths[i] + "/" + _namePrefixes[i] + "Anim_Attack.anim";
+                        if (!System.IO.File.Exists(localPath))
+                        {
+                            AnimationClip clip = new AnimationClip();
+                            AssetDatabase.CreateAsset(clip, localPath);
+                        }
                     }
                 }
                 #endregion
