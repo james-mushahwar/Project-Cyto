@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid;
 using _Scripts._Game.AI.MovementStateMachine;
-using System;
+using _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid;
 
 namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
     
     public class BombDroidSpriteAnimator : SpriteAnimator
     {
-        BombDroidAIMovementStateMachine _ctx;
+        BombDroidAIMovementStateMachine _moveCtx;
+        BombDroidAIAttackStateMachine _attackCtx;
 
         #region Hashed States
         public static readonly int Idle = Animator.StringToHash("BombDroidAnim_Idle");
@@ -26,14 +28,15 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
         {
             base.Awake();
 
-            _ctx = GetComponentInParent<BombDroidAIMovementStateMachine>();
+            _moveCtx = GetComponentInParent<BombDroidAIMovementStateMachine>();
+            _attackCtx = GetComponentInParent<BombDroidAIAttackStateMachine>();
         }
 
         protected override int GetState()
         {
             if (Entity.IsPossessed())
             {
-                BaseAIBondedMovementState currentBondedMovementState = _ctx.CurrentBondedState;
+                BaseAIBondedMovementState currentBondedMovementState = _moveCtx.CurrentBondedState;
                 if (currentBondedMovementState is BombDroidFlyingAIBondedMovementState)
                 {
                     return Patrol;
@@ -45,7 +48,7 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
             }
             else
             {
-                BaseAIMovementState currentMovementState = _ctx.CurrentState;
+                BaseAIMovementState currentMovementState = _moveCtx.CurrentState;
                 if (currentMovementState is BombDroidIdleAIMovementState)
                 {
                     return Idle;
@@ -75,7 +78,7 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
             {
                 if (state == Patrol)
                 {
-                    float newSpeed = Mathf.Lerp(_bondedMovementAnimSpeedRange.x, _bondedMovementAnimSpeedRange.y, Convert.ToInt16(Mathf.Abs(_ctx.Rb.velocity.x) > 1.0f || Mathf.Abs(_ctx.Rb.velocity.y) > 1.0f));
+                    float newSpeed = Mathf.Lerp(_bondedMovementAnimSpeedRange.x, _bondedMovementAnimSpeedRange.y, Convert.ToInt16(Mathf.Abs(_moveCtx.Rb.velocity.x) > 1.0f || Mathf.Abs(_moveCtx.Rb.velocity.y) > 1.0f));
                     return newSpeed;
                 }
                 else
@@ -93,13 +96,13 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
         {
             if (Entity.IsPossessed())
             {
-                Renderer.flipX = _ctx.Rb.velocity.x < 0.0f;
+                Renderer.flipX = _moveCtx.Rb.velocity.x < 0.0f;
             }
             else
             {
-                if (_ctx.AIPath.velocity.x != 0)
+                if (_moveCtx.AIPath.velocity.x != 0)
                 {
-                    Renderer.flipX = _ctx.AIPath.velocity.x < 0.0f;
+                    Renderer.flipX = _moveCtx.AIPath.velocity.x < 0.0f;
                 }
             }
             
