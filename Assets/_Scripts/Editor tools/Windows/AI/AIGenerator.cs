@@ -88,6 +88,7 @@ namespace _Scripts.Editortools.Windows.AI{
 
         #region Sprite Animator
         bool _spriteGroupEnabled = true;
+        bool _animController = false;
         #endregion
 
         #region Prefab 
@@ -161,6 +162,7 @@ namespace _Scripts.Editortools.Windows.AI{
             #region Animator
             GUILayout.Label("Animator", EditorStyles.boldLabel);
             _spriteGroupEnabled = EditorGUILayout.BeginToggleGroup("Sprite animator", _spriteGroupEnabled);
+            _animController = EditorGUILayout.Toggle("Create Controller", _animController);
             EditorGUILayout.EndToggleGroup();
             GUILayout.Space(20);
             #endregion
@@ -183,6 +185,7 @@ namespace _Scripts.Editortools.Windows.AI{
 
         void Generate()
         {
+            Debug.Log("/////////// Generate Directories ///////////");
             // make all dirctories first
             for (int i = 0; i < (int)AIType.COUNT; i++)
             {
@@ -204,12 +207,20 @@ namespace _Scripts.Editortools.Windows.AI{
                     Directory.CreateDirectory(_animatorPaths[i]);
                 }
 
+                if (_animationPaths[i] != "" && !Directory.Exists(_animationPaths[i]))
+                {
+                    Debug.Log("Created Animation Directory: " + _animationPaths[i]);
+                    Directory.CreateDirectory(_animationPaths[i]);
+                }
+
                 if (_prefabPaths[i] != "" && !Directory.Exists(_prefabPaths[i]))
                 {
                     Debug.Log("Created Prefab Directory: " + _prefabPaths[i]);
                     Directory.CreateDirectory(_prefabPaths[i]);
                 }
             }
+
+            Debug.Log("////////////////////////////////////////");
 
             if (_chosenAI == AIType.COUNT)
             {
@@ -223,6 +234,8 @@ namespace _Scripts.Editortools.Windows.AI{
             for (int i = index; i < lastIndex; i++)
             {
                 #region State Machines
+
+                Debug.Log("/////////// Generate State machines ///////////");
                 string stateType = "";
                 string stateBaseType = "";
 
@@ -233,8 +246,10 @@ namespace _Scripts.Editortools.Windows.AI{
 
                 //attacking state machine
                 stateType = "AIAttackStateMachine.cs.txt";
-                stateBaseType = "AIAttackStateMachineBase";
+                stateBaseType = "AIAttackStateMachine";
                 CreateNewCSScript(i, _attackStatePaths[i], stateType, "", stateBaseType);
+
+                Debug.Log("////////////////////////////////////");
                 #endregion
 
                 #region Movement
@@ -335,6 +350,24 @@ namespace _Scripts.Editortools.Windows.AI{
                     string scriptBaseType = "SpriteAnimator";
 
                     CreateNewCSScript(i, _animatorPaths[i], scriptType, "", scriptBaseType);
+
+                    if (_animController)
+                    {
+                        string localPath = _animationPaths[i] + "/" + _namePrefixes[i] + "Animator.controller";
+                        if (!System.IO.File.Exists(localPath))
+                        {
+                            var controller = UnityEditor.Animations.AnimatorController.CreateAnimatorControllerAtPath(localPath);
+                            if (controller)
+                            {
+                                Debug.Log("Successfully made " + _namePrefixes[i] + " anim controller");
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Failed to make " + _namePrefixes[i] + " anim controller");
+                            }
+                        }
+                        
+                    }
                 }
                 #endregion
 
@@ -373,7 +406,7 @@ namespace _Scripts.Editortools.Windows.AI{
                         }
                         else
                         {
-                            Debug.Log("Prefab failed to save" + prefabSuccess);
+                            Debug.LogWarning("Prefab failed to save" + prefabSuccess);
                         }
                         DestroyImmediate(newGO);
                     }
