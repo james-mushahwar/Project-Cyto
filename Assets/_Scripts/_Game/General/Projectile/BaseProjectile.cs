@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Projectile{
     
-    public abstract class BaseProjectile : MonoBehaviour
+    public class BaseProjectile : MonoBehaviour
     {
         protected float ProjectileLifetime { get; set; }
         protected float ProjectileLifetimeTimer { get; set; }

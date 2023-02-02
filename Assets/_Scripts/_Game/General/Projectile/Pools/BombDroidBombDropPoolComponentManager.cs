@@ -9,17 +9,8 @@ namespace _Scripts._Game.General.Projectile.Pools{
     
     public class BombDroidBombDropPoolComponentManager : PoolComponentManager<BombDroidBombDropProjectile>
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-    
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+        [SerializeField]
+        private GameObject _playerBasicAttackProjectilePrefab;
 
         protected override bool IsActive(BombDroidBombDropProjectile component)
         {

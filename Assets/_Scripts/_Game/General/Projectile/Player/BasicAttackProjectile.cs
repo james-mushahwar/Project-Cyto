@@ -8,5 +8,4 @@ namespace _Scripts._Game.General.Projectile.Player{
     {
         
     }
-
 }
