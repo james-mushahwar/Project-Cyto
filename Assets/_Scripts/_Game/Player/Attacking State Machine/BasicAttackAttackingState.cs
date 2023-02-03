@@ -64,7 +64,10 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
             Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
-            //ProjectileManager.Instance.TryBasicAttackProjectile()
+            if (PlayerEntity.Instance.MovementSM.BondableTarget != null)
+            {
+                ProjectileManager.Instance.TryBasicAttackProjectile(PlayerEntity.Instance.MovementSM.BondableTarget.PossessableTransform, PlayerEntity.Instance.transform.position);
+            }
         }
 
         public override void ExitState()

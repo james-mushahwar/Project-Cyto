@@ -10,18 +10,23 @@ namespace _Scripts._Game.General.Projectile.Pools{
     public class BasicAttackPoolComponentManager : PoolComponentManager<BasicAttackProjectile>
     {
         #region Projectile
-        [SerializeField]
-        private GameObject _bombDroidProjectilePrefab;
         
+        [SerializeField]
+        private GameObject _playerBasicAttackProjectilePrefab;
+
         #endregion
 
         protected override void Awake()
         {
-            base.Awake();
-
-            foreach (BasicAttackProjectile basicAttackProjectile in m_Pool)
+            Debug.Log("PoolComponentManager<T> awake check");
+            for (int i = 0; i < m_PoolCount; ++i)
             {
-                basicAttackProjectile.gameObject.SetActive(false);
+                GameObject newGO = GameObject.Instantiate(_playerBasicAttackProjectilePrefab);
+                newGO.transform.parent = this.gameObject.transform;
+
+                BasicAttackProjectile comp = newGO.GetComponent<BasicAttackProjectile>();
+                m_Pool.Push(comp);
+                newGO.SetActive(false);
             }
         }
 

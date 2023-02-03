@@ -43,9 +43,9 @@ namespace _Scripts._Game.General.Projectile.Player{
             #region Projectile Movement
             float step = _speedCurve.Evaluate(ProjectileLifetimeTimer) * Time.deltaTime;
             
-            Vector2 straightPathPosition = Vector2.MoveTowards(transform.position, _endPosition, step);
+            Vector2 straightPathPosition = Vector2.MoveTowards(transform.position, _targetTransform.position, step);
 
-            Vector2 perpendicularDirection = Vector2.Perpendicular((_endPosition - transform.position).normalized);
+            Vector2 perpendicularDirection = Vector2.Perpendicular((_targetTransform.position - transform.position).normalized);
 
             float displacement = _displacementCurve.Evaluate(ProjectileLifetimeTimer);
             float magnitude = _magnitudeCurve.Evaluate(ProjectileLifetimeTimer);

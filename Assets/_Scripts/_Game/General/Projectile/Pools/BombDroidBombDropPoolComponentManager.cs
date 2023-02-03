@@ -11,7 +11,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
     public class BombDroidBombDropPoolComponentManager : PoolComponentManager<BombDroidBombDropProjectile>
     {
         [SerializeField]
-        private GameObject _playerBasicAttackProjectilePrefab;
+        private GameObject _bombDroidProjectilePrefab;
 
         protected override void Awake()
         {
