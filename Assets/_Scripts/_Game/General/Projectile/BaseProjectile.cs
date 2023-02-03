@@ -10,7 +10,7 @@ namespace _Scripts._Game.General.Projectile{
         protected float ProjectileLifetimeTimer { get; set; }
         public bool IsActive()
         {
-            return ProjectileLifetimeTimer >= ProjectileLifetime;
+            return ProjectileLifetimeTimer <= ProjectileLifetime;
         }
     }
     

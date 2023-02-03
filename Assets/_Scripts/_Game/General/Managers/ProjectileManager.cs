@@ -16,9 +16,17 @@ namespace _Scripts._Game.General.Managers{
 
     public class ProjectileManager : Singleton<ProjectileManager>
     {
+        #region Projectile properties
+        [Header("Bsaic attack projectile")]
+        [SerializeField]
+        private float _basicAttackLifetime;
+
+        public float BasicAttackLifetime { get => _basicAttackLifetime; }
+        #endregion
+
         #region Pools
-        private PoolComponentManager<BasicAttackProjectile> _basicAttackProjectilePool;
-        private PoolComponentManager<BombDroidBombDropProjectile> _bdBombDropProjectilePool;
+        private BasicAttackPoolComponentManager _basicAttackProjectilePool;
+        private BombDroidBombDropPoolComponentManager _bdBombDropProjectilePool;
         #endregion
 
         protected override void Awake()
@@ -29,8 +37,13 @@ namespace _Scripts._Game.General.Managers{
 
         protected void Start()
         {
-            _basicAttackProjectilePool = GetComponentInChildren<PoolComponentManager<BasicAttackProjectile>>();
-            _bdBombDropProjectilePool = GetComponentInChildren<PoolComponentManager<BombDroidBombDropProjectile>>();
+            _basicAttackProjectilePool = GetComponentInChildren<BasicAttackPoolComponentManager>();
+            _bdBombDropProjectilePool = GetComponentInChildren<BombDroidBombDropPoolComponentManager>();
+        }
+
+        public void TryBasicAttackProjectile(Transform targetTransform, Vector3 startPosition)
+        {
+            _basicAttackProjectilePool.TryBasicAttackProjectile(targetTransform, startPosition);
         }
 
         //public void RegisterProjectilePool(ProjectilePoolComponentManager<T> projectilePool)

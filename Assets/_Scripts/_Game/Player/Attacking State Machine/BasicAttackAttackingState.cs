@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -63,6 +64,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
             Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
+            //ProjectileManager.Instance.TryBasicAttackProjectile()
         }
 
         public override void ExitState()
