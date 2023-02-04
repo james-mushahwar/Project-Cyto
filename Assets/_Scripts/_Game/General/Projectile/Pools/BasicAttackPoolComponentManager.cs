@@ -42,7 +42,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
 
         protected override bool IsActive(BasicAttackProjectile component)
         {
-            return component.IsActive();
+            return component.IsActive() && component.HitTarget == false;
         }
 
         public void TryBasicAttackProjectile(Transform targetTransform, Vector3 startPosition)
