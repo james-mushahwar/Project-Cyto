@@ -857,7 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21aa4ea5d7fc773438fe92c25139cebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicAttackLifetime: 0
+  _basicAttackLifetime: 2.1
 --- !u!1 &3656935588484981056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PoolCount: 8
-  _bombDroidProjectilePrefab: {fileID: 0}
+  _bombDroidProjectilePrefab: {fileID: 5458949934131665997, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}
 --- !u!1 &7765605035313327167
 GameObject:
   m_ObjectHideFlags: 0

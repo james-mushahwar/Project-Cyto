@@ -46,17 +46,6 @@ namespace _Scripts._Game.General.Managers{
             _basicAttackProjectilePool.TryBasicAttackProjectile(targetTransform, startPosition);
         }
 
-        //public void RegisterProjectilePool(ProjectilePoolComponentManager<T> projectilePool)
-        //{
-        //    if (projectilePool as BasicAttackProjectilePoolComponentManager<BasicAttackProjectile>)
-        //    {
-        //        _projectilePoolDict.Add(EProjectileType.BasicAttack, projectilePool);
-        //    }
-        //    else if (projectilePool as BasicAttackProjectilePoolComponentManager<BasicAttackProjectile>)
-        //    {
-        //        _projectilePoolDict.Add(EProjectileType.BombDroidBombDrop, projectilePool);
-        //    }
-        //}
     }
 
 }

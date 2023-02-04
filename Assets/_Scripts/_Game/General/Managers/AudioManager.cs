@@ -28,6 +28,16 @@ namespace _Scripts._Game.General.Managers {
         {
             base.Awake();
 
+            Debug.Log("PoolComponentManager<T> awake check");
+            for (int i = 0; i < m_PoolCount; ++i)
+            {
+                GameObject newGO = new GameObject(gameObject.name + i);
+                newGO.transform.parent = this.gameObject.transform;
+
+                AudioSource comp = newGO.AddComponent(typeof(AudioSource)) as AudioSource;
+                m_Pool.Push(comp);
+            }
+
             foreach (AudioSource aSource in m_Pool)
             {
                 aSource.playOnAwake = false;

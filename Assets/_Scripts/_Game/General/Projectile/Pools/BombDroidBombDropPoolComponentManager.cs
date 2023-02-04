@@ -16,10 +16,15 @@ namespace _Scripts._Game.General.Projectile.Pools{
         protected override void Awake()
         {
             base.Awake();
-
-            foreach (BombDroidBombDropProjectile bombDropProjectile in m_Pool)
+            Debug.Log("PoolComponentManager<T> awake check");
+            for (int i = 0; i < m_PoolCount; ++i)
             {
-                bombDropProjectile.gameObject.SetActive(false);
+                GameObject newGO = GameObject.Instantiate(_bombDroidProjectilePrefab);
+                newGO.transform.parent = this.gameObject.transform;
+
+                BombDroidBombDropProjectile comp = newGO.GetComponent<BombDroidBombDropProjectile>();
+                m_Pool.Push(comp);
+                newGO.SetActive(false);
             }
         }
 

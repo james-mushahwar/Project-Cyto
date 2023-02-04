@@ -17,15 +17,6 @@ namespace _Scripts._Game.General.Managers{
         protected override void Awake()
         {
             base.Awake();
-            Debug.Log("PoolComponentManager<T> awake check");
-            for (int i = 0; i < m_PoolCount; ++i)
-            {
-                GameObject newGO = new GameObject(gameObject.name + i);
-                newGO.transform.parent = this.gameObject.transform;
-
-                T comp = newGO.AddComponent(typeof(T)) as T;
-                m_Pool.Push(comp);
-            }
         }
 
         private void CheckPools()
