@@ -10,7 +10,7 @@ namespace _Scripts._Game.General.Managers{
         private readonly LinkedList<T> m_Inuse = new LinkedList<T>();
         private readonly Stack<LinkedListNode<T>> m_NodePool = new Stack<LinkedListNode<T>>();
 
-        private int m_lastCheckFrame = -1;
+        protected int m_lastCheckFrame = -1;
         [SerializeField]
         protected int m_PoolCount;
 
@@ -19,7 +19,7 @@ namespace _Scripts._Game.General.Managers{
             base.Awake();
         }
 
-        private void CheckPools()
+        protected void CheckPools()
         {
             LinkedListNode<T> node = m_Inuse.First;
             while (node != null)

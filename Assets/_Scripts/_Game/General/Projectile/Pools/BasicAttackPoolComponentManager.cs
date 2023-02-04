@@ -31,6 +31,15 @@ namespace _Scripts._Game.General.Projectile.Pools{
             }
         }
 
+        protected void FixedUpdate()
+        {
+            if (m_lastCheckFrame != Time.frameCount)
+            {
+                m_lastCheckFrame = Time.frameCount;
+                CheckPools();
+            }
+        }
+
         protected override bool IsActive(BasicAttackProjectile component)
         {
             return component.IsActive();
