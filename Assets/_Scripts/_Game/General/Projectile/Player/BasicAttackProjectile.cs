@@ -63,7 +63,7 @@ namespace _Scripts._Game.General.Projectile.Player{
             #endregion
 
             #region Collision detection
-            if (Vector3.SqrMagnitude(transform.position - _targetTransform.position) < 1.0f)
+            if (Vector2.SqrMagnitude(transform.position - _targetTransform.position) <  1.0f)
             {
                 Debug.Log("Hit enemy target!");
                 _hitTarget = true;

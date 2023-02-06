@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68c23b015c69a1d48a5f35f26115e4cb
+guid: e92c3a338c16c024c9abf1d0760e619b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: damaged_0
+      name: hit 4_0
       rect:
         serializedVersion: 2
-        x: 62
-        y: 25
-        width: 32
-        height: 25
+        x: 0
+        y: 0
+        width: 82
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 441a6bcce80ad79478c97f967ffdd459
-      internalID: 1051874502
+      spriteID: 907e79493de8fb74195639d0cda6c785
+      internalID: 971302703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: damaged_1
+      name: hit 4_1
       rect:
         serializedVersion: 2
-        x: 62
+        x: 82
         y: 0
-        width: 32
-        height: 25
+        width: 82
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,8 +142,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f431cbeff885a74782ed91ee74fbe5a
-      internalID: 316489350
+      spriteID: 71a17b21321030349b583e58071981f0
+      internalID: 1764885997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit 4_2
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3655596fb2ed149a3be2e79f6fa1b5
+      internalID: 1481969081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit 4_3
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0371531287128c44688d8f387d00961c
+      internalID: 939579841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit 4_4
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 193c98f09a2273e41b0b133af475eba7
+      internalID: -1795342178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit 4_5
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 792650dc7a530244f8a9f8032512d661
+      internalID: -1044676955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit 4_6
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b823cc69886c46641ad0d192bbe0ca8a
+      internalID: -192074871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hit 4_7
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e255e3e2922df6d4aa2528e26e981bb0
+      internalID: -1604958237
       vertices: []
       indices: 
       edges: []
@@ -159,8 +285,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      damaged_1: 316489350
-      damaged_0: 1051874502
+      hit 4_5: -1044676955
+      hit 4_2: 1481969081
+      hit 4_7: -1604958237
+      hit 4_0: 971302703
+      hit 4_6: -192074871
+      hit 4_4: -1795342178
+      hit 4_3: 939579841
+      hit 4_1: 1764885997
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68c23b015c69a1d48a5f35f26115e4cb
+guid: 08c2ba5f93f17f14ba69b330ec4a1fd9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,43 +107,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: damaged_0
+      name: Electric Hit 1_0
       rect:
         serializedVersion: 2
-        x: 62
-        y: 25
-        width: 32
-        height: 25
+        x: 0
+        y: 0
+        width: 82
+        height: 65
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 441a6bcce80ad79478c97f967ffdd459
-      internalID: 1051874502
+      spriteID: 17a3eb66d7a396543bd6b6f69add8e3f
+      internalID: -1995569538
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: damaged_1
+      name: Electric Hit 1_1
       rect:
         serializedVersion: 2
-        x: 62
+        x: 82
         y: 0
-        width: 32
-        height: 25
+        width: 82
+        height: 65
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f431cbeff885a74782ed91ee74fbe5a
-      internalID: 316489350
+      spriteID: f036b322f38671845a1073196c5ac9eb
+      internalID: -1099056749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Electric Hit 1_2
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8871c164667dda34b9254887063546b3
+      internalID: 901913385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Electric Hit 1_3
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80458166bd8051445ad129c934de4b45
+      internalID: -420384567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Electric Hit 1_4
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 341767d8ee4cd2e43bc7d2ae549b6e2c
+      internalID: -1499402037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Electric Hit 1_5
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 0
+        width: 82
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45e18dbf78ae1f64195b0758c87aec70
+      internalID: -1604726286
       vertices: []
       indices: 
       edges: []
@@ -159,8 +243,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      damaged_1: 316489350
-      damaged_0: 1051874502
+      Electric Hit 1_2: 901913385
+      Electric Hit 1_3: -420384567
+      Electric Hit 1_4: -1499402037
+      Electric Hit 1_5: -1604726286
+      Electric Hit 1_1: -1099056749
+      Electric Hit 1_0: -1995569538
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

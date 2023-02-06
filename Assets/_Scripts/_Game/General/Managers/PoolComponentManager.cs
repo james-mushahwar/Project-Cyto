@@ -69,6 +69,22 @@ namespace _Scripts._Game.General.Managers{
         }
 
         protected abstract bool IsActive(T component);
+
+        protected T CopyComponent<T>(T originalComp, T destinationComp) where T : Component
+        {
+            System.Type type = originalComp.GetType();
+            T copy = destinationComp;
+            System.Reflection.PropertyInfo[] props = type.GetProperties();
+            foreach (System.Reflection.PropertyInfo prop in props)
+            {
+                if (prop.CanWrite)
+                {
+                    Debug.Log("Property info : " + prop);
+                    prop.SetValue(copy, prop.GetValue(originalComp));
+                }
+            }
+            return copy;
+        }
     }
     
 }

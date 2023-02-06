@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PoolCount: 30
+  _basicAttackPS: {fileID: 5561702475036003066, guid: ee99a599bfb87ee4b8828f4356fc774d, type: 3}
 --- !u!1 &1429427471968074171
 GameObject:
   m_ObjectHideFlags: 0
