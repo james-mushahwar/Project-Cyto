@@ -70,7 +70,7 @@ namespace _Scripts._Game.General.Managers{
 
         protected abstract bool IsActive(T component);
 
-        protected T CopyComponent<T>(T originalComp, T destinationComp) where T : Component
+        protected T CopyComponent(T originalComp, T destinationComp)
         {
             System.Type type = originalComp.GetType();
             T copy = destinationComp;
