@@ -263,6 +263,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PoolCount: 0
   _particlePrefab: {fileID: 0}
+  _particleType: 0
+  _degreesToUpwardDirection: 0
 --- !u!1 &1192473343692284685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,6 +1092,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PoolCount: 5
   _particlePrefab: {fileID: 5561702475036003066, guid: ee99a599bfb87ee4b8828f4356fc774d, type: 3}
+  _particleType: 0
+  _degreesToUpwardDirection: 66.76
 --- !u!1 &4321336156436265519
 GameObject:
   m_ObjectHideFlags: 0

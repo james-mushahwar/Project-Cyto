@@ -39,6 +39,11 @@ namespace _Scripts._Game.General.Managers{
         {
             return component.IsAlive();
         }
+
+        public ParticleSystem GetParticleSystem()
+        {
+            return GetPooledComponent();
+        }
     }
     
 }

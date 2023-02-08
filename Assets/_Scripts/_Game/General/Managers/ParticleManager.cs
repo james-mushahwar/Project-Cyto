@@ -51,9 +51,33 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public void TryPlayParticleSystem(EParticleType particleType)
+        private ParticlePool GetParticlePool(EParticleType particleType)
         {
+            if (particleType == EParticleType.BasicAttack)
+            {
+                return _basicAttackPool;
+            }
+            else if (particleType == EParticleType.BombDroidBombDrop)
+            {
+                return _bombDroidBombDropPool;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
+        public void TryPlayParticleSystem(EParticleType particleType, Vector2 position, float rotationDeg)
+        {
+            ParticlePool pool = GetParticlePool(particleType);
+            ParticleSystem ps = pool.GetParticleSystem();
+            if (ps != null)
+            {
+                ps.transform.position = position;
+                var main = ps.main;
+                main.startRotation = rotationDeg + pool.DegreesToUpwardDirection;
+                ps.Play();
+            }
         }
 
     }

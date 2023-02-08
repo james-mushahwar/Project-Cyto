@@ -51,7 +51,8 @@ namespace _Scripts._Game.General.Projectile.Player{
 
                 Vector2 straightPathPosition = Vector2.MoveTowards(transform.position, _targetTransform.position, step);
 
-                Vector2 perpendicularDirection = Vector2.Perpendicular((_targetTransform.position - transform.position).normalized);
+                Vector2 direction = (_targetTransform.position - transform.position).normalized;
+                Vector2 perpendicularDirection = Vector2.Perpendicular(direction);
 
                 float displacement = _displacementCurve.Evaluate(ProjectileLifetimeTimer);
                 float magnitude = _magnitudeCurve.Evaluate(ProjectileLifetimeTimer);
@@ -59,16 +60,20 @@ namespace _Scripts._Game.General.Projectile.Player{
                 Vector2 resultingPostion = straightPathPosition + (perpendicularDirection * displacement * magnitude * (_inverseDisplacement ? -1 : 1));
 
                 transform.position = resultingPostion;
+
+                #region Collision detection
+                if (Vector2.SqrMagnitude(transform.position - _targetTransform.position) < 1.0f)
+                {
+                    Debug.Log("Hit enemy target!");
+                    _hitTarget = true;
+                    float vfxRotation = Vector2.Angle(Vector2.up, direction);
+                    ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BasicAttack, transform.position, vfxRotation);
+                }
+                #endregion
             }
             #endregion
 
-            #region Collision detection
-            if (Vector2.SqrMagnitude(transform.position - _targetTransform.position) <  1.0f)
-            {
-                Debug.Log("Hit enemy target!");
-                _hitTarget = true;
-            }
-            #endregion
+
         }
     }
 }
