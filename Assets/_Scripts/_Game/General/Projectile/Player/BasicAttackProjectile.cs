@@ -1,5 +1,7 @@
 ﻿using _Scripts._Game.General.Managers;
 using _Scripts._Game.General.Projectile.Pools;
+using _Scripts._Game.Player;
+using _Scripts.Editortools.Draw;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +24,10 @@ namespace _Scripts._Game.General.Projectile.Player{
         private AnimationCurve _displacementCurve;
         [SerializeField]
         private AnimationCurve _magnitudeCurve;
+
+        [Header("Collision")]
+        [SerializeField]
+        private float _sqrDistanceToCollision = 1.0f;
 
         public Transform TargetTransform { get => _targetTransform; set => _targetTransform = value; }
         public Vector3 StartPosition { get => _startPosition; set => _startPosition = value; }
@@ -62,18 +68,22 @@ namespace _Scripts._Game.General.Projectile.Player{
                 transform.position = resultingPostion;
 
                 #region Collision detection
-                if (Vector2.SqrMagnitude(transform.position - _targetTransform.position) < 1.0f)
+                if (Vector2.SqrMagnitude(transform.position - _targetTransform.position) < _sqrDistanceToCollision)
                 {
-                    Debug.Log("Hit enemy target!");
                     _hitTarget = true;
                     float vfxRotation = Vector2.Angle(Vector2.up, direction);
                     ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BasicAttack, transform.position, vfxRotation);
+                    PlayerEntity.Instance.AttackingSM.DamageableTarget.TakeDamage(1.0f, EEntityType.Player);
                 }
                 #endregion
             }
             #endregion
+        }
 
-
+        void OnDrawGizmos()
+        {
+            // scene debug updates
+            DrawGizmos.DrawSphereDebug(transform.position, Mathf.Sqrt(_sqrDistanceToCollision));
         }
     }
 }

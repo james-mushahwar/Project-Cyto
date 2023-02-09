@@ -61,7 +61,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
                 {
                     _bondTransitionTimer -= Time.deltaTime;
 
-                    Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, _ctx.BondableTarget.PossessableTransform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
+                    Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, _ctx.BondableTarget.Transform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
                     _ctx.transform.position = newPosition;
 
                     if (_bondTransitionTimer <= 0.0f)

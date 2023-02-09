@@ -17,11 +17,13 @@ namespace _Scripts._Game.General.Managers{
     public class ProjectileManager : Singleton<ProjectileManager>
     {
         #region Projectile properties
-        [Header("Bsaic attack projectile")]
+        [Header("Basic attack projectile")]
         [SerializeField]
         private float _basicAttackLifetime;
+        private float _bombDroidBombDropAttackLifetime;
 
         public float BasicAttackLifetime { get => _basicAttackLifetime; }
+        public float BombDroidBombDropAttackLifetime { get => _bombDroidBombDropAttackLifetime; }
         #endregion
 
         #region Pools

@@ -6,35 +6,43 @@ using UnityEngine;
 
 namespace _Scripts._Game.General{
     
-    public enum EStatType
+    public enum EHealthStatType
     {
         Player,
-        Enemy,
+        EnemyHealth,
+        BondableHealth
     }
+
+    public enum EEntityType
+    {
+        Player, 
+        Ally,
+        Enemy,
+        BondedEnemy
+    }
+
 
     public interface IDamageable
     {
-        public EStatType StatType { get; }
-        public float HitPoints { get; }
-
-        public float AddHitPoints(int amount, bool react = false);
-        public float RemoveHitPoints(int amount, bool react = false);
+        bool IsAlive();
+        void TakeDamage(float damage, EEntityType causer);
+        //Components
+        Transform Transform { get; }
+        //Inputs
+        Vector2 GetMovementInput();
     }
 
-    public abstract class HealthStats : IDamageable
+    public abstract class HealthStats
     {
-        private EStatType _statType;
+        private EHealthStatType _statType;
 
-        public EStatType StatType { get => _statType; protected set => _statType = value; }
+        public EHealthStatType StatType { get => _statType; protected set => _statType = value; }
         public abstract float HitPoints { get; }
 
-        public abstract float AddHitPoints(int amount, bool react = false);
-        public abstract float RemoveHitPoints(int amount, bool react = false);
+        public abstract float AddHitPoints(float amount, bool react = false);
+        public abstract float RemoveHitPoints(float amount, bool react = false);
 
-        public bool IsAlive()
-        {
-            return (HitPoints > 0.0f);
-        }
+        public abstract bool IsAlive();
     }
 
     public class PlayerHealthStats : HealthStats, ISaveable
@@ -49,10 +57,10 @@ namespace _Scripts._Game.General{
             _hitPoints = hp;
             _maxHitPoints = maxHP;
 
-            StatType = EStatType.Player;
+            StatType = EHealthStatType.Player;
         }
 
-        public override float AddHitPoints(int amount, bool react = false)
+        public override float AddHitPoints(float amount, bool react = false)
         {
             float clampedAmount = Mathf.Min(amount, _maxHitPoints - _hitPoints);
 
@@ -61,13 +69,18 @@ namespace _Scripts._Game.General{
             return _hitPoints;
         }
 
-        public override float RemoveHitPoints(int amount, bool react = false)
+        public override float RemoveHitPoints(float amount, bool react = false)
         {
             float clampedAmount = Mathf.Min(amount, _hitPoints);
 
             _hitPoints -= clampedAmount;
 
             return _hitPoints;
+        }
+
+        public override bool IsAlive()
+        {
+            return _hitPoints > 0.0f;
         }
 
         // ISaveable
@@ -93,25 +106,27 @@ namespace _Scripts._Game.General{
 
             _hitPoints = saveData._hitPoints;
             _maxHitPoints = saveData._maxHitPoints;
-        }
+        } 
     }
 
     public class EnemyHealthStats : HealthStats, ISaveable
     {
+        #region Normal Health
         private float _hitPoints;
         private float _maxHitPoints;
 
         public override float HitPoints { get => _hitPoints; }
+        #endregion
 
-        public EnemyHealthStats(float hp, float maxHP)
+        public EnemyHealthStats(float hp, float maxHP, EHealthStatType statType)
         {
             _hitPoints = hp;
             _maxHitPoints = maxHP;
 
-            StatType = EStatType.Enemy;
+            StatType = statType;
         }
 
-        public override float AddHitPoints(int amount, bool react = false)
+        public override float AddHitPoints(float amount, bool react = false)
         {
             float clampedAmount = Mathf.Min(amount, _maxHitPoints - _hitPoints);
 
@@ -120,13 +135,18 @@ namespace _Scripts._Game.General{
             return _hitPoints;
         }
 
-        public override float RemoveHitPoints(int amount, bool react = false)
+        public override float RemoveHitPoints(float amount, bool react = false)
         {
             float clampedAmount = Mathf.Min(amount, _hitPoints);
 
             _hitPoints -= clampedAmount;
 
             return _hitPoints;
+        }
+
+        public override bool IsAlive()
+        {
+            return _hitPoints > 0.0f;
         }
 
         // ISaveable

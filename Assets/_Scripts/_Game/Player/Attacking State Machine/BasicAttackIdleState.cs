@@ -12,7 +12,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public override bool CheckSwitchStates()
         {
-            if (_ctx.IsAttackInputValid == true)
+            if (_ctx.IsAttackInputValid == true && _ctx.DamageableTarget != null)
             {
                 SwitchStates(_factory.GetState(AttackingState.Basic_Attack));
                 return true;

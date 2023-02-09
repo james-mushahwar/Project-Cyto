@@ -108,7 +108,52 @@ namespace _Scripts._Game.General.Managers{
             float distanceScore = 0.0f;
             float angleScore = 0.0f;
 
-            Vector2 targetVector = pTarget.PossessableTransform.position - pInstigator.PossessableTransform.position;
+            Vector2 targetVector = pTarget.Transform.position - pInstigator.Transform.position;
+
+            if (!tp.IgnoreDotProductScore)
+            {
+                float dotProductDiff = Vector2.Dot(targetVector.normalized, inputDirection.normalized);
+
+                if (dotProductDiff > tp.MinDotProduct)
+                {
+                    float dotRange = 1 - tp.MinDotProduct;
+                    float alpha = Mathf.Lerp(0.1f, 1.0f, (dotProductDiff - tp.MinDotProduct) / dotRange);
+                    angleScore = alpha * tp.AngleScoreMultiplier;
+                }
+                else
+                {
+                    return -100.0f;
+                }
+            }
+
+            if (!tp.IgnoreDistanceScore)
+            {
+                float distanceToTarget = targetVector.SqrMagnitude();
+                if (distanceToTarget < tp.MaxSqDistance)
+                {
+                    distanceScore = 1.0f - (distanceToTarget / tp.MaxSqDistance) * tp.DistanceScoreMultiplier;
+                }
+                else
+                {
+                    return -100.0f;
+                }
+            }
+
+            finalScore = (distanceScore + angleScore);
+
+            return finalScore;
+        }
+
+        public float GetDamageableTargetScore(IDamageable pInstigator, IDamageable pTarget)
+        {
+            TargetingParameters tp = GetTargetingParameters(ETargetType.Damageable);
+            Vector2 inputDirection = pInstigator.GetMovementInput();
+
+            float finalScore = 0.0f;
+            float distanceScore = 0.0f;
+            float angleScore = 0.0f;
+
+            Vector2 targetVector = pTarget.Transform.position - pInstigator.Transform.position;
 
             if (!tp.IgnoreDotProductScore)
             {

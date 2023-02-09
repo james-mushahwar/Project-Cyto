@@ -48,6 +48,17 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         public float[] BasicComboElapseTimes { get => _basicComboElapseTimes; }
         public float[] BasicComboBufferTimes { get => _basicComboBufferTimes; }
         public int CurrentBasicAttackCombo { get => _currentBasicAttackCombo; set => _currentBasicAttackCombo = value; }
+
+        [Header("Damageable Range properties")]
+        [SerializeField]
+        private float _damageableOverlapRange;
+        [SerializeField]
+        private ContactFilter2D _damageableContactFilter;
+
+        private Collider2D[] _aiColliders = new Collider2D[20];
+        private IDamageable _damageableTarget;
+
+        public IDamageable DamageableTarget { get => _damageableTarget; }
         #endregion
 
         protected override void Awake()
@@ -68,8 +79,67 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         void FixedUpdate()
         {
+            IDamageable newTarget = FindBestDamageable();
+            if (newTarget != _damageableTarget)
+            {
+                _damageableTarget = newTarget;
+            }
+
             _basicAttackCurrentState.ManagedStateTick();
             //_abilityAttackCurrentState.ManagedStateTick();
+        }
+
+        IDamageable FindBestDamageable()
+        {
+            int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _damageableOverlapRange, _damageableContactFilter, _aiColliders);
+
+            if (aiOverlapCount > 0)
+            {
+                float bestScore = -1.0f;
+                IDamageable bestDamageable = null;
+                IDamageable currentDamageable = null;
+
+                Collider2D col = null;
+
+                for (int i = 0; i < aiOverlapCount; i++)
+                {
+                    col = _aiColliders[i];
+                    if (col == null)
+                    {
+                        continue;
+                    }
+                    currentDamageable = col.gameObject.GetComponent<IDamageable>();
+
+                    if (currentDamageable != null)
+                    {
+                        if (currentDamageable.IsAlive() == false)
+                        {
+                            continue;
+                        }
+
+                        if (bestDamageable == null)
+                        {
+                            bestDamageable = currentDamageable;
+                            continue;
+                        }
+
+                        // calculate then compare scores
+                        float currentScore = TargetManager.Instance.GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
+                        // dot poduct aim direction
+                        if (currentScore > bestScore)
+                        {
+                            bestScore = currentScore;
+                            bestDamageable = currentDamageable;
+                        }
+                    }
+                }
+
+                return bestDamageable;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         void OnAttackInput(InputAction.CallbackContext context)

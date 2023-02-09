@@ -10,7 +10,7 @@ using _Scripts._Game.AI.AttackStateMachine;
 
 namespace _Scripts._Game.AI{
     
-    public class AIEntity : MonoBehaviour, IPossessable
+    public class AIEntity : MonoBehaviour, IPossessable, IDamageable
     {
         private bool _isPossessed;
 
@@ -26,13 +26,15 @@ namespace _Scripts._Game.AI{
 
         #region AI Components
         private EnemyHealthStats _enemyHealthStats;
+        private EnemyHealthStats _enemyBondableHealthStats;
 
         public EnemyHealthStats EnemyHealthStats { get => _enemyHealthStats; }
         #endregion
 
         protected void Awake()
         {
-            _enemyHealthStats = new EnemyHealthStats(3.0f, 3.0f);
+            _enemyHealthStats         = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.EnemyHealth);
+            _enemyBondableHealthStats = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.BondableHealth);
         }
 
         // IPossessable
@@ -43,7 +45,7 @@ namespace _Scripts._Game.AI{
 
         public bool CanBePossessed()
         {
-            return !_isPossessed && GetHealthStats().IsAlive();
+            return !_isPossessed && (_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive());
         }
 
         public void OnPossess()
@@ -74,12 +76,7 @@ namespace _Scripts._Game.AI{
             PlayerEntity.Instance.OnPossess();
         }
 
-        public HealthStats GetHealthStats()
-        {
-            return _enemyHealthStats;
-        }
-
-        public Transform PossessableTransform { get => transform; }
+        public Transform Transform { get => transform; }
 
         public Vector2 GetMovementInput()
         {
@@ -91,6 +88,29 @@ namespace _Scripts._Game.AI{
             {
                 return new Vector2(0,0);
             }
+        }
+
+        public void TakeDamage(float damage, EEntityType causer)
+        {
+            float resultHealth = 100.0f;
+            if (_enemyBondableHealthStats.IsAlive())
+            {
+                _enemyBondableHealthStats.RemoveHitPoints(damage, true);
+            }
+            else
+            {
+                resultHealth = _enemyHealthStats.RemoveHitPoints(damage, true);
+            }
+
+            if (resultHealth <= 0.0f)
+            {
+                // death reaction needed
+            }
+        }
+
+        public bool IsAlive()
+        {
+            return _enemyHealthStats.IsAlive();
         }
     }
     

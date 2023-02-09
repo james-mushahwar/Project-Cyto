@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.Player{
     
-    public class PlayerEntity : Singleton<PlayerEntity>, IPossessable
+    public class PlayerEntity : Singleton<PlayerEntity>, IPossessable, IDamageable
     {
         private bool _isPossessed;
         private IPossessable _possessed; //save what we're possessing
@@ -46,11 +46,11 @@ namespace _Scripts._Game.Player{
         {
             if (!IsPossessed())
             {
-                return _possessed.PossessableTransform.gameObject; 
+                return _possessed.Transform.gameObject; 
             }
             else
             {
-                return PossessableTransform.gameObject;
+                return Transform.gameObject;
             }
         }
 
@@ -62,7 +62,7 @@ namespace _Scripts._Game.Player{
 
         public bool CanBePossessed()
         {
-            return !_isPossessed && GetHealthStats().IsAlive();
+            return !_isPossessed && _playerHealthStats.IsAlive();
         }
 
         public void OnPossess()
@@ -89,7 +89,7 @@ namespace _Scripts._Game.Player{
                 _possessed.OnPossess();
             }
 
-            gameObject.transform.SetParent(_movementSM.BondableTarget.PossessableTransform);
+            gameObject.transform.SetParent(_movementSM.BondableTarget.Transform);
 
             _movementSM.Rb.isKinematic = true;
             _movementSM.enabled = false;
@@ -97,16 +97,22 @@ namespace _Scripts._Game.Player{
             _spriteAnimator.enabled = false;
         }
 
-        public HealthStats GetHealthStats()
-        {
-            return _playerHealthStats;
-        }
-
-        public Transform PossessableTransform { get => transform; }
+        public Transform Transform { get => transform; }
 
         public Vector2 GetMovementInput()
         {
             return _movementSM.CurrentMovementInput;
+        }
+
+        public bool IsAlive()
+        {
+            return _playerHealthStats.IsAlive();
+        }
+
+        public void TakeDamage(float damage, EEntityType causer)
+        {
+            float resultsHealth = 0.0f;
+            resultsHealth = _playerHealthStats.RemoveHitPoints(damage, false);
         }
     }
     
