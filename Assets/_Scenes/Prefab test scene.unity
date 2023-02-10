@@ -2227,18 +2227,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomb Droid Bomb Drop Projectile
       objectReference: {fileID: 0}
-    - target: {fileID: 8842257065478594960, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}
-      propertyPath: m_Animation
-      value: 
-      objectReference: {fileID: 7400000, guid: 186325d6db3ebd64cbf68c5b6a423e85, type: 2}
-    - target: {fileID: 8842257065478594960, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}
-      propertyPath: m_Animations.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8842257065478594960, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}
-      propertyPath: m_Animations.Array.data[0]
-      value: 
-      objectReference: {fileID: 7400000, guid: 186325d6db3ebd64cbf68c5b6a423e85, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}

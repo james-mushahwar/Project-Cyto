@@ -28,9 +28,34 @@ namespace _Scripts._Game.General.Projectile.Pools{
             }
         }
 
+        protected void FixedUpdate()
+        {
+            if (m_lastCheckFrame != Time.frameCount)
+            {
+                m_lastCheckFrame = Time.frameCount;
+                CheckPools();
+            }
+        }
+
         protected override bool IsActive(BombDroidBombDropProjectile component)
         {
-            return component.IsActive();
+            return component.IsActive() && component.Collided == false;
+        }
+
+        public void TryBombDroidBombDropProjectile(Vector3 startPosition)
+        {
+            BombDroidBombDropProjectile pooledComp = GetPooledComponent();
+
+            if (pooledComp)
+            {
+                pooledComp.transform.position = startPosition;
+                pooledComp.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("No more bomb drop projectiles");
+            }
+            //return pooledComp;
         }
 
     }
