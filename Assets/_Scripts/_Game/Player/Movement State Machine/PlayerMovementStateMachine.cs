@@ -385,46 +385,44 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnMovementInput(InputAction.CallbackContext context)
     {
-        _currentMovementInput = context.ReadValue<Vector2>();
+        _currentMovementInput = PlayerEntity.Instance.IsAlive() ? context.ReadValue<Vector2>() : Vector2.zero;
         _isMovementPressed = _currentMovementInput.sqrMagnitude != 0.0f;
     }
 
     void OnDirectionInput(InputAction.CallbackContext context)
     {
-        _currentDirectionInput = context.ReadValue<Vector2>();
+        _currentDirectionInput = PlayerEntity.Instance.IsAlive() ? context.ReadValue<Vector2>() : Vector2.zero;
         _isDirectionPressed = _currentDirectionInput.sqrMagnitude != 0.0f;
         _bouncingChargeDirection = _currentDirectionInput * -1;
     }
 
     void OnJumpInput(InputAction.CallbackContext context)
     {
-        _isJumpPressed = context.ReadValueAsButton();
+        _isJumpPressed = PlayerEntity.Instance.IsAlive() ? context.ReadValueAsButton() : false;
         _isJumpInputValid = _isJumpPressed;
     }
 
     void OnDashInput(InputAction.CallbackContext context)
     {
-        _isDashPressed = context.ReadValueAsButton();
+        _isDashPressed = PlayerEntity.Instance.IsAlive() ? context.ReadValueAsButton() : false;
         _isDashInputValid = _isDashPressed;
     }
 
     void OnFloatInput(InputAction.CallbackContext context)
     {
-        _isFloatPressed = context.ReadValueAsButton();
-
-        //Debug.Log("trigger value is = " + context.ReadValue)
+        _isFloatPressed = PlayerEntity.Instance.IsAlive() ? context.ReadValueAsButton() : false;
         _isFloatInputValid = _isFloatPressed;
     }
 
     void OnBounceInput(InputAction.CallbackContext context)
     {
-        _isBouncePressed = context.ReadValueAsButton();
+        _isBouncePressed = PlayerEntity.Instance.IsAlive() ? context.ReadValueAsButton() : false;
         _isBounceInputValid = _isBouncePressed;
     }
 
     void OnBondInput(InputAction.CallbackContext context)
     {
-        _isBondPressed = context.ReadValueAsButton();
+        _isBondPressed = PlayerEntity.Instance.IsAlive() ? context.ReadValueAsButton() : false;
         _isBondInputValid = _isBondPressed;
     }
 

@@ -57,15 +57,14 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log("Trigger enter 2d");
             GameObject collidedGO = collision.gameObject;
-
 
             if (_instigator == EEntityType.Enemy)
             {
                 if ((_playerLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
                     _collided = true;
+                    PlayerEntity.Instance.TakeDamage(1.0f, EEntityType.Enemy);
                 }
             }
             else if (_instigator == EEntityType.BondedEnemy)
