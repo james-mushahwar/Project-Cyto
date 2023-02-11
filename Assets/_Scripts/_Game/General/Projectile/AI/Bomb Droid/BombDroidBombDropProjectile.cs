@@ -2,6 +2,7 @@
 using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -42,7 +43,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
         {
             ProjectileLifetimeTimer += Time.deltaTime;
 
-            if (_collided)
+            if (!_collided)
             {
                 #region Projectile Movement
 
@@ -64,25 +65,33 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
+            Debug.Log("Trigger enter 2d");
             GameObject collidedGO = collision.gameObject;
-            
+
+
             if (_instigator == EEntityType.Enemy)
             {
-                if (collidedGO.layer == _playerLayerMask.value)
+                if ((_playerLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
                     _collided = true;
                 }
             }
             else if (_instigator == EEntityType.BondedEnemy)
             {
-                if (collidedGO.layer == _aiLayerMask.value)
+                if ((_aiLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
                     _collided = true;
                 }
             }
+
+            if (LayerMask.NameToLayer("Ground") == collidedGO.layer)
+            {
+                _collided = true;
+            }
         }
+
     }
     
 }

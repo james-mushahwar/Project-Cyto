@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         public override void EnterState()
         {
             Debug.Log("BOOOOM Bomb drop!");
+            ProjectileManager.Instance.TryBombDroidBombDropProjectile(General.EEntityType.Enemy, _ctx.transform.position);
             _stateTimer = 0.0f;
             _hasDroppedBomb = false;
         }

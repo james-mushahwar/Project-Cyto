@@ -42,12 +42,13 @@ namespace _Scripts._Game.General.Projectile.Pools{
             return component.IsActive() && component.Collided == false;
         }
 
-        public void TryBombDroidBombDropProjectile(Vector3 startPosition)
+        public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
         {
             BombDroidBombDropProjectile pooledComp = GetPooledComponent();
 
             if (pooledComp)
             {
+                pooledComp.Instigator = instigator;
                 pooledComp.transform.position = startPosition;
                 pooledComp.gameObject.SetActive(true);
             }

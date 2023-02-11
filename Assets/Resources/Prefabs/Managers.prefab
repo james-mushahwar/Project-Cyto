@@ -907,6 +907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAttackLifetime: 1
+  _bombDroidBombDropAttackLifetime: 4
 --- !u!1 &3656935588484981056
 GameObject:
   m_ObjectHideFlags: 0

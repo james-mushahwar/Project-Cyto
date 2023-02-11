@@ -20,6 +20,7 @@ namespace _Scripts._Game.General.Managers{
         [Header("Basic attack projectile")]
         [SerializeField]
         private float _basicAttackLifetime;
+        [SerializeField]
         private float _bombDroidBombDropAttackLifetime;
 
         public float BasicAttackLifetime { get => _basicAttackLifetime; }
@@ -48,6 +49,10 @@ namespace _Scripts._Game.General.Managers{
             _basicAttackProjectilePool.TryBasicAttackProjectile(targetTransform, startPosition);
         }
 
+        public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
+        {
+            _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition);
+        }
     }
 
 }
