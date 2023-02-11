@@ -73,7 +73,7 @@ namespace _Scripts._Game.General.Managers{
             ParticleSystem ps = pool.GetParticleSystem();
             if (ps != null)
             {
-                ps.transform.position = position;
+                ps.transform.position = position + pool.PositionOffset;
                 var main = ps.main;
                 main.startRotation = rotationDeg + pool.DegreesToUpwardDirection;
                 ps.Play();

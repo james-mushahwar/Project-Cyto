@@ -14,14 +14,15 @@ namespace _Scripts._Game.General.Managers{
         private EParticleType _particleType;
         [SerializeField]
         private float _degreesToUpwardDirection;
+        [SerializeField]
+        private Vector2 _positionOffset;
 
         public float DegreesToUpwardDirection { get => _degreesToUpwardDirection; }
+        public Vector2 PositionOffset { get => _positionOffset; }
         #endregion
 
         protected override void Awake()
         {
-            base.Awake();
-            Debug.Log("PoolComponentManager<T> awake check");
             for (int i = 0; i < m_PoolCount; ++i)
             {
                 GameObject newGO = Instantiate(_particlePrefab.gameObject);

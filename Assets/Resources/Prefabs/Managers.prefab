@@ -261,10 +261,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c32466bfb88dcc4cb9500bd5d96506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PoolCount: 0
-  _particlePrefab: {fileID: 0}
-  _particleType: 0
+  m_PoolCount: 8
+  _particlePrefab: {fileID: 5561702475036003066, guid: 8b33b97330198df4984fe90803d966d8, type: 3}
+  _particleType: 1
   _degreesToUpwardDirection: 0
+  _positionOffset: {x: 0, y: 3}
 --- !u!1 &1192473343692284685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,6 +1096,7 @@ MonoBehaviour:
   _particlePrefab: {fileID: 5561702475036003066, guid: ee99a599bfb87ee4b8828f4356fc774d, type: 3}
   _particleType: 0
   _degreesToUpwardDirection: 66.76
+  _positionOffset: {x: 0, y: 0}
 --- !u!1 &4321336156436265519
 GameObject:
   m_ObjectHideFlags: 0

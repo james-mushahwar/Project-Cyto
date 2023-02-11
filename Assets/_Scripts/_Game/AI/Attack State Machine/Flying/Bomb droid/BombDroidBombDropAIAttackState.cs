@@ -27,8 +27,6 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public override void EnterState()
         {
-            Debug.Log("BOOOOM Bomb drop!");
-            ProjectileManager.Instance.TryBombDroidBombDropProjectile(General.EEntityType.Enemy, _ctx.transform.position);
             _stateTimer = 0.0f;
             _hasDroppedBomb = false;
         }
@@ -51,6 +49,8 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
                 if (_stateTimer >= _bdCtx.BombDropBuildUpDuration && !_hasDroppedBomb)
                 {
                     // drop bomb
+                    _hasDroppedBomb = true;
+                    ProjectileManager.Instance.TryBombDroidBombDropProjectile(General.EEntityType.Enemy, _ctx.transform.position);
                 }
             }
         }

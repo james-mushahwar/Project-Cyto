@@ -50,16 +50,6 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 float step = _fallSpeedCurve.Evaluate(ProjectileLifetimeTimer) * Time.deltaTime;
                 Vector2 newPosition = Vector2.MoveTowards(transform.position, transform.position + (Vector3.down * 100.0f), step);
                 transform.position = newPosition;
-
-                    #region Collision detection
-                    //if (Vector2.SqrMagnitude(transform.position - _targetTransform.position) < _sqrDistanceToCollision)
-                    //{
-                    //    _hitTarget = true;
-                    //    float vfxRotation = Vector2.Angle(Vector2.up, direction);
-                    //    ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BasicAttack, transform.position, vfxRotation);
-                    //    PlayerEntity.Instance.AttackingSM.DamageableTarget.TakeDamage(1.0f, EEntityType.Player);
-                    //}
-                    #endregion
            
                 #endregion
             }
@@ -89,6 +79,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             if (LayerMask.NameToLayer("Ground") == collidedGO.layer)
             {
                 _collided = true;
+                ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, collision.ClosestPoint(transform.position), 0.0f);
             }
         }
 
