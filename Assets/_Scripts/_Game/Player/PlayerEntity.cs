@@ -9,10 +9,27 @@ using UnityEngine;
 
 namespace _Scripts._Game.Player{
     
+    public enum ERespawnReason
+    {
+        None,
+        Death,
+        QuickRespawn,
+        OutOfBounds,
+    }
+    public struct RespawnReason
+    {
+        public bool _isRespawning;
+        public ERespawnReason _reaspawnReason;
+        public float _respawnTimer;
+    }
+
     public class PlayerEntity : Singleton<PlayerEntity>, IPossessable, IDamageable
     {
+        #region Properties
         private bool _isPossessed;
         private IPossessable _possessed; //save what we're possessing
+        private RespawnReason _playerRespawnReason;
+        #endregion
 
         #region State Machines
         private PlayerMovementStateMachine _movementSM;
@@ -34,12 +51,30 @@ namespace _Scripts._Game.Player{
         {
             base.Awake();
 
-            _playerHealthStats = new PlayerHealthStats(10.0f, 10.0f);
+            FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
+            _playerHealthStats = new PlayerHealthStats(playerEntityStats.MaxHealth, playerEntityStats.MaxHealth);
         }
 
         void Start()
         {
             OnPossess();
+        }
+
+        private void FixedUpdate() 
+        {
+            if (_playerRespawnReason._isRespawning == true)
+            {
+                if ((_playerRespawnReason._respawnTimer -= Time.deltaTime) < 0.0f)
+                {
+                    //respawn
+                    transform.position = new Vector3(26.0f, 146.0f, 0.0f);
+                    _playerRespawnReason._reaspawnReason = ERespawnReason.None;
+                    _playerRespawnReason._isRespawning = false;
+
+                    FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
+                    _playerHealthStats.AddHitPoints(playerEntityStats.MaxHealth);
+                }
+            }
         }
 
         public GameObject GetControlledGameObject()
@@ -106,13 +141,36 @@ namespace _Scripts._Game.Player{
 
         public bool IsAlive()
         {
-            return _playerHealthStats.IsAlive();
+            return _playerHealthStats.IsAlive() && !_playerRespawnReason._isRespawning;
         }
 
         public void TakeDamage(float damage, EEntityType causer)
         {
             float resultsHealth = 0.0f;
             resultsHealth = _playerHealthStats.RemoveHitPoints(damage, false);
+
+            if (resultsHealth <= 0.0f)
+            {
+                //dead reaction
+                if (_playerRespawnReason._isRespawning == false)
+                {
+                    _playerRespawnReason._reaspawnReason = ERespawnReason.Death;
+                    OnRespawnStart();
+                }
+            }
+        }
+
+        public void OnRespawnStart()
+        {
+            _playerRespawnReason._isRespawning = true;
+            if (_playerRespawnReason._reaspawnReason == ERespawnReason.Death)
+            {
+                _playerRespawnReason._respawnTimer = 3.0f;
+            }
+            else
+            {
+                _playerRespawnReason._respawnTimer = 1.0f;
+            }
         }
     }
     

@@ -23,9 +23,31 @@ namespace _Scripts._Game.General.Managers{
         COUNT
     }
 
+    public enum EEntity
+    {
+        Player,
+        BombDroid,
+        MushroomArcher,
+        DaggerMushroom,
+        COUNT
+    }
+
+    [System.Serializable]
+    public struct FEntityStats
+    {
+        [SerializeField]
+        private EEntity _entity;
+        [SerializeField]
+        private float _maxHealth;
+
+        public float MaxHealth { get => _maxHealth; }
+    }
+
     public class StatsManager : Singleton<StatsManager>, ISaveable
     {
-        private int[] _stats = new int[(int)EStatsType.COUNT]; 
+        private int[] _completionStats = new int[(int)EStatsType.COUNT]; 
+        [SerializeField]
+        private FEntityStats[] _entityStats = new FEntityStats[(int)EEntity.COUNT]; 
 
         // Start is called before the first frame update
         void Start()
@@ -39,6 +61,7 @@ namespace _Scripts._Game.General.Managers{
             
         }
 
+        // stats
         public void AddStat(EStatsType type, int amount)
         {
             int index = (int)type;
@@ -47,10 +70,10 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
-            _stats[index] += amount;
+            _completionStats[index] += amount;
         }
 
-        public int GetState(EStatsType type)
+        public int GetStat(EStatsType type)
         {
             int index = (int)type;
             if (index >= (int)EStatsType.COUNT)
@@ -58,25 +81,37 @@ namespace _Scripts._Game.General.Managers{
                 return -1;
             }
 
-            return _stats[index];
+            return _completionStats[index];
+        }
+
+        // Entity stats
+        public FEntityStats GetEntityStat(EEntity type)
+        {
+            int index = (int)type;
+            if (index >= (int)EStatsType.COUNT)
+            {
+                return new FEntityStats();
+            }
+
+            return _entityStats[index];
         }
 
         [System.Serializable]
         private struct SaveData
         {
-            public int[] _stats;
+            public int[] _completionStats;
         }
 
         public object SaveState()
         {
             SaveData _saveData =  new SaveData()
             {
-                _stats = new int[(int)EStatsType.COUNT]
+                _completionStats = new int[(int)EStatsType.COUNT]
             };
 
             for (int i = 0; i < (int)EStatsType.COUNT; ++i)
             {
-                _stats[i] = this._stats[i];
+                _completionStats[i] = this._completionStats[i];
             }
 
             return _saveData;
@@ -86,7 +121,7 @@ namespace _Scripts._Game.General.Managers{
         {
             SaveData saveData = (SaveData)state;
 
-            this._stats = saveData._stats;
+            this._completionStats = saveData._completionStats;
         }
     }
     
