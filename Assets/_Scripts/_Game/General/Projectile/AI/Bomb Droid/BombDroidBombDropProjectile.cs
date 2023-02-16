@@ -12,9 +12,15 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
     {
         private EEntityType _instigator;
         private bool _collided;
+        private bool _explodeElapsed;
 
         public EEntityType Instigator { get => _instigator; set => _instigator = value; }
         public bool Collided { get => _collided; }
+        public bool ExplodeElapsed { get => _explodeElapsed; }
+
+        [Header("Components")]
+        [SerializeField]
+        private SpriteRenderer _spriteRenderer;    
 
         [Header("Projectile movement")]
         [SerializeField]
@@ -31,12 +37,15 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
         private void Awake()
         {
             ProjectileLifetime = ProjectileManager.Instance.BombDroidBombDropAttackLifetime;
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void OnEnable()
         {
             ProjectileLifetimeTimer = 0.0f;
             _collided = false;
+            _explodeElapsed = false;
+            _spriteRenderer.enabled = true;
         }
 
         private void FixedUpdate()
@@ -50,20 +59,33 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 float step = _fallSpeedCurve.Evaluate(ProjectileLifetimeTimer) * Time.deltaTime;
                 Vector2 newPosition = Vector2.MoveTowards(transform.position, transform.position + (Vector3.down * 100.0f), step);
                 transform.position = newPosition;
-           
+                
                 #endregion
+            }
+            else if (!_explodeElapsed)
+            {
+                if (UniqueTickGroup.CanTick())
+                {
+                    
+                    
+                }
             }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             GameObject collidedGO = collision.gameObject;
+            if (_collided)
+            {
+                return;
+            }
 
             if (_instigator == EEntityType.Enemy)
             {
                 if ((_playerLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
                     _collided = true;
+                    _explodeElapsed = true;
                     PlayerEntity.Instance.TakeDamage(1.0f, EEntityType.Enemy);
                 }
             }
@@ -72,6 +94,12 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 if ((_aiLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
                     _collided = true;
+                    _explodeElapsed = true;
+                    IDamageable damageable = collidedGO.GetComponent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        damageable.TakeDamage(1.0f, EEntityType.Player);
+                    }
                 }
             }
 
@@ -79,6 +107,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             {
                 _collided = true;
                 ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, collision.ClosestPoint(transform.position), 0.0f);
+                _spriteRenderer.enabled = false;
             }
         }
 

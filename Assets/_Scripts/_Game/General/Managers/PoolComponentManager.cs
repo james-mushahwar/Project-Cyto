@@ -1,15 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public abstract class PoolComponentManager<T> : Singleton<PoolComponentManager<T>> where T : Component
+    public abstract class PoolComponentManager<T> : Singleton<PoolComponentManager<T>>, ITickMaster where T : Component
     {
         protected readonly Stack<T> m_Pool = new Stack<T>();
         private readonly LinkedList<T> m_Inuse = new LinkedList<T>();
         private readonly Stack<LinkedListNode<T>> m_NodePool = new Stack<LinkedListNode<T>>();
 
+        private Int16 _tickID;
         protected int m_lastCheckFrame = -1;
         [SerializeField]
         protected int m_PoolCount;
@@ -17,6 +19,12 @@ namespace _Scripts._Game.General.Managers{
         protected override void Awake()
         {
             base.Awake();
+            _tickID = 0;
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            _tickID = (short)((++_tickID) % m_PoolCount);
         }
 
         protected void CheckPools()
@@ -84,6 +92,35 @@ namespace _Scripts._Game.General.Managers{
                 }
             }
             return copy;
+        }
+
+        public short GetTickID()
+        {
+            return _tickID;
+        }
+    }
+
+    public interface ITickMaster
+    {
+        Int16 GetTickID();
+    }
+
+    public class UniqueTickGroup
+    {
+        private Int16 _id;
+        ITickMaster _tickMaster;
+
+        public short Id { get => _id; }
+        public ITickMaster TickMaster { get => _tickMaster; set => _tickMaster = value; }
+
+        public void AssignID(Int16 id)
+        {
+            _id = id;
+        }
+
+        public bool CanTick()
+        {
+            return _tickMaster.GetTickID() == _id;
         }
     }
     

@@ -31,7 +31,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
             }
         }
 
-        protected void FixedUpdate()
+        protected override void FixedUpdate()
         {
             if (m_lastCheckFrame != Time.frameCount)
             {

@@ -23,13 +23,17 @@ namespace _Scripts._Game.General.Projectile.Pools{
                 newGO.transform.parent = this.gameObject.transform;
 
                 BombDroidBombDropProjectile comp = newGO.GetComponent<BombDroidBombDropProjectile>();
+                comp.UniqueTickGroup.AssignID((short)i);
+                comp.UniqueTickGroup.TickMaster = this;
+
                 m_Pool.Push(comp);
                 newGO.SetActive(false);
             }
         }
 
-        protected void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             if (m_lastCheckFrame != Time.frameCount)
             {
                 m_lastCheckFrame = Time.frameCount;
@@ -39,7 +43,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
 
         protected override bool IsActive(BombDroidBombDropProjectile component)
         {
-            return component.IsActive() && component.Collided == false;
+            return component.IsActive() && (component.Collided == false || component.ExplodeElapsed == false);
         }
 
         public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)

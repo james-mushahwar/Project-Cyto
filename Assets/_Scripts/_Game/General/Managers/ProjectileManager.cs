@@ -2,6 +2,7 @@
 using _Scripts._Game.General.Projectile.AI.BombDroid;
 using _Scripts._Game.General.Projectile.Player;
 using _Scripts._Game.General.Projectile.Pools;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +36,6 @@ namespace _Scripts._Game.General.Managers{
         protected override void Awake()
         {
             base.Awake();
-            
         }
 
         protected void Start()
