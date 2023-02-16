@@ -22,7 +22,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground
             base.Awake();
 
             CurrentState = _states.GetState(AIMovementState.Idle);
-            CurrentBondedState = _states.GetState(AIBondedMovementState.Flying);
+            CurrentBondedState = _states.GetState(AIBondedMovementState.Grounded);
 
             BondInputsDict.Add(BondInput.Movement, OnMovementInput);
         }

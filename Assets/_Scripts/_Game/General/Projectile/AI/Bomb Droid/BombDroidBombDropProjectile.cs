@@ -1,5 +1,7 @@
-﻿using _Scripts._Game.General.Managers;
+﻿using _Scripts._Game.AI;
+using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using _Scripts.Editortools.Draw;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -34,6 +36,18 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
         [SerializeField]
         private LayerMask _playerLayerMask;
 
+        [Header("Explosion")]
+        [SerializeField]
+        private float _explosionOverlapRange;
+        [SerializeField]
+        private ContactFilter2D _explosionContactFilter;
+        [SerializeField]
+        private float _explosionTimeDuration = 1.0f;
+        private float _explosionTimer;
+
+        private List<IDamageable> _damageablesHit = new List<IDamageable>();
+        private Collider2D[] _hitColliders = new Collider2D[8];
+
         private void Awake()
         {
             ProjectileLifetime = ProjectileManager.Instance.BombDroidBombDropAttackLifetime;
@@ -45,7 +59,23 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             ProjectileLifetimeTimer = 0.0f;
             _collided = false;
             _explodeElapsed = false;
+            _explosionTimer = 0.0f;
             _spriteRenderer.enabled = true;
+
+            for (int i = 0; i < _hitColliders.Length; i++)
+            {
+                _hitColliders[i] = null;
+            }
+            _damageablesHit.Clear();
+        }
+
+        void OnDrawGizmos()
+        {
+            // scene debug updates
+            if (_collided && !_explodeElapsed)
+            {
+                DrawGizmos.DrawSphereDebug(transform.position, _explosionOverlapRange);
+            }
         }
 
         private void FixedUpdate()
@@ -66,8 +96,44 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             {
                 if (UniqueTickGroup.CanTick())
                 {
-                    
-                    
+                    int hitOverlapCount = Physics2D.OverlapCircle(transform.position, _explosionOverlapRange, _explosionContactFilter, _hitColliders);
+
+                    if (hitOverlapCount > 0)
+                    {
+                        Collider2D col = null;
+                        IDamageable damageable = null;
+
+                        for (int i = 0; i < hitOverlapCount; i++)
+                        {
+                            col = _hitColliders[i];
+                            if (col == null)
+                            {
+                                continue;
+                            }
+                            damageable = col.gameObject.GetComponent<IDamageable>();
+
+                            if (damageable != null)
+                            {
+                                if (_damageablesHit.Contains(damageable))
+                                {
+                                    continue;
+                                }
+
+                                if ((damageable is AIEntity && (_instigator == EEntityType.BondedEnemy)) || (damageable is PlayerEntity && (_instigator == EEntityType.Enemy)))
+                                {
+                                    damageable.TakeDamage(EDamageType.BombDroid_BombDrop_Explosion, _instigator);
+                                    _damageablesHit.Add(damageable);
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+
+                _explosionTimer += Time.deltaTime;
+                if (_explosionTimer >= _explosionTimeDuration)
+                {
+                    _explodeElapsed = true;
                 }
             }
         }
@@ -86,7 +152,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 {
                     _collided = true;
                     _explodeElapsed = true;
-                    PlayerEntity.Instance.TakeDamage(1.0f, EEntityType.Enemy);
+                    PlayerEntity.Instance.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.Enemy);
                 }
             }
             else if (_instigator == EEntityType.BondedEnemy)
@@ -98,7 +164,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                     IDamageable damageable = collidedGO.GetComponent<IDamageable>();
                     if (damageable != null)
                     {
-                        damageable.TakeDamage(1.0f, EEntityType.Player);
+                        damageable.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.BondedEnemy);
                     }
                 }
             }
@@ -108,6 +174,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 _collided = true;
                 ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, collision.ClosestPoint(transform.position), 0.0f);
                 _spriteRenderer.enabled = false;
+                ProjectileLifetimeTimer = ProjectileLifetime - _explosionTimeDuration;
             }
         }
 

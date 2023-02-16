@@ -90,16 +90,16 @@ namespace _Scripts._Game.AI{
             }
         }
 
-        public void TakeDamage(float damage, EEntityType causer)
+        public void TakeDamage(EDamageType damageType, EEntityType causer)
         {
             float resultHealth = 100.0f;
             if (_enemyBondableHealthStats.IsAlive())
             {
-                _enemyBondableHealthStats.RemoveHitPoints(damage, true);
+                _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
             }
             else
             {
-                resultHealth = _enemyHealthStats.RemoveHitPoints(damage, true);
+                resultHealth = _enemyHealthStats.RemoveHitPoints(1.0f, true);
             }
 
             if (resultHealth <= 0.0f)

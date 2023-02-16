@@ -43,6 +43,7 @@ namespace _Scripts._Game.Player{
 
         #region Player Components
         private PlayerHealthStats _playerHealthStats;
+        private EnergyStats _playerEnergyStats;
 
         public PlayerHealthStats PlayerHealthStats { get => _playerHealthStats; }
         #endregion
@@ -53,6 +54,7 @@ namespace _Scripts._Game.Player{
 
             FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
             _playerHealthStats = new PlayerHealthStats(playerEntityStats.MaxHealth, playerEntityStats.MaxHealth);
+            _playerEnergyStats = new EnergyStats(1.0f, 1.0f);
         }
 
         void Start()
@@ -144,20 +146,35 @@ namespace _Scripts._Game.Player{
             return _playerHealthStats.IsAlive() && !_playerRespawnReason._isRespawning;
         }
 
-        public void TakeDamage(float damage, EEntityType causer)
+        public void TakeDamage(EDamageType damageType, EEntityType causer)
         {
             float resultsHealth = 0.0f;
-            resultsHealth = _playerHealthStats.RemoveHitPoints(damage, false);
 
-            if (resultsHealth <= 0.0f)
+            if (_possessed != null)
             {
-                //dead reaction
-                if (_playerRespawnReason._isRespawning == false)
+                resultsHealth = _playerEnergyStats.RemoveEnergyPoints(1.0f, false);
+
+                if (resultsHealth <= 0.0f)
                 {
-                    _playerRespawnReason._reaspawnReason = ERespawnReason.Death;
-                    OnRespawnStart();
+                    // lost all energy - dispossess
+                    _possessed.OnDispossess();
                 }
             }
+            else
+            {
+                resultsHealth = _playerHealthStats.RemoveHitPoints(1.0f, false);
+
+                if (resultsHealth <= 0.0f)
+                {
+                    //dead reaction
+                    if (_playerRespawnReason._isRespawning == false)
+                    {
+                        _playerRespawnReason._reaspawnReason = ERespawnReason.Death;
+                        OnRespawnStart();
+                    }
+                }
+            }
+            
         }
 
         public void OnRespawnStart()

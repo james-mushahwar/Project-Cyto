@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c7872a02f3a4b4bb9b49682a24d8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 0}
   _fallSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -179,6 +180,22 @@ MonoBehaviour:
   _playerLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  _explosionOverlapRange: 2.43
+  _explosionContactFilter:
+    useTriggers: 1
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 384
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _explosionTimeDuration: 0.55
 --- !u!61 &8976877524791897117
 BoxCollider2D:
   m_ObjectHideFlags: 0

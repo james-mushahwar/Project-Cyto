@@ -21,11 +21,17 @@ namespace _Scripts._Game.General{
         BondedEnemy
     }
 
+    public enum EDamageType
+    {
+        Player_BasicAttack,
+        BombDroid_BombDrop_DirectHit,
+        BombDroid_BombDrop_Explosion,
+    }
 
     public interface IDamageable
     {
         bool IsAlive();
-        void TakeDamage(float damage, EEntityType causer);
+        void TakeDamage(EDamageType damageType, EEntityType causer);
         //Components
         Transform Transform { get; }
         //Inputs
