@@ -304,6 +304,9 @@ MonoBehaviour:
   _bombDropStateDuration: 2.5
   _bombDropUpwardsForce: 10
   _bombDropBuildUpDuration: 1
+  _bondedBombDropCooldown: 2
+  _bondedBombDropBuildUpDuration: 0.25
+  _bondedBombDropStateDuration: 1
 --- !u!58 &8527710219603585277
 CircleCollider2D:
   m_ObjectHideFlags: 0

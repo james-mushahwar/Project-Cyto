@@ -29,6 +29,8 @@ namespace _Scripts._Game.Player{
         private bool _isPossessed;
         private IPossessable _possessed; //save what we're possessing
         private RespawnReason _playerRespawnReason;
+
+        public IPossessable Possessed { get => _possessed; }
         #endregion
 
         #region State Machines

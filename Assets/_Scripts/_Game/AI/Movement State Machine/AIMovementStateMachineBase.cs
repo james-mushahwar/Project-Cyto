@@ -73,6 +73,15 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         private static bool _isLeftTriggerInputValid = false;
         private static bool _isRightTriggerInputValid = false;
 
+        public bool IsNorthInputValid { get => _isNorthInputValid; }
+        public bool IsSouthInputValid { get => _isSouthInputValid; }
+        public bool IsEastInputValid { get => _isEastInputValid; }
+        public bool IsWestInputValid { get => _isWestInputValid; }
+        public bool IsLeftBumperInputValid { get => _isLeftBumperInputValid;  }
+        public bool IsRightBumperInputValid { get => _isRightBumperInputValid;  }
+        public bool IsLeftTriggerInputValid { get => _isLeftTriggerInputValid;  }
+        public bool IsRightTriggerInputValid { get => _isRightTriggerInputValid;  }
+
         private Dictionary<BondInput, Action<InputAction.CallbackContext>> _bondInputsDict = new Dictionary<BondInput, Action<InputAction.CallbackContext>> ();
         public Dictionary<BondInput, Action<InputAction.CallbackContext>> BondInputsDict { get => _bondInputsDict; }
         #endregion

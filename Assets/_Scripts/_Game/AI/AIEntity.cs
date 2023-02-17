@@ -57,6 +57,8 @@ namespace _Scripts._Game.AI{
             _movementSM.Collider.isTrigger = false;
 
             _attackSM.OnBonded();
+            _attackSM.CurrentState.ExitState();
+            _attackSM.CurrentBondedState.EnterState();
             //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = true;
         }

@@ -20,6 +20,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
     {
         private AIAttackStateMachineBase _attackStateMachine;
         private Dictionary<AIAttackState, BaseAIAttackState> _stateDict = new Dictionary<AIAttackState, BaseAIAttackState>();
+        private Dictionary<AIAttackState, BaseAIBondedAttackState> _bondedStateDict = new Dictionary<AIAttackState, BaseAIBondedAttackState>();
 
         public AIAttackStateMachineFactory(AIAttackStateMachineBase sm)
         {
@@ -33,7 +34,8 @@ namespace _Scripts._Game.AI.AttackStateMachine{
                 _stateDict.Add(AIAttackState.Idle, new BombDroidIdleAIAttackState(sm, this));
                 _stateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIAttackState(sm, this));
    
-                //_bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
+                _bondedStateDict.Add(AIAttackState.Idle, new BombDroidIdleAIBondedAttackState(sm, this));
+                _bondedStateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIBondedAttackState(sm, this));
             }
         }
 
@@ -45,6 +47,24 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         public AIAttackState GetAttackStateEnum(BaseAIAttackState state)
         {
             foreach (KeyValuePair<AIAttackState, BaseAIAttackState> entry in _stateDict)
+            {
+                if (entry.Value == state)
+                {
+                    return entry.Key;
+                }
+            }
+
+            return AIAttackState.NOTHING;
+        }
+
+        public BaseAIBondedAttackState GetBondedState(AIAttackState state)
+        {
+            return _bondedStateDict[state];
+        }
+
+        public AIAttackState GetBondedAttackStateEnum(BaseAIBondedAttackState state)
+        {
+            foreach (KeyValuePair<AIAttackState, BaseAIBondedAttackState> entry in _bondedStateDict)
             {
                 if (entry.Value == state)
                 {

@@ -13,7 +13,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         [SerializeField]
         private float _bombDropCooldown;
 
-        public float BombDropCooldown { get => _bombDropCooldown; set => _bombDropCooldown = value; }
+        public float BombDropCooldown { get => _bombDropCooldown; }
 
         [Header("Bomb drop attack properties")]
         [SerializeField]
@@ -35,6 +35,20 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         #endregion
 
         #region Bonded Bomb Droid Attack Stats
+        [Header("Bonded Idle Properties")]
+        [SerializeField]
+        private float _bondedBombDropCooldown;
+
+        public float BondedBombDropCooldown { get => _bondedBombDropCooldown;  }
+
+        [Header("Bonded Bomb drop attack properties")]
+        [SerializeField]
+        private float _bondedBombDropBuildUpDuration;
+        [SerializeField]
+        private float _bondedBombDropStateDuration;
+
+        public float BondedBombDropBuildUpDuration { get => _bondedBombDropBuildUpDuration; }
+        public float BondedBombDropStateDuration { get => _bondedBombDropStateDuration; }
         #endregion
 
         protected override void Awake()
@@ -42,8 +56,10 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
             base.Awake();
 
             CurrentState = _states.GetState(AIAttackState.Idle);
+            CurrentBondedState = _states.GetBondedState(AIAttackState.Idle);
 
             BondInputsDict.Add(BondInput.Movement, OnMovementInput);
+            BondInputsDict.Add(BondInput.WButton, OnWestButtonInput);
         }
 
         protected void FixedUpdate()
@@ -54,7 +70,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
             }
             else
             {
-                //CurrentBondedState.ManagedStateTick();
+                CurrentBondedState.ManagedStateTick();
             }
 
             if (IsAttackInterrupted)
@@ -62,6 +78,8 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
                 IsAttackInterrupted = false;
             }
         }
+
+        
     }
 
 }

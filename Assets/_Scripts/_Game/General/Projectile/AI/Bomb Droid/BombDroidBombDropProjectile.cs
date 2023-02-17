@@ -119,7 +119,10 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                                     continue;
                                 }
 
-                                if ((damageable is AIEntity && (_instigator == EEntityType.BondedEnemy)) || (damageable is PlayerEntity && (_instigator == EEntityType.Enemy)))
+                                IPossessable possessable = col.gameObject.GetComponent<IPossessable>();
+                                bool isPlayerPossessed = possessable != null && (PlayerEntity.Instance.Possessed != possessable);
+
+                                if ((damageable is AIEntity && !isPlayerPossessed && (_instigator == EEntityType.BondedEnemy)) || (damageable is PlayerEntity && (_instigator == EEntityType.Enemy)))
                                 {
                                     damageable.TakeDamage(EDamageType.BombDroid_BombDrop_Explosion, _instigator);
                                     _damageablesHit.Add(damageable);
@@ -159,13 +162,22 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             {
                 if ((_aiLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
-                    _collided = true;
-                    _explodeElapsed = true;
-                    IDamageable damageable = collidedGO.GetComponent<IDamageable>();
-                    if (damageable != null)
+                    IPossessable possessable = collidedGO.GetComponent<IPossessable>();
+
+                    bool isPlayerPossessed = possessable != null && (PlayerEntity.Instance.Possessed == possessable);
+
+                    if (!isPlayerPossessed)
                     {
-                        damageable.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.BondedEnemy);
+                        _collided = true;
+                        _explodeElapsed = true;
+
+                        IDamageable damageable = collidedGO.GetComponent<IDamageable>();
+                        if (damageable != null)
+                        {
+                            damageable.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.BondedEnemy);
+                        }
                     }
+                    
                 }
             }
 

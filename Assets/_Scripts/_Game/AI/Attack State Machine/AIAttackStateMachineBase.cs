@@ -15,10 +15,10 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         #region State Machine
         //Movement
         private BaseAIAttackState _currentState;
-        //private BaseAIBondedMovementState _currentBondedState;
+        private BaseAIBondedAttackState _currentBondedState;
 
         public BaseAIAttackState CurrentState { get => _currentState; set => _currentState = value; }
-        //public BaseAIBondedMovementState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
+        public BaseAIBondedAttackState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
 
         protected AIAttackStateMachineFactory _states;
 
@@ -60,6 +60,14 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         private static bool _isRightBumperInputValid = false;
         private static bool _isLeftTriggerInputValid = false;
         private static bool _isRightTriggerInputValid = false;
+
+        public bool IsSouthInputValid { get => _isSouthInputValid; }
+        public bool IsEastInputValid { get => _isEastInputValid; }
+        public bool IsWestInputValid { get => _isWestInputValid; }
+        public bool IsLeftBumperInputValid { get => _isLeftBumperInputValid; }
+        public bool IsRightBumperInputValid { get => _isRightBumperInputValid; }
+        public bool IsLeftTriggerInputValid { get => _isLeftTriggerInputValid; }
+        public bool IsRightTriggerInputValid { get => _isRightTriggerInputValid; }
 
         private Dictionary<BondInput, Action<InputAction.CallbackContext>> _bondInputsDict = new Dictionary<BondInput, Action<InputAction.CallbackContext>>();
         public Dictionary<BondInput, Action<InputAction.CallbackContext>> BondInputsDict { get => _bondInputsDict; }
@@ -137,6 +145,18 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         {
             _isRightTriggerPressed = context.ReadValueAsButton();
             _isRightTriggerInputValid = _isRightTriggerPressed;
+        }
+
+        public void NullifyInput(BondInput state)
+        {
+            switch (state)
+            {
+                case BondInput.WButton:
+                    _isWestInputValid = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public virtual void OnBonded()
