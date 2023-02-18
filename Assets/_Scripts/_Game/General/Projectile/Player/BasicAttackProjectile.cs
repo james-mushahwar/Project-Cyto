@@ -11,6 +11,7 @@ namespace _Scripts._Game.General.Projectile.Player{
 
     public class BasicAttackProjectile : BaseProjectile
     {
+        private IDamageable _damageableTarget;
         private Transform _targetTransform;
         private Vector3 _startPosition;
         private Vector3 _endPosition;
@@ -29,6 +30,7 @@ namespace _Scripts._Game.General.Projectile.Player{
         [SerializeField]
         private float _sqrDistanceToCollision = 1.0f;
 
+        public IDamageable DamageableTarget { get => _damageableTarget; set => _damageableTarget = value; }
         public Transform TargetTransform { get => _targetTransform; set => _targetTransform = value; }
         public Vector3 StartPosition { get => _startPosition; set => _startPosition = value; }
         public Vector3 EndPosition { get => _endPosition; set => _endPosition = value; }
@@ -73,7 +75,7 @@ namespace _Scripts._Game.General.Projectile.Player{
                     _hitTarget = true;
                     float vfxRotation = Vector2.Angle(Vector2.up, direction);
                     ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BasicAttack, transform.position, vfxRotation);
-                    PlayerEntity.Instance.AttackingSM.DamageableTarget.TakeDamage(EDamageType.Player_BasicAttack, EEntityType.Player);
+                    _damageableTarget.TakeDamage(EDamageType.Player_BasicAttack, EEntityType.Player);
                 }
                 #endregion
             }

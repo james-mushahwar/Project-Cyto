@@ -45,15 +45,16 @@ namespace _Scripts._Game.General.Projectile.Pools{
             return component.IsActive() && component.HitTarget == false;
         }
 
-        public void TryBasicAttackProjectile(Transform targetTransform, Vector3 startPosition)
+        public void TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition)
         {
             BasicAttackProjectile pooledComp = GetPooledComponent();
 
             if (pooledComp)
             {
-                pooledComp.TargetTransform = targetTransform;
+                pooledComp.DamageableTarget = damageable;
+                pooledComp.TargetTransform = damageable.Transform;
                 pooledComp.StartPosition = startPosition;
-                pooledComp.EndPosition = targetTransform.position;
+                pooledComp.EndPosition = damageable.Transform.position;
                 pooledComp.transform.position = startPosition;
                 pooledComp.gameObject.SetActive(true);
             }

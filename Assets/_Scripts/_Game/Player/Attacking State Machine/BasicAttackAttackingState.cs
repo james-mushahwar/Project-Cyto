@@ -66,7 +66,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
             if (_ctx.DamageableTarget != null)
             {
-                ProjectileManager.Instance.TryBasicAttackProjectile(_ctx.DamageableTarget.Transform, PlayerEntity.Instance.transform.position);
+                ProjectileManager.Instance.TryBasicAttackProjectile(_ctx.DamageableTarget, PlayerEntity.Instance.transform.position);
             }
         }
 

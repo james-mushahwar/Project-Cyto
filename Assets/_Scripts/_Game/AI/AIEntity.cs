@@ -97,17 +97,26 @@ namespace _Scripts._Game.AI{
             float resultHealth = 100.0f;
             if (_enemyBondableHealthStats.IsAlive())
             {
-                _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
+                resultHealth = _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
+
+                if (resultHealth <= 0.0f)
+                {
+                    //broken shield
+                }
+                _spriteAnimator.DamageFlash();
             }
             else
             {
                 resultHealth = _enemyHealthStats.RemoveHitPoints(1.0f, true);
+
+                if (resultHealth <= 0.0f)
+                {
+                    // death reaction needed
+                }
+                _spriteAnimator.DamageFlash();
             }
 
-            if (resultHealth <= 0.0f)
-            {
-                // death reaction needed
-            }
+            
         }
 
         public bool IsAlive()

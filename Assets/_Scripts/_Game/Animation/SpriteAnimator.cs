@@ -27,8 +27,16 @@ namespace _Scripts._Game.Animation{
 
         #region Renderer
         private SpriteRenderer _renderer;
+        private Material _material;
 
         public SpriteRenderer Renderer { get => _renderer; }
+        #endregion
+
+        #region General
+        bool _isDamageFlashing;
+        [SerializeField]
+        private float _damageFlashDuration = 0.5f;
+        private float _damageFlashTimer; 
         #endregion
 
         private void OnEnable()
@@ -44,6 +52,7 @@ namespace _Scripts._Game.Animation{
         protected virtual void FixedUpdate()
         {
             SpriteDirection();
+            MaterialUpdate();
 
             int state = GetState();
             float speed = GetSpeed(state);
@@ -58,16 +67,44 @@ namespace _Scripts._Game.Animation{
             CurrentState = state;
         }
 
+        protected virtual void MaterialUpdate()
+        {
+            // damage flashing
+            if (_isDamageFlashing)
+            {
+                _damageFlashTimer -= Time.deltaTime;
+                if (_damageFlashTimer <= 0.0f)
+                {
+                    _isDamageFlashing = false;
+                    _damageFlashTimer = 0.0f;
+
+                    _material.SetInteger("_Hit", 0);
+                }
+            }
+        }    
+
         protected virtual void Awake()
         {
             _anim = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
+            if (_renderer)
+            {
+                _material = _renderer.material;
+            }
 
             _entity = GetComponentInParent<AIEntity>();
             if (_entity)
             {
                 _entity.SpriteAnimator = this;
             }
+        }
+
+        public void DamageFlash()
+        {
+            _isDamageFlashing = true;
+            _damageFlashTimer = _damageFlashDuration;
+
+            _material.SetInteger("_Hit", 1);
         }
 
     }
