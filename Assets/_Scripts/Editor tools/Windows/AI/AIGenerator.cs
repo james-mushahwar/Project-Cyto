@@ -72,7 +72,7 @@ namespace _Scripts.Editortools.Windows.AI{
         #endregion
 
         #region Movement
-        bool[] _movementStates = new bool[6] { false, false, false, false, false, false };
+        bool[] _movementStates = new bool[7] { false, false, false, false, false, false, false };
         bool _movementGroupEnabled = true;
         bool[] _bondedMovementStates = new bool[6] { false, false, false, false, false, false };
         bool _bondedMovementGroupEnabled = true;
@@ -134,6 +134,7 @@ namespace _Scripts.Editortools.Windows.AI{
             _movementStates[3] = EditorGUILayout.Toggle("Patrol", _movementStates[3]);
             _movementStates[4] = EditorGUILayout.Toggle("Chase", _movementStates[4]);
             _movementStates[5] = EditorGUILayout.Toggle("Attack", _movementStates[5]);
+            _movementStates[6] = EditorGUILayout.Toggle("Dead", _movementStates[6]);
             EditorGUILayout.EndToggleGroup();
 
             _bondedMovementGroupEnabled = EditorGUILayout.BeginToggleGroup("Bonded Movement States", _bondedMovementGroupEnabled);
@@ -288,6 +289,10 @@ namespace _Scripts.Editortools.Windows.AI{
                     if (_movementStates[5])
                     {
                         CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Attack", scriptBaseType);
+                    }
+                    if (_movementStates[6])
+                    {
+                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Dead", scriptBaseType);
                     }
                 }
 
