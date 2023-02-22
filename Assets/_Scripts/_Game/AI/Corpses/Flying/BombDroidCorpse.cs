@@ -21,7 +21,10 @@ namespace _Scripts._Game.AI.Corpses.Flying{
             if (CorpseLifetimeTimer >= CorpseLifetime && !_isStationary)
             {
                 _isStationary = Rb.velocity.sqrMagnitude <= 1.0f;
-                Debug.Log("Bomb droid corpse is now stationary!");
+                if (_isStationary)
+                {
+                    Debug.Log("Bomb droid corpse is now stationary!");
+                }
             }
         }
 

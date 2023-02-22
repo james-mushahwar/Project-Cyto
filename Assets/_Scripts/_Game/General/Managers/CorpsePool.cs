@@ -24,15 +24,25 @@ namespace _Scripts._Game.General.Managers{
             {
                 GameObject newGO = Instantiate(_corpsePrefab.gameObject);
                 newGO.transform.parent = this.gameObject.transform;
-                newGO.SetActive(false);
 
                 Corpse comp = newGO.GetComponent(typeof(Corpse)) as Corpse;
                 m_Pool.Push(comp);
+                newGO.SetActive(false);
             }
 
             CorpseManager.Instance.AssignCorpsePool(_entity, this);
-            //ParticleManager.Instance.AssignParticlePool(_particleType, this);
         }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            if (m_lastCheckFrame != Time.frameCount)
+            {
+                m_lastCheckFrame = Time.frameCount;
+                CheckPools();
+            }
+        }
+
         protected override bool IsActive(Corpse component)
         {
             return component.IsActive();

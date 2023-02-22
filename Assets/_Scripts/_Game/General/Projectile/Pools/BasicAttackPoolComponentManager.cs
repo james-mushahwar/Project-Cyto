@@ -33,6 +33,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
 
         protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             if (m_lastCheckFrame != Time.frameCount)
             {
                 m_lastCheckFrame = Time.frameCount;
