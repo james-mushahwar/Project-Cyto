@@ -10,7 +10,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
     public class BasicAttackPoolComponentManager : PoolComponentManager<BasicAttackProjectile>
     {
         #region Projectile
-        
+        [Header("Prefab")]
         [SerializeField]
         private GameObject _playerBasicAttackProjectilePrefab;
 

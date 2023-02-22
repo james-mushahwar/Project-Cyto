@@ -9,7 +9,7 @@ namespace _Scripts._Game.General.Projectile{
     {
         private UniqueTickGroup uniqueTickGroup = new UniqueTickGroup();
 
-        public UniqueTickGroup UniqueTickGroup { get => uniqueTickGroup; set => uniqueTickGroup = value; }
+        public UniqueTickGroup UniqueTickGroup { get => uniqueTickGroup; }
         protected float ProjectileLifetime { get; set; }
         protected float ProjectileLifetimeTimer { get; set; }
 

@@ -36,8 +36,24 @@ namespace _Scripts._Game.Animation{
         bool _isDamageFlashing;
         [SerializeField]
         private float _damageFlashDuration = 0.5f;
-        private float _damageFlashTimer; 
+        private float _damageFlashTimer;
         #endregion
+
+        protected virtual void Awake()
+        {
+            _anim = GetComponent<Animator>();
+            _renderer = GetComponent<SpriteRenderer>();
+            if (_renderer)
+            {
+                _material = _renderer.material;
+            }
+
+            _entity = GetComponentInParent<AIEntity>();
+            if (_entity)
+            {
+                _entity.SpriteAnimator = this;
+            }
+        }
 
         private void OnEnable()
         {
@@ -78,33 +94,17 @@ namespace _Scripts._Game.Animation{
                     _isDamageFlashing = false;
                     _damageFlashTimer = 0.0f;
 
-                    _material.SetInteger("_Hit", 0);
+                    _material.SetFloat("_Hit", 0);
                 }
             }
         }    
-
-        protected virtual void Awake()
-        {
-            _anim = GetComponent<Animator>();
-            _renderer = GetComponent<SpriteRenderer>();
-            if (_renderer)
-            {
-                _material = _renderer.material;
-            }
-
-            _entity = GetComponentInParent<AIEntity>();
-            if (_entity)
-            {
-                _entity.SpriteAnimator = this;
-            }
-        }
 
         public void DamageFlash()
         {
             _isDamageFlashing = true;
             _damageFlashTimer = _damageFlashDuration;
 
-            _material.SetInteger("_Hit", 1);
+            _material.SetFloat("_Hit", 1);
         }
 
     }

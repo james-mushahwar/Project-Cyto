@@ -7,14 +7,19 @@ namespace _Scripts._Game.General.Managers{
     
     public abstract class PoolComponentManager<T> : Singleton<PoolComponentManager<T>>, ITickMaster where T : Component
     {
+        [Header("Tick Master")]
+        [SerializeField]
+        private bool _useTickMaster = false;
+        private Int16 _tickID;
+        protected int m_lastCheckFrame = -1;
+
+        [Header("Pool properties")]
+        [SerializeField]
+        protected int m_PoolCount;
+
         protected readonly Stack<T> m_Pool = new Stack<T>();
         private readonly LinkedList<T> m_Inuse = new LinkedList<T>();
         private readonly Stack<LinkedListNode<T>> m_NodePool = new Stack<LinkedListNode<T>>();
-
-        private Int16 _tickID;
-        protected int m_lastCheckFrame = -1;
-        [SerializeField]
-        protected int m_PoolCount;
 
         protected override void Awake()
         {
@@ -24,7 +29,10 @@ namespace _Scripts._Game.General.Managers{
 
         protected virtual void FixedUpdate()
         {
-            _tickID = (short)((++_tickID) % m_PoolCount);
+            if (_useTickMaster)
+            {
+                _tickID = (short)((++_tickID) % m_PoolCount);
+            }
         }
 
         protected void CheckPools()
@@ -98,10 +106,16 @@ namespace _Scripts._Game.General.Managers{
         {
             return _tickID;
         }
+
+        public bool IsUsingTickMaster()
+        {
+            return _useTickMaster;
+        }
     }
 
     public interface ITickMaster
     {
+        bool IsUsingTickMaster();
         Int16 GetTickID();
     }
 
@@ -120,7 +134,7 @@ namespace _Scripts._Game.General.Managers{
 
         public bool CanTick()
         {
-            return _tickMaster.GetTickID() == _id;
+            return !_tickMaster.IsUsingTickMaster() || _tickMaster.GetTickID() == _id;
         }
     }
     

@@ -9,9 +9,13 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.AttackStateMachine;
 
 namespace _Scripts._Game.AI{
-    
+
     public class AIEntity : MonoBehaviour, IPossessable, IDamageable
     {
+        [Header("Entity")]
+        [SerializeField]
+        private EEntity _entity;
+
         private bool _isPossessed;
 
         #region State Machines
@@ -112,6 +116,9 @@ namespace _Scripts._Game.AI{
                 if (resultHealth <= 0.0f)
                 {
                     // death reaction needed
+                    gameObject.SetActive(false);
+                    //spawn corpse
+                    CorpseManager.Instance.TrySpawnCorpse(_entity, transform.position);
                 }
                 _spriteAnimator.DamageFlash();
             }

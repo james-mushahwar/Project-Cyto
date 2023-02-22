@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c32466bfb88dcc4cb9500bd5d96506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useTickMaster: 0
   m_PoolCount: 8
   _particlePrefab: {fileID: 5561702475036003066, guid: 8b33b97330198df4984fe90803d966d8, type: 3}
   _particleType: 1
@@ -310,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4184c3ae9adc4f4faf58154d80b2b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useTickMaster: 0
   m_PoolCount: 30
 --- !u!1 &1192473343919988201
 GameObject:
@@ -350,6 +352,7 @@ Transform:
   - {fileID: 2552583661693226330}
   - {fileID: 4578717394583074376}
   - {fileID: 320893858784341560}
+  - {fileID: 6696148614202211450}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -582,6 +585,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86eaeca998438284c8f6ffb98fd0a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1921674813462197753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6232422835948624907}
+  - component: {fileID: 3017591029958598325}
+  m_Layer: 0
+  m_Name: MushroomArcherCorpsePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6232422835948624907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921674813462197753}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6696148614202211450}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3017591029958598325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921674813462197753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5da40d206c6430ca1b94e9e44c4205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTickMaster: 0
+  m_PoolCount: 0
+  _entity: 2
+  _positionOffset: {x: 0, y: 0}
+  _corpsePrefab: {fileID: 2597291718102842129, guid: 7b7c9c309caeea1429f891339c1583d0, type: 3}
 --- !u!1 &2173281888374789466
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,6 +681,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2173281888374789466}
   m_CullTransparentMesh: 1
+--- !u!1 &2518221303264323642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6696148614202211450}
+  - component: {fileID: 1429412930447335278}
+  m_Layer: 0
+  m_Name: CorspeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6696148614202211450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518221303264323642}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 180.65462, y: -97.725586, z: 1.9343103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7952180863250580511}
+  - {fileID: 6232422835948624907}
+  - {fileID: 7558726233555138698}
+  m_Father: {fileID: 1192473343919988200}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429412930447335278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518221303264323642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06689aed4ba6c1248add2900021af9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2665716183989441786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7952180863250580511}
+  - component: {fileID: 4728548373938928765}
+  m_Layer: 0
+  m_Name: BombDroidCorpsePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7952180863250580511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2665716183989441786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6696148614202211450}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4728548373938928765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2665716183989441786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5da40d206c6430ca1b94e9e44c4205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTickMaster: 0
+  m_PoolCount: 8
+  _entity: 1
+  _positionOffset: {x: 0, y: 4.62}
+  _corpsePrefab: {fileID: 2597291718102842129, guid: 7b7c9c309caeea1429f891339c1583d0, type: 3}
 --- !u!1 &2756674304694423285
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,6 +963,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2868434266555394389}
   m_CullTransparentMesh: 1
+--- !u!1 &2989623717075418848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7558726233555138698}
+  - component: {fileID: 7670616967860705581}
+  m_Layer: 0
+  m_Name: DaggerMushroomCorpsePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7558726233555138698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2989623717075418848}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6696148614202211450}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7670616967860705581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2989623717075418848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5da40d206c6430ca1b94e9e44c4205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTickMaster: 0
+  m_PoolCount: 0
+  _entity: 3
+  _positionOffset: {x: 0, y: 0}
+  _corpsePrefab: {fileID: 2597291718102842129, guid: 7b7c9c309caeea1429f891339c1583d0, type: 3}
 --- !u!1 &3307493411102425137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,6 +1290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c32466bfb88dcc4cb9500bd5d96506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useTickMaster: 0
   m_PoolCount: 5
   _particlePrefab: {fileID: 5561702475036003066, guid: ee99a599bfb87ee4b8828f4356fc774d, type: 3}
   _particleType: 0
@@ -1629,6 +1827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338c5884643174e4aa7c4e3efe686609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useTickMaster: 1
   m_PoolCount: 8
   _bombDroidProjectilePrefab: {fileID: 5458949934131665997, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}
 --- !u!1 &7765605035313327167
@@ -1989,5 +2188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dbe70dc4fff4b4e8a644bf08685a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useTickMaster: 0
   m_PoolCount: 5
   _playerBasicAttackProjectilePrefab: {fileID: 1007635231102965200, guid: 3e67300187921164ba14ec33b8c8ae16, type: 3}

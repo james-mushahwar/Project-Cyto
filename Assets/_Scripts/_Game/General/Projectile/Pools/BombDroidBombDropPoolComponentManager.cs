@@ -10,6 +10,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
     
     public class BombDroidBombDropPoolComponentManager : PoolComponentManager<BombDroidBombDropProjectile>
     {
+        [Header("Prefab")]
         [SerializeField]
         private GameObject _bombDroidProjectilePrefab;
 
