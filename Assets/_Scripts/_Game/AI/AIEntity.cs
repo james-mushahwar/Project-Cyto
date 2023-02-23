@@ -15,8 +15,9 @@ namespace _Scripts._Game.AI{
         [Header("Entity")]
         [SerializeField]
         private EEntity _entity;
-
         private bool _isPossessed;
+
+        public EEntity Entity { get => _entity; }
 
         #region State Machines
         private AIMovementStateMachineBase _movementSM;
@@ -35,6 +36,7 @@ namespace _Scripts._Game.AI{
         public EnemyHealthStats EnemyHealthStats { get => _enemyHealthStats; }
         #endregion
 
+        public Transform Transform { get => transform; }
         protected void Awake()
         {
             _enemyHealthStats         = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.EnemyHealth);
@@ -82,7 +84,6 @@ namespace _Scripts._Game.AI{
             PlayerEntity.Instance.OnPossess();
         }
 
-        public Transform Transform { get => transform; }
 
         public Vector2 GetMovementInput()
         {

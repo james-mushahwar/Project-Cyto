@@ -6,23 +6,23 @@ namespace _Scripts._Game.General {
 
     public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
-        private static T m_Instance;
+        private static T _instance;
         public static T Instance
         {
             get
             {
-                if (m_Instance == null)
+                if (_instance == null)
                 {
-                    m_Instance = (T)FindObjectOfType(typeof(T));
+                    _instance = (T)FindObjectOfType(typeof(T));
                 }
 
-                return m_Instance;
+                return _instance;
             }
         }
 
         protected virtual void Awake()
         {
-            if (m_Instance != null && m_Instance != this as T)
+            if (_instance != null && _instance != this as T)
             {
                 Debug.LogWarning("Destroy new singleton");
                 Destroy(this.gameObject);
@@ -30,7 +30,7 @@ namespace _Scripts._Game.General {
             else
             {
                 Debug.LogWarning("Awaken " + name + " singleton");
-                m_Instance = this as T;
+                _instance = this as T;
             }
         }
     }
