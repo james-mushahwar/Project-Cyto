@@ -77,6 +77,13 @@ namespace _Scripts.Editortools.Draw {
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(position, radius);
         }
+
+        public static void DrawWireSphereDebug(Vector3 position, float radius)
+        {
+            // Draw a yellow sphere at the transform's position
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(position, radius);
+        }
         #endregion
     }
 

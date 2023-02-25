@@ -21,6 +21,8 @@ namespace _Scripts._Game.General.Managers{
                 newGO.transform.parent = this.gameObject.transform;
 
                 AIEntity comp = newGO.GetComponent(typeof(AIEntity)) as AIEntity;
+                comp.UniqueTickGroup.AssignID((short)i);
+                comp.UniqueTickGroup.TickMaster = this;
                 newGO.SetActive(false);
                 m_Pool.Push(comp);
             }
@@ -31,6 +33,11 @@ namespace _Scripts._Game.General.Managers{
         protected override bool IsActive(AIEntity entity)
         {
             return entity.IsAlive() && entity.gameObject.activeSelf;
+        }
+
+        public AIEntity GetAIEntity()
+        {
+            return GetPooledComponent();
         }
     }
     

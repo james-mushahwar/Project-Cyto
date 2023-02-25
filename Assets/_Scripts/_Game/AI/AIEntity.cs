@@ -7,10 +7,11 @@ using _Scripts._Game.Animation;
 using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.AttackStateMachine;
+using _Scripts._Game.General.Spawning.AI;
 
 namespace _Scripts._Game.AI{
 
-    public class AIEntity : MonoBehaviour, IPossessable, IDamageable
+    public class AIEntity : MonoBehaviour, IPossessable, IDamageable, ITickGroup
     {
         [Header("Entity")]
         [SerializeField]
@@ -18,6 +19,14 @@ namespace _Scripts._Game.AI{
         private bool _isPossessed;
 
         public EEntity Entity { get => _entity; }
+
+        private SpawnPoint _spawnPoint;
+        public SpawnPoint SpawnPoint { get => _spawnPoint; set => _spawnPoint = value; }
+
+        #region TickGroup 
+        private readonly UniqueTickGroup _uniqueTickGroup = new UniqueTickGroup();
+        public UniqueTickGroup UniqueTickGroup { get => _uniqueTickGroup; }
+        #endregion
 
         #region State Machines
         private AIMovementStateMachineBase _movementSM;
@@ -37,6 +46,7 @@ namespace _Scripts._Game.AI{
         #endregion
 
         public Transform Transform { get => transform; }
+
         protected void Awake()
         {
             _enemyHealthStats         = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.EnemyHealth);

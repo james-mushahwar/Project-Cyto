@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.AI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,26 @@ namespace _Scripts._Game.General.Managers{
             }
 
             _aiPoolDict[entity] = pool;
+        }
+
+        public AIEntity TrySpawnAI(EEntity entity, Vector2 spawnLocation)
+        {
+            AIPool aiPool = null;
+            if (_aiPoolDict.TryGetValue(entity, out aiPool))
+            {
+                AIEntity aiEntity = aiPool.GetAIEntity();
+                if (aiEntity)
+                {
+                    aiEntity.transform.position = spawnLocation;
+                    aiEntity.gameObject.SetActive(true);
+                    return aiEntity;
+                }
+                else
+                {
+                    Debug.Log("Couldn't get AI entity of type: " + entity);
+                }
+            }
+            return null;
         }
     }
     

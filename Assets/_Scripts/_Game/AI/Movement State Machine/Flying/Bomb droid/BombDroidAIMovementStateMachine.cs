@@ -16,11 +16,8 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         private float _patrolSpeed;
         [SerializeField]
         private Vector2 _patrolWaitTimeRange;
-        [SerializeField]
-        private Waypoints _waypoints;
 
         public Vector2 PatrolWaitTimeRange { get => _patrolWaitTimeRange; }
-        public Waypoints Waypoints { get => _waypoints; }
 
         [Header("Chase Properties")]
         [SerializeField]

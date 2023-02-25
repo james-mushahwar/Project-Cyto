@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
 using _Scripts._Game.AI.AttackStateMachine;
+using _Scripts._Game.General;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
@@ -35,6 +36,12 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public Rigidbody2D Rb { get => _rb; }
         public Collider2D Collider {  get => _collider; }
         public LayerMask GroundedLayer { get => _groundedLayer; }
+        #endregion
+
+        #region Navigation
+        private Waypoints _waypoints;
+
+        public Waypoints Waypoints { get => _waypoints; set => _waypoints = value; }
         #endregion
 
         #region Bond Inputs

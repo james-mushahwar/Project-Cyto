@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Projectile{
     
-    public class BaseProjectile : MonoBehaviour
+    public class BaseProjectile : MonoBehaviour, ITickGroup
     {
-        private UniqueTickGroup uniqueTickGroup = new UniqueTickGroup();
+        private readonly UniqueTickGroup _uniqueTickGroup = new UniqueTickGroup();
 
-        public UniqueTickGroup UniqueTickGroup { get => uniqueTickGroup; }
+        public UniqueTickGroup UniqueTickGroup { get => _uniqueTickGroup; }
         protected float ProjectileLifetime { get; set; }
         protected float ProjectileLifetimeTimer { get; set; }
 

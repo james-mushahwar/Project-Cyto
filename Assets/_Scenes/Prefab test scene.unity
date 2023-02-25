@@ -542,6 +542,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BombDroid (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8527710219603585278, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}
@@ -1337,6 +1341,52 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.18}
   serializedVersion: 2
   m_Radius: 1.24
+--- !u!1 &1192914692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1192914694}
+  - component: {fileID: 1192914693}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1192914693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192914692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5d48ba71910e9478125a52e8f73d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entity: 1
+  _waypoints: {fileID: 1743297278}
+--- !u!4 &1192914694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192914692}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 19.83, y: 1.39, z: 0.16965717}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1207726918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,10 +2498,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8527710219603585274, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}
-      propertyPath: _waypoints
-      value: 
-      objectReference: {fileID: 1743297278}
     - target: {fileID: 8527710219603585275, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}
       propertyPath: m_RootOrder
       value: 11

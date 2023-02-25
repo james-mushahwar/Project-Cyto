@@ -360,7 +360,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         // scene debug updates
         DrawGizmos.ForPointsDebug(transform.position, transform.position + (-(Vector3)Vector2.up * (_distToGround + DistanceToGroundThreshold)));
-        DrawGizmos.DrawSphereDebug(transform.position, _bondingOverlapRange);
+        DrawGizmos.DrawWireSphereDebug(transform.position, _bondingOverlapRange);
     }
 
     void FixedUpdate()

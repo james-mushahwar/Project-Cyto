@@ -119,6 +119,11 @@ namespace _Scripts._Game.General.Managers{
         Int16 GetTickID();
     }
 
+    public interface ITickGroup
+    {
+        public UniqueTickGroup UniqueTickGroup { get; }
+    }
+
     public class UniqueTickGroup
     {
         private Int16 _id;
