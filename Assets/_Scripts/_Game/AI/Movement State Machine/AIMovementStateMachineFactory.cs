@@ -24,8 +24,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         Falling, 
         Flying,
         Dashing,
-        Attacking,
-        Dead
+        Attacking
     }
 
     public class AIMovementStateMachineFactory
@@ -46,7 +45,6 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                 _stateDict.Add(AIMovementState.Patrol,  new BombDroidPatrolAIMovementState(sm, this));
                 _stateDict.Add(AIMovementState.Chase,   new BombDroidChaseAIMovementState(sm, this));
                 _stateDict.Add(AIMovementState.Attack,  new AttackAIMovementState(sm, this));
-                _stateDict.Add(AIMovementState.Dead,    new AttackAIMovementState(sm, this));
 
                 _bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
             }

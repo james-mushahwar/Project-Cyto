@@ -130,11 +130,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8527710219603585275}
   - component: {fileID: 2639065142676816087}
+  - component: {fileID: 4454979531169731600}
   - component: {fileID: 8527710219603585274}
   - component: {fileID: 8527710219603585276}
   - component: {fileID: 8527710219603585272}
   - component: {fileID: 8527710219603585255}
-  - component: {fileID: 4454979531169731600}
   - component: {fileID: 8527710219603585277}
   - component: {fileID: 8527710219603585273}
   m_Layer: 8
@@ -173,6 +173,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: 1
+--- !u!114 &4454979531169731600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527710219603585278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bombDropCooldown: 2
+  _bombDropMinimumYDistance: 5
+  _bombDropMaximumXLimit: 1.5
+  _bombDropStateDuration: 2.5
+  _bombDropUpwardsForce: 10
+  _bombDropBuildUpDuration: 1
+  _bondedBombDropCooldown: 2
+  _bondedBombDropBuildUpDuration: 0.25
+  _bondedBombDropStateDuration: 1
 --- !u!114 &8527710219603585274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,27 +308,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &4454979531169731600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8527710219603585278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bombDropCooldown: 2
-  _bombDropMinimumYDistance: 5
-  _bombDropMaximumXLimit: 1.5
-  _bombDropStateDuration: 2.5
-  _bombDropUpwardsForce: 10
-  _bombDropBuildUpDuration: 1
-  _bondedBombDropCooldown: 2
-  _bondedBombDropBuildUpDuration: 0.25
-  _bondedBombDropStateDuration: 1
 --- !u!58 &8527710219603585277
 CircleCollider2D:
   m_ObjectHideFlags: 0

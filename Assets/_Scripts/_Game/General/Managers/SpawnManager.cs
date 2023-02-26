@@ -28,6 +28,21 @@ namespace _Scripts._Game.General.Managers{
             if (_spawnPointsDict.TryGetValue(sceneIndex, out spawnPoints))
             {
                 // handle spawn points and ai despawn
+                foreach (SpawnPoint spawnPoint in spawnPoints)
+                {
+
+                }
+            }
+        }
+
+        public void AssignSpawnPoint(int sceneIndex, SpawnPoint spawnPoint)
+        {
+            List<SpawnPoint> spawnPoints;
+
+            if (!_spawnPointsDict.TryGetValue(sceneIndex, out spawnPoints))
+            {
+                _spawnPointsDict.Add(sceneIndex, spawnPoints = new List<SpawnPoint>());
+                _spawnPointsDict[sceneIndex].Add(spawnPoint);
             }
         }
     }

@@ -128,16 +128,9 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
-      propertyPath: _sceneAssets.Array.data[0]
-      value: 
-      objectReference: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
-    - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
-      propertyPath: _sceneAssets.Array.data[1]
-      value: 
-      objectReference: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
     - target: {fileID: 3273431067193249683, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_Name
       value: SceneSwitcher
@@ -148,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3309373898359707734, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 258
+      value: 245.8
       objectReference: {fileID: 0}
     - target: {fileID: 3309373898359707734, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -187,4 +180,5 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
