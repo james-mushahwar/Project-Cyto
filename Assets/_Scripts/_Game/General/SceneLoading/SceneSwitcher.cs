@@ -39,27 +39,8 @@ namespace _Scripts._Game.General.SceneLoading{
             }
         }
 
-        // used to load scene on player exited collider event
+        // used to unload scene on player exited collider event
         public void OnPlayerEntered(int index)
-        {
-            Debug.Log("Scene asset name is " + _sceneAssets[index].name);
-            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index].name);
-
-            if (targetScene != null)
-            {
-                if (targetScene.isLoaded || _asyncSceneOperation[index] != null)
-                {
-                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index].name) + " is already loaded");
-                    return;
-                }
-            }
-
-            _asyncSceneOperation[index] = LoadSceneAsync(index, _sceneAssets[index].name);
-            StartCoroutine(_asyncSceneOperation[index]);
-        }
-
-        // used to unload scene on on player exited collider event
-        public void OnPlayerExited(int index)
         {
             Debug.Log("Scene asset name is " + _sceneAssets[index].name);
             Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index].name);
@@ -74,6 +55,25 @@ namespace _Scripts._Game.General.SceneLoading{
             }
 
             _asyncSceneOperation[index] = UnloadSceneAsync(index, _sceneAssets[index].name);
+            StartCoroutine(_asyncSceneOperation[index]);
+        }
+
+        // used to load scene on on player exited collider event
+        public void OnPlayerExited(int index)
+        {
+            Debug.Log("Scene asset name is " + _sceneAssets[index].name);
+            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index].name);
+
+            if (targetScene != null)
+            {
+                if (targetScene.isLoaded || _asyncSceneOperation[index] != null)
+                {
+                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index].name) + " is already loaded");
+                    return;
+                }
+            }
+
+            _asyncSceneOperation[index] = LoadSceneAsync(index, _sceneAssets[index].name);
             StartCoroutine(_asyncSceneOperation[index]);
         }
 

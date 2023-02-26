@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _Scripts._Game.AI;
+using _Scripts._Game.Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,19 +44,33 @@ namespace _Scripts._Game.General.SceneLoading{
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            PlayerMovementStateMachine playerMovement = collision.gameObject.GetComponent<PlayerMovementStateMachine>();
-            if (playerMovement)
+            IPossessable possessable = collision.gameObject.GetComponent<IPossessable>();
+            if (possessable != null)
             {
-                float dotProduct = Vector3.Dot(playerMovement.Rb.velocity.normalized, _collider.transform.right);
-                if (dotProduct > 0)
+                Rigidbody2D rb = null;
+                if (possessable is PlayerEntity)
                 {
-                    _collisionEnterEvent.Invoke(_colliderIndex);
+                    PlayerEntity playerEntity = (PlayerEntity)possessable;
+                    rb = playerEntity.MovementSM.Rb;
                 }
-                else
+                else if (possessable is AIEntity)
                 {
-                    _collisionExitEvent.Invoke(_colliderIndex);
+                    AIEntity aiEntity = (AIEntity)possessable;
+                    rb = aiEntity.MovementSM.Rb;
                 }
-                
+
+                if (rb != null)
+                {
+                    float dotProduct = Vector3.Dot(rb.velocity.normalized, _collider.transform.right);
+                    if (dotProduct > 0)
+                    {
+                        _collisionEnterEvent.Invoke(_colliderIndex);
+                    }
+                    else
+                    {
+                        _collisionExitEvent.Invoke(_colliderIndex);
+                    }
+                }
             }
         }
     }

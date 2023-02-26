@@ -46,7 +46,10 @@ namespace _Scripts._Game.General.Spawning.AI{
         {
             if (_isEntitySpawned && _entitySpawned != null)
             {
-                _entitySpawned.gameObject.SetActive(false);
+                if (!_entitySpawned.IsPossessed())
+                {
+                    _entitySpawned.gameObject.SetActive(false);
+                }
                 _isEntitySpawned = false;
                 _entitySpawned = null;
             }

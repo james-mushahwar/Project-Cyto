@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneAssets:
-  - {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
   - {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
+  - {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
   _colliders:
   - {fileID: 8537820983439819245}
   - {fileID: 3872236155054911404}
