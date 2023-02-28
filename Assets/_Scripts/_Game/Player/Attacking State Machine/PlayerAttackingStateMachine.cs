@@ -161,14 +161,21 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         }
 
         //ISaveable
+
+        [System.Serializable]
+        private struct SaveData
+        {
+            
+        }
+
         public void LoadState(object state)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public object SaveState()
         {
-            throw new System.NotImplementedException();
+            return new SaveData();
         }
     }
     
