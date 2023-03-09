@@ -1158,24 +1158,6 @@ MonoBehaviour:
   _sequenceables:
   - {fileID: 977552741}
   - {fileID: 855418535}
---- !u!1 &1153309845 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8785238773573704691, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
-  m_PrefabInstance: {fileID: 8785238772448179447}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1153309848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153309845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: caf7ef83-eb0d-4e42-9fbb-bc2be7a942b9
 --- !u!1 &1155498093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,6 +2511,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5136327111450731217, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
+      propertyPath: id
+      value: 22ff4ad4-f3fe-44f1-9ed0-4f912a221154
+      objectReference: {fileID: 0}
     - target: {fileID: 8785238773573704689, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
       propertyPath: m_RootOrder
       value: 14

@@ -11,9 +11,7 @@ namespace _Scripts._Game.General.Managers{
     {
         #region General
         private Dictionary<int, List<SpawnPoint>> _sceneSpawnPointsDict = new Dictionary<int, List<SpawnPoint>>();
-        private Dictionary<SpawnPoint, AIEntity> _spawnPointEntityDict = new Dictionary<SpawnPoint, AIEntity>();
-
-        private int _idCount = -1;
+        private Dictionary<string, AIEntity> _spawnPointEntityDict = new Dictionary<string, AIEntity>();
 
         #endregion
 
@@ -39,7 +37,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public int AssignSpawnPoint(int sceneIndex, SpawnPoint spawnPoint)
+        public void AssignSpawnPoint(int sceneIndex, SpawnPoint spawnPoint)
         {
             List<SpawnPoint> spawnPoints;
 
@@ -47,22 +45,19 @@ namespace _Scripts._Game.General.Managers{
             {
                 _sceneSpawnPointsDict.Add(sceneIndex, spawnPoints = new List<SpawnPoint>());
                 _sceneSpawnPointsDict[sceneIndex].Add(spawnPoint);
-                _spawnPointEntityDict.TryAdd(spawnPoint, null);
-                return _idCount;
+                _spawnPointEntityDict.TryAdd(spawnPoint.RuntimeID.Id, null);
             }
-
-            return -1;
         }
 
         public void RegisterSpawnPointEntity(SpawnPoint spawnPoint, AIEntity entity)
         {
-            _spawnPointEntityDict[spawnPoint] = entity;
+            _spawnPointEntityDict[spawnPoint.RuntimeID.Id] = entity;
         }
 
         public AIEntity TryGetRegisteredEntity(SpawnPoint spawnPoint)
         {
             AIEntity entity = null;
-            _spawnPointEntityDict.TryGetValue(spawnPoint, out entity);
+            _spawnPointEntityDict.TryGetValue(spawnPoint.RuntimeID.Id, out entity);
             return entity;
         }
     }

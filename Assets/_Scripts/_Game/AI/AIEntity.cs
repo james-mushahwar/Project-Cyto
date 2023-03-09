@@ -92,6 +92,11 @@ namespace _Scripts._Game.AI{
             _isPossessed = false;
 
             PlayerEntity.Instance.OnPossess();
+
+            if (MovementSM.Waypoints == null)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
 

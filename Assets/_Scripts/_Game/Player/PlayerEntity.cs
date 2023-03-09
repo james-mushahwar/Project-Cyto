@@ -110,6 +110,8 @@ namespace _Scripts._Game.Player{
             _isPossessed = true;
             _possessed = null;
 
+            gameObject.transform.SetParent(null);
+
             _movementSM.Rb.isKinematic = false;
             _movementSM.enabled = true;
             _attackingSM.enabled = true;

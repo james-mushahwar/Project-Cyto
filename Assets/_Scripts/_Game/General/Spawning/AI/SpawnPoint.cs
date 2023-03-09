@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.AI;
+using _Scripts._Game.General.Identification;
 using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,20 +17,22 @@ namespace _Scripts._Game.General.Spawning.AI{
         [SerializeField]
         private Waypoints _waypoints;
 
-        int _id = -1; // used to search for spawnpoint/entity in 
         private bool _isEntitySpawned;
         private AIEntity _entitySpawned;
 
         public Waypoints Waypoints { get => _waypoints; set => _waypoints = value; }
         #endregion
 
+        #region ID
+        private RuntimeID _runtimeID;
+
+        public RuntimeID RuntimeID { get => _runtimeID; }
+        #endregion
+
         private void Awake()
         {
-            int id = SpawnManager.Instance.AssignSpawnPoint(gameObject.scene.buildIndex, this);
-            if (id >= 0)
-            {
-                _id = id;
-            }
+            _runtimeID = GetComponent<RuntimeID>();
+            SpawnManager.Instance.AssignSpawnPoint(gameObject.scene.buildIndex, this);
         }
 
         private void OnEnable()
