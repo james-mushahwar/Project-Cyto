@@ -39,9 +39,22 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         #endregion
 
         #region Navigation
+        //runtime waypoint
+        private string _waypointsID;
         private Waypoints _waypoints;
 
-        public Waypoints Waypoints { get => _waypoints; set => _waypoints = value; }
+        public Waypoints Waypoints 
+        {
+            get
+            {
+                if (_waypoints == null)
+                {
+                    _waypoints = RuntimeIDManager.Instance.GetRuntimeWaypoints(_waypointsID);
+                }
+                return _waypoints;
+            }
+        }
+        public string WaypointsID { get => _waypointsID; set => _waypointsID = value; }
         #endregion
 
         #region Bond Inputs

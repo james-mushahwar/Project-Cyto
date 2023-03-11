@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.General.Identification;
+using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace _Scripts._Game.General{
         void Awake()
         {
             _runtimeID = GetComponent<RuntimeID>();
+
+            RuntimeIDManager.Instance.RegisterRuntimeWaypoint(this);
         }
 
         void Start()

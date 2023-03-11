@@ -3,6 +3,7 @@ using _Scripts._Game.General.Identification;
 using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -15,13 +16,26 @@ namespace _Scripts._Game.General.Spawning.AI{
         [Header("Spawn properties")]
         [SerializeField]
         private EEntity _entity;
+
         [SerializeField]
+        //runtime waypoint
         private Waypoints _waypoints;
+        private string _waypointsID = "";
 
         private bool _isEntitySpawned;
         private AIEntity _entitySpawned;
 
-        public Waypoints Waypoints { get => _waypoints;  }
+        //public Waypoints Waypoints 
+        //{ 
+        //    get
+        //    {
+        //        if (_waypoints == null)
+        //        {
+        //            _waypoints = RuntimeIDManager.Instance.GetRuntimeWaypoints(_waypointsID);
+        //        }
+        //        return _waypoints;
+        //    }
+        //}
         #endregion
 
         #region ID
@@ -33,6 +47,8 @@ namespace _Scripts._Game.General.Spawning.AI{
         private void Awake()
         {
             _runtimeID = GetComponent<RuntimeID>();
+            RuntimeIDManager.Instance.RegisterRuntimeSpawnPoint(this);
+
             SpawnManager.Instance.AssignSpawnPoint(gameObject.scene.buildIndex, this);
         }
 
@@ -56,8 +72,13 @@ namespace _Scripts._Game.General.Spawning.AI{
             }
         }
 
-        private void OnEnable()
+        private void Start()
         {
+            if (_waypointsID == "")
+            {
+                _waypointsID = _waypoints.RuntimeID.Id;
+            }
+
             AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
             if (entity != null)
             {
@@ -77,7 +98,7 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 _isEntitySpawned = true;
                 _entitySpawned = aiEntity;
-                _entitySpawned.MovementSM.Waypoints = _waypoints;
+                _entitySpawned.MovementSM.WaypointsID = _waypointsID;
                 SpawnManager.Instance.RegisterSpawnPointEntity(this, _entitySpawned);
             }
         }

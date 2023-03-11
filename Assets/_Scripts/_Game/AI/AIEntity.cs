@@ -108,7 +108,10 @@ namespace _Scripts._Game.AI{
         public void Despawn()
         {
             gameObject.SetActive(false);
-            SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPoint);
+            if (_spawnPoint)
+            {
+                SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPoint);
+            }
         }
 
         public Vector2 GetMovementInput()
