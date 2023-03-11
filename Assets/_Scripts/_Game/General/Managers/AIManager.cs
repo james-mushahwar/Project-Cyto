@@ -31,7 +31,7 @@ namespace _Scripts._Game.General.Managers{
                 if (aiEntity)
                 {
                     aiEntity.transform.position = spawnLocation;
-                    aiEntity.gameObject.SetActive(true);
+                    aiEntity.Spawn();
                     return aiEntity;
                 }
                 else

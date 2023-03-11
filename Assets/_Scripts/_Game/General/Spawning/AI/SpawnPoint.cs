@@ -5,10 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace _Scripts._Game.General.Spawning.AI{
     
-    public class SpawnPoint : MonoBehaviour
+    public class SpawnPoint : MonoBehaviour, IRuntimeId
     {
         #region General
         [Header("Spawn properties")]
@@ -20,7 +21,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         private bool _isEntitySpawned;
         private AIEntity _entitySpawned;
 
-        public Waypoints Waypoints { get => _waypoints; set => _waypoints = value; }
+        public Waypoints Waypoints { get => _waypoints;  }
         #endregion
 
         #region ID
@@ -33,6 +34,26 @@ namespace _Scripts._Game.General.Spawning.AI{
         {
             _runtimeID = GetComponent<RuntimeID>();
             SpawnManager.Instance.AssignSpawnPoint(gameObject.scene.buildIndex, this);
+        }
+
+        private void FixedUpdate()
+        {
+            // timer has elapsed and need to respawn
+            if (_entitySpawned == false || _entitySpawned == null)
+            {
+                bool respawnEntity = SpawnManager.Instance.TryHasRespawnTimerElapsed(this);
+                if (respawnEntity)
+                {
+                    Debug.LogWarning("Respawn timer elapsed, respawning Entity");
+
+                    AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
+                    if (entity != null)
+                    {
+                        _isEntitySpawned = true;
+                        _entitySpawned = entity;
+                    }
+                }
+            }
         }
 
         private void OnEnable()
@@ -67,7 +88,7 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 if (!_entitySpawned.IsPossessed())
                 {
-                    _entitySpawned.gameObject.SetActive(false);
+                    _entitySpawned.Despawn();
                     _isEntitySpawned = false;
                     _entitySpawned = null;
                 }

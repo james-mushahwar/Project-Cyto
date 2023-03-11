@@ -8,6 +8,7 @@ using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.General.Spawning.AI;
+using System;
 
 namespace _Scripts._Game.AI{
 
@@ -95,10 +96,20 @@ namespace _Scripts._Game.AI{
 
             if (MovementSM.Waypoints == null)
             {
-                gameObject.SetActive(false);
+                Despawn();
             }
         }
 
+        public void Spawn()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Despawn()
+        {
+            gameObject.SetActive(false);
+            SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPoint);
+        }
 
         public Vector2 GetMovementInput()
         {
@@ -132,7 +143,7 @@ namespace _Scripts._Game.AI{
                 if (resultHealth <= 0.0f)
                 {
                     // death reaction needed
-                    gameObject.SetActive(false);
+                    Despawn();
                     //spawn corpse
                     CorpseManager.Instance.TrySpawnCorpse(_entity, transform.position);
                 }

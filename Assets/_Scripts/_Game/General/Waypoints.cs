@@ -1,13 +1,25 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Identification;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace _Scripts._Game.General{
     
-    public class Waypoints : MonoBehaviour
+    public class Waypoints : MonoBehaviour, IRuntimeId
     {
         private Transform[] _waypointTransforms;
+
+        #region ID
+        private RuntimeID _runtimeID;
+
+        public RuntimeID RuntimeID { get => _runtimeID; }
+        #endregion
+
+        void Awake()
+        {
+            _runtimeID = GetComponent<RuntimeID>();
+        }
 
         void Start()
         {

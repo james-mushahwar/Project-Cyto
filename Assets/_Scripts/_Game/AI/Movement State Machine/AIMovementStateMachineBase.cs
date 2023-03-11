@@ -126,7 +126,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             {
                 if (Waypoints == null)
                 {
-                    gameObject.SetActive(false);
+                    Entity.Despawn();
                 }
                 // if attacking we disable all movement
                 if (_states.GetMovementStateEnum(CurrentState) != AIMovementState.Attack)
