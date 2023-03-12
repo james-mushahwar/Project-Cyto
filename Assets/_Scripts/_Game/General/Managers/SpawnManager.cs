@@ -11,14 +11,14 @@ namespace _Scripts._Game.General.Managers{
     public class SpawnManager : Singleton<SpawnManager>
     {
         #region General
-        private Dictionary<int, List<SpawnPoint>> _sceneSpawnPointsDict = new Dictionary<int, List<SpawnPoint>>();
+        private Dictionary<int, List<string>> _sceneSpawnPointsDict = new Dictionary<int, List<string>>();
         private Dictionary<string, AIEntity> _spawnPointEntityDict = new Dictionary<string, AIEntity>();
         private Dictionary<string, float> _spawnPointRespawnTimersDict = new Dictionary<string, float>();
-        private List<string> _removeIDTimers = new List<string>();
+        //private List<string> _removeIDTimers = new List<string>();
 
         #endregion
 
-        private void Awake()
+        protected override void Awake()
         {
             base.Awake();
 
@@ -48,12 +48,12 @@ namespace _Scripts._Game.General.Managers{
         private void OnSceneUnloaded(Scene current)
         {
             int sceneIndex = current.buildIndex;
-            List<SpawnPoint> spawnPoints;
+            List<string> spawnPointIDs;
 
-            if (_sceneSpawnPointsDict.TryGetValue(sceneIndex, out spawnPoints))
+            if (_sceneSpawnPointsDict.TryGetValue(sceneIndex, out spawnPointIDs))
             {
                 // handle spawn points and ai despawn
-                foreach (SpawnPoint spawnPoint in spawnPoints)
+                foreach (string id in spawnPointIDs)
                 {
 
                 }
@@ -62,12 +62,12 @@ namespace _Scripts._Game.General.Managers{
 
         public void AssignSpawnPoint(int sceneIndex, SpawnPoint spawnPoint)
         {
-            List<SpawnPoint> spawnPoints;
+            List<string> spawnPointIDs;
 
-            if (!_sceneSpawnPointsDict.TryGetValue(sceneIndex, out spawnPoints))
+            if (!_sceneSpawnPointsDict.TryGetValue(sceneIndex, out spawnPointIDs))
             {
-                _sceneSpawnPointsDict.Add(sceneIndex, spawnPoints = new List<SpawnPoint>());
-                _sceneSpawnPointsDict[sceneIndex].Add(spawnPoint);
+                _sceneSpawnPointsDict.Add(sceneIndex, spawnPointIDs = new List<string>());
+                _sceneSpawnPointsDict[sceneIndex].Add(spawnPoint.RuntimeID.Id);
                 _spawnPointEntityDict.TryAdd(spawnPoint.RuntimeID.Id, null);
             }
         }
@@ -77,21 +77,28 @@ namespace _Scripts._Game.General.Managers{
             _spawnPointEntityDict[spawnPoint.RuntimeID.Id] = entity;
         }
 
+        public void UnregisterSpawnPointEntity(string id)
+        {
+            if (_spawnPointEntityDict.ContainsKey(id))
+            {
+                _spawnPointEntityDict.Remove(id);
+            }
+
+        }
+
         public AIEntity TryGetRegisteredEntity(SpawnPoint spawnPoint)
         {
             AIEntity entity = null;
             _spawnPointEntityDict.TryGetValue(spawnPoint.RuntimeID.Id, out entity);
-            Debug.Log(entity);
             return entity;
         }
 
-        public void RegisterSpawnPointRespawnTimer(SpawnPoint spawnPoint)
+        public void RegisterSpawnPointRespawnTimer(string id)
         {
             float timer = -1.0f;
-            string id = spawnPoint.RuntimeID.Id;
             if (!_spawnPointRespawnTimersDict.TryGetValue(id, out timer))
             {
-                _spawnPointRespawnTimersDict.Add(id, 30.0f);
+                _spawnPointRespawnTimersDict.Add(id, 5.0f);
             }
         }
 

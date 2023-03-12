@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.AI;
+using _Scripts._Game.General.Identification;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace _Scripts._Game.General.Managers{
             _aiPoolDict[entity] = pool;
         }
 
-        public AIEntity TrySpawnAI(EEntity entity, Vector2 spawnLocation)
+        public AIEntity TrySpawnAI(EEntity entity, Vector2 spawnLocation, string spawnPointID, string waypointID)
         {
             AIPool aiPool = null;
             if (_aiPoolDict.TryGetValue(entity, out aiPool))
@@ -31,6 +32,8 @@ namespace _Scripts._Game.General.Managers{
                 if (aiEntity)
                 {
                     aiEntity.transform.position = spawnLocation;
+                    aiEntity.SpawnPointID = spawnPointID;
+                    aiEntity.MovementSM.WaypointsID = waypointID;
                     aiEntity.Spawn();
                     return aiEntity;
                 }

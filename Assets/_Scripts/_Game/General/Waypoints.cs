@@ -24,6 +24,11 @@ namespace _Scripts._Game.General{
             RuntimeIDManager.Instance.RegisterRuntimeWaypoint(this);
         }
 
+        private void OnDisable()
+        {
+            RuntimeIDManager.Instance?.UnregisterRuntimeWaypoint(this);
+        }
+
         void Start()
         {
             _waypointTransforms = new Transform[GetComponentsInChildren<Transform>().Length - 1];

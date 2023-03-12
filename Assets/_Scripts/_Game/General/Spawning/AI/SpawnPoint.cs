@@ -63,7 +63,17 @@ namespace _Scripts._Game.General.Spawning.AI{
                     Debug.LogWarning("Respawn timer elapsed, respawning Entity");
 
                     AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
-                    if (entity != null)
+                    if (entity == null)
+                    {
+                        AIEntity aiEntity = AIManager.Instance.TrySpawnAI(_entity, transform.position, RuntimeID.Id, _waypointsID);
+                        if (aiEntity != null)
+                        {
+                            _isEntitySpawned = true;
+                            _entitySpawned = aiEntity;
+                            SpawnManager.Instance.RegisterSpawnPointEntity(this, _entitySpawned);
+                        }
+                    }
+                    else
                     {
                         _isEntitySpawned = true;
                         _entitySpawned = entity;
@@ -93,13 +103,11 @@ namespace _Scripts._Game.General.Spawning.AI{
                 return;
             }
 
-            AIEntity aiEntity = AIManager.Instance.TrySpawnAI(_entity, transform.position);
+            AIEntity aiEntity = AIManager.Instance.TrySpawnAI(_entity, transform.position, RuntimeID.Id, _waypointsID);
             if (aiEntity != null)
             {
                 _isEntitySpawned = true;
                 _entitySpawned = aiEntity;
-                _entitySpawned.SpawnPointID = RuntimeID.Id;
-                _entitySpawned.MovementSM.WaypointsID = _waypointsID;
                 SpawnManager.Instance.RegisterSpawnPointEntity(this, _entitySpawned);
             }
         }
@@ -113,8 +121,18 @@ namespace _Scripts._Game.General.Spawning.AI{
                     _entitySpawned.Despawn();
                     _isEntitySpawned = false;
                     _entitySpawned = null;
+
+                    SpawnManager.Instance?.UnregisterSpawnPointEntity(RuntimeID.Id);
                 }
             }
+
+            RuntimeIDManager.Instance?.UnregisterRuntimeSpawnPoint(this);
+        }
+
+        public void OnSpawnKilled()
+        {
+            _isEntitySpawned = false;
+            _entitySpawned = null;
         }
     }
     

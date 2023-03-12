@@ -14,7 +14,7 @@ namespace _Scripts._Game.General.Managers{
         private Dictionary<string, Waypoints> _waypointsDict;
         #endregion
 
-        private void Awake()
+        protected override void Awake()
         {
             base.Awake();
 
@@ -25,9 +25,19 @@ namespace _Scripts._Game.General.Managers{
         #region Spawnpoints
         public void RegisterRuntimeSpawnPoint(SpawnPoint spawnPoint)
         {
-            if (!_spawnPointsDict.ContainsKey(spawnPoint.RuntimeID.Id))
+            if (!_spawnPointsDict.ContainsKey(spawnPoint.RuntimeID.Id) || _spawnPointsDict[spawnPoint.RuntimeID.Id] == null)
             {
+                Log("Registering spawnpoint: " + spawnPoint.RuntimeID.Id + ".");
                 _spawnPointsDict.Add(spawnPoint.RuntimeID.Id, spawnPoint);
+            }
+        }
+
+        public void UnregisterRuntimeSpawnPoint(SpawnPoint spawnPoint)
+        {
+            if (_spawnPointsDict.ContainsKey(spawnPoint.RuntimeID.Id))
+            {
+                Log("Unregistering spawnpoint: " + spawnPoint.RuntimeID.Id + ".");
+                _spawnPointsDict.Remove(spawnPoint.RuntimeID.Id);
             }
         }
 
@@ -42,9 +52,19 @@ namespace _Scripts._Game.General.Managers{
         #region Waypoints
         public void RegisterRuntimeWaypoint(Waypoints waypoint)
         {
-            if (!_waypointsDict.ContainsKey(waypoint.RuntimeID.Id))
+            if (!_waypointsDict.ContainsKey(waypoint.RuntimeID.Id) || _waypointsDict[waypoint.RuntimeID.Id] == null)
             {
+                Log("Unregistering waypoint: " + waypoint.RuntimeID.Id + ".");
                 _waypointsDict.Add(waypoint.RuntimeID.Id, waypoint);
+            }
+        }
+
+        public void UnregisterRuntimeWaypoint(Waypoints waypoint)
+        {
+            if (_waypointsDict.ContainsKey(waypoint.RuntimeID.Id))
+            {
+                Log("Unregistering waypoint: " + waypoint.RuntimeID.Id + ".");
+                _waypointsDict.Remove(waypoint.RuntimeID.Id);
             }
         }
 
@@ -53,6 +73,18 @@ namespace _Scripts._Game.General.Managers{
             Waypoints wayPoint = null;
             _waypointsDict.TryGetValue(id, out wayPoint);
             return wayPoint;
+        }
+        #endregion
+
+        #region Debug
+        private void Log(string log)
+        {
+            Debug.Log("RuntimeIdManager: " + log);
+        }
+
+        private void LogWarning(string log)
+        {
+            Debug.LogWarning("RuntimeIdManager: " + log);
         }
         #endregion
     }

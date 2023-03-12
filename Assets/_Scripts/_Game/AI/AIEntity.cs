@@ -119,12 +119,19 @@ namespace _Scripts._Game.AI{
             gameObject.SetActive(true);
         }
 
-        public void Despawn()
+        public void Despawn(bool killed = false)
         {
             gameObject.SetActive(false);
-            if (SpawnPoint)
+            
+            SpawnManager.Instance.UnregisterSpawnPointEntity(_spawnPointID);
+            if (killed)
             {
-                SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPoint);
+                SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPointID);
+                // spawnpoint is still active so tell it that the spawn is dead
+                if (SpawnPoint)
+                {
+                    SpawnPoint.OnSpawnKilled();
+                }
             }
         }
 
@@ -160,7 +167,7 @@ namespace _Scripts._Game.AI{
                 if (resultHealth <= 0.0f)
                 {
                     // death reaction needed
-                    Despawn();
+                    Despawn(true);
                     //spawn corpse
                     CorpseManager.Instance.TrySpawnCorpse(_entity, transform.position);
                 }
