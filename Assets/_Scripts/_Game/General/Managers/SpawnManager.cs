@@ -2,6 +2,7 @@
 using _Scripts._Game.General.Spawning.AI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ namespace _Scripts._Game.General.Managers{
         private Dictionary<int, List<SpawnPoint>> _sceneSpawnPointsDict = new Dictionary<int, List<SpawnPoint>>();
         private Dictionary<string, AIEntity> _spawnPointEntityDict = new Dictionary<string, AIEntity>();
         private Dictionary<string, float> _spawnPointRespawnTimersDict = new Dictionary<string, float>();
+        private List<string> _removeIDTimers = new List<string>();
 
         #endregion
 
@@ -26,18 +28,19 @@ namespace _Scripts._Game.General.Managers{
         private void FixedUpdate()
         {
             //update respawn timers;
-            foreach (string key in _spawnPointRespawnTimersDict.Keys)
+            for (int i = _spawnPointRespawnTimersDict.Count - 1; i >= 0; i--)
             {
-                float timer = _spawnPointRespawnTimersDict[key];
+                KeyValuePair<string, float> entry = _spawnPointRespawnTimersDict.ElementAt(i);
+                float timer = entry.Value;
                 timer -= Time.deltaTime;
 
                 if (timer <= 0.0f)
                 {
-                    _spawnPointRespawnTimersDict.Remove(key);
+                    _spawnPointRespawnTimersDict.Remove(entry.Key);
                 }
                 else
                 {
-                    _spawnPointRespawnTimersDict[key] = timer;
+                    _spawnPointRespawnTimersDict[entry.Key] = timer;
                 }
             }
         }
@@ -78,6 +81,7 @@ namespace _Scripts._Game.General.Managers{
         {
             AIEntity entity = null;
             _spawnPointEntityDict.TryGetValue(spawnPoint.RuntimeID.Id, out entity);
+            Debug.Log(entity);
             return entity;
         }
 

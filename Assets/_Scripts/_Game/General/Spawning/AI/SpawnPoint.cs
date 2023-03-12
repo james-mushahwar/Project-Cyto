@@ -98,6 +98,7 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 _isEntitySpawned = true;
                 _entitySpawned = aiEntity;
+                _entitySpawned.SpawnPointID = RuntimeID.Id;
                 _entitySpawned.MovementSM.WaypointsID = _waypointsID;
                 SpawnManager.Instance.RegisterSpawnPointEntity(this, _entitySpawned);
             }

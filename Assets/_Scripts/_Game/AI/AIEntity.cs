@@ -21,8 +21,22 @@ namespace _Scripts._Game.AI{
 
         public EEntity Entity { get => _entity; }
 
+        private string _spawnPointID = "";
         private SpawnPoint _spawnPoint;
-        public SpawnPoint SpawnPoint { get => _spawnPoint; set => _spawnPoint = value; }
+
+        public string SpawnPointID { get => _spawnPointID; set => _spawnPointID = value; }
+
+        public SpawnPoint SpawnPoint
+        {
+            get
+            {
+                if (_spawnPoint == null)
+                {
+                    _spawnPoint = RuntimeIDManager.Instance.GetRuntimeSpawnPoint(_spawnPointID);
+                }
+                return _spawnPoint;
+            }
+        }
 
         #region TickGroup 
         private readonly UniqueTickGroup _uniqueTickGroup = new UniqueTickGroup();
@@ -108,7 +122,7 @@ namespace _Scripts._Game.AI{
         public void Despawn()
         {
             gameObject.SetActive(false);
-            if (_spawnPoint)
+            if (SpawnPoint)
             {
                 SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPoint);
             }
