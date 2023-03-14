@@ -50,6 +50,12 @@ namespace _Scripts._Game.Player{
         public PlayerHealthStats PlayerHealthStats { get => _playerHealthStats; }
         #endregion
 
+        #region Damage Properties
+        [SerializeField]
+        private float _invulnerableDuration = 0.8f;
+        private float _isInvulnerableTimer;
+        #endregion
+
         protected override void Awake()
         {
             base.Awake();
@@ -154,6 +160,11 @@ namespace _Scripts._Game.Player{
         {
             float resultsHealth = 0.0f;
 
+            if (!CanTakeDamage())
+            {
+                return;
+            }
+
             if (_possessed != null)
             {
                 resultsHealth = _playerEnergyStats.RemoveEnergyPoints(1.0f, false);
@@ -179,6 +190,11 @@ namespace _Scripts._Game.Player{
                 }
             }
             
+        }
+
+        private bool CanTakeDamage()
+        {
+            return _isInvulnerableTimer <= 0.0f && IsAlive();
         }
 
         public void OnRespawnStart()

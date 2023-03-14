@@ -883,6 +883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7952180863250580511}
   - component: {fileID: 4728548373938928765}
+  - component: {fileID: 5844354232487372441}
   m_Layer: 0
   m_Name: BombDroidCorpsePool
   m_TagString: Untagged
@@ -922,6 +923,23 @@ MonoBehaviour:
   _entity: 1
   _positionOffset: {x: 0, y: 4.62}
   _corpsePrefab: {fileID: 2597291718102842129, guid: 7b7c9c309caeea1429f891339c1583d0, type: 3}
+--- !u!114 &5844354232487372441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2665716183989441786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7729f15924b6149828bb3d25c34641cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTickMaster: 0
+  m_PoolCount: 8
+  _entity: 1
+  _positionOffset: {x: 0, y: 4.62}
+  _corpsePrefab: {fileID: 3042958321771509206, guid: b3510ee027e6d453483dc76a6beb99ca, type: 3}
 --- !u!1 &2756674304694423285
 GameObject:
   m_ObjectHideFlags: 0

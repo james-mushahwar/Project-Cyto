@@ -132,6 +132,11 @@ namespace _Scripts._Game.General{
             StatType = statType;
         }
 
+        public void RestoreHitPoints()
+        {
+            _hitPoints = _maxHitPoints;
+        }
+
         public override float AddHitPoints(float amount, bool react = false)
         {
             float clampedAmount = Mathf.Min(amount, _maxHitPoints - _hitPoints);

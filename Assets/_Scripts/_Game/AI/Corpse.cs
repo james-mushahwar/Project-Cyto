@@ -30,11 +30,6 @@ namespace _Scripts._Game.AI{
             _renderer = GetComponent<SpriteRenderer>();
         }
 
-        public void TestFunction()
-        {
-            Debug.Log("HEy yall");
-        }
-
         public abstract bool IsActive();
     }
     

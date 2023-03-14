@@ -116,6 +116,8 @@ namespace _Scripts._Game.AI{
 
         public void Spawn()
         {
+            _enemyHealthStats.RestoreHitPoints();
+            _enemyBondableHealthStats.RestoreHitPoints();
             gameObject.SetActive(true);
         }
 
@@ -132,6 +134,13 @@ namespace _Scripts._Game.AI{
                 {
                     SpawnPoint.OnSpawnKilled();
                 }
+
+                //spawn corpse
+                CorpseManager.Instance.TrySpawnCorpse(_entity, transform.position);
+            }
+            else
+            {
+                CorpseManager.Instance.TrySpawnTeleportCorpse(_entity, transform.position);
             }
         }
 
@@ -168,8 +177,6 @@ namespace _Scripts._Game.AI{
                 {
                     // death reaction needed
                     Despawn(true);
-                    //spawn corpse
-                    CorpseManager.Instance.TrySpawnCorpse(_entity, transform.position);
                 }
                 _spriteAnimator.DamageFlash();
             }
