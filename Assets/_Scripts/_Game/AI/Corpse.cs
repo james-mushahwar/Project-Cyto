@@ -22,8 +22,9 @@ namespace _Scripts._Game.AI{
         private SpriteRenderer _renderer;
 
         public Rigidbody2D Rb { get => _rb; }
+        public SpriteRenderer Renderer { get => _renderer; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _deathAnimation = GetComponent<Animator>();
