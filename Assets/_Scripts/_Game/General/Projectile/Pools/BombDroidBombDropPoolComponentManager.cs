@@ -53,7 +53,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
 
             if (pooledComp)
             {
-                pooledComp.Instigator = instigator;
+                pooledComp.InstigatorType = instigator;
                 pooledComp.transform.position = startPosition;
                 pooledComp.gameObject.SetActive(true);
             }

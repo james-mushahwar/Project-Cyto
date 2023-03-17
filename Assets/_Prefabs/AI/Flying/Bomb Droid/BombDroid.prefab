@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8527710219603585275}
   - component: {fileID: 2639065142676816087}
+  - component: {fileID: 6152986643205584587}
   - component: {fileID: 4454979531169731600}
   - component: {fileID: 8527710219603585274}
   - component: {fileID: 8527710219603585276}
@@ -173,6 +174,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: 1
+  _onHitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6152986643205584587}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6152986643205584587}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6152986643205584587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527710219603585278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8801108a66e414cbe396d7550aba54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _knockbackPreDelay: 0
+  _knockbackPostDelay: 0.1
+  _knockbackForce: 5
+  _beginKnockbackEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8527710219603585255}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _endKnockbackEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8527710219603585255}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &4454979531169731600
 MonoBehaviour:
   m_ObjectHideFlags: 0

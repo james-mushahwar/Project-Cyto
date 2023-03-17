@@ -9,6 +9,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.General.Spawning.AI;
 using System;
+using UnityEngine.Events;
 
 namespace _Scripts._Game.AI{
 
@@ -25,6 +26,12 @@ namespace _Scripts._Game.AI{
         private SpawnPoint _spawnPoint;
 
         public string SpawnPointID { get => _spawnPointID; set => _spawnPointID = value; }
+
+        [Header("Damage")]
+        [SerializeField]
+        private UnityEvent<GameObject> _onHitEvent; // hit without damage
+        [SerializeField] 
+        private UnityEvent<GameObject> _onTakeDamageEvent; // hit with damage
 
         public SpawnPoint SpawnPoint
         {
@@ -168,6 +175,7 @@ namespace _Scripts._Game.AI{
                     //broken shield
                 }
                 _spriteAnimator.DamageFlash();
+                _onHitEvent.Invoke(gameObject);
             }
             else
             {

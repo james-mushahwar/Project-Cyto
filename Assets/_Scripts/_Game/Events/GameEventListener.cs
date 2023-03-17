@@ -26,7 +26,6 @@ namespace _Scripts._Game.Events{
         {
             _onEventTriggered.Invoke();
         }
-
     }
     
 }

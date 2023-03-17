@@ -12,11 +12,12 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
     
     public class BombDroidBombDropProjectile : BaseProjectile
     {
-        private EEntityType _instigator;
+        private GameObject _instigator;
+        private EEntityType _instigatorType;
         private bool _collided;
         private bool _explodeElapsed;
 
-        public EEntityType Instigator { get => _instigator; set => _instigator = value; }
+        public EEntityType InstigatorType { get => _instigatorType; set => _instigatorType = value; }
         public bool Collided { get => _collided; }
         public bool ExplodeElapsed { get => _explodeElapsed; }
 
@@ -122,9 +123,9 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                                 IPossessable possessable = col.gameObject.GetComponent<IPossessable>();
                                 bool isPlayerPossessed = possessable != null && (PlayerEntity.Instance.Possessed != possessable);
 
-                                if ((damageable is AIEntity && !isPlayerPossessed && (_instigator == EEntityType.BondedEnemy)) || (damageable is PlayerEntity && (_instigator == EEntityType.Enemy)))
+                                if ((damageable is AIEntity && !isPlayerPossessed && (_instigatorType == EEntityType.BondedEnemy)) || (damageable is PlayerEntity && (_instigatorType == EEntityType.Enemy)))
                                 {
-                                    damageable.TakeDamage(EDamageType.BombDroid_BombDrop_Explosion, _instigator);
+                                    damageable.TakeDamage(EDamageType.BombDroid_BombDrop_Explosion, _instigatorType);
                                     _damageablesHit.Add(damageable);
                                 }
                                 
@@ -149,7 +150,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 return;
             }
 
-            if (_instigator == EEntityType.Enemy)
+            if (_instigatorType == EEntityType.Enemy)
             {
                 if ((_playerLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
@@ -158,7 +159,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                     PlayerEntity.Instance.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.Enemy);
                 }
             }
-            else if (_instigator == EEntityType.BondedEnemy)
+            else if (_instigatorType == EEntityType.BondedEnemy)
             {
                 if ((_aiLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
