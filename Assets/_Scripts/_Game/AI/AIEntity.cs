@@ -9,6 +9,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.General.Spawning.AI;
 using System;
+using _Scripts._Game.General.Settings;
 using UnityEngine.Events;
 
 namespace _Scripts._Game.AI{
@@ -168,7 +169,10 @@ namespace _Scripts._Game.AI{
             float resultHealth = 100.0f;
             if (_enemyBondableHealthStats.IsAlive())
             {
-                resultHealth = _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
+                if (CanTakeDamage())
+                {
+                    resultHealth = _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
+                }
 
                 if (resultHealth <= 0.0f)
                 {
@@ -179,7 +183,10 @@ namespace _Scripts._Game.AI{
             }
             else
             {
-                resultHealth = _enemyHealthStats.RemoveHitPoints(1.0f, true);
+                if (CanTakeDamage())
+                {
+                    resultHealth = _enemyHealthStats.RemoveHitPoints(1.0f, true);
+                }
 
                 if (resultHealth <= 0.0f)
                 {
@@ -190,6 +197,11 @@ namespace _Scripts._Game.AI{
             }
 
             
+        }
+
+        public bool CanTakeDamage()
+        {
+            return (!DebugSettings.instance.EnemiesImmune);
         }
 
         public bool IsAlive()

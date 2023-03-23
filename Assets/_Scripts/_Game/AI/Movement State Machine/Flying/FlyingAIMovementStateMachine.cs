@@ -39,6 +39,27 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
             CurrentState.EnterState();
         }
 
+        // knockback reaction and reset
+        public void StartKnockbackEffect()
+        {
+            if (CurrentState.UsesAIPathfinding)
+            {
+                Seeker.enabled = false;
+                DestinationSetter.enabled = false;
+                AIPath.enabled = false;
+            }
+        }
+
+        public void EndKnockbackEffect()
+        {
+            if (CurrentState.UsesAIPathfinding)
+            {
+                Seeker.enabled = true;
+                DestinationSetter.enabled = true;
+                AIPath.enabled = true;
+            }
+        }
+
     }
     
 }

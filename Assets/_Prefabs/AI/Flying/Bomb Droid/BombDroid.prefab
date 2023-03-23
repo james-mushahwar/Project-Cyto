@@ -159,7 +159,7 @@ Transform:
   m_Children:
   - {fileID: 8527710219251885143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2639065142676816087
 MonoBehaviour:
@@ -217,15 +217,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _knockbackPreDelay: 0
-  _knockbackPostDelay: 0.1
+  _knockbackPostDelay: 0.25
   _knockbackForce: 5
   _beginKnockbackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8527710219603585255}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 8527710219603585274}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.Flying.FlyingAIMovementStateMachine,
+          Assembly-CSharp
+        m_MethodName: StartKnockbackEffect
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -237,17 +238,18 @@ MonoBehaviour:
   _endKnockbackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8527710219603585255}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 8527710219603585274}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.Flying.FlyingAIMovementStateMachine,
+          Assembly-CSharp
+        m_MethodName: EndKnockbackEffect
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &4454979531169731600
 MonoBehaviour:
@@ -290,15 +292,8 @@ MonoBehaviour:
   _chaseDetectionSqRange: 225
   _chaseLostDetectionSqRange: 506.25
   _chaseSpeed: 3
-  _startStopChaseDistances: {x: 0, y: 0}
-  _flyingHorizontalVelocity: 0
-  _flyingVerticalVelocity: 0
   _flyingMaximumHorizontalVelocity: 8
   _flyingMaximumVerticalVelocity: 8
-  _flyingHorizontalAcceleration: 0
-  _flyingHorizontalDeceleration: 0
-  _flyingVerticalAcceleration: 0
-  _flyingVerticalDeceleration: 0
   _flyingMovementDirectionThrust: 20
 --- !u!114 &8527710219603585276
 MonoBehaviour:

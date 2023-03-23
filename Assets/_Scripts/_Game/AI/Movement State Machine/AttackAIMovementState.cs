@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
 
@@ -30,6 +31,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public override void EnterState()
         {
             _stateTimer = 0.0f;
+            _ctx.Rb.velocity = Vector2.zero;
         }
 
         public override void ExitState()

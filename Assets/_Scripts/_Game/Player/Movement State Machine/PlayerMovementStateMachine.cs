@@ -385,7 +385,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnMovementInput(InputAction.CallbackContext context)
     {
-        _currentMovementInput = PlayerEntity.Instance.IsAlive() ? context.ReadValue<Vector2>() : Vector2.zero;
+        Vector2 movementInput = context.ReadValue<Vector2>().normalized;
+        _currentMovementInput = PlayerEntity.Instance.IsAlive() && movementInput.sqrMagnitude >= 0.4 ? movementInput : Vector2.zero;
         _isMovementPressed = _currentMovementInput.sqrMagnitude != 0.0f;
     }
 

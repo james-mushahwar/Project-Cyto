@@ -51,7 +51,7 @@ namespace _Scripts._Game.AI{
                 return;
             }
             StopAllCoroutines();
-
+            
             StartCoroutine(Feedback(instigator.transform.position));
         }
 
@@ -67,6 +67,7 @@ namespace _Scripts._Game.AI{
 
             //Vector2 direction = (transform.position - position).normalized;
             Vector2 direction = Vector2.right;
+            _rb.velocity = Vector2.zero;
             _rb.AddForce(direction * _knockbackForce, ForceMode2D.Impulse);
 
             if (_knockbackPostDelay > 0.0f)
@@ -77,6 +78,18 @@ namespace _Scripts._Game.AI{
             _endKnockbackEvent.Invoke();
             _feedbackPlaying = false;
         }
+
+        #region Debug
+        private void Log(string log)
+        {
+            Debug.Log("Knockback Effect - " + gameObject.name + ": " + log);
+        }
+
+        private void LogWarning(string log)
+        {
+            Debug.LogWarning("Knockback Effect - " + gameObject.name + ": " + log);
+        }
+        #endregion
     }
-    
+
 }

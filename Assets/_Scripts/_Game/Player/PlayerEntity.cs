@@ -5,6 +5,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player.AttackingStateMachine;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.Settings;
 using UnityEngine;
 
 namespace _Scripts._Game.Player{
@@ -194,7 +195,7 @@ namespace _Scripts._Game.Player{
 
         private bool CanTakeDamage()
         {
-            return _isInvulnerableTimer <= 0.0f && IsAlive();
+            return !DebugSettings.instance.PlayerImmune && _isInvulnerableTimer <= 0.0f && IsAlive();
         }
 
         public void OnRespawnStart()
