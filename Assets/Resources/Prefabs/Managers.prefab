@@ -264,7 +264,7 @@ MonoBehaviour:
   _useTickMaster: 0
   m_PoolCount: 8
   _particlePrefab: {fileID: 5561702475036003066, guid: 8b33b97330198df4984fe90803d966d8, type: 3}
-  _particleType: 1
+  _particleType: 2
   _degreesToUpwardDirection: 0
   _positionOffset: {x: 0, y: 3}
 --- !u!1 &1192473343692284685
@@ -404,6 +404,7 @@ Transform:
   m_Children:
   - {fileID: 2652275677141423677}
   - {fileID: 2431392106935166492}
+  - {fileID: 7731903635069045721}
   m_Father: {fileID: 1192473343919988200}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2338,6 +2339,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a960f0f7aa42c4284faf7ad2f85f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7978534160313761360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7731903635069045721}
+  - component: {fileID: 7570680374741242020}
+  m_Layer: 0
+  m_Name: TargetHighlightVFXPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7731903635069045721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7978534160313761360}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1192473344759918345}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7570680374741242020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7978534160313761360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c32466bfb88dcc4cb9500bd5d96506f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTickMaster: 0
+  m_PoolCount: 1
+  _particlePrefab: {fileID: 5561702475036003066, guid: b829a73803d733646aae708cb879a6b9, type: 3}
+  _particleType: 1
+  _degreesToUpwardDirection: 0
+  _positionOffset: {x: 0, y: 0}
 --- !u!1 &8249930487439506366
 GameObject:
   m_ObjectHideFlags: 0

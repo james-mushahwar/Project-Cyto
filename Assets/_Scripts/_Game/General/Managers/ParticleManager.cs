@@ -7,6 +7,7 @@ namespace _Scripts._Game.General.Managers{
     public enum EParticleType
     {
         BasicAttack,
+        TargetHighlight,
         BombDroidBombDrop,
         COUNT
     }

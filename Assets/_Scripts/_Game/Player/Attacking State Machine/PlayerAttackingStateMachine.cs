@@ -61,6 +61,12 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         public IDamageable DamageableTarget { get => _damageableTarget; }
         #endregion
 
+        #region VFX
+        [Header("VFX")]
+        [SerializeField]
+        private ParticleSystem _targetHighlightPS;
+        #endregion
+
         protected override void Awake()
         {
             base.Awake();
@@ -80,9 +86,31 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         void FixedUpdate()
         {
             IDamageable newTarget = FindBestDamageable();
+            bool differentTarget = false;
             if (newTarget != _damageableTarget)
             {
                 _damageableTarget = newTarget;
+                differentTarget = true;
+
+                if (_damageableTarget != null)
+                {
+                    _targetHighlightPS.gameObject.SetActive(true);
+                    _targetHighlightPS.Stop();
+                    _targetHighlightPS.transform.parent = _damageableTarget.Transform;
+                    _targetHighlightPS.transform.localPosition = Vector3.zero;
+                    _targetHighlightPS.Play();
+                }
+            }
+
+            if (_damageableTarget == null)
+            {
+                if (_targetHighlightPS.isPlaying)
+                {
+                    _targetHighlightPS.Stop();
+                    _targetHighlightPS.transform.parent = gameObject.transform;
+                    _targetHighlightPS.transform.localPosition = Vector3.zero;
+                    _targetHighlightPS.gameObject.SetActive(false);
+                }
             }
 
             _basicAttackCurrentState.ManagedStateTick();
