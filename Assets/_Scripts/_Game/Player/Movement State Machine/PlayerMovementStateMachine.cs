@@ -4,8 +4,11 @@ using _Scripts._Game.General;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
-using _Scripts.Editortools.Draw;
 using System.Collections.Generic;
+
+#if UNITY_EDITOR
+using _Scripts.Editortools.Draw;
+#endif
 
 public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>, ISaveable
 {
@@ -359,8 +362,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     void OnDrawGizmos()
     {
         // scene debug updates
+#if UNITY_EDITOR
         DrawGizmos.ForPointsDebug(transform.position, transform.position + (-(Vector3)Vector2.up * (_distToGround + DistanceToGroundThreshold)));
         DrawGizmos.DrawWireSphereDebug(transform.position, _bondingOverlapRange);
+#endif
     }
 
     void FixedUpdate()

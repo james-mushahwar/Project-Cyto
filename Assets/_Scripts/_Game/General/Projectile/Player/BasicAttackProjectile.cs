@@ -1,11 +1,14 @@
 ﻿using _Scripts._Game.General.Managers;
 using _Scripts._Game.General.Projectile.Pools;
 using _Scripts._Game.Player;
-using _Scripts.Editortools.Draw;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+
+#if UNITY_EDITOR
+using _Scripts.Editortools.Draw;
+#endif
 
 namespace _Scripts._Game.General.Projectile.Player{
 
@@ -85,7 +88,9 @@ namespace _Scripts._Game.General.Projectile.Player{
         void OnDrawGizmos()
         {
             // scene debug updates
+        #if UNITY_EDITOR
             DrawGizmos.DrawSphereDebug(transform.position, Mathf.Sqrt(_sqrDistanceToCollision));
+        #endif
         }
     }
 }

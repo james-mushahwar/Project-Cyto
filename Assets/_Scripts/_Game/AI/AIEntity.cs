@@ -201,7 +201,7 @@ namespace _Scripts._Game.AI{
 
         public bool CanTakeDamage()
         {
-            return (!DebugSettings.instance.EnemiesImmune);
+            return (!DebugManager.Instance.DebugSettings.EnemiesImmune);
         }
 
         public bool IsAlive()

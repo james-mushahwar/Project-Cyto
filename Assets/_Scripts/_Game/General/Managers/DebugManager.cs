@@ -1,23 +1,16 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Settings;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class DebugManager : MonoBehaviour
+    public class DebugManager : Singleton<DebugManager>
     {
+        [SerializeField]
+        private DebugSettings _debugSettings;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-    
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+        public DebugSettings DebugSettings { get => _debugSettings; }
     }
     
 }

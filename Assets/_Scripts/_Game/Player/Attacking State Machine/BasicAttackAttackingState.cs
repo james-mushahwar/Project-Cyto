@@ -1,8 +1,11 @@
 ﻿using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor.ShaderGraph.Internal;
+#endif
 
 namespace _Scripts._Game.Player.AttackingStateMachine{
 

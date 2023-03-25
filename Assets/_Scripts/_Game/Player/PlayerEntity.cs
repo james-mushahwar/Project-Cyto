@@ -195,7 +195,7 @@ namespace _Scripts._Game.Player{
 
         private bool CanTakeDamage()
         {
-            return !DebugSettings.instance.PlayerImmune && _isInvulnerableTimer <= 0.0f && IsAlive();
+            return !DebugManager.Instance.DebugSettings.PlayerImmune && _isInvulnerableTimer <= 0.0f && IsAlive();
         }
 
         public void OnRespawnStart()

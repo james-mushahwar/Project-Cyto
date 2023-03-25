@@ -1,12 +1,15 @@
 ﻿using _Scripts._Game.AI;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
-using _Scripts.Editortools.Draw;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+
+#if UNITY_EDITOR
+using _Scripts.Editortools.Draw;
+#endif
 
 namespace _Scripts._Game.General.Projectile.AI.BombDroid{
     
@@ -75,7 +78,9 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             // scene debug updates
             if (_collided && !_explodeElapsed)
             {
+            #if UNITY_EDITOR
                 DrawGizmos.DrawSphereDebug(transform.position, _explosionOverlapRange);
+            #endif
             }
         }
 

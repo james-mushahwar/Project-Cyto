@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Settings{
     [CreateAssetMenu(menuName = "Settings/DebugSettings")]
-    public class DebugSettings : ScriptableSingleton<DebugSettings>
+    public class DebugSettings : ScriptableObject
     {
         [Header("Damage settings")]
         [SerializeField] private bool _playerImmune = false;

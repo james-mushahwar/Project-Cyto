@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace _Scripts.Editortools.Templates{
+namespace Editor.Templates{
     
     public class EditorTemplateClasses
     {

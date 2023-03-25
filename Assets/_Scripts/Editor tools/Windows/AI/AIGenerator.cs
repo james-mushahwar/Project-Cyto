@@ -1,9 +1,11 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.IO;
 using Pathfinding;
 
-namespace _Scripts.Editortools.Windows.AI{
+using UnityEditor;
+
+namespace Editor.Windows.AI{
     
     public enum AIType
     {
@@ -507,3 +509,5 @@ namespace _Scripts.Editortools.Windows.AI{
     }
     
 }
+
+#endif

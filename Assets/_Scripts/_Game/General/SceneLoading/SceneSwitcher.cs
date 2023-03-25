@@ -14,7 +14,7 @@ namespace _Scripts._Game.General.SceneLoading{
     public class SceneSwitcher : MonoBehaviour
     {
         [SerializeField]
-        private SceneAsset[] _sceneAssets = new SceneAsset[2];
+        private string[] _sceneAssets = new string[2];
         [SerializeField]
         private Collider2D[] _colliders = new Collider2D[2];
         private SceneLoadHandshake _handshake;
@@ -42,38 +42,38 @@ namespace _Scripts._Game.General.SceneLoading{
         // used to unload scene on player exited collider event
         public void OnPlayerEntered(int index)
         {
-            Debug.Log("Scene asset name is " + _sceneAssets[index].name);
-            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index].name);
+            Debug.Log("Scene asset name is " + _sceneAssets[index]);
+            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index]);
 
             if (targetScene != null)
             {
                 if (!targetScene.isLoaded || _asyncSceneOperation[index] != null)
                 {
-                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index].name) + " is already unloaded");
+                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already unloaded");
                     return;
                 }
             }
 
-            _asyncSceneOperation[index] = UnloadSceneAsync(index, _sceneAssets[index].name);
+            _asyncSceneOperation[index] = UnloadSceneAsync(index, _sceneAssets[index]);
             StartCoroutine(_asyncSceneOperation[index]);
         }
 
         // used to load scene on on player exited collider event
         public void OnPlayerExited(int index)
         {
-            Debug.Log("Scene asset name is " + _sceneAssets[index].name);
-            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index].name);
+            Debug.Log("Scene asset name is " + _sceneAssets[index]);
+            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index]);
 
             if (targetScene != null)
             {
                 if (targetScene.isLoaded || _asyncSceneOperation[index] != null)
                 {
-                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index].name) + " is already loaded");
+                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already loaded");
                     return;
                 }
             }
 
-            _asyncSceneOperation[index] = LoadSceneAsync(index, _sceneAssets[index].name);
+            _asyncSceneOperation[index] = LoadSceneAsync(index, _sceneAssets[index]);
             StartCoroutine(_asyncSceneOperation[index]);
         }
 
