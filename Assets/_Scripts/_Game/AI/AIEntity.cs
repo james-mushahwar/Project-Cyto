@@ -68,6 +68,10 @@ namespace _Scripts._Game.AI{
         public EnemyHealthStats EnemyHealthStats { get => _enemyHealthStats; }
         #endregion
 
+        //IDamageable
+        private Vector2 _damageDirection = Vector2.zero;
+
+        public Vector2 DamageDirection { get => _damageDirection; set => _damageDirection = value; }
         public Transform Transform { get => transform; }
 
         protected void Awake()
@@ -164,11 +168,13 @@ namespace _Scripts._Game.AI{
             }
         }
 
-        public void TakeDamage(EDamageType damageType, EEntityType causer)
+        public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
             float resultHealth = 100.0f;
             if (_enemyBondableHealthStats.IsAlive())
             {
+                //where is the damage coming from?
+                DamageDirection = (Transform.position - damagePosition).normalized;
                 if (CanTakeDamage())
                 {
                     resultHealth = _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
@@ -183,6 +189,8 @@ namespace _Scripts._Game.AI{
             }
             else
             {
+                //where is the damage coming from?
+                DamageDirection = (Transform.position - damagePosition).normalized;
                 if (CanTakeDamage())
                 {
                     resultHealth = _enemyHealthStats.RemoveHitPoints(1.0f, true);

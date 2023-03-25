@@ -57,6 +57,12 @@ namespace _Scripts._Game.Player{
         private float _isInvulnerableTimer;
         #endregion
 
+        //IDamageable
+        private Vector2 _damageDirection = Vector2.zero;
+
+        public Vector2 DamageDirection { get => _damageDirection; set => _damageDirection = value; }
+        public Transform Transform { get => transform; }
+
         protected override void Awake()
         {
             base.Awake();
@@ -73,6 +79,7 @@ namespace _Scripts._Game.Player{
 
         private void FixedUpdate() 
         {
+            //timers
             if (_playerRespawnReason._isRespawning == true)
             {
                 if ((_playerRespawnReason._respawnTimer -= Time.deltaTime) < 0.0f)
@@ -84,7 +91,13 @@ namespace _Scripts._Game.Player{
 
                     FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
                     _playerHealthStats.AddHitPoints(playerEntityStats.MaxHealth);
+                    _isInvulnerableTimer = 0.0f;
                 }
+            }
+
+            if (_isInvulnerableTimer > 0.0f)
+            {
+                _isInvulnerableTimer -= Time.deltaTime;
             }
         }
 
@@ -145,8 +158,6 @@ namespace _Scripts._Game.Player{
             _spriteAnimator.enabled = false;
         }
 
-        public Transform Transform { get => transform; }
-
         public Vector2 GetMovementInput()
         {
             return _movementSM.CurrentMovementInput;
@@ -157,7 +168,7 @@ namespace _Scripts._Game.Player{
             return _playerHealthStats.IsAlive() && !_playerRespawnReason._isRespawning;
         }
 
-        public void TakeDamage(EDamageType damageType, EEntityType causer)
+        public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
             float resultsHealth = 0.0f;
 
@@ -165,6 +176,9 @@ namespace _Scripts._Game.Player{
             {
                 return;
             }
+
+            //where is the damage coming from?
+            DamageDirection = (damagePosition - Transform.position).normalized; 
 
             if (_possessed != null)
             {
@@ -190,7 +204,8 @@ namespace _Scripts._Game.Player{
                     }
                 }
             }
-            
+
+            _isInvulnerableTimer = _invulnerableDuration;
         }
 
         private bool CanTakeDamage()

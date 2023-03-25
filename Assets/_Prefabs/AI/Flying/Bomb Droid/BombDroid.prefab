@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8527710219251885142}
   - component: {fileID: 8527710219251885141}
   - component: {fileID: 8527710219251885140}
+  - component: {fileID: 3279110197100341938}
   m_Layer: 8
   m_Name: BombDroid Sprite
   m_TagString: Untagged
@@ -120,6 +121,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageFlashDuration: 0.33
   _bondedMovementAnimSpeedRange: {x: 0.75, y: 1.5}
+--- !u!114 &3279110197100341938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527710219251885160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d93e1cdc2539284eb12f249015859fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 8527710219251885142}
+  _shakeDuration: 0.25
+  _shakePreDelay: 0
+  _horizontalShake:
+    _rate: 40
+    _displacement: 0.65
+    _dampenOverTime: {x: 1, y: 0.5}
+  _verticalShake:
+    _rate: 25
+    _displacement: 0.3
+    _dampenOverTime: {x: 1, y: 0.5}
 --- !u!1 &8527710219603585278
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,12 +213,38 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3279110197100341938}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.GameFeel.HitStop.HitStopShake,
+          Assembly-CSharp
+        m_MethodName: PlayShake
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onTakeDamageEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6152986643205584587}
         m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
         m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3279110197100341938}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.GameFeel.HitStop.HitStopShake,
+          Assembly-CSharp
+        m_MethodName: PlayShake
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -219,6 +269,8 @@ MonoBehaviour:
   _knockbackPreDelay: 0
   _knockbackPostDelay: 0.25
   _knockbackForce: 5
+  _xAxisForce: 1
+  _yAxisForce: 1
   _beginKnockbackEvent:
     m_PersistentCalls:
       m_Calls:

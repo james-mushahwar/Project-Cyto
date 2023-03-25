@@ -78,7 +78,7 @@ namespace _Scripts._Game.General.Projectile.Player{
                     _hitTarget = true;
                     float vfxRotation = Vector2.Angle(Vector2.up, direction);
                     ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BasicAttack, transform.position, vfxRotation);
-                    _damageableTarget.TakeDamage(EDamageType.Player_BasicAttack, EEntityType.Player);
+                    _damageableTarget.TakeDamage(EDamageType.Player_BasicAttack, EEntityType.Player, transform.position);
                 }
                 #endregion
             }

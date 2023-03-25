@@ -31,7 +31,8 @@ namespace _Scripts._Game.General{
     public interface IDamageable
     {
         bool IsAlive();
-        void TakeDamage(EDamageType damageType, EEntityType causer);
+        void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
+        Vector2 DamageDirection { get; set; }
         //Components
         Transform Transform { get; }
         //Inputs
