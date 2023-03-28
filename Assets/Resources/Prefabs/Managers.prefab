@@ -615,6 +615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4246409630888705046}
   - component: {fileID: 7203143936334172839}
+  - component: {fileID: 2346717225363639951}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -649,6 +650,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86eaeca998438284c8f6ffb98fd0a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2346717225363639951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801774995246241748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c174c885e504f2ea1907479a1846d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _UITouchFeedback:
+    _duration: 0
+    _lowFrequency: 0
+    _highFrequency: 0
+    _setMotorActive: 0
+    _animCurvePattern:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  _BasicAttackLightFeedback:
+    _duration: 0
+    _lowFrequency: 0
+    _highFrequency: 0
+    _setMotorActive: 0
+    _animCurvePattern:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
 --- !u!1 &1921674813462197753
 GameObject:
   m_ObjectHideFlags: 0
