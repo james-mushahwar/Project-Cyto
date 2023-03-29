@@ -663,6 +663,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _UITouchFeedback:
+    _loop: 0
+    _canBeStopped: 1
+    _priority: 0
     _lowFrequencyPattern:
       serializedVersion: 2
       m_Curve: []
@@ -676,6 +679,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   _BasicAttackLightFeedback:
+    _loop: 0
+    _canBeStopped: 1
+    _priority: 3
     _lowFrequencyPattern:
       serializedVersion: 2
       m_Curve:
@@ -716,6 +722,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   _BasicAttackHeavyFeedback:
+    _loop: 0
+    _canBeStopped: 1
+    _priority: 3
     _lowFrequencyPattern:
       serializedVersion: 2
       m_Curve:

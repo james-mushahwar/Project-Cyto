@@ -8,27 +8,38 @@ namespace _Scripts._Game.General.Managers{
 
     public enum EFeedbackPattern
     {
+        // LOW PRIORITY
+        None,
         UI_Touch,
         UI_Click,
         UI_Enter,
         UI_Exit,
+        // HIGH PRIORITY
+        // Game - interaction
+        Game_BondEnter,
+        Game_BondExit,
         //Game - damage
         Game_BasicAttackLight,
         Game_BasicAttackHeavy,
         Game_TakeDamageLight,
         Game_TakeDamageHeavy,
-        // Game - interaction
-        Game_BondEnter,
-        Game_BondExit,
-        //Overrides
-        Override_Freeze,
-        Override_UnFreeze,
-        None
+    }
+
+    public enum EFeedbackPriority
+    {
+        Miniscule, 
+        Low,
+        Medium,
+        High,
+        Ultra
     }
 
     [System.Serializable]
     public struct FFeedbackPattern
     {
+        public bool _loop; // does this loop?
+        public bool _canBeStopped;
+        public EFeedbackPriority _priority;
         public AnimationCurve _lowFrequencyPattern; // from 0 to 1 scale
         public AnimationCurve _highFrequencyPattern; // from 0 to 1 scale
     }
@@ -45,6 +56,7 @@ namespace _Scripts._Game.General.Managers{
         #endregion
 
         [Header("Feedback patterns")]
+        private FFeedbackPattern _NoneFeedbackPattern; // should do nothing
         [SerializeField]
         private FFeedbackPattern _UITouchFeedback;
         [SerializeField]
@@ -55,6 +67,9 @@ namespace _Scripts._Game.General.Managers{
         protected override void Awake() 
         {
             base.Awake();
+            _NoneFeedbackPattern = new FFeedbackPattern();
+            _NoneFeedbackPattern._canBeStopped = true;
+            _feedbackPattern = _NoneFeedbackPattern;
         }
 
         private void FixedUpdate()
@@ -77,11 +92,9 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
-            if (_feedbackTimer >= _feedbackDuration)
+            if (_feedbackTimer >= _feedbackDuration && !_feedbackPattern._loop)
             {
-                _feedbackType = EFeedbackPattern.None;
-                _feedbackTimer = 0.0f;
-                _gamepad.SetMotorSpeeds(0.0f, 0.0f);
+                SetNoneFeedbackPattern();
             }
             else
             {
@@ -91,6 +104,19 @@ namespace _Scripts._Game.General.Managers{
             }
 
             _feedbackTimer += Time.deltaTime;
+            if (_feedbackPattern._loop && _feedbackTimer >= _feedbackDuration)
+            {
+                _feedbackTimer = 0;
+            }
+        }
+
+        private void SetNoneFeedbackPattern()
+        {
+            _feedbackPattern = _NoneFeedbackPattern;
+            _feedbackType = EFeedbackPattern.None;
+            _feedbackTimer = 0.0f;
+            _feedbackDuration = 0.0f;
+            _gamepad.SetMotorSpeeds(0.0f, 0.0f);
         }
 
         public void TryFeedbackPattern(EDamageType damageType)
@@ -134,15 +160,19 @@ namespace _Scripts._Game.General.Managers{
 
         private bool IsFeedbackValid(EFeedbackPattern pattern)
         {
-            return (pattern != EFeedbackPattern.None && pattern != _feedbackType);
+            bool validPattern = (pattern != EFeedbackPattern.None && pattern != _feedbackType);
+            if (!validPattern)
+            {
+                return false;
+            }
+
+            FFeedbackPattern newFeedback = GetFeedbackPattern(pattern);
+            bool canOverwite = _feedbackPattern._canBeStopped && (newFeedback._priority >= _feedbackPattern._priority);
+            return (validPattern && canOverwite);   
         }
 
         private FFeedbackPattern GetFeedbackPattern(EFeedbackPattern pattern)
         {
-            if (pattern == _feedbackType)
-            {
-                return _feedbackPattern;
-            }
             switch (pattern)
             {
                 case EFeedbackPattern.Game_BasicAttackLight:
@@ -150,10 +180,44 @@ namespace _Scripts._Game.General.Managers{
                 case EFeedbackPattern.Game_BasicAttackHeavy:
                     return _BasicAttackHeavyFeedback;
                 default:
-                    return _feedbackPattern;
+                    return _NoneFeedbackPattern;
             }
         }
 
+        public void StopFeedbackPattern(EFeedbackPattern pattern = EFeedbackPattern.None, bool bOverride = false)
+        {
+            _gamepad = Gamepad.current;
+
+            if (_gamepad == null)
+            {
+                return;
+            }
+
+            bool stopPattern = false;
+
+            if (pattern == EFeedbackPattern.None)
+            {
+                // stop anything playing that can be stopped
+                if (_feedbackType != EFeedbackPattern.None && (_feedbackPattern._canBeStopped || bOverride))
+                {
+                    stopPattern = true;
+                }
+            }
+            else
+            {
+                if (_feedbackType == pattern && (_feedbackPattern._canBeStopped || bOverride))
+                {
+                    stopPattern = true;
+                }
+            }
+
+            if (stopPattern)
+            {
+                SetNoneFeedbackPattern();
+            }
+        }
+
+        // Redundant?
         public IEnumerator StopRumbleFeedback(float delay, Gamepad gamepad)
         {
             yield return TaskManager.Instance.WaitForSecondsPool.Get(delay);
