@@ -180,10 +180,11 @@ namespace _Scripts._Game.AI{
                     resultHealth = _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
                 }
 
-                if (resultHealth <= 0.0f)
-                {
-                    //broken shield
-                }
+                bool brokenShield = resultHealth <= 0.0f;
+                
+                //broken shield
+                FeedbackManager.Instance.TryFeedbackPattern(brokenShield ? EFeedbackPattern.Game_BasicAttackHeavy : EFeedbackPattern.Game_BasicAttackLight);
+                
                 _spriteAnimator.DamageFlash();
                 _onHitEvent.Invoke(gameObject);
             }
@@ -196,12 +197,20 @@ namespace _Scripts._Game.AI{
                     resultHealth = _enemyHealthStats.RemoveHitPoints(1.0f, true);
                 }
 
-                if (resultHealth <= 0.0f)
+                bool killed = resultHealth <= 0.0f;
+
+                FeedbackManager.Instance.TryFeedbackPattern(killed ? EFeedbackPattern.Game_BasicAttackHeavy : EFeedbackPattern.Game_BasicAttackLight);
+
+                if (killed)
                 {
                     // death reaction needed
                     Despawn(true);
                 }
-                _spriteAnimator.DamageFlash();
+                else
+                {
+                    _onTakeDamageEvent.Invoke(gameObject);
+                }
+                //_spriteAnimator.DamageFlash();
             }
 
             

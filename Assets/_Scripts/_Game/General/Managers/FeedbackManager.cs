@@ -49,6 +49,8 @@ namespace _Scripts._Game.General.Managers{
         private FFeedbackPattern _UITouchFeedback;
         [SerializeField]
         private FFeedbackPattern _BasicAttackLightFeedback;
+        [SerializeField]
+        private FFeedbackPattern _BasicAttackHeavyFeedback;
 
         protected override void Awake() 
         {
@@ -70,16 +72,37 @@ namespace _Scripts._Game.General.Managers{
 
         private void TickFeedbackPattern()
         {
-            float lowFreq = _feedbackPattern._lowFrequencyPattern.Evaluate(_feedbackTimer);
-            float highFreq = _feedbackPattern._highFrequencyPattern.Evaluate(_feedbackTimer);
-            _gamepad.SetMotorSpeeds(lowFreq, highFreq);
-
-            _feedbackTimer += Time.deltaTime;
+            if (_feedbackType == EFeedbackPattern.None)
+            {
+                return;
+            }
 
             if (_feedbackTimer >= _feedbackDuration)
             {
-                //_feedbackType = 
+                _feedbackType = EFeedbackPattern.None;
+                _feedbackTimer = 0.0f;
+                _gamepad.SetMotorSpeeds(0.0f, 0.0f);
             }
+            else
+            {
+                float lowFreq = _feedbackPattern._lowFrequencyPattern.Evaluate(_feedbackTimer);
+                float highFreq = _feedbackPattern._highFrequencyPattern.Evaluate(_feedbackTimer);
+                _gamepad.SetMotorSpeeds(lowFreq, highFreq);
+            }
+
+            _feedbackTimer += Time.deltaTime;
+        }
+
+        public void TryFeedbackPattern(EDamageType damageType)
+        {
+            // convert dmaage type to pattern first
+            EFeedbackPattern newPatternType = EFeedbackPattern.None;
+            if (damageType == EDamageType.Player_BasicAttack)
+            {
+                //tbd
+            }
+
+            TryFeedbackPattern(newPatternType);
         }
 
         public void TryFeedbackPattern(EFeedbackPattern pattern)
@@ -91,15 +114,27 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
+            if (!IsFeedbackValid(pattern))
+            {
+                return;
+            }
+
             FFeedbackPattern newFeedback = GetFeedbackPattern(pattern);
 
             _feedbackPattern = newFeedback;
             _feedbackType = pattern;
             _feedbackTimer = 0.0f;
-            //_feedbackDuration = _feedbackPattern._animCurvePattern.keys[_feedbackPattern._animCurvePattern.length - 1].time;
+            float lowFreqLength = _feedbackPattern._lowFrequencyPattern.length > 0 ? _feedbackPattern._lowFrequencyPattern.keys[_feedbackPattern._lowFrequencyPattern.length - 1].time : 0.0f;
+            float highFreqLength = _feedbackPattern._highFrequencyPattern.length > 0 ? _feedbackPattern._highFrequencyPattern.keys[_feedbackPattern._highFrequencyPattern.length - 1].time : 0.0f;
+            _feedbackDuration = Mathf.Max(lowFreqLength, highFreqLength);
 
-            //_gamepad.SetMotorSpeeds(lowFreq, highFreq);
+            _gamepad.SetMotorSpeeds(0.0f, 0.0f);
             //_stopGamepadFeedback = StartCoroutine(StopRumbleFeedback(duration, _gamepad));
+        }
+
+        private bool IsFeedbackValid(EFeedbackPattern pattern)
+        {
+            return (pattern != EFeedbackPattern.None && pattern != _feedbackType);
         }
 
         private FFeedbackPattern GetFeedbackPattern(EFeedbackPattern pattern)
@@ -112,16 +147,16 @@ namespace _Scripts._Game.General.Managers{
             {
                 case EFeedbackPattern.Game_BasicAttackLight:
                     return _BasicAttackLightFeedback;
-                    break;
+                case EFeedbackPattern.Game_BasicAttackHeavy:
+                    return _BasicAttackHeavyFeedback;
                 default:
                     return _feedbackPattern;
-                    break;
             }
         }
 
-        private IEnumerator StopRumbleFeedback(float duration, Gamepad gamepad)
+        public IEnumerator StopRumbleFeedback(float delay, Gamepad gamepad)
         {
-            yield return TaskManager.Instance.WaitForSecondsPool.Get(duration);
+            yield return TaskManager.Instance.WaitForSecondsPool.Get(delay);
 
             if (gamepad != null)
             {

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DebugSettings
   m_EditorClassIdentifier: 
   _playerImmune: 1
-  _enemiesImmune: 1
+  _enemiesImmune: 0
