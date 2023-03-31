@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.General;
+using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
 using Pathfinding;
 using UnityEngine;
@@ -19,6 +20,13 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override bool CheckSwitchStates()
         {
+            // debug settings
+            if (DebugManager.Instance.DebugSettings.AIFreezeMovement)
+            {
+                SwitchStates(_factory.GetState(AIMovementState.Idle));
+                return true;
+            }
+
             GameObject target = PlayerEntity.Instance.GetControlledGameObject();
             
             Vector3 differenceToTarget = target.transform.position - _bdCtx.transform.position;

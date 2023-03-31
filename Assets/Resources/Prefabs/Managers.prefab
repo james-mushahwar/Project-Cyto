@@ -46,21 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _possessableTargetParameters:
-    _targetType: 0
-    _maxSqDistance: 0
-    _minDotProduct: 0
+    _targetType: 1
+    _maxSqDistance: 25
+    _minDotProduct: 0.8
     _threatScoreMultiplier: 0
-    _angleScoreMultiplier: 0
-    _distanceScoreMultiplier: 0
+    _angleScoreMultiplier: 2
+    _distanceScoreMultiplier: 0.25
     _ignoreDotProductScore: 0
     _ignoreDistanceScore: 0
   _damageableTargetParameters:
-    _targetType: 0
-    _maxSqDistance: 0
-    _minDotProduct: 0
+    _targetType: 2
+    _maxSqDistance: 25
+    _minDotProduct: 0.8
     _threatScoreMultiplier: 0
-    _angleScoreMultiplier: 0
-    _distanceScoreMultiplier: 0
+    _angleScoreMultiplier: 2
+    _distanceScoreMultiplier: 0.25
     _ignoreDotProductScore: 0
     _ignoreDistanceScore: 0
 --- !u!1 &286642314146348967

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,12 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override bool CheckSwitchStates()
         {
+            // debug settings
+            if (DebugManager.Instance.DebugSettings.AIFreezeMovement)
+            {
+                return false;
+            }
+
             if (_stateTimer >= 2.0f)
             {
                 SwitchStates(_factory.GetState(AIMovementState.Patrol));

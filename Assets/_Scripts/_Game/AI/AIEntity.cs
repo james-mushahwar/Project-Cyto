@@ -74,6 +74,8 @@ namespace _Scripts._Game.AI{
         public Vector2 DamageDirection { get => _damageDirection; set => _damageDirection = value; }
         public Transform Transform { get => transform; }
 
+        public bool FacingRight { get => !_spriteAnimator.Renderer.flipX; }
+  
         protected void Awake()
         {
             _enemyHealthStats         = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.EnemyHealth);
@@ -88,7 +90,7 @@ namespace _Scripts._Game.AI{
 
         public bool CanBePossessed()
         {
-            return !_isPossessed && (_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive());
+            return !_isPossessed && (_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable;
         }
 
         public void OnPossess()

@@ -63,6 +63,8 @@ namespace _Scripts._Game.Player{
         public Vector2 DamageDirection { get => _damageDirection; set => _damageDirection = value; }
         public Transform Transform { get => transform; }
 
+        public bool FacingRight { get => _movementSM.IsFacingRight; }
+
         protected override void Awake()
         {
             base.Awake();

@@ -7,6 +7,7 @@ using _Scripts._Game.Player;
 using _Scripts._Game.AI.Bonding;
 using System;
 using UnityEngine.InputSystem;
+using _Scripts.Editortools.Draw;
 
 namespace _Scripts._Game.General.Managers{
     
@@ -102,7 +103,17 @@ namespace _Scripts._Game.General.Managers{
         public float GetPossessableTargetScore(IPossessable pInstigator, IPossessable pTarget)
         {
             TargetingParameters tp = GetTargetingParameters(ETargetType.Possessable);
-            Vector2 inputDirection = pInstigator.GetMovementInput();
+            Vector2 inputDirection = pInstigator.GetMovementInput().normalized;
+            if (inputDirection.sqrMagnitude == 0.0f)
+            {
+                inputDirection = pInstigator.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
+            }
+            #if UNITY_EDITOR
+            DrawGizmos.ForPointsDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3)(inputDirection * 10.0f));
+            DrawGizmos.ForDirectionDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
+            DrawGizmos.ForDirectionGizmo(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
+            
+            #endif
 
             float finalScore = 0.0f;
             float distanceScore = 0.0f;
@@ -144,16 +155,20 @@ namespace _Scripts._Game.General.Managers{
             return finalScore;
         }
 
-        public float GetDamageableTargetScore(IDamageable pInstigator, IDamageable pTarget)
+        public float GetDamageableTargetScore(IDamageable dInstigator, IDamageable dTarget)
         {
             TargetingParameters tp = GetTargetingParameters(ETargetType.Damageable);
-            Vector2 inputDirection = pInstigator.GetMovementInput();
+            Vector2 inputDirection = dInstigator.GetMovementInput();
+            if (inputDirection.sqrMagnitude == 0.0f)
+            {
+                inputDirection = dInstigator.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
+            }
 
             float finalScore = 0.0f;
             float distanceScore = 0.0f;
             float angleScore = 0.0f;
 
-            Vector2 targetVector = pTarget.Transform.position - pInstigator.Transform.position;
+            Vector2 targetVector = dTarget.Transform.position - dInstigator.Transform.position;
 
             if (!tp.IgnoreDotProductScore)
             {

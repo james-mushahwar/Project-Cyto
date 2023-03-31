@@ -11,8 +11,10 @@ namespace _Scripts._Game.Player{
         bool CanBePossessed();
         void OnPossess();
         void OnDispossess();
+        bool FacingRight { get; }
         //Components
         Transform Transform { get; }
+
         //Inputs
         Vector2 GetMovementInput();
     }

@@ -13,13 +13,15 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
     public class PlayerAttackingStateMachine : Singleton<PlayerAttackingStateMachine>, ISaveable
     {
         #region Input
+        //attack
         private bool _isAttackPressed = false;
+        private bool _isAttackInputValid = false;
+        //aim L stick
+        private Vector2 _currentAimInput = Vector2.zero;
 
         public bool IsAttackPressed { get => _isAttackPressed; }
-
-        private bool _isAttackInputValid = false;
-
         public bool IsAttackInputValid { get => _isAttackInputValid; }
+        public Vector2 CurrentAimInput { get => _currentAimInput; }
         #endregion
 
         #region State Machine
@@ -75,6 +77,10 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             //setup player input callbacks
             playerInput.Player.Attack.started += OnAttackInput;
             playerInput.Player.Attack.canceled += OnAttackInput;
+
+            playerInput.Player.Movement.started += OnAimInput;
+            playerInput.Player.Movement.performed += OnAimInput;
+            playerInput.Player.Movement.canceled += OnAimInput;
 
             _states = new PlayerAttackingStateMachineFactory(this);
             _basicAttackCurrentState = _states.GetState(AttackingState.Basic_Idle);
@@ -174,6 +180,12 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         {
             _isAttackPressed = context.ReadValueAsButton();
             _isAttackInputValid = _isAttackPressed;
+        }
+
+        void OnAimInput(InputAction.CallbackContext context)
+        {
+            Vector2 movementInput = context.ReadValue<Vector2>().normalized;
+            _currentAimInput = PlayerEntity.Instance.IsAlive() && movementInput.sqrMagnitude >= 0.4 ? movementInput : Vector2.zero;
         }
 
         public void NullifyInput(AttackingState state)

@@ -271,6 +271,12 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public Collider2D ClosestCollider { get => _closestCollider; }
     #endregion
 
+    #region VFX
+    [Header("VFX")]
+    [SerializeField]
+    private ParticleSystem _possessHighlightPS;
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -370,15 +376,38 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void FixedUpdate()
     {
-        IPossessable newTarget = FindBestPossessable();
-        if (newTarget != _bondableTarget)
+        MovementState stateType = _states.GetMovementStateEnum(CurrentState);
+
+        if (stateType != MovementState.Bonding)
         {
-            _bondableTarget = newTarget;
-            //if (_bondableTarget != null)
-            //{
-            //    Debug.Log("New bondable target = " + _bondableTarget.PossessableTransform.name);
-            //}
+            IPossessable newTarget = FindBestPossessable();
+            if (newTarget != _bondableTarget)
+            {
+                _bondableTarget = newTarget;
+
+                if (_bondableTarget != null)
+                {
+                    _possessHighlightPS.gameObject.SetActive(true);
+                    _possessHighlightPS.Stop();
+                    _possessHighlightPS.transform.parent = _bondableTarget.Transform;
+                    _possessHighlightPS.transform.localPosition = Vector3.zero;
+                    _possessHighlightPS.Play();
+                }
+            }
         }
+
+        if (_bondableTarget == null)
+        {
+            if (_possessHighlightPS.isPlaying)
+            {
+                _possessHighlightPS.Stop();
+                _possessHighlightPS.transform.parent = gameObject.transform;
+                _possessHighlightPS.transform.localPosition = Vector3.zero;
+                _possessHighlightPS.gameObject.SetActive(false);
+            }
+        }
+
+
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
         IsFacingRightCheck();

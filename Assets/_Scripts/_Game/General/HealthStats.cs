@@ -33,6 +33,7 @@ namespace _Scripts._Game.General{
         bool IsAlive();
         void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
         Vector2 DamageDirection { get; set; }
+        bool FacingRight { get; }
         //Components
         Transform Transform { get; }
         //Inputs

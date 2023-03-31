@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: DebugSettings
   m_EditorClassIdentifier: 
   _playerImmune: 1
-  _enemiesImmune: 0
+  _enemiesImmune: 1
+  _alwaysBondable: 1
+  _aiFreezeMovement: 1

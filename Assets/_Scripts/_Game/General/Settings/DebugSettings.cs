@@ -13,6 +13,16 @@ namespace _Scripts._Game.General.Settings{
 
         public bool PlayerImmune => _playerImmune;
         public bool EnemiesImmune => _enemiesImmune;
+
+        [Header("Movement settings")]
+        [SerializeField] private bool _alwaysBondable = false;
+
+        public bool AlwaysBondable => _alwaysBondable;
+
+        [Header("AI Movement settings")]
+        [SerializeField] private bool _aiFreezeMovement = false;
+
+        public bool AIFreezeMovement => _aiFreezeMovement;
     }
     
 }

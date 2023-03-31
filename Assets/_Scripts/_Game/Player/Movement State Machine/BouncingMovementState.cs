@@ -90,7 +90,7 @@ public class BouncingMovementState : BaseMovementState
         }
         else
         {
-            _cachedHorizontaVelocity = _ctx.Rb.velocity.x;
+            _cachedHorizontaVelocity = _ctx.Rb.velocity.x < _ctx.BouncingDefaultHorizontalVelocity ? _ctx.BouncingDefaultHorizontalVelocity : _ctx.Rb.velocity.x;
             _ctx.Rb.gravityScale = _ctx.BouncingDownwardGravityScale;
         }
 
