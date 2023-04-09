@@ -13,7 +13,7 @@ public class JumpingMovementState : BaseMovementState
     {
         if (_ctx.IsBondInputValid == true)
         {
-            if (_ctx.BondableTarget != null)
+            if (TargetManager.Instance.BondableTarget != null)
             {
                 SwitchStates(_factory.GetState(MovementState.Bonding));
                 return true;

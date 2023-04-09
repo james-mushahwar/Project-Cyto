@@ -34,7 +34,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             {
                 if (_isAttackBuffered)
                 {
-                    if (_ctx.CurrentBasicAttackCombo < _ctx.BasicComboLimit && _ctx.DamageableTarget != null)
+                    if (_ctx.CurrentBasicAttackCombo < _ctx.BasicComboLimit && TargetManager.Instance.DamageableTarget != null)
                     {
                         SwitchStates(_factory.GetState(AttackingState.Basic_Attack));
                         return true;
@@ -67,9 +67,9 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
             Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
-            if (_ctx.DamageableTarget != null)
+            if (TargetManager.Instance.DamageableTarget != null)
             {
-                ProjectileManager.Instance.TryBasicAttackProjectile(_ctx.DamageableTarget, PlayerEntity.Instance.transform.position);
+                ProjectileManager.Instance.TryBasicAttackProjectile(TargetManager.Instance.DamageableTarget, PlayerEntity.Instance.transform.position);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public override bool CheckSwitchStates()
         {
-            if (_ctx.IsAttackInputValid == true && _ctx.DamageableTarget != null)
+            if (_ctx.IsAttackInputValid == true && TargetManager.Instance.DamageableTarget != null)
             {
                 SwitchStates(_factory.GetState(AttackingState.Basic_Attack));
                 return true;

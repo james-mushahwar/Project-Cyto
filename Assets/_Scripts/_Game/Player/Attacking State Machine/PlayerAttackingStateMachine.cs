@@ -58,16 +58,13 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private ContactFilter2D _damageableContactFilter;
 
         private Collider2D[] _aiColliders = new Collider2D[20];
-        private IDamageable _damageableTarget;
-
-        public IDamageable DamageableTarget { get => _damageableTarget; }
         #endregion
 
-        #region VFX
-        [Header("VFX")]
-        [SerializeField]
-        private ParticleSystem _targetHighlightPS;
-        #endregion
+        //#region VFX
+        //[Header("VFX")]
+        //[SerializeField]
+        //private ParticleSystem _targetHighlightPS;
+        //#endregion
 
         protected override void Awake()
         {
@@ -91,90 +88,90 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         void FixedUpdate()
         {
-            IDamageable newTarget = FindBestDamageable();
-            bool differentTarget = false;
-            if (newTarget != _damageableTarget)
-            {
-                _damageableTarget = newTarget;
-                differentTarget = true;
+            //IDamageable newTarget = FindBestDamageable();
+            //bool differentTarget = false;
+            //if (newTarget != _damageableTarget)
+            //{
+            //    _damageableTarget = newTarget;
+            //    differentTarget = true;
 
-                if (_damageableTarget != null)
-                {
-                    _targetHighlightPS.gameObject.SetActive(true);
-                    _targetHighlightPS.Stop();
-                    _targetHighlightPS.transform.parent = _damageableTarget.Transform;
-                    _targetHighlightPS.transform.localPosition = Vector3.zero;
-                    _targetHighlightPS.Play();
-                }
-            }
+            //    if (_damageableTarget != null)
+            //    {
+            //        _targetHighlightPS.gameObject.SetActive(true);
+            //        _targetHighlightPS.Stop();
+            //        _targetHighlightPS.transform.parent = _damageableTarget.Transform;
+            //        _targetHighlightPS.transform.localPosition = Vector3.zero;
+            //        _targetHighlightPS.Play();
+            //    }
+            //}
 
-            if (_damageableTarget == null)
-            {
-                if (_targetHighlightPS.isPlaying)
-                {
-                    _targetHighlightPS.Stop();
-                    _targetHighlightPS.transform.parent = gameObject.transform;
-                    _targetHighlightPS.transform.localPosition = Vector3.zero;
-                    _targetHighlightPS.gameObject.SetActive(false);
-                }
-            }
+            //if (_damageableTarget == null)
+            //{
+            //    if (_targetHighlightPS.isPlaying)
+            //    {
+            //        _targetHighlightPS.Stop();
+            //        _targetHighlightPS.transform.parent = gameObject.transform;
+            //        _targetHighlightPS.transform.localPosition = Vector3.zero;
+            //        _targetHighlightPS.gameObject.SetActive(false);
+            //    }
+            //}
 
             _basicAttackCurrentState.ManagedStateTick();
             //_abilityAttackCurrentState.ManagedStateTick();
         }
 
-        IDamageable FindBestDamageable()
-        {
-            int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _damageableOverlapRange, _damageableContactFilter, _aiColliders);
+        //IDamageable FindBestDamageable()
+        //{
+        //    int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _damageableOverlapRange, _damageableContactFilter, _aiColliders);
 
-            if (aiOverlapCount > 0)
-            {
-                float bestScore = -1.0f;
-                IDamageable bestDamageable = null;
-                IDamageable currentDamageable = null;
+        //    if (aiOverlapCount > 0)
+        //    {
+        //        float bestScore = -1.0f;
+        //        IDamageable bestDamageable = null;
+        //        IDamageable currentDamageable = null;
 
-                Collider2D col = null;
+        //        Collider2D col = null;
 
-                for (int i = 0; i < aiOverlapCount; i++)
-                {
-                    col = _aiColliders[i];
-                    if (col == null)
-                    {
-                        continue;
-                    }
-                    currentDamageable = col.gameObject.GetComponent<IDamageable>();
+        //        for (int i = 0; i < aiOverlapCount; i++)
+        //        {
+        //            col = _aiColliders[i];
+        //            if (col == null)
+        //            {
+        //                continue;
+        //            }
+        //            currentDamageable = col.gameObject.GetComponent<IDamageable>();
 
-                    if (currentDamageable != null)
-                    {
-                        if (currentDamageable.IsAlive() == false)
-                        {
-                            continue;
-                        }
+        //            if (currentDamageable != null)
+        //            {
+        //                if (currentDamageable.IsAlive() == false)
+        //                {
+        //                    continue;
+        //                }
 
-                        if (bestDamageable == null)
-                        {
-                            bestDamageable = currentDamageable;
-                            continue;
-                        }
+        //                if (bestDamageable == null)
+        //                {
+        //                    bestDamageable = currentDamageable;
+        //                    continue;
+        //                }
 
-                        // calculate then compare scores
-                        //float currentScore = TargetManager.Instance.GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
-                        // dot poduct aim direction
-                        if (currentScore > bestScore)
-                        {
-                            bestScore = currentScore;
-                            bestDamageable = currentDamageable;
-                        }
-                    }
-                }
+        //                // calculate then compare scores
+        //                //float currentScore = TargetManager.Instance.GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
+        //                // dot poduct aim direction
+        //                if (currentScore > bestScore)
+        //                {
+        //                    bestScore = currentScore;
+        //                    bestDamageable = currentDamageable;
+        //                }
+        //            }
+        //        }
 
-                return bestDamageable;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //        return bestDamageable;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
         void OnAttackInput(InputAction.CallbackContext context)
         {

@@ -252,10 +252,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _bondingExitForce;
 
     private Collider2D[] _aiColliders = new Collider2D[20];
-    private IPossessable _bondableTarget;
 
     public float BondingExitForce { get => _bondingExitForce; }
-    public IPossessable BondableTarget { get => _bondableTarget; }
     public float BondTransitionDuration { get => _bondTransitionDuration; }
 
     [Header("Collision detection")]

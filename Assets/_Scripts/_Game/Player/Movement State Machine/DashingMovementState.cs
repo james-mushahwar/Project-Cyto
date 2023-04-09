@@ -1,3 +1,4 @@
+using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class DashingMovementState : BaseMovementState
     {
         if (_ctx.IsBondInputValid == true)
         {
-            if (_ctx.BondableTarget != null)
+            if (TargetManager.Instance.BondableTarget != null)
             {
                 SwitchStates(_factory.GetState(MovementState.Bonding));
                 return true;

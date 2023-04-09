@@ -84,22 +84,19 @@ namespace _Scripts._Game.General.Managers{
         private float _bondingOverlapRange;
         [SerializeField]
         private ContactFilter2D _bondingContactFilter;
-        [SerializeField]
-        private float _bondTransitionDuration;
-        [SerializeField]
-        private float _bondingExitForce;
 
         private Collider2D[] _bondingColliders = new Collider2D[20];
         private IBondable _bondableTarget;
 
-        public float BondingExitForce { get => _bondingExitForce; }
         public IBondable BondableTarget { get => _bondableTarget; }
-        public float BondTransitionDuration { get => _bondTransitionDuration; }
 
         #region VFX
         [Header("VFX")]
         [SerializeField]
         private ParticleSystem _bondHighlightPS;
+
+        [SerializeField]
+        private ParticleSystem _targetHighlightPS;
         #endregion
 
         private void Start()
@@ -118,13 +115,16 @@ namespace _Scripts._Game.General.Managers{
 
             // bondable target
             FindBestBondable();
+
+            // damageable target
+            FindBestDamageable();
         }
 
         private void FindBestBondable()
         {
             IBondable newBondable = null;
 
-            int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _bondingOverlapRange, _bondingContactFilter, _bondingColliders);
+            int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.localPosition, _bondingOverlapRange, _bondingContactFilter, _bondingColliders);
 
             if (aiOverlapCount > 0)
             {
@@ -149,14 +149,16 @@ namespace _Scripts._Game.General.Managers{
                             continue;
                         }
 
+                        float currentScore = GetBondableTargetScore(PlayerEntity.Instance, currentBondable);
+                        
                         if (newBondable == null)
                         {
+                            bestScore = currentScore;
                             newBondable = currentBondable;
                             continue;
                         }
 
                         // calculate then compare scores
-                        float currentScore = GetBondableTargetScore(PlayerEntity.Instance, currentBondable);
                         // dot poduct aim direction
                         if (currentScore > bestScore)
                         {
@@ -194,14 +196,15 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        IDamageable FindBestDamageable()
+        private void FindBestDamageable()
         {
-            int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _damageableOverlapRange, _damageableContactFilter, _damageColliders);
+            IDamageable newDamageable = null;
+
+            int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.localPosition, _damageableOverlapRange, _damageableContactFilter, _damageColliders);
 
             if (aiOverlapCount > 0)
             {
                 float bestScore = -1.0f;
-                IDamageable bestDamageable = null;
                 IDamageable currentDamageable = null;
 
                 Collider2D col = null;
@@ -222,28 +225,50 @@ namespace _Scripts._Game.General.Managers{
                             continue;
                         }
 
-                        if (bestDamageable == null)
+                        // calculate then compare scores
+                        float currentScore = GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
+
+                        if (newDamageable == null)
                         {
-                            bestDamageable = currentDamageable;
+                            bestScore = currentScore;
+                            newDamageable = currentDamageable;
                             continue;
                         }
 
-                        // calculate then compare scores
-                        float currentScore = GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
                         // dot poduct aim direction
                         if (currentScore > bestScore)
                         {
                             bestScore = currentScore;
-                            bestDamageable = currentDamageable;
+                            newDamageable = currentDamageable;
                         }
                     }
                 }
 
-                return bestDamageable;
             }
-            else
+
+            if (newDamageable != _damageableTarget)
             {
-                return null;
+                _damageableTarget = newDamageable;
+
+                if (_damageableTarget != null)
+                {
+                    _targetHighlightPS.gameObject.SetActive(true);
+                    _targetHighlightPS.Stop();
+                    _targetHighlightPS.transform.parent = _damageableTarget.Transform;
+                    _targetHighlightPS.transform.localPosition = Vector3.zero;
+                    _targetHighlightPS.Play();
+                }
+            }
+
+            if (_damageableTarget == null)
+            {
+                if (_targetHighlightPS.isPlaying)
+                {
+                    _targetHighlightPS.Stop();
+                    _targetHighlightPS.transform.parent = gameObject.transform;
+                    _targetHighlightPS.transform.localPosition = Vector3.zero;
+                    _targetHighlightPS.gameObject.SetActive(false);
+                }
             }
         }
 

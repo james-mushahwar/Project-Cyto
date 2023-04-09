@@ -142,22 +142,33 @@ namespace _Scripts._Game.Player{
 
         public void OnDispossess()
         {
-            // dispossess this player for something else
-            InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
-            _isPossessed = false;
-
-            if (_movementSM.BondableTarget != null)
+            if (TargetManager.Instance.BondableTarget != null && TargetManager.Instance.BondableTarget.BondBehaviourType == EBondBehaviourType.Possess)
             {
-                _possessed = _movementSM.BondableTarget;
-                _possessed.OnPossess();
+
+                GameObject possessableGO = TargetManager.Instance.BondableTarget.BondTargetTransform.gameObject;
+                IPossessable possessable = possessableGO.GetComponent<IPossessable>();
+
+                if (possessable != null)
+                {
+                    // dispossess this player for something else
+                    InputManager.Instance.TryDisableActionMap(EInputSystem.Player);
+                    _isPossessed = false;
+
+                    _possessed = possessable;
+                    _possessed.OnPossess();
+
+                    gameObject.transform.SetParent(TargetManager.Instance.BondableTarget.BondTargetTransform);
+
+                    _movementSM.Rb.isKinematic = true;
+                    _movementSM.enabled = false;
+                    _attackingSM.enabled = false;
+                    _spriteAnimator.enabled = false;
+                }
+                else
+                {
+                    return;
+                }
             }
-
-            gameObject.transform.SetParent(_movementSM.BondableTarget.Transform);
-
-            _movementSM.Rb.isKinematic = true;
-            _movementSM.enabled = false;
-            _attackingSM.enabled = false;
-            _spriteAnimator.enabled = false;
         }
 
         public Vector2 GetMovementInput()

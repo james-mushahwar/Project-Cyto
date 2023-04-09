@@ -11,6 +11,7 @@ using _Scripts._Game.General.Spawning.AI;
 using System;
 using _Scripts._Game.General.Settings;
 using UnityEngine.Events;
+using System.Runtime.CompilerServices;
 
 namespace _Scripts._Game.AI{
 
@@ -88,7 +89,7 @@ namespace _Scripts._Game.AI{
 
         public bool CanBeBonded()
         {
-            throw new NotImplementedException();
+            return !_isPossessed && (_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable;
         }
 
         // IPossessable

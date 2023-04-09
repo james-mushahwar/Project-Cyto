@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.General;
+using _Scripts._Game.General.Managers;
 using UnityEngine;
 
 namespace _Scripts._Game.Player.MovementStateMachine {
@@ -10,7 +11,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
         private bool _isInBondTransition;
         private float _bondTransitionTimer;
         private float _unbondTransitionTimer;
-        private IPossessable _localBondingTarget;
+        private IBondable _localBondingTarget;
     
         public BondingMovementState(PlayerMovementStateMachine ctx, PlayerMovementStateMachineFactory factory) : base(ctx, factory)
         {
@@ -18,7 +19,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
     
         public override bool CheckSwitchStates()
         {
-            if (_isInBondTransition && (_localBondingTarget != _ctx.BondableTarget) || !_isInBondTransition)
+            if (_isInBondTransition && (_localBondingTarget != TargetManager.Instance.BondableTarget) || !_isInBondTransition)
             {
                 SwitchStates(_factory.GetState(MovementState.Falling));
                 return true;
@@ -31,7 +32,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
         {
             _isInBondTransition = true;
             _bondTransitionTimer = _ctx.BondTransitionDuration;
-            _localBondingTarget = _ctx.BondableTarget;
+            _localBondingTarget = TargetManager.Instance.BondableTarget;
 
             _ctx.Rb.velocity = Vector2.zero;
             _ctx.Rb.gravityScale = 0.0f;
@@ -62,7 +63,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
                 {
                     _bondTransitionTimer -= Time.deltaTime;
 
-                    Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, _ctx.BondableTarget.Transform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
+                    Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, TargetManager.Instance.BondableTarget.BondTargetTransform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
                     _ctx.transform.position = newPosition;
 
                     if (_bondTransitionTimer <= 0.0f)
