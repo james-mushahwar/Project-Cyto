@@ -271,12 +271,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public Collider2D ClosestCollider { get => _closestCollider; }
     #endregion
 
-    #region VFX
-    [Header("VFX")]
-    [SerializeField]
-    private ParticleSystem _possessHighlightPS;
-    #endregion
-
     protected override void Awake()
     {
         base.Awake();
@@ -378,34 +372,34 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         MovementState stateType = _states.GetMovementStateEnum(CurrentState);
 
-        if (stateType != MovementState.Bonding)
-        {
-            IPossessable newTarget = FindBestPossessable();
-            if (newTarget != _bondableTarget)
-            {
-                _bondableTarget = newTarget;
+        //if (stateType != MovementState.Bonding)
+        //{
+        //    IPossessable newTarget = FindBestBondable();
+        //    if (newTarget != _bondableTarget)
+        //    {
+        //        _bondableTarget = newTarget;
 
-                if (_bondableTarget != null)
-                {
-                    _possessHighlightPS.gameObject.SetActive(true);
-                    _possessHighlightPS.Stop();
-                    _possessHighlightPS.transform.parent = _bondableTarget.Transform;
-                    _possessHighlightPS.transform.localPosition = Vector3.zero;
-                    _possessHighlightPS.Play();
-                }
-            }
-        }
+        //        if (_bondableTarget != null)
+        //        {
+        //            _possessHighlightPS.gameObject.SetActive(true);
+        //            _possessHighlightPS.Stop();
+        //            _possessHighlightPS.transform.parent = _bondableTarget.Transform;
+        //            _possessHighlightPS.transform.localPosition = Vector3.zero;
+        //            _possessHighlightPS.Play();
+        //        }
+        //    }
+        //}
 
-        if (_bondableTarget == null)
-        {
-            if (_possessHighlightPS.isPlaying)
-            {
-                _possessHighlightPS.Stop();
-                _possessHighlightPS.transform.parent = gameObject.transform;
-                _possessHighlightPS.transform.localPosition = Vector3.zero;
-                _possessHighlightPS.gameObject.SetActive(false);
-            }
-        }
+        //if (_bondableTarget == null)
+        //{
+        //    if (_possessHighlightPS.isPlaying)
+        //    {
+        //        _possessHighlightPS.Stop();
+        //        _possessHighlightPS.transform.parent = gameObject.transform;
+        //        _possessHighlightPS.transform.localPosition = Vector3.zero;
+        //        _possessHighlightPS.gameObject.SetActive(false);
+        //    }
+        //}
 
 
         _isGrounded = IsGroundedCheck();
@@ -476,58 +470,58 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         return false;
     }
 
-    IPossessable FindBestPossessable()
-    {
-        int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _bondingOverlapRange, _bondingContactFilter, _aiColliders);
+    //IPossessable FindBestBondable()
+    //{
+    //    int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _bondingOverlapRange, _bondingContactFilter, _aiColliders);
 
-        if (aiOverlapCount > 0)
-        {
-            float bestScore = -1.0f;
-            IPossessable bestPossessable = null;
-            IPossessable currentPossessable = null;
+    //    if (aiOverlapCount > 0)
+    //    {
+    //        float bestScore = -1.0f;
+    //        IPossessable bestPossessable = null;
+    //        IPossessable currentPossessable = null;
 
-            Collider2D col = null;
+    //        Collider2D col = null;
 
-            for (int i = 0; i < aiOverlapCount; i++)
-            {       
-                col = _aiColliders[i];
-                if (col == null)
-                {
-                    continue;
-                }
-                currentPossessable = col.gameObject.GetComponent<IPossessable>();
+    //        for (int i = 0; i < aiOverlapCount; i++)
+    //        {       
+    //            col = _aiColliders[i];
+    //            if (col == null)
+    //            {
+    //                continue;
+    //            }
+    //            currentPossessable = col.gameObject.GetComponent<IPossessable>();
 
-                if (currentPossessable != null)
-                {
-                    if (currentPossessable.CanBePossessed() == false)
-                    {   
-                        continue;
-                    }
+    //            if (currentPossessable != null)
+    //            {
+    //                if (currentPossessable.CanBePossessed() == false)
+    //                {   
+    //                    continue;
+    //                }
 
-                    if (bestPossessable == null)
-                    {
-                        bestPossessable = currentPossessable;
-                        continue;
-                    }
+    //                if (bestPossessable == null)
+    //                {
+    //                    bestPossessable = currentPossessable;
+    //                    continue;
+    //                }
 
-                    // calculate then compare scores
-                    float currentScore = TargetManager.Instance.GetPossessableTargetScore(PlayerEntity.Instance, currentPossessable);
-                    // dot poduct aim direction
-                    if (currentScore > bestScore)
-                    {
-                        bestScore = currentScore;
-                        bestPossessable = currentPossessable;
-                    }
-                }
-            }
+    //                // calculate then compare scores
+    //                //float currentScore = TargetManager.Instance.GetBondableTargetScore(PlayerEntity.Instance, currentPossessable);
+    //                // dot poduct aim direction
+    //                if (currentScore > bestScore)
+    //                {
+    //                    bestScore = currentScore;
+    //                    bestPossessable = currentPossessable;
+    //                }
+    //            }
+    //        }
 
-            return bestPossessable;
-        }
-        else
-        {
-            return null;
-        }
-    }
+    //        return bestPossessable;
+    //    }
+    //    else
+    //    {
+    //        return null;
+    //    }
+    //}
 
     void ClosestColliderToDirectionCheck()
     {

@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.AI.Bonding;
+using _Scripts._Game.General;
 using Pathfinding;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground
             CurrentState = _states.GetState(AIMovementState.Idle);
             CurrentBondedState = _states.GetState(AIBondedMovementState.Grounded);
 
-            BondInputsDict.Add(BondInput.Movement, OnMovementInput);
+            BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
         }
 
         protected override void Start()

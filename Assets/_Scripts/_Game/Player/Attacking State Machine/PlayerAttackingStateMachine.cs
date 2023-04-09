@@ -158,7 +158,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
                         }
 
                         // calculate then compare scores
-                        float currentScore = TargetManager.Instance.GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
+                        //float currentScore = TargetManager.Instance.GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
                         // dot poduct aim direction
                         if (currentScore > bestScore)
                         {

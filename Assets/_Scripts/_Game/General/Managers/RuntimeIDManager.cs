@@ -89,8 +89,3 @@ namespace _Scripts._Game.General.Managers{
         #endregion
     }
 }
-
-public interface IRuntimeId
-{
-    public RuntimeID RuntimeID { get; }
-}

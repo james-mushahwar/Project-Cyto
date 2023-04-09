@@ -113,17 +113,6 @@ namespace _Scripts._Game.General.Managers{
         }
     }
 
-    public interface ITickMaster
-    {
-        bool IsUsingTickMaster();
-        Int16 GetTickID();
-    }
-
-    public interface ITickGroup
-    {
-        public UniqueTickGroup UniqueTickGroup { get; }
-    }
-
     public class UniqueTickGroup
     {
         private Int16 _id;

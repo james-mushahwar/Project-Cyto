@@ -14,7 +14,7 @@ using UnityEngine.Events;
 
 namespace _Scripts._Game.AI{
 
-    public class AIEntity : MonoBehaviour, IPossessable, IDamageable, ITickGroup
+    public class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup
     {
         [Header("Entity")]
         [SerializeField]
@@ -75,11 +75,20 @@ namespace _Scripts._Game.AI{
         public Transform Transform { get => transform; }
 
         public bool FacingRight { get => !_spriteAnimator.Renderer.flipX; }
-  
+
+        // IBondable
+        public EBondBehaviourType BondBehaviourType => EBondBehaviourType.Possess;
+        public Transform BondTargetTransform => Transform;
+
         protected void Awake()
         {
             _enemyHealthStats         = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.EnemyHealth);
             _enemyBondableHealthStats = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.BondableHealth);
+        }
+
+        public bool CanBeBonded()
+        {
+            throw new NotImplementedException();
         }
 
         // IPossessable
@@ -227,6 +236,7 @@ namespace _Scripts._Game.AI{
         {
             return _enemyHealthStats.IsAlive();
         }
+
     }
     
 }

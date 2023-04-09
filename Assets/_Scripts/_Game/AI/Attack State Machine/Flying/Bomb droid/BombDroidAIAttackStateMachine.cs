@@ -2,6 +2,7 @@
 using _Scripts._Game.AI.MovementStateMachine;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General;
 using UnityEngine;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
@@ -58,8 +59,8 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
             CurrentState = _states.GetState(AIAttackState.Idle);
             CurrentBondedState = _states.GetBondedState(AIAttackState.Idle);
 
-            BondInputsDict.Add(BondInput.Movement, OnMovementInput);
-            BondInputsDict.Add(BondInput.WButton, OnWestButtonInput);
+            BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
+            BondInputsDict.Add(PossessInput.WButton, OnWestButtonInput);
         }
 
         protected void FixedUpdate()

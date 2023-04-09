@@ -11,7 +11,7 @@ using _Scripts._Game.General;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
-    public class AIMovementStateMachineBase : MonoBehaviour, ISaveable, IBondable
+    public class AIMovementStateMachineBase : MonoBehaviour, ISaveable, IPossessControllable
     {
         #region State Machine
         //Movement
@@ -102,8 +102,8 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public bool IsLeftTriggerInputValid { get => _isLeftTriggerInputValid;  }
         public bool IsRightTriggerInputValid { get => _isRightTriggerInputValid;  }
 
-        private Dictionary<BondInput, Action<InputAction.CallbackContext>> _bondInputsDict = new Dictionary<BondInput, Action<InputAction.CallbackContext>> ();
-        public Dictionary<BondInput, Action<InputAction.CallbackContext>> BondInputsDict { get => _bondInputsDict; }
+        private Dictionary<PossessInput, Action<InputAction.CallbackContext>> _bondInputsDict = new Dictionary<PossessInput, Action<InputAction.CallbackContext>> ();
+        public Dictionary<PossessInput, Action<InputAction.CallbackContext>> BondInputsDict { get => _bondInputsDict; }
         #endregion
 
         #region AI Entity
@@ -123,7 +123,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _states = new AIMovementStateMachineFactory(this);
 
             //Inputs for all AI
-            BondInputsDict.Add(BondInput.NButton, OnNorthButtonInput);
+            BondInputsDict.Add(PossessInput.NButton, OnNorthButtonInput);
         }
 
         // Start is called before the first frame update
@@ -181,7 +181,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             SaveData saveData = (SaveData)state;
         }
 
-        // IBondable
+        // IPossessControllable
         public void OnMovementInput(InputAction.CallbackContext context)
         {
             _currentMovementInput = context.ReadValue<Vector2>();
@@ -266,9 +266,9 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             int bondedInputsCount = BondInputsDict.Count;
             int foundBondedInputs = 0;
 
-            for (int i = 0; i < (int)BondInput.COUNT - 1 && foundBondedInputs < bondedInputsCount; i++)
+            for (int i = 0; i < (int)PossessInput.COUNT - 1 && foundBondedInputs < bondedInputsCount; i++)
             {
-                BondInput bondInput = (BondInput)i;
+                PossessInput bondInput = (PossessInput)i;
 
                 BondInputsDict.TryGetValue(bondInput, out Action<InputAction.CallbackContext> bondedAction);
 
@@ -277,47 +277,47 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                     foundBondedInputs++;
                     switch (bondInput)
                     {
-                        case BondInput.Movement:
+                        case PossessInput.Movement:
                             playerInput.BondedPlayer.Movement.started += bondedAction;
                             playerInput.BondedPlayer.Movement.canceled += bondedAction;
                             playerInput.BondedPlayer.Movement.performed += bondedAction;
                             break;
 
-                        case BondInput.Direction:
+                        case PossessInput.Direction:
                             playerInput.BondedPlayer.Direction.started += bondedAction;
                             playerInput.BondedPlayer.Direction.canceled += bondedAction;
                             playerInput.BondedPlayer.Direction.performed += bondedAction;
                             break;
-                        case BondInput.NButton:
+                        case PossessInput.NButton:
                             playerInput.BondedPlayer.NorthButton.started += bondedAction;
                             playerInput.BondedPlayer.NorthButton.canceled += bondedAction;
                             break;
-                        case BondInput.SButton:
+                        case PossessInput.SButton:
                             playerInput.BondedPlayer.SouthButton.started += bondedAction;
                             playerInput.BondedPlayer.SouthButton.canceled += bondedAction;
                             break;
-                        case BondInput.EButton:
+                        case PossessInput.EButton:
                             playerInput.BondedPlayer.EastButton.started += bondedAction;
                             playerInput.BondedPlayer.EastButton.canceled += bondedAction;
                             break;
-                        case BondInput.WButton:
+                        case PossessInput.WButton:
                             playerInput.BondedPlayer.WestButton.started += bondedAction;
                             playerInput.BondedPlayer.WestButton.canceled += bondedAction;
                             break;
-                        case BondInput.LBumper:
+                        case PossessInput.LBumper:
                             playerInput.BondedPlayer.LeftBumper.started += bondedAction;
                             playerInput.BondedPlayer.LeftBumper.canceled += bondedAction;
                             break;
-                        case BondInput.RBumper:
+                        case PossessInput.RBumper:
                             playerInput.BondedPlayer.RightBumper.started += bondedAction;
                             playerInput.BondedPlayer.RightBumper.canceled += bondedAction;
                             break;
-                        case BondInput.LTrigger:
+                        case PossessInput.LTrigger:
                             playerInput.BondedPlayer.LeftTrigger.started += bondedAction;
                             playerInput.BondedPlayer.LeftTrigger.canceled += bondedAction;
                             playerInput.BondedPlayer.LeftTrigger.performed += bondedAction;
                             break;
-                        case BondInput.RTrigger:
+                        case PossessInput.RTrigger:
                             playerInput.BondedPlayer.RightTrigger.started += bondedAction;
                             playerInput.BondedPlayer.RightTrigger.canceled += bondedAction;
                             playerInput.BondedPlayer.RightTrigger.performed += bondedAction;
@@ -339,9 +339,9 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             int bondedInputsCount = BondInputsDict.Count;
             int foundBondedInputs = 0;
 
-            for (int i = 0; i < (int)BondInput.COUNT - 1 && foundBondedInputs < bondedInputsCount; i++)
+            for (int i = 0; i < (int)PossessInput.COUNT - 1 && foundBondedInputs < bondedInputsCount; i++)
             {
-                BondInput bondInput = (BondInput)i;
+                PossessInput bondInput = (PossessInput)i;
 
                 BondInputsDict.TryGetValue(bondInput, out Action<InputAction.CallbackContext> bondedAction);
 
@@ -350,45 +350,45 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                     foundBondedInputs++;
                     switch (bondInput)
                     {
-                        case BondInput.Movement:
+                        case PossessInput.Movement:
                             playerInput.BondedPlayer.Movement.started -= bondedAction;
                             playerInput.BondedPlayer.Movement.canceled -= bondedAction;
                             break;
 
-                        case BondInput.Direction:
+                        case PossessInput.Direction:
                             playerInput.BondedPlayer.Direction.started -= bondedAction;
                             playerInput.BondedPlayer.Direction.canceled -= bondedAction;
                             break;
-                        case BondInput.NButton:
+                        case PossessInput.NButton:
                             playerInput.BondedPlayer.NorthButton.started -= bondedAction;
                             playerInput.BondedPlayer.NorthButton.canceled -= bondedAction;
                             break;
-                        case BondInput.SButton:
+                        case PossessInput.SButton:
                             playerInput.BondedPlayer.SouthButton.started -= bondedAction;
                             playerInput.BondedPlayer.SouthButton.canceled -= bondedAction;
                             break;
-                        case BondInput.EButton:
+                        case PossessInput.EButton:
                             playerInput.BondedPlayer.EastButton.started -= bondedAction;
                             playerInput.BondedPlayer.EastButton.canceled -= bondedAction;
                             break;
-                        case BondInput.WButton:
+                        case PossessInput.WButton:
                             playerInput.BondedPlayer.WestButton.started -= bondedAction;
                             playerInput.BondedPlayer.WestButton.canceled -= bondedAction;
                             break;
-                        case BondInput.LBumper:
+                        case PossessInput.LBumper:
                             playerInput.BondedPlayer.LeftBumper.started -= bondedAction;
                             playerInput.BondedPlayer.LeftBumper.canceled -= bondedAction;
                             break;
-                        case BondInput.RBumper:
+                        case PossessInput.RBumper:
                             playerInput.BondedPlayer.RightBumper.started -= bondedAction;
                             playerInput.BondedPlayer.RightBumper.canceled -= bondedAction;
                             break;
-                        case BondInput.LTrigger:
+                        case PossessInput.LTrigger:
                             playerInput.BondedPlayer.LeftTrigger.started -= bondedAction;
                             playerInput.BondedPlayer.LeftTrigger.canceled -= bondedAction;
                             playerInput.BondedPlayer.LeftTrigger.performed -= bondedAction;
                             break;
-                        case BondInput.RTrigger:
+                        case PossessInput.RTrigger:
                             playerInput.BondedPlayer.RightTrigger.started -= bondedAction;
                             playerInput.BondedPlayer.RightTrigger.canceled -= bondedAction;
                             playerInput.BondedPlayer.RightTrigger.performed -= bondedAction;

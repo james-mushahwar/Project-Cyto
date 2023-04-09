@@ -18,7 +18,7 @@ public class #SCRIPTNAME# : AIAttackStateMachineBase
 
         CurrentState = _states.GetState(AIAttackState.Idle);
 
-        BondInputsDict.Add(BondInput.Movement, OnMovementInput);
+        BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
     }
 
     protected void FixedUpdate()

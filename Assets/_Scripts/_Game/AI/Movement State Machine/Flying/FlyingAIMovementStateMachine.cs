@@ -2,6 +2,7 @@
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General;
 using UnityEngine;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Flying{
@@ -25,7 +26,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
             CurrentState = _states.GetState(AIMovementState.Idle);
             CurrentBondedState = _states.GetState(AIBondedMovementState.Flying);
 
-            BondInputsDict.Add(BondInput.Movement, OnMovementInput);
+            BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
         }
 
         protected override void Start()

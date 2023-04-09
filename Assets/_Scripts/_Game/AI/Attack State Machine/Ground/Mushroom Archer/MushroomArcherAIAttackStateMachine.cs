@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using _Scripts._Game.AI.Bonding;
 using _Scripts._Game.AI.AttackStateMachine;
+using _Scripts._Game.General;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Ground.MushroomArcher{
     
@@ -20,7 +21,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Ground.MushroomArcher{
     
             CurrentState = _states.GetState(AIAttackState.Idle);
     
-            BondInputsDict.Add(BondInput.Movement, OnMovementInput);
+            BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
         }
     
         protected void FixedUpdate()

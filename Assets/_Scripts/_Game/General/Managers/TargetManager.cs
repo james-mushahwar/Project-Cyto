@@ -68,6 +68,40 @@ namespace _Scripts._Game.General.Managers{
         private Dictionary<ETargetType, ITarget> _targetsDict = new Dictionary<ETargetType, ITarget>();
         private int _targetsIndex = 0;
 
+        [Header("Damageable Range properties")]
+        [SerializeField]
+        private float _damageableOverlapRange;
+        [SerializeField]
+        private ContactFilter2D _damageableContactFilter;
+
+        private Collider2D[] _damageColliders = new Collider2D[20];
+        private IDamageable _damageableTarget;
+
+        public IDamageable DamageableTarget { get => _damageableTarget; }
+
+        [Header("Bonding properties")]
+        [SerializeField]
+        private float _bondingOverlapRange;
+        [SerializeField]
+        private ContactFilter2D _bondingContactFilter;
+        [SerializeField]
+        private float _bondTransitionDuration;
+        [SerializeField]
+        private float _bondingExitForce;
+
+        private Collider2D[] _bondingColliders = new Collider2D[20];
+        private IBondable _bondableTarget;
+
+        public float BondingExitForce { get => _bondingExitForce; }
+        public IBondable BondableTarget { get => _bondableTarget; }
+        public float BondTransitionDuration { get => _bondTransitionDuration; }
+
+        #region VFX
+        [Header("VFX")]
+        [SerializeField]
+        private ParticleSystem _bondHighlightPS;
+        #endregion
+
         private void Start()
         {
             var targets = FindObjectsOfType<MonoBehaviour>().OfType<ITarget>();
@@ -81,6 +115,136 @@ namespace _Scripts._Game.General.Managers{
         private void FixedUpdate()
         {
             ManagedTargetsTick();
+
+            // bondable target
+            FindBestBondable();
+        }
+
+        private void FindBestBondable()
+        {
+            IBondable newBondable = null;
+
+            int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _bondingOverlapRange, _bondingContactFilter, _bondingColliders);
+
+            if (aiOverlapCount > 0)
+            {
+                float bestScore = -1.0f;
+                IBondable currentBondable = null;
+
+                Collider2D col = null;
+
+                for (int i = 0; i < aiOverlapCount; i++)
+                {
+                    col = _bondingColliders[i];
+                    if (col == null)
+                    {
+                        continue;
+                    }
+                    currentBondable = col.gameObject.GetComponent<IBondable>();
+
+                    if (currentBondable != null)
+                    {
+                        if (currentBondable.CanBeBonded() == false)
+                        {
+                            continue;
+                        }
+
+                        if (newBondable == null)
+                        {
+                            newBondable = currentBondable;
+                            continue;
+                        }
+
+                        // calculate then compare scores
+                        float currentScore = GetBondableTargetScore(PlayerEntity.Instance, currentBondable);
+                        // dot poduct aim direction
+                        if (currentScore > bestScore)
+                        {
+                            bestScore = currentScore;
+                            newBondable = currentBondable;
+                        }
+                    }
+                }
+
+            }
+
+            if (newBondable != _bondableTarget)
+            {
+                _bondableTarget = newBondable;
+
+                if (_bondableTarget != null)
+                {
+                    _bondHighlightPS.gameObject.SetActive(true);
+                    _bondHighlightPS.Stop();
+                    _bondHighlightPS.transform.parent = _bondableTarget.BondTargetTransform;
+                    _bondHighlightPS.transform.localPosition = Vector3.zero;
+                    _bondHighlightPS.Play();
+                }
+            }
+
+            if (_bondableTarget == null)
+            {
+                if (_bondHighlightPS.isPlaying)
+                {
+                    _bondHighlightPS.Stop();
+                    _bondHighlightPS.transform.parent = gameObject.transform;
+                    _bondHighlightPS.transform.localPosition = Vector3.zero;
+                    _bondHighlightPS.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        IDamageable FindBestDamageable()
+        {
+            int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _damageableOverlapRange, _damageableContactFilter, _damageColliders);
+
+            if (aiOverlapCount > 0)
+            {
+                float bestScore = -1.0f;
+                IDamageable bestDamageable = null;
+                IDamageable currentDamageable = null;
+
+                Collider2D col = null;
+
+                for (int i = 0; i < aiOverlapCount; i++)
+                {
+                    col = _damageColliders[i];
+                    if (col == null)
+                    {
+                        continue;
+                    }
+                    currentDamageable = col.gameObject.GetComponent<IDamageable>();
+
+                    if (currentDamageable != null)
+                    {
+                        if (currentDamageable.IsAlive() == false)
+                        {
+                            continue;
+                        }
+
+                        if (bestDamageable == null)
+                        {
+                            bestDamageable = currentDamageable;
+                            continue;
+                        }
+
+                        // calculate then compare scores
+                        float currentScore = GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
+                        // dot poduct aim direction
+                        if (currentScore > bestScore)
+                        {
+                            bestScore = currentScore;
+                            bestDamageable = currentDamageable;
+                        }
+                    }
+                }
+
+                return bestDamageable;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private void ManagedTargetsTick()
@@ -100,7 +264,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public float GetPossessableTargetScore(IPossessable pInstigator, IPossessable pTarget)
+        private float GetBondableTargetScore(IPossessable pInstigator, IBondable pTarget)
         {
             TargetingParameters tp = GetTargetingParameters(ETargetType.Possessable);
             Vector2 inputDirection = pInstigator.GetMovementInput().normalized;
@@ -109,9 +273,9 @@ namespace _Scripts._Game.General.Managers{
                 inputDirection = pInstigator.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
             }
             #if UNITY_EDITOR
-            DrawGizmos.ForPointsDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3)(inputDirection * 10.0f));
-            DrawGizmos.ForDirectionDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
-            DrawGizmos.ForDirectionGizmo(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
+            //DrawGizmos.ForPointsDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3)(inputDirection * 10.0f));
+            //DrawGizmos.ForDirectionDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
+            //DrawGizmos.ForDirectionGizmo(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
             
             #endif
 
@@ -119,7 +283,7 @@ namespace _Scripts._Game.General.Managers{
             float distanceScore = 0.0f;
             float angleScore = 0.0f;
 
-            Vector2 targetVector = pTarget.Transform.position - pInstigator.Transform.position;
+            Vector2 targetVector = pTarget.BondTargetTransform.position - pInstigator.Transform.position;
 
             if (!tp.IgnoreDotProductScore)
             {
@@ -155,7 +319,7 @@ namespace _Scripts._Game.General.Managers{
             return finalScore;
         }
 
-        public float GetDamageableTargetScore(IDamageable dInstigator, IDamageable dTarget)
+        private float GetDamageableTargetScore(IDamageable dInstigator, IDamageable dTarget)
         {
             TargetingParameters tp = GetTargetingParameters(ETargetType.Damageable);
             Vector2 inputDirection = dInstigator.GetMovementInput();
@@ -229,10 +393,5 @@ namespace _Scripts._Game.General.Managers{
 
     }
     
-    public interface ITarget
-    {
-        public ETargetType TargetType { get; }
-        public Transform GetTargetTransform();
-        public void ManagedTargetTick();
-    }
+    
 }

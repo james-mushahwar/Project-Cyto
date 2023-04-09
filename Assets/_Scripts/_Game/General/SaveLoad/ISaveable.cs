@@ -4,11 +4,5 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.SaveLoad{
 
-    public interface ISaveable
-    {
-        object SaveState();
-
-        void LoadState(object state);
-
-    }
+    
 }

@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General;
 using UnityEngine;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
@@ -20,7 +21,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
             {
                 if (_ctx.IsWestButtonPressed == true && _ctx.IsWestInputValid == true)
                 {
-                    _ctx.NullifyInput(Bonding.BondInput.WButton);
+                    _ctx.NullifyInput(PossessInput.WButton);
                     SwitchStates(_factory.GetBondedState(AIAttackState.Attack1));
                     return true;
                 }
