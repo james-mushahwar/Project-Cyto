@@ -38,8 +38,11 @@ namespace _Scripts._Game.Player.MovementStateMachine {
             _ctx.Rb.velocity = Vector2.zero;
             _ctx.Rb.gravityScale = 0.0f;
             _ctx.Capsule.isTrigger = true;
+
+            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondStart, PlayerEntity.Instance.transform.position);
+
         }
-    
+
         public override void ExitState()
         {
             _isInBondTransition = false;
@@ -67,7 +70,8 @@ namespace _Scripts._Game.Player.MovementStateMachine {
                     Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, _localBondingTarget.BondTargetTransform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
                     _ctx.transform.position = newPosition;
 
-                    if (_bondTransitionTimer <= 0.0f)
+                    float sqDistance = (_ctx.transform.position - _localBondingTarget.BondTargetTransform.position).sqrMagnitude;
+                    if (_bondTransitionTimer <= 0.0f || sqDistance <= _localBondingTarget.SqDistanceToCompleteBond)
                     {
                         // dispossess and possess
                         _isInBondTransition = false;

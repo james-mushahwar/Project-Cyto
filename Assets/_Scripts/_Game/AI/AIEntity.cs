@@ -80,10 +80,14 @@ namespace _Scripts._Game.AI{
         // IBondable
         public EBondBehaviourType BondBehaviourType => EBondBehaviourType.Possess;
         public Transform BondTargetTransform => Transform;
+        [SerializeField]
+        private float _sqDistanceToCompleteBond = 1.0f;
 
         public IPossessable Possessable => this;
         public IBounceable Bounceable => null;
         public IPhaseable Phaseable => null;
+
+        public float SqDistanceToCompleteBond => _sqDistanceToCompleteBond;
 
         protected void Awake()
         {
@@ -109,6 +113,8 @@ namespace _Scripts._Game.AI{
 
         public void OnPossess()
         {
+            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_PossessStart, PlayerEntity.Instance.transform.position);
+
             // possess control of this AI
             _movementSM.OnBonded();
             _movementSM.CurrentState.ExitState();
@@ -135,6 +141,7 @@ namespace _Scripts._Game.AI{
             _isPossessed = false;
 
             PlayerEntity.Instance.OnPossess();
+            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
 
             if (MovementSM.Waypoints == null)
             {

@@ -85,6 +85,7 @@ namespace _Scripts._Game.General{
     {
         EBondBehaviourType BondBehaviourType { get; }
         Transform BondTargetTransform { get; }
+        float SqDistanceToCompleteBond { get; }
 
         bool CanBeBonded();
 

@@ -183,7 +183,7 @@ Transform:
   m_Children:
   - {fileID: 8527710219251885143}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2639065142676816087
 MonoBehaviour:
@@ -254,6 +254,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _sqDistanceToCompleteBond: 1
 --- !u!114 &6152986643205584587
 MonoBehaviour:
   m_ObjectHideFlags: 0

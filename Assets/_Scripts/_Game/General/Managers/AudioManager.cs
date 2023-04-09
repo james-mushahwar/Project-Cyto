@@ -8,7 +8,32 @@ namespace _Scripts._Game.General.Managers {
 
     public enum EAudioType
     {
-        AC_TorchWoosh,
+        //SFX
+        SFX_Player_BondStart,
+        SFX_Player_BondExit,
+        SFX_Player_PossessStart,
+        SFX_Player_Jump,
+        // 
+        COUNT
+    }
+
+    public enum EAudioTrackTypes
+    {
+        //Music
+        Music_before,
+        Music_clarity,
+        Music_connecting,
+        Music_Rest,
+        Music_Signal,
+        Music_wonders,
+        //Ambience
+        Ambience_Magic,
+        Ambience_DarkMagic,
+        Ambience_HolyMagic,
+        Ambience_Cave,
+        Ambience_Dungeon,
+        Ambience_Spaceship1,
+        Ambience_Spaceship2,
         COUNT
     }
 
@@ -24,7 +49,10 @@ namespace _Scripts._Game.General.Managers {
     {
         private static EAudioType[] _AudioTypes =
         {
-            EAudioType.AC_TorchWoosh,
+            EAudioType.SFX_Player_BondStart,
+            EAudioType.SFX_Player_BondExit,
+            EAudioType.SFX_Player_PossessStart,
+            EAudioType.SFX_Player_Jump,
         };
 
         private Dictionary<EAudioType, string> _AudioTypeLocationsDict = new Dictionary<EAudioType, string>();
@@ -32,14 +60,15 @@ namespace _Scripts._Game.General.Managers {
         private AudioClip[] _AudioClips = new AudioClip[(int) EAudioType.COUNT];
 
         #region AudioTracks
-        public AudioTrack[] _tracks;
+        [SerializeField]
+        private AudioTrack[] _tracks;
 
-        private Dictionary<EAudioType, AudioTrack> _audioTable; // relationship between audio types (key) and audio tracks (value)
+        private Dictionary<EAudioTrackTypes, AudioTrack> _audioTable; // relationship between audio types (key) and audio tracks (value)
 
         [System.Serializable]
         public class AudioObject
         {
-            public EAudioType _type;
+            public EAudioTrackTypes _type;
             public AudioClip _clip;
         }
 
@@ -52,16 +81,16 @@ namespace _Scripts._Game.General.Managers {
         #endregion
 
         #region AudioJobs
-        private Dictionary<EAudioType, IEnumerator> _jobTable; // relationship between audio types (key) and jobs (value) (Coroutine, Ienumerator)
+        private Dictionary<EAudioTrackTypes, IEnumerator> _jobTable; // relationship between audio types (key) and jobs (value) (Coroutine, Ienumerator)
 
         private class AudioJob
         {
             public EAudioAction _action;
-            public EAudioType _type;
+            public EAudioTrackTypes _type;
             public bool _fade;
             public float _delay;
 
-            public AudioJob(EAudioAction action, EAudioType type, bool fade = false, float delay = 0.0f)
+            public AudioJob(EAudioAction action, EAudioTrackTypes type, bool fade = false, float delay = 0.0f)
             {
                 _action = action;
                 _type = type;
@@ -96,8 +125,8 @@ namespace _Scripts._Game.General.Managers {
                 _AudioTypeLocationsDict.Add((EAudioType)i, Enum.GetName(typeof(EAudioType), (EAudioType)i));
             }
 
-            _audioTable = new Dictionary<EAudioType, AudioTrack>();
-            _jobTable = new Dictionary<EAudioType, IEnumerator>();
+            _audioTable = new Dictionary<EAudioTrackTypes, AudioTrack>();
+            _jobTable = new Dictionary<EAudioTrackTypes, IEnumerator>();
             GenerateAudioTable();
         }
 
@@ -122,6 +151,19 @@ namespace _Scripts._Game.General.Managers {
             }
 
             return pooledComp;
+        }
+
+        public void PlayAudio(EAudioTrackTypes type, bool fade = false, float delay = 0.0f)
+        {
+            AddJob(new AudioJob(EAudioAction.START, type, fade, delay));
+        }
+        public void StopAudio(EAudioTrackTypes type, bool fade = false, float delay = 0.0f)
+        {
+            AddJob(new AudioJob(EAudioAction.STOP, type, fade, delay));
+        }
+        public void RestartAudio(EAudioTrackTypes type, bool fade = false, float delay = 0.0f)
+        {
+            AddJob(new AudioJob(EAudioAction.RESTART, type, fade, delay));
         }
 
         private void GenerateAudioTable()
@@ -155,7 +197,7 @@ namespace _Scripts._Game.General.Managers {
             Log("Starting job on [" + job._type + "] with operation: " + job._action);
         }
 
-        private void RemoveConflictingJob(EAudioType type)
+        private void RemoveConflictingJob(EAudioTrackTypes type)
         {
             if (_jobTable.ContainsKey(type))
             {
@@ -163,10 +205,10 @@ namespace _Scripts._Game.General.Managers {
                 RemoveJob(type);
             }
 
-            EAudioType conflictAudio = EAudioType.COUNT;
-            foreach(KeyValuePair<EAudioType, IEnumerator> entry in _jobTable)
+            EAudioTrackTypes conflictAudio = EAudioTrackTypes.COUNT;
+            foreach(KeyValuePair<EAudioTrackTypes, IEnumerator> entry in _jobTable)
             {
-                EAudioType audioType = entry.Key;
+                EAudioTrackTypes audioType = entry.Key;
                 AudioTrack audioTrackInUse = _audioTable[audioType];
                 AudioTrack audioTrackNeeded = _audioTable[type];
 
@@ -177,13 +219,13 @@ namespace _Scripts._Game.General.Managers {
                 }
             }
 
-            if (conflictAudio != EAudioType.COUNT)
+            if (conflictAudio != EAudioTrackTypes.COUNT)
             {
                 RemoveJob(conflictAudio);
             }
         }
 
-        private void RemoveJob(EAudioType type)
+        private void RemoveJob(EAudioTrackTypes type)
         {
             if (!_jobTable.ContainsKey(type))
             {
@@ -245,7 +287,7 @@ namespace _Scripts._Game.General.Managers {
             yield return null;
         }
 
-        private AudioClip GetAudioClipFromAudioTrack(EAudioType type, AudioTrack track)
+        private AudioClip GetAudioClipFromAudioTrack(EAudioTrackTypes type, AudioTrack track)
         {
             foreach(AudioObject audioObj in track._audio)
             {
