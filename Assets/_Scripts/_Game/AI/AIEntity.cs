@@ -81,6 +81,10 @@ namespace _Scripts._Game.AI{
         public EBondBehaviourType BondBehaviourType => EBondBehaviourType.Possess;
         public Transform BondTargetTransform => Transform;
 
+        public IPossessable Possessable => this;
+        public IBounceable Bounceable => null;
+        public IPhaseable Phaseable => null;
+
         protected void Awake()
         {
             _enemyHealthStats         = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.EnemyHealth);

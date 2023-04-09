@@ -19,7 +19,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
     
         public override bool CheckSwitchStates()
         {
-            if (_isInBondTransition && (_localBondingTarget != TargetManager.Instance.BondableTarget) || !_isInBondTransition)
+            if (_isInBondTransition && (_localBondingTarget == null) || !_isInBondTransition)
             {
                 SwitchStates(_factory.GetState(MovementState.Falling));
                 return true;
@@ -33,6 +33,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
             _isInBondTransition = true;
             _bondTransitionTimer = _ctx.BondTransitionDuration;
             _localBondingTarget = TargetManager.Instance.BondableTarget;
+            TargetManager.Instance.LockedBondableTarget = _localBondingTarget;
 
             _ctx.Rb.velocity = Vector2.zero;
             _ctx.Rb.gravityScale = 0.0f;
@@ -59,11 +60,11 @@ namespace _Scripts._Game.Player.MovementStateMachine {
         {
             if (CheckSwitchStates() == false)
             {
-                if (_isInBondTransition)
+                if (_isInBondTransition && _localBondingTarget.CanBeBonded())
                 {
                     _bondTransitionTimer -= Time.deltaTime;
 
-                    Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, TargetManager.Instance.BondableTarget.BondTargetTransform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
+                    Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, _localBondingTarget.BondTargetTransform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
                     _ctx.transform.position = newPosition;
 
                     if (_bondTransitionTimer <= 0.0f)

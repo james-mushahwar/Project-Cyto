@@ -87,6 +87,10 @@ namespace _Scripts._Game.General{
         Transform BondTargetTransform { get; }
 
         bool CanBeBonded();
+
+        IPossessable Possessable { get; }
+        IBounceable Bounceable { get; }
+        IPhaseable Phaseable { get; }
         //BondBehaviour BondBehaviour { get; set; }
     }
     public interface IPossessable

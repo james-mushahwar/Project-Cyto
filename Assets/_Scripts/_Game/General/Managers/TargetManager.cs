@@ -87,8 +87,10 @@ namespace _Scripts._Game.General.Managers{
 
         private Collider2D[] _bondingColliders = new Collider2D[20];
         private IBondable _bondableTarget;
+        private IBondable _lockedBondableTarget;
 
         public IBondable BondableTarget { get => _bondableTarget; }
+        public IBondable LockedBondableTarget { get => _lockedBondableTarget; set => _lockedBondableTarget = value; }
 
         #region VFX
         [Header("VFX")]

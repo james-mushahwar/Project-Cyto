@@ -142,11 +142,10 @@ namespace _Scripts._Game.Player{
 
         public void OnDispossess()
         {
-            if (TargetManager.Instance.BondableTarget != null && TargetManager.Instance.BondableTarget.BondBehaviourType == EBondBehaviourType.Possess)
+            IBondable bondableTarget = TargetManager.Instance.LockedBondableTarget;
+            if (bondableTarget != null && bondableTarget.BondBehaviourType == EBondBehaviourType.Possess)
             {
-
-                GameObject possessableGO = TargetManager.Instance.BondableTarget.BondTargetTransform.gameObject;
-                IPossessable possessable = possessableGO.GetComponent<IPossessable>();
+                IPossessable possessable = bondableTarget.Possessable;
 
                 if (possessable != null)
                 {
@@ -157,18 +156,17 @@ namespace _Scripts._Game.Player{
                     _possessed = possessable;
                     _possessed.OnPossess();
 
-                    gameObject.transform.SetParent(TargetManager.Instance.BondableTarget.BondTargetTransform);
+                    gameObject.transform.SetParent(TargetManager.Instance.LockedBondableTarget.BondTargetTransform);
 
                     _movementSM.Rb.isKinematic = true;
                     _movementSM.enabled = false;
                     _attackingSM.enabled = false;
                     _spriteAnimator.enabled = false;
                 }
-                else
-                {
-                    return;
-                }
+
             }
+
+            TargetManager.Instance.LockedBondableTarget = null;
         }
 
         public Vector2 GetMovementInput()
