@@ -27,6 +27,7 @@ namespace _Scripts._Game.General{
 
     public interface IExposable
     {
+        bool IsExposed();
         void OnExposed();
         void OnUnexposed();
     }

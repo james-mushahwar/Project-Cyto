@@ -7,12 +7,21 @@ namespace _Scripts._Game.General.SceneLoading{
     
     public class AudioTrackSwitcher : MonoBehaviour
     {
+        [Header("Left side audio track")]
         [SerializeField]
-        private EAudioTrackTypes _type;
+        private EAudioTrackTypes _leftType;
         [SerializeField]
-        private float _delay = 0.0f;
+        private float _leftDelay = 0.0f;
         [SerializeField]
-        private bool _fade = false;
+        private bool _leftFade = false;
+
+        [Header("Right side audio track")]
+        [SerializeField]
+        private EAudioTrackTypes _rightType;
+        [SerializeField]
+        private float _rightDelay = 0.0f;
+        [SerializeField]
+        private bool _rightFade = false;
 
         private AudioManager _audioManager;
 
@@ -21,14 +30,29 @@ namespace _Scripts._Game.General.SceneLoading{
             _audioManager = AudioManager.Instance as AudioManager;
         }
 
-        public void PlayAudioTrack()
+        public void PlayAudioTrack(bool left)
         {
-            _audioManager.PlayAudio(_type, _fade, _delay);
+            if (left)
+            {
+                _audioManager.PlayAudio(_leftType, _leftFade, _leftDelay);
+            }
+            else
+            {
+                _audioManager.PlayAudio(_rightType, _rightFade, _rightDelay);
+            }
+            
         }
 
-        public void StopAudioTrack()
+        public void StopAudioTrack(bool left)
         {
-            _audioManager.StopAudio(_type, _fade, _delay);
+            if (left)
+            {
+                _audioManager.StopAudio(_leftType, _leftFade, _leftDelay);
+            }
+            else
+            {
+                _audioManager.StopAudio(_rightType, _rightFade, _rightDelay);
+            }
         }
     }
     

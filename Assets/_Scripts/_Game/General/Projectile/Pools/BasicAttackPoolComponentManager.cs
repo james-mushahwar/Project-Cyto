@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.General.Managers;
 using _Scripts._Game.General.Projectile.AI.BombDroid;
 using _Scripts._Game.General.Projectile.Player;
+using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +47,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
             return component.IsActive() && component.HitTarget == false;
         }
 
-        public void TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition)
+        public void TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex = 0)
         {
             BasicAttackProjectile pooledComp = GetPooledComponent();
 
@@ -58,6 +59,10 @@ namespace _Scripts._Game.General.Projectile.Pools{
                 pooledComp.EndPosition = damageable.Transform.position;
                 pooledComp.transform.position = startPosition;
                 pooledComp.gameObject.SetActive(true);
+
+                pooledComp.ComboIndex = comboIndex;
+                EAudioType audioType = comboIndex < 2 ? (comboIndex < 1 ? EAudioType.SFX_BasicAttack1 : EAudioType.SFX_BasicAttack2) : EAudioType.SFX_BasicAttack3;
+                ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(audioType, transform.position);
             }
             else
             {

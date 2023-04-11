@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3153676625754206546}
   - component: {fileID: 3872236155054911404}
   - component: {fileID: 2101322605243397075}
-  - component: {fileID: 166868487}
   m_Layer: 0
   m_Name: SceneSwitcherCollider2
   m_TagString: Untagged
@@ -104,34 +103,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 166868487}
-        m_TargetAssemblyTypeName: _Scripts._Game.General.SceneLoading.AudioTrackSwitcher,
-          Assembly-CSharp
-        m_MethodName: PlayAudioTrack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &166868487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424122006424452841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d25eb13bebae74a95f20c247bbe7b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 1
-  _delay: 0
-  _fade: 1
 --- !u!1 &3273431067193249683
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +166,6 @@ GameObject:
   - component: {fileID: 7287719635345579335}
   - component: {fileID: 8537820983439819245}
   - component: {fileID: 6850105291850577301}
-  - component: {fileID: 1391159880}
   m_Layer: 0
   m_Name: SceneSwitcherCollider1
   m_TagString: Untagged
@@ -288,31 +258,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1391159880}
-        m_TargetAssemblyTypeName: _Scripts._Game.General.SceneLoading.AudioTrackSwitcher,
-          Assembly-CSharp
-        m_MethodName: PlayAudioTrack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1391159880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5339406247720238092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d25eb13bebae74a95f20c247bbe7b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 0
-  _delay: 0
-  _fade: 1

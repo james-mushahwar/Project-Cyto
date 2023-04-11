@@ -272,6 +272,11 @@ namespace _Scripts._Game.AI{
             return _enemyHealthStats.IsAlive();
         }
 
+        public bool IsExposed()
+        {
+            return !_enemyBondableHealthStats.IsAlive();
+        }
+
         public void OnExposed()
         {
             _onExposedEvent.Invoke();

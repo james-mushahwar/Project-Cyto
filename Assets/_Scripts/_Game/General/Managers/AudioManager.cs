@@ -9,6 +9,20 @@ namespace _Scripts._Game.General.Managers {
     public enum EAudioType
     {
         //SFX
+        SFX_BasicAttack1,
+        SFX_BasicAttack2,
+        SFX_BasicAttack3,
+        SFX_BasicAttack4,
+        SFX_BasicAttackImpact1,
+        SFX_BasicAttackImpact2,
+        SFX_BasicAttackImpact3,
+        SFX_BasicAttackImpact4,
+        SFX_BasicAttackImpact5,
+        SFX_BasicAttackImpactWithLiquid1,
+        SFX_BasicAttackImpactWithLiquid2,
+        SFX_BasicAttackImpactWithLiquid3,
+        SFX_BasicAttackImpactWithLiquid4,
+        SFX_BasicAttackImpactWithLiquid5,
         SFX_Player_BondStart,
         SFX_Player_BondExit,
         SFX_Player_PossessStart,
@@ -49,6 +63,20 @@ namespace _Scripts._Game.General.Managers {
     {
         private static EAudioType[] _AudioTypes =
         {
+            EAudioType.SFX_BasicAttack1,
+            EAudioType.SFX_BasicAttack2,
+            EAudioType.SFX_BasicAttack3,
+            EAudioType.SFX_BasicAttack4,
+            EAudioType.SFX_BasicAttackImpact1,
+            EAudioType.SFX_BasicAttackImpact2,
+            EAudioType.SFX_BasicAttackImpact3,
+            EAudioType.SFX_BasicAttackImpact4,
+            EAudioType.SFX_BasicAttackImpact5,
+            EAudioType.SFX_BasicAttackImpactWithLiquid1,
+            EAudioType.SFX_BasicAttackImpactWithLiquid2,
+            EAudioType.SFX_BasicAttackImpactWithLiquid3,
+            EAudioType.SFX_BasicAttackImpactWithLiquid4,
+            EAudioType.SFX_BasicAttackImpactWithLiquid5,
             EAudioType.SFX_Player_BondStart,
             EAudioType.SFX_Player_BondExit,
             EAudioType.SFX_Player_PossessStart,

@@ -25,6 +25,8 @@ namespace _Scripts._Game.General.SceneLoading{
             // shows right direction of scene switcher collider
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, transform.position + (5.0f * transform.right));
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, transform.position + (-5.0f * transform.right));
 
             //draw collider bounds as cube
             BoxCollider2D box2D = GetComponent<Collider2D>() as BoxCollider2D;
@@ -35,41 +37,51 @@ namespace _Scripts._Game.General.SceneLoading{
             } 
         }
 
+        private void Awake()
+        {
+            if (_collider == null)
+            {
+                _collider = GetComponent<Collider2D>();
+            }
+        }
+
         public void Init(SceneSwitcher ss, int index)
         {
             _sceneSwitcherRef = ss;
-            _collider = GetComponent<Collider2D>();
+            if (_collider == null)
+            {
+                _collider = GetComponent<Collider2D>();
+            }
             _colliderIndex = index;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             IPossessable possessable = collision.gameObject.GetComponent<IPossessable>();
+            Rigidbody2D rb = null;
             if (possessable != null)
             {
-                Rigidbody2D rb = null;
-                if (possessable is PlayerEntity)
-                {
-                    PlayerEntity playerEntity = (PlayerEntity)possessable;
-                    rb = playerEntity.MovementSM.Rb;
-                }
-                else if (possessable is AIEntity)
+                if (possessable is AIEntity)
                 {
                     AIEntity aiEntity = (AIEntity)possessable;
                     rb = aiEntity.MovementSM.Rb;
                 }
+            }
+            else
+            {
+                rb = PlayerEntity.Instance.MovementSM.Rb;
+            }
 
-                if (rb != null)
+            if (rb != null)
+            {
+                float dotProduct = Vector3.Dot(rb.velocity.normalized, _collider.transform.right);
+                if (dotProduct > 0)
                 {
-                    float dotProduct = Vector3.Dot(rb.velocity.normalized, _collider.transform.right);
-                    if (dotProduct > 0)
-                    {
-                        _collisionEnterEvent.Invoke(_colliderIndex);
-                    }
-                    else
-                    {
-                        _collisionExitEvent.Invoke(_colliderIndex);
-                    }
+                    _collisionEnterEvent.Invoke(_colliderIndex);
+                }
+                else
+                {
+                    _collisionExitEvent.Invoke(_colliderIndex);
                 }
             }
         }
