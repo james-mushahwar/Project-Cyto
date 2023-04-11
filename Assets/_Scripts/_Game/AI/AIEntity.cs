@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 
 namespace _Scripts._Game.AI{
 
-    public class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup
+    public class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup, IExposable
     {
         [Header("Entity")]
         [SerializeField]
@@ -38,6 +38,7 @@ namespace _Scripts._Game.AI{
         [Header("Possess")]
         [SerializeField]
         private UnityEvent _onPossessedEvent;
+
         public SpawnPoint SpawnPoint
         {
             get
@@ -73,12 +74,23 @@ namespace _Scripts._Game.AI{
         #endregion
 
         //IDamageable
+        public IExposable Exposable
+        {
+            get => this;
+        }
         private Vector2 _damageDirection = Vector2.zero;
 
         public Vector2 DamageDirection { get => _damageDirection; set => _damageDirection = value; }
         public Transform Transform { get => transform; }
 
         public bool FacingRight { get => !_spriteAnimator.Renderer.flipX; }
+
+        //Exposable
+        [Header("Exposable")]
+        [SerializeField]
+        private UnityEvent _onExposedEvent;
+        [SerializeField]
+        private UnityEvent _onUnexposedEvent;
 
         // IBondable
         public EBondBehaviourType BondBehaviourType => EBondBehaviourType.Possess;
@@ -211,7 +223,11 @@ namespace _Scripts._Game.AI{
                 }
 
                 bool brokenShield = resultHealth <= 0.0f;
-                
+
+                if (brokenShield)
+                {
+                    OnExposed();
+                }
                 //broken shield
                 FeedbackManager.Instance.TryFeedbackPattern(brokenShield ? EFeedbackPattern.Game_BasicAttackHeavy : EFeedbackPattern.Game_BasicAttackLight);
                 
@@ -256,6 +272,15 @@ namespace _Scripts._Game.AI{
             return _enemyHealthStats.IsAlive();
         }
 
+        public void OnExposed()
+        {
+            _onExposedEvent.Invoke();
+        }
+
+        public void OnUnexposed()
+        {
+            _onUnexposedEvent.Invoke();
+        }
     }
     
 }

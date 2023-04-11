@@ -40,12 +40,20 @@ namespace _Scripts._Game.Animation{
         private float _damageFlashTimer;
         #endregion
 
-        [Header("Outline shader")]
+        [Header("Outline shader")] 
+
+        private float _currentXThickness;
+        private float _currentYThickness;
         private IEnumerator _outlineShaderEnumerator;
+
         [SerializeField]
-        private float _defaultXThickness = 0.5f;
+        private float _defaultXThickness = 0.0f;
         [SerializeField]
-        private float _defaultYThickness = 0.5f;
+        private float _defaultYThickness = 0.0f;
+        [SerializeField]
+        private float _exposedXThickness = 0.5f;
+        [SerializeField]
+        private float _exposedYThickness = 0.5f;
         [SerializeField]
         private float _onPossessOutlineDuration = 0.25f;
         [SerializeField]
@@ -79,10 +87,8 @@ namespace _Scripts._Game.Animation{
             StopAllCoroutines();
 
             //reset outline shader
-
+            OnUnexposed();
             _outlineShaderEnumerator = null;
-            _material.SetFloat("_ThicknessX", _defaultXThickness);
-            _material.SetFloat("_ThicknessY", _defaultYThickness);
 
             // reset damage flash
             _isDamageFlashing = false;
@@ -151,8 +157,26 @@ namespace _Scripts._Game.Animation{
 
             yield return TaskManager.Instance.WaitForSecondsPool.Get(_onPossessOutlineDuration);
 
-            _material.SetFloat("_ThicknessX", _defaultXThickness);
-            _material.SetFloat("_ThicknessY", _defaultYThickness);
+            _material.SetFloat("_ThicknessX", _currentXThickness);
+            _material.SetFloat("_ThicknessY", _currentYThickness);
+        }
+
+        public void OnExposed()
+        {
+            _currentXThickness = _exposedXThickness;
+            _currentYThickness = _exposedYThickness;
+
+            _material.SetFloat("_ThicknessX", _currentXThickness);
+            _material.SetFloat("_ThicknessY", _currentYThickness);
+        }
+
+        public void OnUnexposed()
+        {
+            _currentXThickness = _defaultXThickness;
+            _currentYThickness = _defaultYThickness;
+
+            _material.SetFloat("_ThicknessX", _currentXThickness);
+            _material.SetFloat("_ThicknessY", _currentYThickness);
         }
     }
     

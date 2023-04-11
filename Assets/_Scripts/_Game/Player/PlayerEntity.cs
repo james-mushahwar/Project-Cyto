@@ -72,6 +72,11 @@ namespace _Scripts._Game.Player{
             
         }
 
+        public IExposable Exposable
+        {
+            get => null;
+        }
+
         protected override void Awake()
         {
             base.Awake();

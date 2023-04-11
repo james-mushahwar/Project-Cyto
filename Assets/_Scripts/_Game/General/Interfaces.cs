@@ -14,6 +14,7 @@ namespace _Scripts._Game.General{
     #region Combat
     public interface IDamageable
     {
+        IExposable Exposable { get; }
         bool IsAlive();
         void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
         Vector2 DamageDirection { get; set; }
@@ -26,7 +27,8 @@ namespace _Scripts._Game.General{
 
     public interface IExposable
     {
-
+        void OnExposed();
+        void OnUnexposed();
     }
     #endregion
 

@@ -69,8 +69,8 @@ Material:
     - _EnableExternalAlpha: 0
     - _Hit: 0
     - _Thickness: 0.05
-    - _ThicknessX: 0.5
-    - _ThicknessY: 0.5
+    - _ThicknessX: 0
+    - _ThicknessY: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Colour: {r: 1, g: 0.92941177, b: 0.9529412, a: 1}

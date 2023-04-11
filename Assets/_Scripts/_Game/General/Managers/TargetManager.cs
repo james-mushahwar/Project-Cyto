@@ -262,7 +262,7 @@ namespace _Scripts._Game.General.Managers{
                 }
             }
 
-            if (_damageableTarget == null)
+            if (_damageableTarget == null || !PlayerEntity.Instance.IsPossessed())
             {
                 if (_targetHighlightPS.isPlaying)
                 {
