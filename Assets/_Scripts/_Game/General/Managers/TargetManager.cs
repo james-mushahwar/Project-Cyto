@@ -291,7 +291,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        private float GetBondableTargetScore(IPossessable pInstigator, IBondable pTarget)
+        private float GetBondableTargetScore(PlayerEntity pInstigator, IBondable pTarget)
         {
             TargetingParameters tp = GetTargetingParameters(ETargetType.Possessable);
             Vector2 inputDirection = pInstigator.GetMovementInput().normalized;

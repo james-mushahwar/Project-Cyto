@@ -5,6 +5,7 @@ using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
 using System.Collections.Generic;
+using _Scripts._Game.AI.MovementStateMachine;
 
 #if UNITY_EDITOR
 using _Scripts.Editortools.Draw;
@@ -314,35 +315,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnDisable()
     {
-        #region Comment - Disable Player Input callbacks
-        //PlayerInput playerInput = InputManager.Instance.PlayerInput;
-
-        //// set up player input callbacks
-        //playerInput.Player.Movement.started -= OnMovementInput;
-        //playerInput.Player.Movement.canceled -= OnMovementInput;
-        //playerInput.Player.Movement.performed -= OnMovementInput;
-
-        //playerInput.Player.Direction.started -= OnDirectionInput;
-        //playerInput.Player.Direction.canceled -= OnDirectionInput;
-        //playerInput.Player.Direction.performed -= OnDirectionInput;
-
-        //playerInput.Player.Jump.started -= OnJumpInput;
-        //playerInput.Player.Jump.canceled -= OnJumpInput;
-
-        //playerInput.Player.Dash.started -= OnDashInput;
-        //playerInput.Player.Dash.canceled -= OnDashInput;
-
-        //playerInput.Player.Float.started -= OnFloatInput;
-        //playerInput.Player.Float.canceled -= OnFloatInput;
-        //playerInput.Player.Float.performed -= OnFloatInput;
-
-        //playerInput.Player.Bounce.started -= OnBounceInput;
-        //playerInput.Player.Bounce.canceled -= OnBounceInput;
-        //playerInput.Player.Bounce.performed -= OnBounceInput;
-
-        //playerInput.Player.Bond.started -= OnBondInput;
-        //playerInput.Player.Bond.canceled -= OnBondInput;
-        #endregion
+        
     }
 
     // Start is called before the first frame update
@@ -369,36 +342,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     void FixedUpdate()
     {
         MovementState stateType = _states.GetMovementStateEnum(CurrentState);
-
-        //if (stateType != MovementState.Bonding)
-        //{
-        //    IPossessable newTarget = FindBestBondable();
-        //    if (newTarget != _bondableTarget)
-        //    {
-        //        _bondableTarget = newTarget;
-
-        //        if (_bondableTarget != null)
-        //        {
-        //            _possessHighlightPS.gameObject.SetActive(true);
-        //            _possessHighlightPS.Stop();
-        //            _possessHighlightPS.transform.parent = _bondableTarget.Transform;
-        //            _possessHighlightPS.transform.localPosition = Vector3.zero;
-        //            _possessHighlightPS.Play();
-        //        }
-        //    }
-        //}
-
-        //if (_bondableTarget == null)
-        //{
-        //    if (_possessHighlightPS.isPlaying)
-        //    {
-        //        _possessHighlightPS.Stop();
-        //        _possessHighlightPS.transform.parent = gameObject.transform;
-        //        _possessHighlightPS.transform.localPosition = Vector3.zero;
-        //        _possessHighlightPS.gameObject.SetActive(false);
-        //    }
-        //}
-
 
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
@@ -468,59 +411,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         return false;
     }
 
-    //IPossessable FindBestBondable()
-    //{
-    //    int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _bondingOverlapRange, _bondingContactFilter, _aiColliders);
-
-    //    if (aiOverlapCount > 0)
-    //    {
-    //        float bestScore = -1.0f;
-    //        IPossessable bestPossessable = null;
-    //        IPossessable currentPossessable = null;
-
-    //        Collider2D col = null;
-
-    //        for (int i = 0; i < aiOverlapCount; i++)
-    //        {       
-    //            col = _aiColliders[i];
-    //            if (col == null)
-    //            {
-    //                continue;
-    //            }
-    //            currentPossessable = col.gameObject.GetComponent<IPossessable>();
-
-    //            if (currentPossessable != null)
-    //            {
-    //                if (currentPossessable.CanBePossessed() == false)
-    //                {   
-    //                    continue;
-    //                }
-
-    //                if (bestPossessable == null)
-    //                {
-    //                    bestPossessable = currentPossessable;
-    //                    continue;
-    //                }
-
-    //                // calculate then compare scores
-    //                //float currentScore = TargetManager.Instance.GetBondableTargetScore(PlayerEntity.Instance, currentPossessable);
-    //                // dot poduct aim direction
-    //                if (currentScore > bestScore)
-    //                {
-    //                    bestScore = currentScore;
-    //                    bestPossessable = currentPossessable;
-    //                }
-    //            }
-    //        }
-
-    //        return bestPossessable;
-    //    }
-    //    else
-    //    {
-    //        return null;
-    //    }
-    //}
-
     void ClosestColliderToDirectionCheck()
     {
         // directional check
@@ -571,6 +461,13 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
             default:
                 break;
         }
+    }
+
+    public void OverrideState(MovementState state)
+    {
+        CurrentState.ExitState();
+        CurrentState = _states.GetState(state);
+        CurrentState.EnterState();
     }
 
     [System.Serializable]

@@ -24,7 +24,7 @@ namespace _Scripts._Game.Player{
         public float _respawnTimer;
     }
 
-    public class PlayerEntity : Singleton<PlayerEntity>, IPossessable, IDamageable
+    public class PlayerEntity : Singleton<PlayerEntity>, IDamageable
     {
         #region Properties
         private bool _isPossessed;
@@ -76,7 +76,7 @@ namespace _Scripts._Game.Player{
 
         void Start()
         {
-            OnPossess();
+            OnPossess(false);
         }
 
         private void FixedUpdate() 
@@ -126,7 +126,7 @@ namespace _Scripts._Game.Player{
             return !_isPossessed && _playerHealthStats.IsAlive();
         }
 
-        public void OnPossess()
+        public void OnPossess(bool bondPressed)
         {
             InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
             _isPossessed = true;
@@ -138,6 +138,11 @@ namespace _Scripts._Game.Player{
             _movementSM.enabled = true;
             _attackingSM.enabled = true;
             _spriteAnimator.enabled = true;
+
+            if (bondPressed)
+            {
+                _movementSM.OverrideState(MovementState.Bonding);
+            }
         }
 
         public void OnDispossess()

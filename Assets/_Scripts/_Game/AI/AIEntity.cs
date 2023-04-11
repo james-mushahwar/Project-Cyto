@@ -140,7 +140,9 @@ namespace _Scripts._Game.AI{
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
 
-            PlayerEntity.Instance.OnPossess();
+            bool bond = TargetManager.Instance.BondableTarget != null;
+            
+            PlayerEntity.Instance.OnPossess(bond);
             AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
 
             if (MovementSM.Waypoints == null)
