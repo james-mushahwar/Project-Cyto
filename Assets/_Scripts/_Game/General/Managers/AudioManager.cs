@@ -187,6 +187,11 @@ namespace _Scripts._Game.General.Managers {
 
         private void AddJob(AudioJob job)
         {
+            if (!IsNewJobValid(job))
+            {
+                // exit early - don't start job
+                return;
+            }
             // remove conflicting jobs if any
             RemoveConflictingJob(job._type);
 
@@ -195,6 +200,21 @@ namespace _Scripts._Game.General.Managers {
             _jobTable.Add(job._type, _jobRunner);
             StartCoroutine(_jobRunner);
             Log("Starting job on [" + job._type + "] with operation: " + job._action);
+        }
+
+        private bool IsNewJobValid(AudioJob job)
+        {
+            bool isValid = true;
+
+            if (job._action == EAudioAction.START)
+            {
+                if (_jobTable.ContainsKey(job._type))
+                {
+                }
+            }
+            
+
+            return isValid;
         }
 
         private void RemoveConflictingJob(EAudioTrackTypes type)
@@ -248,6 +268,7 @@ namespace _Scripts._Game.General.Managers {
             switch (job._action)
             {
                 case EAudioAction.START:
+
                     track._source.Play();
                     break;
                 case EAudioAction.STOP:
