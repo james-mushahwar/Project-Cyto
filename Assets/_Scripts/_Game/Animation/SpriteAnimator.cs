@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.AI;
+using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,19 @@ namespace _Scripts._Game.Animation{
         private float _damageFlashTimer;
         #endregion
 
+        [Header("Outline shader")]
+        private IEnumerator _outlineShaderEnumerator;
+        [SerializeField]
+        private float _defaultXThickness = 0.5f;
+        [SerializeField]
+        private float _defaultYThickness = 0.5f;
+        [SerializeField]
+        private float _onPossessOutlineDuration = 0.25f;
+        [SerializeField]
+        private float _onPossessXThickness = 0.5f;
+        [SerializeField]
+        private float _onPossessYThickness = 0.5f;
+
         protected virtual void Awake()
         {
             _anim = GetComponent<Animator>();
@@ -62,6 +76,19 @@ namespace _Scripts._Game.Animation{
 
         private void OnDisable()
         {
+            StopAllCoroutines();
+
+            //reset outline shader
+
+            _outlineShaderEnumerator = null;
+            _material.SetFloat("_ThicknessX", _defaultXThickness);
+            _material.SetFloat("_ThicknessY", _defaultYThickness);
+
+            // reset damage flash
+            _isDamageFlashing = false;
+            _damageFlashTimer = 0.0f;
+            _material.SetFloat("_Hit", 0);
+
             _renderer.enabled = false;
         }
 
@@ -107,6 +134,26 @@ namespace _Scripts._Game.Animation{
             _material.SetFloat("_Hit", 1);
         }
 
+        public void OnPossessed()
+        {
+            if (_outlineShaderEnumerator != null)
+            {
+                StopCoroutine(_outlineShaderEnumerator);
+            }
+            _outlineShaderEnumerator = PossessedOutline();
+            StartCoroutine(_outlineShaderEnumerator);
+        }
+
+        private IEnumerator PossessedOutline()
+        {
+            _material.SetFloat("_ThicknessX", _onPossessXThickness);
+            _material.SetFloat("_ThicknessY", _onPossessYThickness);
+
+            yield return TaskManager.Instance.WaitForSecondsPool.Get(_onPossessOutlineDuration);
+
+            _material.SetFloat("_ThicknessX", _defaultXThickness);
+            _material.SetFloat("_ThicknessY", _defaultYThickness);
+        }
     }
     
 }

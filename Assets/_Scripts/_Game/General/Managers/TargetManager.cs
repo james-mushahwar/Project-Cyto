@@ -14,7 +14,7 @@ namespace _Scripts._Game.General.Managers{
     public enum ETargetType
     {
         AbovePlayer,
-        Possessable,
+        Bondable,
         Damageable,
         INVALID,
     }
@@ -126,7 +126,7 @@ namespace _Scripts._Game.General.Managers{
         {
             IBondable newBondable = null;
 
-            int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.localPosition, _bondingOverlapRange, _bondingContactFilter, _bondingColliders);
+            int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.position, _bondingOverlapRange, _bondingContactFilter, _bondingColliders);
 
             if (aiOverlapCount > 0)
             {
@@ -293,8 +293,9 @@ namespace _Scripts._Game.General.Managers{
 
         private float GetBondableTargetScore(PlayerEntity pInstigator, IBondable pTarget)
         {
-            TargetingParameters tp = GetTargetingParameters(ETargetType.Possessable);
+            TargetingParameters tp = GetTargetingParameters(ETargetType.Bondable);
             Vector2 inputDirection = pInstigator.GetMovementInput().normalized;
+            bool noPlayerInput = inputDirection.sqrMagnitude == 0.0f;
             if (inputDirection.sqrMagnitude == 0.0f)
             {
                 inputDirection = pInstigator.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
@@ -312,7 +313,7 @@ namespace _Scripts._Game.General.Managers{
 
             Vector2 targetVector = pTarget.BondTargetTransform.position - pInstigator.Transform.position;
 
-            if (!tp.IgnoreDotProductScore)
+            if (!tp.IgnoreDotProductScore && !noPlayerInput)
             {
                 float dotProductDiff = Vector2.Dot(targetVector.normalized, inputDirection.normalized);
 
@@ -324,7 +325,7 @@ namespace _Scripts._Game.General.Managers{
                 }
                 else
                 {
-                    return -100.0f;
+                    angleScore = 0.0f;
                 }
             }
 
@@ -333,11 +334,11 @@ namespace _Scripts._Game.General.Managers{
                 float distanceToTarget = targetVector.SqrMagnitude();
                 if (distanceToTarget < tp.MaxSqDistance)
                 {
-                    distanceScore = 1.0f - (distanceToTarget / tp.MaxSqDistance) * tp.DistanceScoreMultiplier;
+                    distanceScore = Mathf.Lerp(1.0f, 0.1f, (distanceToTarget / tp.MaxSqDistance)) * (noPlayerInput ? 1.0f : tp.DistanceScoreMultiplier);
                 }
                 else
                 {
-                    return -100.0f;
+                    distanceScore = 0.0f;
                 }
             }
 
@@ -399,7 +400,7 @@ namespace _Scripts._Game.General.Managers{
         {
             switch (targetType)
             {
-                case ETargetType.Possessable:
+                case ETargetType.Bondable:
                     return _possessableTargetParameters;
                 case ETargetType.Damageable:
                     return _damageableTargetParameters;

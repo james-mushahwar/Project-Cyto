@@ -35,6 +35,9 @@ namespace _Scripts._Game.AI{
         [SerializeField] 
         private UnityEvent<GameObject> _onTakeDamageEvent; // hit with damage
 
+        [Header("Possess")]
+        [SerializeField]
+        private UnityEvent _onPossessedEvent;
         public SpawnPoint SpawnPoint
         {
             get
@@ -97,7 +100,7 @@ namespace _Scripts._Game.AI{
 
         public bool CanBeBonded()
         {
-            return !_isPossessed && (_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable;
+            return !_isPossessed && ((_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable);
         }
 
         // IPossessable
@@ -108,7 +111,7 @@ namespace _Scripts._Game.AI{
 
         public bool CanBePossessed()
         {
-            return !_isPossessed && (_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable;
+            return !_isPossessed && ((_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable) ;
         }
 
         public void OnPossess()
@@ -125,6 +128,8 @@ namespace _Scripts._Game.AI{
             _attackSM.CurrentState.ExitState();
             _attackSM.CurrentBondedState.EnterState();
             //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
+            _onPossessedEvent.Invoke();
+
             _isPossessed = true;
         }
 

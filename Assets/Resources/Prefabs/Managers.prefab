@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _possessableTargetParameters:
     _targetType: 1
-    _maxSqDistance: 100
+    _maxSqDistance: 225
     _minDotProduct: 0.8
     _threatScoreMultiplier: 0
     _angleScoreMultiplier: 2
@@ -208,7 +208,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  _bondingOverlapRange: 10
+  _bondingOverlapRange: 15
   _bondingContactFilter:
     useTriggers: 1
     useLayerMask: 1
