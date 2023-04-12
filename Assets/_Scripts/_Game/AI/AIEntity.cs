@@ -280,6 +280,9 @@ namespace _Scripts._Game.AI{
         public void OnExposed()
         {
             _onExposedEvent.Invoke();
+
+            //play exposed vfx
+            ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
         }
 
         public void OnUnexposed()

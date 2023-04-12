@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 2431392106935166492}
   - component: {fileID: 2180213493120761222}
   m_Layer: 0
-  m_Name: BombDroidBomDropVFXPool
+  m_Name: BombDroidBombDropVFXPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +471,7 @@ MonoBehaviour:
   _useTickMaster: 0
   m_PoolCount: 8
   _particlePrefab: {fileID: 5561702475036003066, guid: 8b33b97330198df4984fe90803d966d8, type: 3}
-  _particleType: 2
+  _particleType: 3
   _degreesToUpwardDirection: 0
   _positionOffset: {x: 0, y: 3}
 --- !u!1 &1192473343692284685
@@ -621,8 +621,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2652275677141423677}
-  - {fileID: 2431392106935166492}
+  - {fileID: 8479478836314285661}
   - {fileID: 7731903635069045721}
+  - {fileID: 2431392106935166492}
   m_Father: {fileID: 1192473343919988200}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2531,6 +2532,56 @@ MonoBehaviour:
   _useTickMaster: 1
   m_PoolCount: 8
   _bombDroidProjectilePrefab: {fileID: 5458949934131665997, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}
+--- !u!1 &7338329019027425522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8479478836314285661}
+  - component: {fileID: 2065666532477204027}
+  m_Layer: 0
+  m_Name: ExposedVFXPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8479478836314285661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7338329019027425522}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1192473344759918345}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2065666532477204027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7338329019027425522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c32466bfb88dcc4cb9500bd5d96506f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTickMaster: 0
+  m_PoolCount: 4
+  _particlePrefab: {fileID: 8303492859763804514, guid: b5c3565d496894fc1b7937d0b6c4a1cf, type: 3}
+  _particleType: 1
+  _degreesToUpwardDirection: 0
+  _positionOffset: {x: 0, y: 0}
 --- !u!1 &7765605035313327167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,7 +2762,7 @@ MonoBehaviour:
   _useTickMaster: 0
   m_PoolCount: 1
   _particlePrefab: {fileID: 5561702475036003066, guid: b829a73803d733646aae708cb879a6b9, type: 3}
-  _particleType: 1
+  _particleType: 2
   _degreesToUpwardDirection: 0
   _positionOffset: {x: 0, y: 0}
 --- !u!1 &8249930487439506366

@@ -7,6 +7,7 @@ namespace _Scripts._Game.General.Managers{
     public enum EParticleType
     {
         BasicAttack,
+        Exposed,
         TargetHighlight,
         BombDroidBombDrop,
         COUNT
@@ -17,6 +18,7 @@ namespace _Scripts._Game.General.Managers{
         #region Pools
         #region Player
         private ParticlePool _basicAttackPool;
+        private ParticlePool _exposedPool;
         #endregion
 
         #region AI
@@ -46,9 +48,12 @@ namespace _Scripts._Game.General.Managers{
                     _bombDroidBombDropPool = pool;
                 }
             }
-            else
+            else if (particleType == EParticleType.Exposed)
             {
-
+                if (_exposedPool == null)
+                {
+                    _exposedPool = pool;
+                }
             }
         }
 
@@ -61,6 +66,10 @@ namespace _Scripts._Game.General.Managers{
             else if (particleType == EParticleType.BombDroidBombDrop)
             {
                 return _bombDroidBombDropPool;
+            }
+            else if (particleType == EParticleType.Exposed)
+            {
+                return _exposedPool;
             }
             else
             {
