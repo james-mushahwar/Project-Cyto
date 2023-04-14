@@ -133,6 +133,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         {
             _isEntitySpawned = false;
             _entitySpawned = null;
+            SpawnManager.Instance?.TryRemoveRegisteredEntity(this);
         }
     }
     

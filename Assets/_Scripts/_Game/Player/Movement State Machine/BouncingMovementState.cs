@@ -84,7 +84,6 @@ public class BouncingMovementState : BaseMovementState
 
     public override void EnterState()
     {
-        Debug.Log("Hello I'm Bouncing!!");
         if (_ctx.BouncingChargeTimer >= _ctx.BouncingFullChargeTime)
         {
             SuperBounce();
@@ -173,8 +172,6 @@ public class BouncingMovementState : BaseMovementState
         float yRatio = (yVelocity - _ctx.BouncingDefaultImpactDownwardsVelocity) / (_ctx.BouncingMaximumImpactDownwardsVelocity - _ctx.BouncingDefaultImpactDownwardsVelocity);
 
         float upwardsForce = Mathf.Lerp(_ctx.BouncingMinMaxUpwardsBounceForce.x, _ctx.BouncingMinMaxUpwardsBounceForce.y, yRatio);
-
-        Debug.Log("yVelocity is : " + _ctx.Rb.velocity.y + " and yRatio is: " + yRatio + " and upwardsForce is: " + upwardsForce + " and starting world Y coords is " + _ctx.transform.position.y);
 
         _ctx.Rb.velocity *= Vector2.right;
         _ctx.Rb.AddForce(Vector2.up * upwardsForce, ForceMode2D.Impulse);

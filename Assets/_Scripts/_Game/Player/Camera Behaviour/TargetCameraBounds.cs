@@ -27,12 +27,10 @@ public class TargetCameraBounds : BaseCameraBounds
 
     private void Awake()
     {
-        Debug.Log("target awake");
     }
 
     private void OnEnable()
     {
-        Debug.Log("target enabled");
     }
 
     // Start is called before the first frame update

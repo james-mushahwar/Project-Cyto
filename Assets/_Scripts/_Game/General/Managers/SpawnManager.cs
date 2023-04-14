@@ -93,6 +93,15 @@ namespace _Scripts._Game.General.Managers{
             return entity;
         }
 
+        public void TryRemoveRegisteredEntity(SpawnPoint spawnPoint)
+        {
+            string id = spawnPoint.RuntimeID.Id;
+            if (_spawnPointEntityDict.ContainsKey(id))
+            {
+                _spawnPointEntityDict[id] = null;
+            }
+        }
+
         public void RegisterSpawnPointRespawnTimer(string id)
         {
             float timer = -1.0f;

@@ -65,8 +65,8 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             _ctx.NullifyInput(AttackingState.Basic_Attack);
 
-            Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
-            Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
+            //Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
+            //Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
             if (TargetManager.Instance.DamageableTarget != null)
             {
                 ProjectileManager.Instance.TryBasicAttackProjectile(TargetManager.Instance.DamageableTarget, PlayerEntity.Instance.transform.position, comboIndex);

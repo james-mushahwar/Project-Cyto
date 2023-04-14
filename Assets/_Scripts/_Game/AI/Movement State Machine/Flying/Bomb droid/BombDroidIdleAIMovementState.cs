@@ -34,7 +34,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override void EnterState()
         {
-            Debug.Log("Hello I'm a bomb droid in chase");
+            //Debug.Log("Hello I'm a bomb droid in chase");
 
             _bdCtx.Seeker.enabled = true;
             _bdCtx.DestinationSetter.enabled = true;

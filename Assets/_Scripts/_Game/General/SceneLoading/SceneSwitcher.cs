@@ -42,14 +42,14 @@ namespace _Scripts._Game.General.SceneLoading{
         // used to unload scene on player exited collider event
         public void OnPlayerEntered(int index)
         {
-            Debug.Log("Scene asset name is " + _sceneAssets[index]);
+            //Debug.Log("Scene asset name is " + _sceneAssets[index]);
             Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index]);
 
             if (targetScene != null)
             {
                 if (!targetScene.isLoaded || _asyncSceneOperation[index] != null)
                 {
-                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already unloaded");
+                    //Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already unloaded");
                     return;
                 }
             }
@@ -61,14 +61,14 @@ namespace _Scripts._Game.General.SceneLoading{
         // used to load scene on on player exited collider event
         public void OnPlayerExited(int index)
         {
-            Debug.Log("Scene asset name is " + _sceneAssets[index]);
+            //Debug.Log("Scene asset name is " + _sceneAssets[index]);
             Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index]);
 
             if (targetScene != null)
             {
                 if (targetScene.isLoaded || _asyncSceneOperation[index] != null)
                 {
-                    Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already loaded");
+                    //Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already loaded");
                     return;
                 }
             }
@@ -79,7 +79,7 @@ namespace _Scripts._Game.General.SceneLoading{
 
         private IEnumerator LoadSceneAsync(int index, string sceneName)
         {
-            Debug.Log("Trying to load scene: " + sceneName);
+            //Debug.Log("Trying to load scene: " + sceneName);
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
             while (!operation.isDone)
@@ -92,7 +92,7 @@ namespace _Scripts._Game.General.SceneLoading{
 
         private IEnumerator UnloadSceneAsync(int index, string sceneName)
         {
-            Debug.Log("Trying to unload scene: " + sceneName);
+            //Debug.Log("Trying to unload scene: " + sceneName);
             AsyncOperation operation = SceneManager.UnloadSceneAsync(sceneName);
 
             while (!operation.isDone)

@@ -95,7 +95,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 if (prop.CanWrite)
                 {
-                    Debug.Log("Property info : " + prop);
+                    //Debug.Log("Property info : " + prop);
                     prop.SetValue(copy, prop.GetValue(originalComp));
                 }
             }

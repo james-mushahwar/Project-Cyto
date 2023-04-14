@@ -24,7 +24,6 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public override void EnterState()
         {
-            Debug.Log("Basic attack idle!");
             _stateTimer = 0.0f;
             _ctx.CurrentBasicAttackCombo = 0;
         }

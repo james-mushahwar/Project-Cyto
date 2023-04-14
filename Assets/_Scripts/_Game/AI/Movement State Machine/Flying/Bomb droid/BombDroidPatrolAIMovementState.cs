@@ -43,7 +43,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public override void EnterState()
         {
-            Debug.Log("Hello I'm a bomb droid in Patrol");
+            //Debug.Log("Hello I'm a bomb droid in Patrol");
             _waitTimer = Random.Range(_bdCtx.PatrolWaitTimeRange.x, _bdCtx.PatrolWaitTimeRange.y);
 
             _bdCtx.Seeker.enabled = true;

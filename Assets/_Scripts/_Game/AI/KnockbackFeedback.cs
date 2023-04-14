@@ -75,7 +75,7 @@ namespace _Scripts._Game.AI{
             Vector2 direction = _damageable.DamageDirection * new Vector2(_xAxisForce ? 1.0f : 0.0f, _yAxisForce ? 1.0f : 0.0f);
             if (direction.sqrMagnitude > 0.0f)
             {
-                Debug.Log("Feedback force direction = " + _damageable.DamageDirection);
+                //Debug.Log("Feedback force direction = " + _damageable.DamageDirection);
                 _rb.velocity = Vector2.zero;
                 _rb.AddForce(direction * _knockbackForce, ForceMode2D.Impulse);
 

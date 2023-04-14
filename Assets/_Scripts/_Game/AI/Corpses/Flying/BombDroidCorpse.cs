@@ -23,7 +23,7 @@ namespace _Scripts._Game.AI.Corpses.Flying{
                 _isStationary = Rb.velocity.sqrMagnitude <= 1.0f;
                 if (_isStationary)
                 {
-                    Debug.Log("Bomb droid corpse is now stationary!");
+                    //Debug.Log("Bomb droid corpse is now stationary!");
                 }
             }
         }

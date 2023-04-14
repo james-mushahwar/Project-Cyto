@@ -64,7 +64,6 @@ public class FollowCamera : Singleton<FollowCamera>
         Vector3 bounds = topRightBounds - topLeftBounds;
         _cameraWidth = Mathf.Abs(bounds.x * 0.5f);
         _cameraHeight = Mathf.Abs(bounds.y * 0.5f);
-        Debug.Log("Camera bounds = " + _cameraWidth + " and " + _cameraHeight);
     }
 
 

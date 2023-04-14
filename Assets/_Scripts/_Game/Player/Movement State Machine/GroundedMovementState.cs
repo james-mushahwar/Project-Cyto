@@ -49,7 +49,6 @@ public class GroundedMovementState : BaseMovementState
 
     public override void EnterState()
     {
-        Debug.Log("Hello I'm grounded");
         _ctx.JumpCounter = 0;
         _ctx.DashCounter = 0;
         _ctx.BouncingCounter = 0;

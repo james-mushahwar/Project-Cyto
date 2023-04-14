@@ -19,7 +19,7 @@ namespace _Scripts._Game.General.Managers
         protected override void Awake()
         {
             base.Awake();
-            Debug.Log("PoolBehaviourManager<T> awake check");
+            //Debug.Log("PoolBehaviourManager<T> awake check");
             for (int i = 0; i < m_PoolCount; ++i)
             {
                 T comp = gameObject.AddComponent(typeof(T)) as T;

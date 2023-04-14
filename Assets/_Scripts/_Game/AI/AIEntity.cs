@@ -106,8 +106,8 @@ namespace _Scripts._Game.AI{
 
         protected void Awake()
         {
-            _enemyHealthStats         = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.EnemyHealth);
-            _enemyBondableHealthStats = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.BondableHealth);
+            _enemyHealthStats         = new EnemyHealthStats(1.0f, 1.0f, EHealthStatType.EnemyHealth);
+            _enemyBondableHealthStats = new EnemyHealthStats(1.0f, 1.0f, EHealthStatType.BondableHealth);
         }
 
         public bool CanBeBonded()

@@ -73,7 +73,6 @@ public class FallingMovementState : BaseMovementState
 
     public override void EnterState()
     {
-        Debug.Log("Hello I'm falling!!");
         _ctx.Rb.gravityScale = _ctx.FallingGravityScale;
         _jumpBufferTimer = -1.0f;
 

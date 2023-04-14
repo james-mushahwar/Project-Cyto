@@ -76,7 +76,6 @@ public class FloatingMovementState : BaseMovementState
 
     public override void EnterState()
     {
-        Debug.Log("Hello I'm Floating!!");
         //_ctx.Rb.velocity += (Vector2.up * _ctx.JumpForce);
         _ctx.Rb.gravityScale = _ctx.FloatingGravityScale;
         _ctx.Rb.velocity *= Vector2.right;

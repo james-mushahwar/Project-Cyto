@@ -55,7 +55,6 @@ public class JumpingMovementState : BaseMovementState
 
     public override void EnterState()
     {
-        Debug.Log("Hello I'm jumping!!");
         //_ctx.Rb.velocity += (Vector2.up * _ctx.JumpForce);
         _ctx.Rb.velocity *= Vector2.right;
         _ctx.Rb.AddForce(Vector2.up * _ctx.JumpForce, ForceMode2D.Impulse);
