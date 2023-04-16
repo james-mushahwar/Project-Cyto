@@ -12,6 +12,7 @@ using System;
 using _Scripts._Game.General.Settings;
 using UnityEngine.Events;
 using System.Runtime.CompilerServices;
+using EZCameraShake;
 
 namespace _Scripts._Game.AI{
 
@@ -107,7 +108,7 @@ namespace _Scripts._Game.AI{
         protected void Awake()
         {
             _enemyHealthStats         = new EnemyHealthStats(1.0f, 1.0f, EHealthStatType.EnemyHealth);
-            _enemyBondableHealthStats = new EnemyHealthStats(1.0f, 1.0f, EHealthStatType.BondableHealth);
+            _enemyBondableHealthStats = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.BondableHealth);
         }
 
         public bool CanBeBonded()
@@ -213,6 +214,7 @@ namespace _Scripts._Game.AI{
         public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
             float resultHealth = 100.0f;
+            bool killedOrBroken = false;
             if (_enemyBondableHealthStats.IsAlive())
             {
                 //where is the damage coming from?
@@ -227,6 +229,7 @@ namespace _Scripts._Game.AI{
                 if (brokenShield)
                 {
                     OnExposed();
+                    killedOrBroken = true;
                 }
                 //broken shield
                 FeedbackManager.Instance.TryFeedbackPattern(brokenShield ? EFeedbackPattern.Game_BasicAttackHeavy : EFeedbackPattern.Game_BasicAttackLight);
@@ -251,6 +254,7 @@ namespace _Scripts._Game.AI{
                 {
                     // death reaction needed
                     Despawn(true);
+                    killedOrBroken = true;
                 }
                 else
                 {
@@ -259,7 +263,7 @@ namespace _Scripts._Game.AI{
                 //_spriteAnimator.DamageFlash();
             }
 
-            
+            CameraShaker.Instance.ShakeOnce(killedOrBroken ? 4.0f : 2.0f, killedOrBroken ? 0.5f : 0.2f, 0.0f, 0.15f);
         }
 
         public bool CanTakeDamage()
