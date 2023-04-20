@@ -153,6 +153,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public float FallingAcceleration { get => _fallingAcceleration; }
     public float FallingDeceleration { get => _fallingDeceleration; }
     public float FallingVelocityPower { get => _fallingVelocityPower; }
+
     public float AttackFallingGravityScale => _attackFallingGravityScale;
     public float AttackFallingMaximumDownwardsVelocity => _attackFallingMaximumDownwardsVelocity;
     public float AttackFallingHorizontalVelocity => _attackFallingHorizontalVelocity;

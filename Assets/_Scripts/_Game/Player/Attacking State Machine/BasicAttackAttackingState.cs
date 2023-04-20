@@ -14,7 +14,6 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private float _comboWaitDuration;
         private float _comboElapseTime;
         private float _comboBufferStartTime;
-        private bool _isAttackBuffered;
 
         public BasicAttackAttackingState(PlayerAttackingStateMachine ctx, PlayerAttackingStateMachineFactory factory) : base(ctx, factory)
         {
@@ -22,17 +21,17 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public override bool CheckSwitchStates()
         {
-            if (_stateTimer >= _comboBufferStartTime && _isAttackBuffered == false)
+            if (_stateTimer >= _comboBufferStartTime && _ctx.BasicAttackBuffered == false)
             {
                 if (_ctx.IsAttackInputValid == true)
                 {
-                    _isAttackBuffered = true;
+                    _ctx.BasicAttackBuffered = true;
                 }
             }
 
             if (_stateTimer >= _comboWaitDuration)
             {
-                if (_isAttackBuffered)
+                if (_ctx.BasicAttackBuffered)
                 {
                     if (_ctx.CurrentBasicAttackCombo < _ctx.BasicComboLimit && TargetManager.Instance.DamageableTarget != null)
                     {
@@ -59,7 +58,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             _comboWaitDuration = _ctx.BasicComboWaitTimes[comboIndex];
             _comboElapseTime = _ctx.BasicComboElapseTimes[comboIndex];
             _comboBufferStartTime = _comboWaitDuration - _ctx.BasicComboBufferTimes[comboIndex];
-            _isAttackBuffered = false;
+            _ctx.BasicAttackBuffered = false;
 
             _ctx.CurrentBasicAttackCombo++;
 
@@ -67,15 +66,27 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
             //Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
             //Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
+            bool success = false;
+
             if (TargetManager.Instance.DamageableTarget != null)
             {
-                ProjectileManager.Instance.TryBasicAttackProjectile(TargetManager.Instance.DamageableTarget, PlayerEntity.Instance.transform.position, comboIndex);
+                success = ProjectileManager.Instance.TryBasicAttackProjectile(TargetManager.Instance.DamageableTarget, PlayerEntity.Instance.transform.position, comboIndex);
+            }
+
+            if (!success)
+            {
+                Debug.LogWarning("Basic Attack was unsuccessful");
+                SwitchStates(_factory.GetState(AttackingState.Basic_Idle));
+            }
+            else
+            {
+                _ctx.RecentAttackTimer = _ctx.BasicAttackRecentTimer;
             }
         }
 
         public override void ExitState()
         {
-            return;
+            _ctx.BasicAttackBuffered = false;
         }
 
         public override void InitialiseState()

@@ -12,6 +12,7 @@ using System;
 using _Scripts._Game.General.Settings;
 using UnityEngine.Events;
 using System.Runtime.CompilerServices;
+using _Scripts._Game.Events;
 using EZCameraShake;
 
 namespace _Scripts._Game.AI{
@@ -87,7 +88,9 @@ namespace _Scripts._Game.AI{
         public bool FacingRight { get => !_spriteAnimator.Renderer.flipX; }
 
         //Exposable
-        [Header("Exposable")]
+        [Header("Exposable")] 
+        [SerializeField] 
+        private GameEvent _onExposedGameEvent;
         [SerializeField]
         private UnityEvent _onExposedEvent;
         [SerializeField]
@@ -283,8 +286,8 @@ namespace _Scripts._Game.AI{
 
         public void OnExposed()
         {
+            _onExposedGameEvent?.TriggerEvent();
             _onExposedEvent.Invoke();
-
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
         }

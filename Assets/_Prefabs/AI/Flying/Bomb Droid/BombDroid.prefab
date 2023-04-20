@@ -276,6 +276,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onExposedGameEvent: {fileID: 11400000, guid: 9fb97563005353f469d049066de5431a, type: 2}
   _onExposedEvent:
     m_PersistentCalls:
       m_Calls:

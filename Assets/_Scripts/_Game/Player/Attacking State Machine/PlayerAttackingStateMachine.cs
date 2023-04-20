@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,13 +44,20 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private float[] _basicComboElapseTimes = new float[5]; // wait to return to idle state
         [SerializeField]
         private float[] _basicComboBufferTimes = new float[5]; // how long can the buffer be open for the next combo
+        [SerializeField] 
+        private float _basicAttackRecentTimer;
+
         private int _currentBasicAttackCombo = 0;
+        private bool _basicAttackBuffered = false;
 
         public int BasicComboLimit { get => _basicComboLimit; }
         public float[] BasicComboWaitTimes { get => _basicComboWaitTimes; }
         public float[] BasicComboElapseTimes { get => _basicComboElapseTimes; }
         public float[] BasicComboBufferTimes { get => _basicComboBufferTimes; }
+        public float BasicAttackRecentTimer { get => _basicAttackRecentTimer; }
         public int CurrentBasicAttackCombo { get => _currentBasicAttackCombo; set => _currentBasicAttackCombo = value; }
+        public bool BasicAttackBuffered { get => _basicAttackBuffered; set => _basicAttackBuffered = value; }
+
 
         [Header("Damageable Range properties")]
         [SerializeField]
@@ -58,6 +66,24 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private ContactFilter2D _damageableContactFilter;
 
         private Collider2D[] _aiColliders = new Collider2D[20];
+        #endregion
+
+        #region General
+        private float _recentAttackTimer = 0.0f;
+
+        public float RecentAttackTimer
+        {
+            get => _recentAttackTimer;
+            set
+            {
+                if (value > _recentAttackTimer)
+                {
+                    _recentAttackTimer = value;
+                }
+            }
+        }
+
+
         #endregion
 
         //#region VFX
@@ -88,90 +114,21 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         void FixedUpdate()
         {
-            //IDamageable newTarget = FindBestDamageable();
-            //bool differentTarget = false;
-            //if (newTarget != _damageableTarget)
-            //{
-            //    _damageableTarget = newTarget;
-            //    differentTarget = true;
-
-            //    if (_damageableTarget != null)
-            //    {
-            //        _targetHighlightPS.gameObject.SetActive(true);
-            //        _targetHighlightPS.Stop();
-            //        _targetHighlightPS.transform.parent = _damageableTarget.Transform;
-            //        _targetHighlightPS.transform.localPosition = Vector3.zero;
-            //        _targetHighlightPS.Play();
-            //    }
-            //}
-
-            //if (_damageableTarget == null)
-            //{
-            //    if (_targetHighlightPS.isPlaying)
-            //    {
-            //        _targetHighlightPS.Stop();
-            //        _targetHighlightPS.transform.parent = gameObject.transform;
-            //        _targetHighlightPS.transform.localPosition = Vector3.zero;
-            //        _targetHighlightPS.gameObject.SetActive(false);
-            //    }
-            //}
+            // timers
+            TickTimers();
 
             _basicAttackCurrentState.ManagedStateTick();
-            //_abilityAttackCurrentState.ManagedStateTick();
         }
 
-        //IDamageable FindBestDamageable()
-        //{
-        //    int aiOverlapCount = Physics2D.OverlapCircle(transform.position, _damageableOverlapRange, _damageableContactFilter, _aiColliders);
-
-        //    if (aiOverlapCount > 0)
-        //    {
-        //        float bestScore = -1.0f;
-        //        IDamageable bestDamageable = null;
-        //        IDamageable currentDamageable = null;
-
-        //        Collider2D col = null;
-
-        //        for (int i = 0; i < aiOverlapCount; i++)
-        //        {
-        //            col = _aiColliders[i];
-        //            if (col == null)
-        //            {
-        //                continue;
-        //            }
-        //            currentDamageable = col.gameObject.GetComponent<IDamageable>();
-
-        //            if (currentDamageable != null)
-        //            {
-        //                if (currentDamageable.IsAlive() == false)
-        //                {
-        //                    continue;
-        //                }
-
-        //                if (bestDamageable == null)
-        //                {
-        //                    bestDamageable = currentDamageable;
-        //                    continue;
-        //                }
-
-        //                // calculate then compare scores
-        //                //float currentScore = TargetManager.Instance.GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
-        //                // dot poduct aim direction
-        //                if (currentScore > bestScore)
-        //                {
-        //                    bestScore = currentScore;
-        //                    bestDamageable = currentDamageable;
-        //                }
-        //            }
-        //        }
-
-        //        return bestDamageable;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
+        private void TickTimers()
+        {
+            float deltaTime = Time.deltaTime;
+            // recent attack timer
+            if (_recentAttackTimer > 0.0f)
+            {
+                _recentAttackTimer = Mathf.Clamp(_recentAttackTimer - deltaTime, 0.0f, 100.0f);
+            }
+        }
 
         void OnAttackInput(InputAction.CallbackContext context)
         {
@@ -195,6 +152,11 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
                 default:
                     break;
             }
+        }
+
+        public bool HasAttackedRecently()
+        {
+            return _recentAttackTimer > 0.0f || _basicAttackBuffered;
         }
 
         //ISaveable
