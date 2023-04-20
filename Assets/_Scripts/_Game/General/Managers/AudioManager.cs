@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
+using UnityEngine.Audio;
 
 namespace _Scripts._Game.General.Managers {
 
@@ -87,6 +88,10 @@ namespace _Scripts._Game.General.Managers {
 
         private AudioClip[] _AudioClips = new AudioClip[(int) EAudioType.COUNT];
 
+        [Header("SFX")]
+        [SerializeField]
+        private AudioMixerGroup _sfxMixerGroup;
+
         #region AudioTracks
         [SerializeField]
         private AudioTrack[] _tracks;
@@ -140,6 +145,7 @@ namespace _Scripts._Game.General.Managers {
                 newGO.transform.parent = this.gameObject.transform;
 
                 AudioSource comp = newGO.AddComponent(typeof(AudioSource)) as AudioSource;
+                comp.outputAudioMixerGroup = _sfxMixerGroup;
                 m_Pool.Push(comp);
             }
 
