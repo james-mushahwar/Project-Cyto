@@ -44,9 +44,9 @@ namespace _Scripts._Game.General.Managers{
             _bdBombDropProjectilePool = GetComponentInChildren<BombDroidBombDropPoolComponentManager>();
         }
 
-        public void TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex)
+        public bool TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex)
         {
-            _basicAttackProjectilePool.TryBasicAttackProjectile(damageable, startPosition, comboIndex);
+            return _basicAttackProjectilePool.TryBasicAttackProjectile(damageable, startPosition, comboIndex);
         }
 
         public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)

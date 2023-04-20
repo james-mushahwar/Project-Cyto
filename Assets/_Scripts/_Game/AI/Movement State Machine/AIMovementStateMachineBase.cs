@@ -236,7 +236,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _isRightTriggerInputValid = _isRightTriggerPressed;
         }
 
-        public virtual void OnBonded()
+        public virtual void OnPossess()
         {
             _currentMovementInput = Vector2.zero;
             _currentDirectionInput = Vector2.zero;
@@ -331,7 +331,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
         }
 
-        public virtual void OnUnbonded()
+        public virtual void OnDispossess()
         {
             // assign bond inputs
             PlayerInput playerInput = InputManager.Instance.PlayerInput;

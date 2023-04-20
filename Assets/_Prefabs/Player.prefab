@@ -99,6 +99,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageFlashDuration: 0.5
+  _defaultXThickness: 0
+  _defaultYThickness: 0
+  _exposedXThickness: 0.5
+  _exposedYThickness: 0.5
+  _onPossessOutlineDuration: 0.25
+  _onPossessXThickness: 0.5
+  _onPossessYThickness: 0.5
 --- !u!95 &1202578971
 Animator:
   serializedVersion: 4
@@ -268,7 +275,7 @@ Transform:
   - {fileID: 6860750290703073251}
   - {fileID: 5694443763414463344}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &5581101032112713367
 CapsuleCollider2D:
@@ -355,6 +362,9 @@ MonoBehaviour:
   _fallingAcceleration: 8
   _fallingDeceleration: 8
   _fallingVelocityPower: 0.9
+  _attackFallingGravityScale: 0.25
+  _attackFallingMaximumDownwardsVelocity: 0
+  _attackFallingHorizontalVelocity: 6
   _dashingGravityScale: 0
   _dashingForce: 1000
   _dashingStateDuration: 0.25
@@ -435,6 +445,7 @@ MonoBehaviour:
   - 0.2
   - 0
   - 0
+  _basicAttackRecentTimer: 0.4
   _damageableOverlapRange: 10
   _damageableContactFilter:
     useTriggers: 1

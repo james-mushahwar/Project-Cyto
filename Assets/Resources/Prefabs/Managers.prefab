@@ -1828,6 +1828,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7484221578326222766}
   - component: {fileID: 4478698039354640715}
+  - component: {fileID: 9039581303136889325}
+  - component: {fileID: 4901806793512708254}
   m_Layer: 0
   m_Name: PauseManager
   m_TagString: Untagged
@@ -1862,6 +1864,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed3e81dfbbfc4c77b0a17fcd42b3ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9039581303136889325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321336156436265519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be216a8223907ab4a862ba3e630ec5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4901806793512708254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321336156436265519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb88e9daf7a84320b5d3411f317c03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 9fb97563005353f469d049066de5431a, type: 2}
+  _onEventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9039581303136889325}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.Managers.TimeManager, Assembly-CSharp
+        m_MethodName: OnExposedAIRequestTimeScale
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4491029080482569342
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.Player;
 using UnityEngine;
 
 public class FallingMovementState : BaseMovementState
@@ -73,7 +74,12 @@ public class FallingMovementState : BaseMovementState
 
     public override void EnterState()
     {
-        _ctx.Rb.gravityScale = _ctx.FallingGravityScale;
+        float gravityScale = _ctx.FallingGravityScale;
+        if (PlayerEntity.Instance.AttackingSM.HasAttackedRecently())
+        {
+            gravityScale = _ctx.AttackFallingGravityScale;
+        }
+        _ctx.Rb.gravityScale = gravityScale;
         _jumpBufferTimer = -1.0f;
 
         //float newYVelocity = 0.0f;
@@ -101,17 +107,32 @@ public class FallingMovementState : BaseMovementState
             // update 
             _jumpBufferTimer -= Time.deltaTime;
 
+            bool hasAttackedRecently = PlayerEntity.Instance.AttackingSM.HasAttackedRecently();
+            #region Gravity
+
+            float gravityScale = _ctx.FallingGravityScale;
+            if (hasAttackedRecently && _ctx.Rb.velocity.sqrMagnitude <= 0.0f)
+            {
+                gravityScale = _ctx.AttackFallingGravityScale;
+            }
+            _ctx.Rb.gravityScale = gravityScale;
+
+            #endregion
+
             // TIP: clamp Ymovement first before adding force - doesn't work other way round
             #region YMovement
-            if (_ctx.Rb.velocity.y < _ctx.FallingMaximumDownwardsVelocity)
+
+            float maxDownwardsVelocity = hasAttackedRecently ? _ctx.AttackFallingMaximumDownwardsVelocity : _ctx.FallingMaximumDownwardsVelocity;
+            if (_ctx.Rb.velocity.y < maxDownwardsVelocity)
             {
-                _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, _ctx.FallingMaximumDownwardsVelocity);
+                _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, maxDownwardsVelocity);
             }
+
             #endregion
 
             #region XMovement
 
-            float targetSpeed = _ctx.CurrentMovementInput.x * _ctx.FallingHorizontalVelocity;
+            float targetSpeed = _ctx.CurrentMovementInput.x * (hasAttackedRecently ? _ctx.FallingHorizontalVelocity : _ctx.FallingHorizontalVelocity);
             float speedDif = targetSpeed - _ctx.Rb.velocity.x;
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.FallingAcceleration : _ctx.FallingDeceleration;
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.FallingVelocityPower) * Mathf.Sign(speedDif);

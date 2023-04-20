@@ -13,7 +13,7 @@ namespace _Scripts._Game.General.Managers{
         public void TogglePause()
         {
             _isPaused = !_isPaused;
-            Time.timeScale = _isPaused ? 0.0f : 1.0f;
+            TimeManager.Instance.TryRequestPauseGame(_isPaused);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
             return component.IsActive() && component.HitTarget == false;
         }
 
-        public void TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex = 0)
+        public bool TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex = 0)
         {
             BasicAttackProjectile pooledComp = GetPooledComponent();
 
@@ -63,12 +63,13 @@ namespace _Scripts._Game.General.Projectile.Pools{
                 pooledComp.ComboIndex = comboIndex;
                 EAudioType audioType = comboIndex < 2 ? (comboIndex < 1 ? EAudioType.SFX_BasicAttack1 : EAudioType.SFX_BasicAttack2) : EAudioType.SFX_BasicAttack3;
                 ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(audioType, transform.position);
+                return true;
             }
             else
             {
                 Debug.Log("No more basic attack projectiles");
             }
-            //return pooledComp;
+            return false;
         }
     }
 

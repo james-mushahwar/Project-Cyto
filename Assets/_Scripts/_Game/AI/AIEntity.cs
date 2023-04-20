@@ -12,6 +12,7 @@ using System;
 using _Scripts._Game.General.Settings;
 using UnityEngine.Events;
 using System.Runtime.CompilerServices;
+using _Scripts._Game.Events;
 using EZCameraShake;
 
 namespace _Scripts._Game.AI{
@@ -87,7 +88,9 @@ namespace _Scripts._Game.AI{
         public bool FacingRight { get => !_spriteAnimator.Renderer.flipX; }
 
         //Exposable
-        [Header("Exposable")]
+        [Header("Exposable")] 
+        [SerializeField] 
+        private GameEvent _onExposedGameEvent;
         [SerializeField]
         private UnityEvent _onExposedEvent;
         [SerializeField]
@@ -132,12 +135,12 @@ namespace _Scripts._Game.AI{
             AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_PossessStart, PlayerEntity.Instance.transform.position);
 
             // possess control of this AI
-            _movementSM.OnBonded();
+            _movementSM.OnPossess();
             _movementSM.CurrentState.ExitState();
             _movementSM.CurrentBondedState.EnterState();
             _movementSM.Collider.isTrigger = false;
 
-            _attackSM.OnBonded();
+            _attackSM.OnPossess();
             _attackSM.CurrentState.ExitState();
             _attackSM.CurrentBondedState.EnterState();
             //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
@@ -149,12 +152,12 @@ namespace _Scripts._Game.AI{
         public void OnDispossess()
         {
             // dispossess this AI
-            _movementSM.OnUnbonded();
+            _movementSM.OnDispossess();
             _movementSM.CurrentBondedState.ExitState();
             _movementSM.CurrentState.EnterState();
             _movementSM.Collider.isTrigger = true;
 
-            _attackSM.OnUnbonded();
+            _attackSM.OnDispossess();
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
 
@@ -283,8 +286,8 @@ namespace _Scripts._Game.AI{
 
         public void OnExposed()
         {
+            _onExposedGameEvent?.TriggerEvent();
             _onExposedEvent.Invoke();
-
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
         }
