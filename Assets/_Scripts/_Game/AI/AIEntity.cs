@@ -132,12 +132,12 @@ namespace _Scripts._Game.AI{
             AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_PossessStart, PlayerEntity.Instance.transform.position);
 
             // possess control of this AI
-            _movementSM.OnBonded();
+            _movementSM.OnPossess();
             _movementSM.CurrentState.ExitState();
             _movementSM.CurrentBondedState.EnterState();
             _movementSM.Collider.isTrigger = false;
 
-            _attackSM.OnBonded();
+            _attackSM.OnPossess();
             _attackSM.CurrentState.ExitState();
             _attackSM.CurrentBondedState.EnterState();
             //InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
@@ -149,12 +149,12 @@ namespace _Scripts._Game.AI{
         public void OnDispossess()
         {
             // dispossess this AI
-            _movementSM.OnUnbonded();
+            _movementSM.OnDispossess();
             _movementSM.CurrentBondedState.ExitState();
             _movementSM.CurrentState.EnterState();
             _movementSM.Collider.isTrigger = true;
 
-            _attackSM.OnUnbonded();
+            _attackSM.OnDispossess();
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
 

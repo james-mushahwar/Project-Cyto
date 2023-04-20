@@ -71,8 +71,8 @@ namespace _Scripts._Game.General{
         #endregion
 
         #region Bonding
-        public void OnBonded();
-        public void OnUnbonded();
+        public void OnPossess();
+        public void OnDispossess();
         #endregion
     }
 

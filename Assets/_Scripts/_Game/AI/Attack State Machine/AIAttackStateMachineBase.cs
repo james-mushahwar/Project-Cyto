@@ -160,7 +160,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             }
         }
 
-        public virtual void OnBonded()
+        public virtual void OnPossess()
         {
             _currentMovementInput = Vector2.zero;
             _currentDirectionInput = Vector2.zero;
@@ -255,7 +255,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             InputManager.Instance.TryEnableActionMap(EInputSystem.BondedPlayer);
         }
 
-        public virtual void OnUnbonded()
+        public virtual void OnDispossess()
         {
             // assign bond inputs
             PlayerInput playerInput = InputManager.Instance.PlayerInput;

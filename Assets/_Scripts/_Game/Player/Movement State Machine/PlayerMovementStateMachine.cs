@@ -137,6 +137,14 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     [SerializeField]
     private float _fallingVelocityPower;
 
+    [Header("Attack falling properties")]
+    [SerializeField]
+    private float _attackFallingGravityScale;
+    [SerializeField]
+    private float _attackFallingMaximumDownwardsVelocity;
+    [SerializeField]
+    private float _attackFallingHorizontalVelocity;
+
     public float FallingGravityScale { get => _fallingGravityScale; set => _fallingGravityScale = value; }
     public float FallingEnterMaximumYVelocity { get => _fallingEnterMaximumYVelocity; }
     public float FallingEnterClampedYVelocity { get => _fallingEnterClampedYVelocity; }
@@ -145,6 +153,9 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public float FallingAcceleration { get => _fallingAcceleration; }
     public float FallingDeceleration { get => _fallingDeceleration; }
     public float FallingVelocityPower { get => _fallingVelocityPower; }
+    public float AttackFallingGravityScale => _attackFallingGravityScale;
+    public float AttackFallingMaximumDownwardsVelocity => _attackFallingMaximumDownwardsVelocity;
+    public float AttackFallingHorizontalVelocity => _attackFallingHorizontalVelocity;
 
     [Header("Dash Properties")]
     [SerializeField]
@@ -268,6 +279,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _directionToNormalThreshold = 0.5f;
 
     public Collider2D ClosestCollider { get => _closestCollider; }
+
     #endregion
 
     protected override void Awake()
