@@ -359,8 +359,11 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
         IsFacingRightCheck();
-        _currentState.ManagedStateTick();
-
+        if (PlayerEntity.Instance.IsAlive())
+        {
+            _currentState.ManagedStateTick();
+        }
+        
         //nullify any inputs
         NullifyInput(MovementState.Bonding);
     }

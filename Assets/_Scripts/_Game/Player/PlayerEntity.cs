@@ -5,6 +5,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player.AttackingStateMachine;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.Events;
 using _Scripts._Game.General.Settings;
 using UnityEngine;
 
@@ -52,6 +53,9 @@ namespace _Scripts._Game.Player{
         #endregion
 
         #region Damage Properties
+
+        [SerializeField] 
+        private GameEvent _takeDamageGameEvent;
         [SerializeField]
         private float _invulnerableDuration = 0.8f;
         private float _isInvulnerableTimer;
@@ -233,6 +237,7 @@ namespace _Scripts._Game.Player{
                 }
             }
 
+            _takeDamageGameEvent.TriggerEvent();
             _isInvulnerableTimer = _invulnerableDuration;
         }
 

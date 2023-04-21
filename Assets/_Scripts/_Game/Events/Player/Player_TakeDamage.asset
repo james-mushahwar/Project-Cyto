@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dac9aae6640c7e4dbb8bc525ff27dad, type: 3}
-  m_Name: DebugSettings
+  m_Script: {fileID: 11500000, guid: 778c81eaa63ed4246a27a9a0685e4751, type: 3}
+  m_Name: Player_TakeDamage
   m_EditorClassIdentifier: 
-  _playerImmune: 0
-  _enemiesImmune: 0
-  _alwaysBondable: 0
-  _aiFreezeMovement: 0

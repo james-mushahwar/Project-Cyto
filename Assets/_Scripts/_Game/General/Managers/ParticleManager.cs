@@ -77,7 +77,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public void TryPlayParticleSystem(EParticleType particleType, Vector2 position, float rotationDeg)
+        public void TryPlayParticleSystem(EParticleType particleType, Vector2 position, float rotationDeg, bool unscaled = false)
         {
             ParticlePool pool = GetParticlePool(particleType);
             ParticleSystem ps = pool.GetParticleSystem();
@@ -86,6 +86,7 @@ namespace _Scripts._Game.General.Managers{
                 ps.transform.position = position + pool.PositionOffset;
                 var main = ps.main;
                 main.startRotation = rotationDeg + pool.DegreesToUpwardDirection;
+                main.useUnscaledTime = unscaled;
                 ps.Play();
             }
         }

@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01a03dba119e064185488c3db7cb3e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _takeDamageGameEvent: {fileID: 11400000, guid: 70a07cf7076205549aeab8d90a32bde1, type: 2}
   _invulnerableDuration: 0.8
 --- !u!114 &5581101032112713369
 MonoBehaviour:

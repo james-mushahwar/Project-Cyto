@@ -117,7 +117,10 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             // timers
             TickTimers();
 
-            _basicAttackCurrentState.ManagedStateTick();
+            if (PlayerEntity.Instance.IsAlive())
+            {
+                _basicAttackCurrentState.ManagedStateTick();
+            }
         }
 
         private void TickTimers()

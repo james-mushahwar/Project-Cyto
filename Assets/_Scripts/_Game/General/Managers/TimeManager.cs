@@ -17,17 +17,17 @@ namespace _Scripts._Game.General.Managers {
         private IEnumerator _timeScaleEnumerator;
         #endregion
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (PauseManager.Instance.IsPaused)
             {
                 return;
             }
 
-            if (_timeScaleEnumerator != null)
-            {
-                _timeScaleEnumerator.MoveNext();
-            }
+            //if (_timeScaleEnumerator != null)
+            //{
+            //    _timeScaleEnumerator.MoveNext();
+            //}
         }
 
         public void TryRequestTimeScale(ETimeImportance importance, float targetTimeScale, float easeIn = 0.0f, float easeOut = 0.0f, float delay = 0.0f)
@@ -39,8 +39,14 @@ namespace _Scripts._Game.General.Managers {
                 return;
             }
 
+            if (_timeScaleEnumerator != null)
+            {
+                StopCoroutine(_timeScaleEnumerator);
+            }
+
             _timeImportance = importance;
             _timeScaleEnumerator = TickTimeScale(targetTimeScale, easeIn, easeOut, delay);
+            StartCoroutine(_timeScaleEnumerator);
         }
 
         private IEnumerator TickTimeScale(float targetTimeScale, float easeIn = 0.0f, float easeOut = 0.0f, float delay = 0.0f)
@@ -52,7 +58,7 @@ namespace _Scripts._Game.General.Managers {
                 while (Time.timeScale > targetTimeScale)
                 {
                     Time.timeScale = Mathf.Lerp(initialTimeScale, targetTimeScale, timer / easeIn);
-                    timer += Time.deltaTime;
+                    timer += Time.unscaledDeltaTime;
                     yield return null;
                 }
             }
@@ -63,7 +69,7 @@ namespace _Scripts._Game.General.Managers {
                 float timer = delay;
                 while (timer > 0.0f)
                 {
-                    timer -= Time.deltaTime;
+                    timer -= Time.unscaledDeltaTime;
                     yield return null;
                 }
             }
@@ -75,7 +81,7 @@ namespace _Scripts._Game.General.Managers {
                 while (Time.timeScale < 1.0f)
                 {
                     Time.timeScale = Mathf.Lerp(initialTimeScale, 1.0f, timer / easeOut);
-                    timer += Time.deltaTime;
+                    timer += Time.unscaledDeltaTime;
                     yield return null;
                 }
             }
@@ -88,11 +94,21 @@ namespace _Scripts._Game.General.Managers {
         public void TryRequestPauseGame(bool pause)
         {
             Time.timeScale = pause ? 0.0f : 1.0f;
+
+            if (pause && _timeScaleEnumerator != null)
+            {
+                StopCoroutine(_timeScaleEnumerator);
+            }
         }
 
         public void OnExposedAIRequestTimeScale()
         {
-            TryRequestTimeScale(ETimeImportance.Low, 0.5f, 0.1f, 0.15f, 0.15f);
+            TryRequestTimeScale(ETimeImportance.Low, 0.25f, 0.0f, 0.1f, 0.1f);
+        }
+
+        public void OnPlayerTakeDamageRequestTimeScale()
+        {
+            TryRequestTimeScale(ETimeImportance.High, 0.0f, 0.0f, 0.025f, 0.2f);
         }
     }
     
