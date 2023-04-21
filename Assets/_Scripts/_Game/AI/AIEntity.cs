@@ -290,6 +290,7 @@ namespace _Scripts._Game.AI{
             _onExposedEvent.Invoke();
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
+            AudioSource pooledSource = ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(EAudioType.SFX_Exposed, transform.position);
         }
 
         public void OnUnexposed()

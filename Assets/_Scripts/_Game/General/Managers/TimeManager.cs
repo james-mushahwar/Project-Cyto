@@ -93,12 +93,12 @@ namespace _Scripts._Game.General.Managers {
 
         public void TryRequestPauseGame(bool pause)
         {
-            Time.timeScale = pause ? 0.0f : 1.0f;
-
             if (pause && _timeScaleEnumerator != null)
             {
                 StopCoroutine(_timeScaleEnumerator);
             }
+
+            Time.timeScale = pause ? 0.0f : 1.0f;
         }
 
         public void OnExposedAIRequestTimeScale()
