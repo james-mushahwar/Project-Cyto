@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -16,8 +17,16 @@ namespace _Scripts._Game.General.Managers {
         #region Current State
         private ETimeImportance _timeImportance;
         private IEnumerator _timeScaleEnumerator;
-        private float prePauseTimeScale = 1.0f;
+        private float _prePauseTimeScale = 1.0f;
+        private float _fixedDeltaTime;
         #endregion
+
+        private new void Awake()
+        {
+            base.Awake();
+
+            _fixedDeltaTime = Time.fixedDeltaTime;
+        }
 
         private void FixedUpdate()
         {
@@ -26,20 +35,18 @@ namespace _Scripts._Game.General.Managers {
                 return;
             }
 
-            //if (_timeScaleEnumerator != null)
-            //{
-            //    _timeScaleEnumerator.MoveNext();
-            //}
-
-            if (!PauseManager.Instance.IsPaused && (Time.timeScale > 1.0f || Time.timeScale < 1.0f))
+            if (_timeScaleEnumerator == null)
             {
-                LogWarning("Time scale is messed up! Should be 1.0f but is " + Time.timeScale + " instead. Fixing now...");
-                Time.timeScale = 1.0f;
-            }
-            else if (PauseManager.Instance.IsPaused && (Time.timeScale > 0.0f || Time.timeScale < 0.0f))
-            {
-                LogWarning("Time scale is messed up! Should be 0.0f but is " + Time.timeScale + " instead. Fixing now...");
-                Time.timeScale = 0.0f;
+                if (!PauseManager.Instance.IsPaused && (Time.timeScale > 1.0f || Time.timeScale < 1.0f))
+                {
+                    LogWarning("Time scale is messed up! Should be 1.0f but is " + Time.timeScale + " instead. Fixing now...");
+                    Time.timeScale = 1.0f;
+                }
+                else if (PauseManager.Instance.IsPaused && (Time.timeScale > 0.0f || Time.timeScale < 0.0f))
+                {
+                    LogWarning("Time scale is messed up! Should be 0.0f but is " + Time.timeScale + " instead. Fixing now...");
+                    Time.timeScale = 0.0f;
+                }
             }
         }
 
@@ -77,6 +84,7 @@ namespace _Scripts._Game.General.Managers {
                     else
                     {
                         Time.timeScale = Mathf.Lerp(initialTimeScale, targetTimeScale, timer / easeIn);
+                        //Time.fixedDeltaTime = Time.timeScale * _fixedDeltaTime;
                         timer += Time.unscaledDeltaTime;
                         yield return null;
                     }
@@ -88,6 +96,7 @@ namespace _Scripts._Game.General.Managers {
                 yield return null;
             }
             Time.timeScale = targetTimeScale;
+            //Time.fixedDeltaTime = Time.timeScale * _fixedDeltaTime;
 
             if (delay > 0.0f)
             {
@@ -119,6 +128,7 @@ namespace _Scripts._Game.General.Managers {
                     else
                     {
                         Time.timeScale = Mathf.Lerp(initialTimeScale, 1.0f, timer / easeOut);
+                        //Time.fixedDeltaTime = Time.timeScale * _fixedDeltaTime;
                         timer += Time.unscaledDeltaTime;
                         yield return null;
                     }
@@ -132,6 +142,7 @@ namespace _Scripts._Game.General.Managers {
             else
             {
                 Time.timeScale = 1.0f;
+                //Time.fixedDeltaTime = Time.timeScale * _fixedDeltaTime;
             }
             
             _timeImportance = ETimeImportance.Low;
@@ -142,14 +153,15 @@ namespace _Scripts._Game.General.Managers {
         {
             if (pause && _timeScaleEnumerator != null)
             {
-                prePauseTimeScale = Time.timeScale;
+                _prePauseTimeScale = Time.timeScale;
             }
             else if (!pause && _timeScaleEnumerator == null)
             {
-                prePauseTimeScale = 1.0f;
+                _prePauseTimeScale = 1.0f;
             }
 
-            Time.timeScale = pause ? 0.0f : Mathf.Clamp(prePauseTimeScale, 0.0f, 1.0f);
+            Time.timeScale = pause ? 0.0f : Mathf.Clamp(_prePauseTimeScale, 0.0f, 1.0f);
+            //Time.fixedDeltaTime = Time.timeScale * _fixedDeltaTime;
         }
 
 
