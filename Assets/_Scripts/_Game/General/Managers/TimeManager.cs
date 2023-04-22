@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Android;
 
 namespace _Scripts._Game.General.Managers {
 
@@ -15,6 +16,7 @@ namespace _Scripts._Game.General.Managers {
         #region Current State
         private ETimeImportance _timeImportance;
         private IEnumerator _timeScaleEnumerator;
+        private float prePauseTimeScale = 1.0f;
         #endregion
 
         private void FixedUpdate()
@@ -43,6 +45,14 @@ namespace _Scripts._Game.General.Managers {
             {
                 StopCoroutine(_timeScaleEnumerator);
             }
+            else
+            {
+                if (!PauseManager.Instance.IsPaused && (Time.timeScale > 1.0f || Time.timeScale < 1.0f))
+                {
+                    LogWarning("Time scale is messed up! Should be 1.0f but is " + Time.timeScale + " instead. Fixing now...");
+                    Time.timeScale = 1.0f;
+                }
+            }
 
             _timeImportance = importance;
             _timeScaleEnumerator = TickTimeScale(targetTimeScale, easeIn, easeOut, delay);
@@ -57,10 +67,22 @@ namespace _Scripts._Game.General.Managers {
                 float timer = 0.0f;
                 while (Time.timeScale > targetTimeScale)
                 {
-                    Time.timeScale = Mathf.Lerp(initialTimeScale, targetTimeScale, timer / easeIn);
-                    timer += Time.unscaledDeltaTime;
-                    yield return null;
+                    if (PauseManager.Instance.IsPaused)
+                    {
+                        yield return null;
+                    }
+                    else
+                    {
+                        Time.timeScale = Mathf.Lerp(initialTimeScale, targetTimeScale, timer / easeIn);
+                        timer += Time.unscaledDeltaTime;
+                        yield return null;
+                    }
                 }
+            }
+
+            if (PauseManager.Instance.IsPaused)
+            {
+                yield return null;
             }
             Time.timeScale = targetTimeScale;
 
@@ -69,8 +91,15 @@ namespace _Scripts._Game.General.Managers {
                 float timer = delay;
                 while (timer > 0.0f)
                 {
-                    timer -= Time.unscaledDeltaTime;
-                    yield return null;
+                    if (PauseManager.Instance.IsPaused)
+                    {
+                        yield return null;
+                    }
+                    else
+                    {
+                        timer -= Time.unscaledDeltaTime;
+                        yield return null;
+                    }
                 }
             }
 
@@ -80,13 +109,28 @@ namespace _Scripts._Game.General.Managers {
                 float timer = 0.0f;
                 while (Time.timeScale < 1.0f)
                 {
-                    Time.timeScale = Mathf.Lerp(initialTimeScale, 1.0f, timer / easeOut);
-                    timer += Time.unscaledDeltaTime;
-                    yield return null;
+                    if (PauseManager.Instance.IsPaused)
+                    {
+                        yield return null;
+                    }
+                    else
+                    {
+                        Time.timeScale = Mathf.Lerp(initialTimeScale, 1.0f, timer / easeOut);
+                        timer += Time.unscaledDeltaTime;
+                        yield return null;
+                    }
                 }
             }
-            Time.timeScale = 1.0f;
 
+            if (PauseManager.Instance.IsPaused)
+            {
+                yield return null;
+            }
+            else
+            {
+                Time.timeScale = 1.0f;
+            }
+            
             _timeImportance = ETimeImportance.Low;
             _timeScaleEnumerator = null;
         }
@@ -95,21 +139,28 @@ namespace _Scripts._Game.General.Managers {
         {
             if (pause && _timeScaleEnumerator != null)
             {
-                StopCoroutine(_timeScaleEnumerator);
+                prePauseTimeScale = Time.timeScale;
+            }
+            else if (!pause && _timeScaleEnumerator == null)
+            {
+                prePauseTimeScale = 1.0f;
             }
 
-            Time.timeScale = pause ? 0.0f : 1.0f;
+            Time.timeScale = pause ? 0.0f : Mathf.Clamp(prePauseTimeScale, 0.0f, 1.0f);
         }
 
-        public void OnExposedAIRequestTimeScale()
+
+        #region Debug
+        private void Log(string log)
         {
-            TryRequestTimeScale(ETimeImportance.Low, 0.25f, 0.0f, 0.1f, 0.1f);
+            Debug.Log("TimeManager: " + log);
         }
 
-        public void OnPlayerTakeDamageRequestTimeScale()
+        private void LogWarning(string log)
         {
-            TryRequestTimeScale(ETimeImportance.High, 0.0f, 0.0f, 0.025f, 0.2f);
+            Debug.LogWarning("TimeManager: " + log);
         }
+        #endregion
     }
-    
+
 }

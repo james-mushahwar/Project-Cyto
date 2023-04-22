@@ -53,9 +53,6 @@ namespace _Scripts._Game.Player{
         #endregion
 
         #region Damage Properties
-
-        [SerializeField] 
-        private GameEvent _takeDamageGameEvent;
         [SerializeField]
         private float _invulnerableDuration = 0.8f;
         private float _isInvulnerableTimer;
@@ -237,7 +234,7 @@ namespace _Scripts._Game.Player{
                 }
             }
 
-            _takeDamageGameEvent.TriggerEvent();
+            TimeManager.Instance.TryRequestTimeScale(ETimeImportance.High, 0.0f, 0.0f, 0.025f, 0.2f);
             _isInvulnerableTimer = _invulnerableDuration;
         }
 

@@ -88,9 +88,7 @@ namespace _Scripts._Game.AI{
         public bool FacingRight { get => !_spriteAnimator.Renderer.flipX; }
 
         //Exposable
-        [Header("Exposable")] 
-        [SerializeField] 
-        private GameEvent _onExposedGameEvent;
+        [Header("Exposable")]
         [SerializeField]
         private UnityEvent _onExposedEvent;
         [SerializeField]
@@ -286,7 +284,7 @@ namespace _Scripts._Game.AI{
 
         public void OnExposed()
         {
-            _onExposedGameEvent?.TriggerEvent();
+            TimeManager.Instance.TryRequestTimeScale(ETimeImportance.Low, 0.25f, 0.0f, 0.1f, 0.1f);
             _onExposedEvent.Invoke();
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
