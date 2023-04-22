@@ -233,7 +233,7 @@ namespace _Scripts._Game.AI{
                     killedOrBroken = true;
                 }
                 //broken shield
-                FeedbackManager.Instance.TryFeedbackPattern(brokenShield ? EFeedbackPattern.Game_BasicAttackHeavy : EFeedbackPattern.Game_BasicAttackLight);
+                FeedbackManager.Instance.TryFeedbackPattern(brokenShield ? EFeedbackPattern.Game_OnAIExposed : EFeedbackPattern.Game_BasicAttackLight);
                 
                 _spriteAnimator.DamageFlash();
                 _onHitEvent.Invoke(gameObject);

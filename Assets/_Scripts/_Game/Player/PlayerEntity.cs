@@ -234,6 +234,7 @@ namespace _Scripts._Game.Player{
                 }
             }
 
+            FeedbackManager.Instance.TryFeedbackPattern(_playerRespawnReason._isRespawning ? EFeedbackPattern.Game_TakeDamageHeavy : EFeedbackPattern.Game_TakeDamageLight);
             TimeManager.Instance.TryRequestTimeScale(ETimeImportance.High, 0.0f, 0.0f, 0.025f, 0.2f);
             _isInvulnerableTimer = _invulnerableDuration;
         }
@@ -245,6 +246,9 @@ namespace _Scripts._Game.Player{
 
         public void OnRespawnStart()
         {
+            // kill velocity
+            MovementSM.Rb.velocity = Vector2.zero;
+
             _playerRespawnReason._isRespawning = true;
             if (_playerRespawnReason._reaspawnReason == ERespawnReason.Death)
             {

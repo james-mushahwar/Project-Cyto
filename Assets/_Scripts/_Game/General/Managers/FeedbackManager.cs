@@ -21,6 +21,7 @@ namespace _Scripts._Game.General.Managers{
         //Game - damage
         Game_BasicAttackLight,
         Game_BasicAttackHeavy,
+        Game_OnAIExposed,
         Game_TakeDamageLight,
         Game_TakeDamageHeavy,
     }
@@ -56,20 +57,26 @@ namespace _Scripts._Game.General.Managers{
         #endregion
 
         [Header("Feedback patterns")]
-        private FFeedbackPattern _NoneFeedbackPattern; // should do nothing
+        private FFeedbackPattern _noneFeedbackPattern; // should do nothing
         [SerializeField]
-        private FFeedbackPattern _UITouchFeedback;
+        private FFeedbackPattern _uiTouchFeedback;
         [SerializeField]
-        private FFeedbackPattern _BasicAttackLightFeedback;
+        private FFeedbackPattern _basicAttackLightFeedback;
         [SerializeField]
-        private FFeedbackPattern _BasicAttackHeavyFeedback;
+        private FFeedbackPattern _basicAttackHeavyFeedback;
+        [SerializeField]
+        private FFeedbackPattern _onAIExposedFeedback;
+        [SerializeField]
+        private FFeedbackPattern _takeDamageLightFeedback;
+        [SerializeField]
+        private FFeedbackPattern _takeDamageHeavyFeedback;
 
         protected override void Awake() 
         {
             base.Awake();
-            _NoneFeedbackPattern = new FFeedbackPattern();
-            _NoneFeedbackPattern._canBeStopped = true;
-            _feedbackPattern = _NoneFeedbackPattern;
+            _noneFeedbackPattern = new FFeedbackPattern();
+            _noneFeedbackPattern._canBeStopped = true;
+            _feedbackPattern = _noneFeedbackPattern;
         }
 
         private void FixedUpdate()
@@ -103,7 +110,7 @@ namespace _Scripts._Game.General.Managers{
                 _gamepad.SetMotorSpeeds(lowFreq, highFreq);
             }
 
-            _feedbackTimer += Time.deltaTime;
+            _feedbackTimer += Time.unscaledDeltaTime;
             if (_feedbackPattern._loop && _feedbackTimer >= _feedbackDuration)
             {
                 _feedbackTimer = 0;
@@ -112,7 +119,7 @@ namespace _Scripts._Game.General.Managers{
 
         private void SetNoneFeedbackPattern()
         {
-            _feedbackPattern = _NoneFeedbackPattern;
+            _feedbackPattern = _noneFeedbackPattern;
             _feedbackType = EFeedbackPattern.None;
             _feedbackTimer = 0.0f;
             _feedbackDuration = 0.0f;
@@ -176,11 +183,17 @@ namespace _Scripts._Game.General.Managers{
             switch (pattern)
             {
                 case EFeedbackPattern.Game_BasicAttackLight:
-                    return _BasicAttackLightFeedback;
+                    return _basicAttackLightFeedback;
                 case EFeedbackPattern.Game_BasicAttackHeavy:
-                    return _BasicAttackHeavyFeedback;
+                    return _basicAttackHeavyFeedback;
+                case EFeedbackPattern.Game_OnAIExposed:
+                    return _onAIExposedFeedback;
+                case EFeedbackPattern.Game_TakeDamageLight:
+                    return _takeDamageLightFeedback;
+                case EFeedbackPattern.Game_TakeDamageHeavy:
+                    return _takeDamageHeavyFeedback;
                 default:
-                    return _NoneFeedbackPattern;
+                    return _noneFeedbackPattern;
             }
         }
 
