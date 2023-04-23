@@ -111,12 +111,14 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             ManagedTargetsTick();
 
             // bondable target
             FindBestBondable();
+
+            //Debug.Log("TargetManager fixed update: deltaTime is: " + Time.deltaTime + " and fixedDeltaTime is: " + Time.fixedDeltaTime);
 
             // damageable target
             FindBestDamageable();
@@ -296,16 +298,10 @@ namespace _Scripts._Game.General.Managers{
             TargetingParameters tp = GetTargetingParameters(ETargetType.Bondable);
             Vector2 inputDirection = pInstigator.GetMovementInput().normalized;
             bool noPlayerInput = inputDirection.sqrMagnitude == 0.0f;
-            if (inputDirection.sqrMagnitude == 0.0f)
+            if (noPlayerInput)
             {
                 inputDirection = pInstigator.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
             }
-            #if UNITY_EDITOR
-            //DrawGizmos.ForPointsDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3)(inputDirection * 10.0f));
-            //DrawGizmos.ForDirectionDebug(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
-            //DrawGizmos.ForDirectionGizmo(pInstigator.Transform.position, pInstigator.Transform.position + (Vector3.right * 10.0f));
-            
-            #endif
 
             float finalScore = 0.0f;
             float distanceScore = 0.0f;
@@ -351,7 +347,8 @@ namespace _Scripts._Game.General.Managers{
         {
             TargetingParameters tp = GetTargetingParameters(ETargetType.Damageable);
             Vector2 inputDirection = dInstigator.GetMovementInput();
-            if (inputDirection.sqrMagnitude == 0.0f)
+            bool noPlayerInput = inputDirection.sqrMagnitude == 0.0f;
+            if (noPlayerInput)
             {
                 inputDirection = dInstigator.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
             }
@@ -362,7 +359,7 @@ namespace _Scripts._Game.General.Managers{
 
             Vector2 targetVector = dTarget.Transform.position - dInstigator.Transform.position;
 
-            if (!tp.IgnoreDotProductScore)
+            if (!tp.IgnoreDotProductScore && !noPlayerInput)
             {
                 float dotProductDiff = Vector2.Dot(targetVector.normalized, inputDirection.normalized);
 
@@ -374,7 +371,7 @@ namespace _Scripts._Game.General.Managers{
                 }
                 else
                 {
-                    return -100.0f;
+                    return 0.0f;
                 }
             }
 
@@ -383,11 +380,11 @@ namespace _Scripts._Game.General.Managers{
                 float distanceToTarget = targetVector.SqrMagnitude();
                 if (distanceToTarget < tp.MaxSqDistance)
                 {
-                    distanceScore = 1.0f - (distanceToTarget / tp.MaxSqDistance) * tp.DistanceScoreMultiplier;
+                    distanceScore = Mathf.Lerp(1.0f, 0.1f, (distanceToTarget / tp.MaxSqDistance)) * (noPlayerInput ? 1.0f : tp.DistanceScoreMultiplier);
                 }
                 else
                 {
-                    return -100.0f;
+                    return 0.0f;
                 }
             }
 

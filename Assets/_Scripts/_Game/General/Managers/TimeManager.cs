@@ -41,11 +41,15 @@ namespace _Scripts._Game.General.Managers {
                 {
                     LogWarning("Time scale is messed up! Should be 1.0f but is " + Time.timeScale + " instead. Fixing now...");
                     Time.timeScale = 1.0f;
+                    //Time.fixedDeltaTime = Time.timeScale * _fixedDeltaTime;
+
                 }
                 else if (PauseManager.Instance.IsPaused && (Time.timeScale > 0.0f || Time.timeScale < 0.0f))
                 {
                     LogWarning("Time scale is messed up! Should be 0.0f but is " + Time.timeScale + " instead. Fixing now...");
                     Time.timeScale = 0.0f;
+                    //Time.fixedDeltaTime = Time.timeScale * _fixedDeltaTime;
+
                 }
             }
         }

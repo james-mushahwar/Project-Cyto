@@ -186,11 +186,11 @@ MonoBehaviour:
     _ignoreDistanceScore: 0
   _damageableTargetParameters:
     _targetType: 2
-    _maxSqDistance: 25
-    _minDotProduct: 0.8
+    _maxSqDistance: 100
+    _minDotProduct: 0.75
     _threatScoreMultiplier: 0
-    _angleScoreMultiplier: 2
-    _distanceScoreMultiplier: 0.25
+    _angleScoreMultiplier: 1.25
+    _distanceScoreMultiplier: 1
     _ignoreDotProductScore: 0
     _ignoreDistanceScore: 0
   _damageableOverlapRange: 10
