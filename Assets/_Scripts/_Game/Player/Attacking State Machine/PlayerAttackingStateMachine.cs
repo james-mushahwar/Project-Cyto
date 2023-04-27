@@ -8,9 +8,10 @@ using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.Bonding;
 using UnityEngine.Rendering;
+using _Scripts._Game.Events;
 
 namespace _Scripts._Game.Player.AttackingStateMachine{
-    
+
     public class PlayerAttackingStateMachine : Singleton<PlayerAttackingStateMachine>, ISaveable
     {
         #region Input
@@ -44,7 +45,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private float[] _basicComboElapseTimes = new float[5]; // wait to return to idle state
         [SerializeField]
         private float[] _basicComboBufferTimes = new float[5]; // how long can the buffer be open for the next combo
-        [SerializeField] 
+        [SerializeField]
         private float _basicAttackRecentTimer;
 
         private int _currentBasicAttackCombo = 0;
@@ -68,6 +69,24 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private Collider2D[] _aiColliders = new Collider2D[20];
         #endregion
 
+        #region Combo mode
+        [Header("Combo mode")]
+        private bool _comboModeActive = false;
+        private float _comboModeTimer;
+        [SerializeField]
+        private float _comboModeDuration;
+        [SerializeField]
+        private GameEvent _comboModeStartedGameEvent;
+        [SerializeField]
+        private GameEvent _comboModeEndedGameEvent;
+
+
+        public float ComboModeTimer
+        {
+            get => _comboModeTimer;
+        }
+        #endregion
+
         #region General
         private float _recentAttackTimer = 0.0f;
 
@@ -82,8 +101,6 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
                 }
             }
         }
-
-
         #endregion
 
         //#region VFX
@@ -112,7 +129,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             PlayerEntity.Instance.AttackingSM = this;
         }
 
-        void FixedUpdate()
+        void Update()
         {
             // timers
             TickTimers();
@@ -130,6 +147,16 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             if (_recentAttackTimer > 0.0f)
             {
                 _recentAttackTimer = Mathf.Clamp(_recentAttackTimer - deltaTime, 0.0f, 100.0f);
+            }
+
+            //combo mode timers
+            if (_comboModeTimer > 0.0f)
+            {
+                _comboModeTimer = Mathf.Clamp(_comboModeTimer - deltaTime, 0.0f, 100.0f);
+                if (_comboModeTimer <= 0.0f)
+                {
+                    _comboModeEndedGameEvent.TriggerEvent();
+                }
             }
         }
 
@@ -162,8 +189,13 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             return _recentAttackTimer > 0.0f || _basicAttackBuffered;
         }
 
-        //ISaveable
+        public void RestartComboMode()
+        {
+            _comboModeTimer = _comboModeDuration;
+            _comboModeStartedGameEvent.TriggerEvent();
+        }
 
+        //ISaveable
         [System.Serializable]
         private struct SaveData
         {

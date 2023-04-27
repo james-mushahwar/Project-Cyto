@@ -231,6 +231,10 @@ namespace _Scripts._Game.AI{
                 {
                     OnExposed();
                     killedOrBroken = true;
+                    if (causer == EEntityType.Player || causer == EEntityType.BondedEnemy)
+                    {
+                        PlayerEntity.Instance.AttackingSM.RestartComboMode();
+                    }
                 }
                 //broken shield
                 FeedbackManager.Instance.TryFeedbackPattern(brokenShield ? EFeedbackPattern.Game_OnAIExposed : EFeedbackPattern.Game_BasicAttackLight);

@@ -16,9 +16,11 @@ namespace _Scripts._Game.General.Managers{
         AreasFound,
 
         // Player actions
+        Bonds,
         Possessions,
         Bounces,
-        Breaks, 
+        Phases,
+        Exposures, 
 
         COUNT
     }
