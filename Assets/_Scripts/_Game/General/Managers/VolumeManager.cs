@@ -57,6 +57,32 @@ namespace _Scripts._Game.General.Managers{
                 }
             }
         }
+
+        private void OnDisable()
+        {
+            if (_globalVolume != null)
+            {
+                if (_globalVolume.profile.TryGet<Bloom>(out _globalVolumeBloom))
+                {
+                    _globalVolumeBloom.intensity = _bloomDefaultIntensity;
+                }
+
+                if (_globalVolume.profile.TryGet<FilmGrain>(out _globalVolumeFilmGrain))
+                {
+                    _globalVolumeFilmGrain.type = _filmGrainDefaultType;
+                    _globalVolumeFilmGrain.intensity = _filmGrainDefaultIntensity;
+                }
+
+                if (_globalVolume.profile.TryGet<Vignette>(out _globalVolumeVignette))
+                {
+                    _globalVolumeVignette.color = _vignetteColour;
+                    _globalVolumeVignette.center = _vignetteCenter;
+                    _globalVolumeVignette.intensity = _vignetteIntensity;
+                    _globalVolumeVignette.smoothness = _vignetteSmoothness;
+                    _globalVolumeVignette.rounded = _vignetteRounded;
+                }
+            }
+        }
     }
     
 }
