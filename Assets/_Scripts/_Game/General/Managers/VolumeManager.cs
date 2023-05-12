@@ -9,6 +9,7 @@ namespace _Scripts._Game.General.Managers{
     public class VolumeManager : Singleton<VolumeManager>
     {
         private Volume _globalVolume;
+        private float _globalVolumeWeight;
 
         [Header("Bloom")]
         private Bloom _globalVolumeBloom;
@@ -36,6 +37,8 @@ namespace _Scripts._Game.General.Managers{
 
             if (_globalVolume != null)
             {
+                _globalVolumeWeight = _globalVolume.weight;
+
                 if (_globalVolume.profile.TryGet<Bloom>(out _globalVolumeBloom))
                 {
                     _bloomDefaultIntensity = _globalVolumeBloom.intensity;
@@ -61,7 +64,9 @@ namespace _Scripts._Game.General.Managers{
         private void OnDisable()
         {
             if (_globalVolume != null)
-            {
+            { 
+                _globalVolume.weight = _globalVolumeWeight;
+
                 if (_globalVolume.profile.TryGet<Bloom>(out _globalVolumeBloom))
                 {
                     _globalVolumeBloom.intensity = _bloomDefaultIntensity;
@@ -82,6 +87,11 @@ namespace _Scripts._Game.General.Managers{
                     _globalVolumeVignette.rounded = _vignetteRounded;
                 }
             }
+        }
+
+        public void OnPlayerTakeDamage()
+        {
+
         }
     }
     

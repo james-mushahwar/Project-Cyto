@@ -2177,6 +2177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5498502452462358998}
+  - component: {fileID: 1734501735456776443}
   - component: {fileID: 304593216274181011}
   m_Layer: 0
   m_Name: VolumeManager
@@ -2200,6 +2201,18 @@ Transform:
   m_Father: {fileID: 1192473343919988200}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1734501735456776443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755018006402153868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c687a48ee92854db4bd24cde865cab23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &304593216274181011
 MonoBehaviour:
   m_ObjectHideFlags: 0
