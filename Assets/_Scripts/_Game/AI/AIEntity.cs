@@ -241,6 +241,10 @@ namespace _Scripts._Game.AI{
                 
                 _spriteAnimator.DamageFlash();
                 _onHitEvent.Invoke(gameObject);
+                if (!killedOrBroken)
+                {
+                    VolumeManager.Instance.OnBondableHit();
+                }
             }
             else
             {
@@ -264,6 +268,7 @@ namespace _Scripts._Game.AI{
                 else
                 {
                     _onTakeDamageEvent.Invoke(gameObject);
+                    VolumeManager.Instance.OnBondableHit();
                 }
                 //_spriteAnimator.DamageFlash();
             }
@@ -293,6 +298,7 @@ namespace _Scripts._Game.AI{
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
             AudioSource pooledSource = ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(EAudioType.SFX_Exposed, transform.position);
+            VolumeManager.Instance.OnExposed();
         }
 
         public void OnUnexposed()

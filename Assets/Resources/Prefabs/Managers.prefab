@@ -2213,6 +2213,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c687a48ee92854db4bd24cde865cab23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloomIntensityBondableHit: 5
+  _bloomIntensityBondableHitDuration: 0.15
+  _bloomIntensityBondableHitEase: 27
+  _bloomIntensityBondableExposed: 5
+  _bloomIntensityBondableExposedDuration: 0.2
+  _bloomIntensityBondableExposedEase: 27
+  _vignetteIntensityPlayerDamage: 0.415
+  _vignetteIntensityPlayerDamageDuration: 0.5
+  _vignetteIntensityPlayerDamageEase: 8
+  _vignetteIntensityPlayerKilled: 0.55
+  _vignetteIntensityPlayerKilledDuration: 2.5
+  _vignetteIntensityPlayerKilledEase: 0
+  _chromaticAberrationPlayerDamage: 0.24
+  _chromaticAberrationPlayerDamageDuration: 0.5
+  _chromaticAberrationPlayerDamagedEase: 4
+  _chromaticAberrationPlayerKilled: 0.5
+  _chromaticAberrationPlayerKilledDuration: 2.5
+  _chromaticAberrationPlayerKilledEase: 4
 --- !u!114 &304593216274181011
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -326,7 +326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01a03dba119e064185488c3db7cb3e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _takeDamageGameEvent: {fileID: 11400000, guid: 70a07cf7076205549aeab8d90a32bde1, type: 2}
   _invulnerableDuration: 0.8
 --- !u!114 &5581101032112713369
 MonoBehaviour:
@@ -462,6 +461,9 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  _comboModeDuration: 3
+  _comboModeStartedGameEvent: {fileID: 11400000, guid: 242e5aa2d0e35fb42b1901528aa79b6a, type: 2}
+  _comboModeEndedGameEvent: {fileID: 11400000, guid: 49c0a2dbc17ef144bb2710ea9b92e965, type: 2}
 --- !u!114 &1502426073
 MonoBehaviour:
   m_ObjectHideFlags: 0

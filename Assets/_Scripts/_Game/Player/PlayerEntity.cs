@@ -100,6 +100,7 @@ namespace _Scripts._Game.Player{
                 if ((_playerRespawnReason._respawnTimer -= Time.deltaTime) < 0.0f)
                 {
                     //respawn
+                    VolumeManager.Instance.OnPlayerRespawned();
                     transform.position = new Vector3(26.0f, 146.0f, 0.0f);
                     _playerRespawnReason._reaspawnReason = ERespawnReason.None;
                     _playerRespawnReason._isRespawning = false;
@@ -107,6 +108,7 @@ namespace _Scripts._Game.Player{
                     FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
                     _playerHealthStats.AddHitPoints(playerEntityStats.MaxHealth);
                     _isInvulnerableTimer = 0.0f;
+
                 }
             }
 
@@ -235,6 +237,14 @@ namespace _Scripts._Game.Player{
             }
 
             FeedbackManager.Instance.TryFeedbackPattern(_playerRespawnReason._isRespawning ? EFeedbackPattern.Game_TakeDamageHeavy : EFeedbackPattern.Game_TakeDamageLight);
+            if (_playerRespawnReason._isRespawning)
+            {
+                VolumeManager.Instance.OnPlayerKilled();
+            }
+            else
+            {
+                VolumeManager.Instance.OnPlayerTakeDamage();
+            }
             TimeManager.Instance.TryRequestTimeScale(ETimeImportance.High, 0.0f, 0.0f, 0.025f, 0.2f);
             _isInvulnerableTimer = _invulnerableDuration;
         }
