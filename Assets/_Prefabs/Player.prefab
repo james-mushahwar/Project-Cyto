@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4260520103991201206}
   - component: {fileID: 1691332963}
   - component: {fileID: 1202578971}
+  - component: {fileID: 9213647994621165489}
   m_Layer: 7
   m_Name: Player Sprite
   m_TagString: Untagged
@@ -126,6 +127,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9213647994621165489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104437372805157711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d93e1cdc2539284eb12f249015859fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 4260520103991201206}
+  _shakeDuration: 0
+  _shakePreDelay: 0
+  _horizontalShake:
+    _rate: 0
+    _displacement: 0
+    _dampenOverTime: {x: 1, y: 1}
+  _verticalShake:
+    _rate: 0
+    _displacement: 0
+    _dampenOverTime: {x: 1, y: 1}
+  _attackJoltXYMagnitude: {x: 0.25, y: 0.25}
+  _attackJoltDuration: 0.125
+  _attackJoltEase: 9
 --- !u!1 &4358842494437401551
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +474,22 @@ MonoBehaviour:
   - 0
   - 0
   _basicAttackRecentTimer: 0.4
+  _onBasicAttackStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9213647994621165489}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.GameFeel.HitStop.HitStopShake,
+          Assembly-CSharp
+        m_MethodName: PlayJolt
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _damageableOverlapRange: 10
   _damageableContactFilter:
     useTriggers: 1

@@ -72,6 +72,8 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             {
                 success = ProjectileManager.Instance.TryBasicAttackProjectile(TargetManager.Instance.DamageableTarget, PlayerEntity.Instance.transform.position, comboIndex);
                 FollowCamera.Instance.OnAttack();
+                Vector3 direction = (TargetManager.Instance.DamageableTarget.Transform.position - PlayerEntity.Instance.transform.position).normalized;
+                _ctx.OnBasicAttackStart.Invoke(direction);
             }
 
             if (!success)

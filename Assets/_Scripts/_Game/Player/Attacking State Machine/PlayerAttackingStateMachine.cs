@@ -9,6 +9,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.Bonding;
 using UnityEngine.Rendering;
 using _Scripts._Game.Events;
+using UnityEngine.Events;
 
 namespace _Scripts._Game.Player.AttackingStateMachine{
 
@@ -47,6 +48,8 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private float[] _basicComboBufferTimes = new float[5]; // how long can the buffer be open for the next combo
         [SerializeField]
         private float _basicAttackRecentTimer;
+        [SerializeField]
+        private UnityEvent<Vector3> _onBasicAttackStart;
 
         private int _currentBasicAttackCombo = 0;
         private bool _basicAttackBuffered = false;
@@ -56,6 +59,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         public float[] BasicComboElapseTimes { get => _basicComboElapseTimes; }
         public float[] BasicComboBufferTimes { get => _basicComboBufferTimes; }
         public float BasicAttackRecentTimer { get => _basicAttackRecentTimer; }
+        public UnityEvent<Vector3> OnBasicAttackStart => _onBasicAttackStart;
         public int CurrentBasicAttackCombo { get => _currentBasicAttackCombo; set => _currentBasicAttackCombo = value; }
         public bool BasicAttackBuffered { get => _basicAttackBuffered; set => _basicAttackBuffered = value; }
 

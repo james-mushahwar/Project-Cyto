@@ -34,6 +34,11 @@ namespace _Scripts._Game.Animation.Character.Player {
         {
             
         }
+
+        public void OnAttack(Vector2 direction)
+        {
+
+        }
     }
     
 }

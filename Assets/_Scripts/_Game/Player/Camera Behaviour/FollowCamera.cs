@@ -217,6 +217,12 @@ public class FollowCamera : Singleton<FollowCamera>
             _targetXOffset += direction.x * _targetXYCameraMagnitude.x;
             _targetYOffset += direction.y * _targetXYCameraMagnitude.y;
         }
+
+        // recently attacked
+        if (PlayerEntity.Instance.AttackingSM.HasAttackedRecently())
+        {
+           
+        }
     }
 
     private void TargetCameraOffsets()

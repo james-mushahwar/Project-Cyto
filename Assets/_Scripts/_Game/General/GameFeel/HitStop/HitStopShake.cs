@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _Scripts._Game.General.GameFeel.HitStop{
@@ -26,7 +27,7 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
 
-        [Header("Properties")]
+        [Header("Shake Properties")]
         [SerializeField]
         private float _shakeDuration;
         [SerializeField]
@@ -36,19 +37,37 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
         [SerializeField]
         private ShakeParameters _verticalShake = new ShakeParameters(false);
 
+        [Header("Jolt properties")]
+        [SerializeField]
+        private Vector2 _attackJoltXYMagnitude;
+        [SerializeField] 
+        private float _attackJoltDuration;
+        [SerializeField] 
+        private Ease _attackJoltEase;
+
+        private Vector3 _defaultSpriteLocalPosition;
+
         [Header("General")]
-        private bool _shakePlaying;
+        private bool _displacementPlaying;
+        private Tweener _offsetTweener;
+
+        private void Awake()
+        {
+            _defaultSpriteLocalPosition = _spriteRenderer.transform.localPosition;
+        }
 
         private void OnDisable()
         {
             StopAllCoroutines();
+            KillActiveTween(ref _offsetTweener);
         }
 
         public void PlayShake(GameObject instigator)
         {
-            if (_shakePlaying)
+            if (_displacementPlaying)
             {
                 StopAllCoroutines();
+                KillActiveTween(ref _offsetTweener);
             }
             
             StartCoroutine(Shake(instigator.transform.position));
@@ -56,7 +75,7 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
 
         private IEnumerator Shake(Vector3 direction)
         {
-            _shakePlaying = true;
+            _displacementPlaying = true;
 
             if (_shakePreDelay > 0.0f)
             {
@@ -83,7 +102,36 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
             }
 
             _spriteRenderer.gameObject.transform.localPosition = Vector3.zero;
-            _shakePlaying = true;
+            _displacementPlaying = false;
+        }
+
+        public void PlayJolt(Vector3 direction)
+        {
+            if (_displacementPlaying)
+            {
+                StopAllCoroutines();
+                KillActiveTween(ref _offsetTweener);
+            }
+
+            _displacementPlaying = true;
+            Vector3 targetPosition = _defaultSpriteLocalPosition + new Vector3(direction.x * _attackJoltXYMagnitude.x, direction.y * _attackJoltXYMagnitude.y, 0.0f);
+            _offsetTweener = DOVirtual.Vector3(_defaultSpriteLocalPosition, targetPosition, _attackJoltDuration,
+                value =>
+                {
+                    _spriteRenderer.gameObject.transform.localPosition = value;
+                }).SetEase(_attackJoltEase).OnComplete(() => _spriteRenderer.gameObject.transform.localPosition = _defaultSpriteLocalPosition);
+        }
+
+        private void KillActiveTween(ref Tweener tweener)
+        {
+            if (tweener != null)
+            {
+                if (tweener.IsActive())
+                {
+                    DOTween.Kill(tweener);
+                    tweener = null;
+                }
+            }
         }
 
         #region Debug
