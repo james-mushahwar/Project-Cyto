@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 6544084828957507871}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6544084828829350067
 MonoBehaviour:
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 6544084828957508064}
-  _ctx: {fileID: 0}
+  _facingRightOffset: 0
   _groundedXYCameraOffset: {x: 2, y: 0}
   _jumpingXYCameraOffset: {x: 1, y: 0}
   _fallingXYCameraOffset: {x: 1, y: 0}
@@ -59,6 +59,10 @@ MonoBehaviour:
   _dashingXYLerpSpeeds: {x: 10, y: 2}
   _floatingXYLerpSpeeds: {x: 2, y: 2}
   _bouncingXYLerpSpeeds: {x: 5, y: 5}
+  _playerAttackZOffset: -22.9
+  _playerAttackZOffsetDuration: 0.33
+  _playerAttackZOffsetEase: 27
+  _targetXYCameraMagnitude: {x: 3, y: 2.25}
 --- !u!1 &6544084828957508067
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +109,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.26415092, g: 0.23095284, b: 0.20060517, a: 0}
+  m_BackGroundColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -120,13 +124,13 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 66.4
-  orthographic: 1
+  field of view: 72.2
+  orthographic: 0
   orthographic size: 16.875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -202,7 +206,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6544084828957508067}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 

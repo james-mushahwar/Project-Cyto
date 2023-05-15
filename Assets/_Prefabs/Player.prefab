@@ -369,6 +369,7 @@ MonoBehaviour:
   _dashingForce: 1000
   _dashingStateDuration: 0.25
   _dashingJumpBufferLimit: 0.25
+  _dashingCooldownTime: 0.5
   _floatingGravityScale: 2.2
   _floatingUpwardsEnterForce: 4
   _floatingHorizontalVelocity: 11

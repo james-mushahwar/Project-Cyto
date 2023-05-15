@@ -38,7 +38,7 @@ public class GroundedMovementState : BaseMovementState
             return true;
         }
 
-        if (_ctx.IsDashInputValid == true)
+        if (_ctx.IsDashInputValid == true && _ctx.DashTimeElapsed <= 0.0f)
         {
             SwitchStates(_factory.GetState(MovementState.Dashing));
             return true;

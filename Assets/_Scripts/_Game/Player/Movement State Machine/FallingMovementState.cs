@@ -54,7 +54,7 @@ public class FallingMovementState : BaseMovementState
             }
         }
 
-        if (_ctx.IsDashInputValid == true)
+        if (_ctx.IsDashInputValid == true && _ctx.DashTimeElapsed <= 0.0f)
         {
             if (_ctx.DashCounter == 0)
             {

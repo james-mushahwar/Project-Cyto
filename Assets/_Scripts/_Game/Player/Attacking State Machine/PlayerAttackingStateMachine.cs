@@ -80,11 +80,12 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         [SerializeField]
         private GameEvent _comboModeEndedGameEvent;
 
-
         public float ComboModeTimer
         {
             get => _comboModeTimer;
         }
+
+        public float ComboModeDuration => _comboModeDuration;
         #endregion
 
         #region General
@@ -101,6 +102,8 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
                 }
             }
         }
+
+
         #endregion
 
         //#region VFX
@@ -191,8 +194,13 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public void RestartComboMode()
         {
-            _comboModeTimer = _comboModeDuration;
+            _comboModeTimer = ComboModeDuration;
             _comboModeStartedGameEvent.TriggerEvent();
+        }
+
+        public bool IsInComboMode()
+        {
+            return _comboModeTimer > 0.0f;
         }
 
         //ISaveable

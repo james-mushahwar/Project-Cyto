@@ -77,6 +77,7 @@ public class DashingMovementState : BaseMovementState
         _ctx.NullifyInput(MovementState.Dashing);
         _stateTimer = 0.0f;
         _ctx.DashCounter++;
+        _ctx.DashTimeElapsed = _ctx.DashingCooldownTime;
 
         _ctx.Rb.gravityScale = _ctx.DashingGravityScale;
         _ctx.Rb.velocity = _ctx.Rb.velocity * Vector2.right;

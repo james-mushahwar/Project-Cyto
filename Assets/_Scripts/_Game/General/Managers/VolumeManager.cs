@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.Player;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -151,12 +152,12 @@ namespace _Scripts._Game.General.Managers{
 
         public void OnBondableHit()
         {
-            if (_globalVolumeBloom != null)
+            if (_globalVolumeBloom != null && !PlayerEntity.Instance.AttackingSM.IsInComboMode())
             {
                 // bloom
                 KillActiveTween(ref _bloomIntensityTweener);
                 TweenFloat(ref _bloomIntensityTweener, _bloomDefaultIntensity, _bloomIntensityBondableHit, _bloomIntensityBondableHitDuration, _globalVolumeBloom.intensity, _bloomIntensityBondableHitEase);
-                _bloomIntensityTweener.OnComplete(() => TweenFloat(ref _bloomIntensityTweener, _globalVolumeBloom.intensity.value, _bloomDefaultIntensity, 0.1f, _globalVolumeBloom.intensity, Ease.OutExpo));
+                _bloomIntensityTweener.OnComplete(() => TweenFloat(ref _bloomIntensityTweener, _globalVolumeBloom.intensity.value, _bloomDefaultIntensity, 0.075f, _globalVolumeBloom.intensity, Ease.OutExpo));
             }
         }
 
@@ -166,7 +167,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 // bloom
                 KillActiveTween(ref _bloomIntensityTweener);
-                TweenFloat(ref _bloomIntensityTweener, _bloomDefaultIntensity, _bloomIntensityBondableExposed, _bloomIntensityBondableExposedDuration, _globalVolumeBloom.intensity, _bloomIntensityBondableExposedEase);
+                TweenFloat(ref _bloomIntensityTweener, _bloomDefaultIntensity, _bloomIntensityBondableExposed, PlayerEntity.Instance.AttackingSM.ComboModeDuration, _globalVolumeBloom.intensity, _bloomIntensityBondableExposedEase);
                 _bloomIntensityTweener.OnComplete(() => TweenFloat(ref _bloomIntensityTweener, _globalVolumeBloom.intensity.value, _bloomDefaultIntensity, 0.1f, _globalVolumeBloom.intensity, Ease.OutExpo));
             }
         }
@@ -209,6 +210,13 @@ namespace _Scripts._Game.General.Managers{
 
         public void OnPlayerRespawned()
         {
+            if (_globalVolumeBloom != null)
+            {
+                //bloom
+                KillActiveTween(ref _bloomIntensityTweener);
+                _globalVolumeBloom.intensity.value = _bloomDefaultIntensity;
+            }
+
             if (_globalVolumeChromaticAberration != null)
             {
                 // chromatic aberration
@@ -222,6 +230,8 @@ namespace _Scripts._Game.General.Managers{
                 KillActiveTween(ref _vignetteIntensityTweener);
                 _globalVolumeVignette.intensity.value = _vignetteIntensity;
             }
+
+            
         }
 
         private void KillActiveTween(ref Tweener tweener)

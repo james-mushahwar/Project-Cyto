@@ -32,7 +32,7 @@ public class JumpingMovementState : BaseMovementState
             return true;
         }
 
-        if ( _stateTimer >= _ctx.JumpInputForceDelay && _ctx.IsDashInputValid == true)
+        if ( _stateTimer >= _ctx.JumpInputForceDelay && _ctx.IsDashInputValid == true && _ctx.DashTimeElapsed <= 0.0f)
         {
             SwitchStates(_factory.GetState(MovementState.Dashing));
             return true;

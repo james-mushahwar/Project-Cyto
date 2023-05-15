@@ -167,13 +167,18 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _dashingStateDuration;
     [SerializeField]
     private float _dashingJumpBufferLimit;
+    [SerializeField] 
+    private float _dashingCooldownTime;
     private int _dashCounter = 0;
+    private float _dashTimeElapsed = 0.0f;
 
     public float DashingGravityScale { get => _dashingGravityScale; }
     public float DashingForce { get => _dashingForce; }
     public float DashingStateDuration { get => _dashingStateDuration; }
     public float DashingJumpBufferLimit { get => _dashingJumpBufferLimit; }
+    public float DashingCooldownTime => _dashingCooldownTime;
     public int DashCounter { get => _dashCounter; set => _dashCounter = value; }
+    public float DashTimeElapsed { get => _dashTimeElapsed; set => _dashTimeElapsed = value; }
 
     [Header("Float Properties")]
     [SerializeField]
@@ -354,6 +359,9 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void FixedUpdate()
     {
+        //timers
+        TickTimers();
+
         MovementState stateType = _states.GetMovementStateEnum(CurrentState);
 
         _isGrounded = IsGroundedCheck();
@@ -366,6 +374,11 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         
         //nullify any inputs
         NullifyInput(MovementState.Bonding);
+    }
+
+    private void TickTimers()
+    {
+        _dashTimeElapsed = Mathf.Clamp(_dashTimeElapsed - Time.deltaTime, 0.0f, _dashingCooldownTime);
     }
 
     void OnMovementInput(InputAction.CallbackContext context)

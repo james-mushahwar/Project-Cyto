@@ -71,6 +71,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             if (TargetManager.Instance.DamageableTarget != null)
             {
                 success = ProjectileManager.Instance.TryBasicAttackProjectile(TargetManager.Instance.DamageableTarget, PlayerEntity.Instance.transform.position, comboIndex);
+                FollowCamera.Instance.OnAttack();
             }
 
             if (!success)

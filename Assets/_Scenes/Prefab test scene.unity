@@ -1790,17 +1790,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1502426072 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5581101032112713369, guid: 11ecbb44b37fa3f4d91e43e64532a41a, type: 3}
-  m_PrefabInstance: {fileID: 5581101032792513857}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eef92e840d48de489c78330f8db07ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1694661577
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,7 +2343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6544084828829350066, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.63
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: 6544084828829350066, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2384,10 +2373,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6544084828829350067, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
-      propertyPath: _ctx
-      value: 
-      objectReference: {fileID: 1502426072}
     - target: {fileID: 6544084828829350068, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
       propertyPath: m_Name
       value: Camera Holder

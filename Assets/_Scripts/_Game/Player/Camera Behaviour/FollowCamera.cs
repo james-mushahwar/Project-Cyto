@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using _Scripts._Game.General;
+using _Scripts._Game.Player;
+using DG.Tweening;
+using UnityEngine.Rendering;
+using _Scripts._Game.General.Managers;
 
 #if UNITY_EDITOR
 using _Scripts.Editortools.Draw;
@@ -14,19 +18,22 @@ public class FollowCamera : Singleton<FollowCamera>
     [SerializeField]
     private Camera _camera;
     private BaseCameraBounds _cameraBounds;
-    private float _fixedZOffset; // used to take the offset of the camera at the start
+    private float _defaultZOffset; // used to take the offset of the camera at the start
     private float _cameraWidth;
     private float _cameraHeight;
     #endregion
 
     #region Follow Behaviour
-    [SerializeField]
     private PlayerMovementStateMachine _ctx;
     private Transform _playerTransform;
     private float _targetXOffset;
     private float _targetYOffset;
+    private float _targetZOffset;
+    private Tweener _targetZOffsetTweener;
 
-    [Header("Target offsets")]
+    [Header("Target XY offsets")] 
+    [SerializeField]
+    private float _facingRightOffset;
     [SerializeField]
     private Vector2 _groundedXYCameraOffset;
     [SerializeField]
@@ -53,14 +60,28 @@ public class FollowCamera : Singleton<FollowCamera>
     private Vector2 _floatingXYLerpSpeeds;
     [SerializeField]
     private Vector2 _bouncingXYLerpSpeeds;
+
+    [Header("Target Z offsets")]
+    [SerializeField]
+    private float _playerAttackZOffset;
+    [SerializeField]
+    private float _playerAttackZOffsetDuration;
+    [SerializeField]
+    private Ease _playerAttackZOffsetEase;
+
+    [Header("External forces")] 
+    [SerializeField]
+    private Vector2 _targetXYCameraMagnitude;
     #endregion
 
     private void Start()
     {
+        _ctx = PlayerEntity.Instance.MovementSM;
         _playerTransform = _ctx.gameObject.transform;
-        _fixedZOffset = transform.position.z;
-        Vector3 topRightBounds = _camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, _fixedZOffset));
-        Vector3 topLeftBounds = _camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, _fixedZOffset));
+        _defaultZOffset = transform.position.z;
+        _targetZOffset = _defaultZOffset;
+        Vector3 topRightBounds = _camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, _defaultZOffset));
+        Vector3 topLeftBounds = _camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, _defaultZOffset));
         Vector3 bounds = topRightBounds - topLeftBounds;
         _cameraWidth = Mathf.Abs(bounds.x * 0.5f);
         _cameraHeight = Mathf.Abs(bounds.y * 0.5f);
@@ -74,12 +95,11 @@ public class FollowCamera : Singleton<FollowCamera>
         Vector3 desiredPosition;
         TargetOffsets();
 
-
         if (_cameraBounds != null)
         {
             TargetCameraOffsets();
 
-            newOffset = new Vector3(_targetXOffset, _targetYOffset, _fixedZOffset);
+            newOffset = new Vector3(_targetXOffset, _targetYOffset, _targetZOffset);
 
             desiredPosition = newOffset;
         }
@@ -87,10 +107,11 @@ public class FollowCamera : Singleton<FollowCamera>
         {
             // follow behaviour X
             //_targetXOffset = _ctx.IsFacingRight == true ? _isFacingRightXOffset : -_isFacingRightXOffset;
-            newOffset = new Vector3(_targetXOffset, _targetYOffset, _fixedZOffset);
+            newOffset = new Vector3(_targetXOffset, _targetYOffset, _targetZOffset);
 
             desiredPosition = _playerTransform.position + newOffset;
         }
+
     #if UNITY_EDITOR
         DrawGizmos.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x + _cameraWidth, transform.position.y, 0.0f));
         DrawGizmos.ForPointsDebug(new Vector3(transform.position.x, transform.position.y, 0.0f), new Vector3(transform.position.x, transform.position.y + _cameraHeight, 0.0f));
@@ -142,42 +163,59 @@ public class FollowCamera : Singleton<FollowCamera>
 
     private void TargetOffsets()
     {
-        _targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
+        bool facingRight = _ctx.IsFacingRight == true;
+        _targetXOffset = facingRight ? _facingRightOffset : -_facingRightOffset;
         if (_ctx.CurrentState is GroundedMovementState)
         {
             _targetXOffset *= _groundedXYCameraOffset.x;
             _targetYOffset =  _groundedXYCameraOffset.y;
-            return;
         }
         else if (_ctx.CurrentState is JumpingMovementState)
         {
             _targetXOffset *= _jumpingXYCameraOffset.x;
             _targetYOffset =  _jumpingXYCameraOffset.y;
-            return;
         }
         else if (_ctx.CurrentState is FallingMovementState)
         {
             _targetXOffset *= _fallingXYCameraOffset.x;
             _targetYOffset =  _fallingXYCameraOffset.y;
-            return;
         }
         else if (_ctx.CurrentState is DashingMovementState)
         {
             _targetXOffset *= _dashingXYCameraOffset.x;
             _targetYOffset =  _dashingXYCameraOffset.y;
-            return;
         }
         else if (_ctx.CurrentState is FloatingMovementState)
         {
             _targetXOffset *= _floatingXYCameraOffset.x;
             _targetYOffset =  _floatingXYCameraOffset.y;
-            return;
         }
         else if (_ctx.CurrentState is BouncingMovementState)
         {
             _targetXOffset *= _bouncingXYCameraOffset.x;
             _targetYOffset =  _bouncingXYCameraOffset.y;
-            return;
+        }
+
+        // target direction
+        Transform target = null;
+        if (TargetManager.Instance.DamageableTarget != null)
+        {
+            target = TargetManager.Instance.DamageableTarget.Transform;
+        }
+
+        if (target == null)
+        {
+            if (TargetManager.Instance.BondableTarget != null)
+            {
+                target = TargetManager.Instance.BondableTarget.BondTargetTransform;
+            }
+        }
+
+        if (target != null)
+        {
+            Vector2 direction = (target.position - transform.position).normalized;
+            _targetXOffset += direction.x * _targetXYCameraMagnitude.x;
+            _targetYOffset += direction.y * _targetXYCameraMagnitude.y;
         }
     }
 
@@ -211,5 +249,32 @@ public class FollowCamera : Singleton<FollowCamera>
         }
 
         _cameraBounds = bounds;
+    }
+
+    public void OnAttack()
+    {
+        KillActiveTween(ref _targetZOffsetTweener);
+        TweenZOffset(ref _targetZOffsetTweener, _defaultZOffset, _playerAttackZOffset, _playerAttackZOffsetDuration, _playerAttackZOffsetEase);
+        _targetZOffsetTweener.OnComplete(() => _targetZOffset = _defaultZOffset);
+    }
+
+    private void KillActiveTween(ref Tweener tweener)
+    {
+        if (tweener != null)
+        {
+            if (tweener.IsActive())
+            {
+                DOTween.Kill(tweener);
+                tweener = null;
+            }
+        }
+    }
+
+    private void TweenZOffset(ref Tweener tweener, float from, float to, float duration, Ease easeType)
+    {
+        tweener = DOVirtual.Float(from, to, duration, (float value) =>
+        {
+            _targetZOffset = value;
+        }).SetEase(easeType);
     }
 }

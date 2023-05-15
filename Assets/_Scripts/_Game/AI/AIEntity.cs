@@ -234,6 +234,7 @@ namespace _Scripts._Game.AI{
                     if (causer == EEntityType.Player || causer == EEntityType.BondedEnemy)
                     {
                         PlayerEntity.Instance.AttackingSM.RestartComboMode();
+                        VolumeManager.Instance.OnExposed();
                     }
                 }
                 //broken shield
@@ -298,7 +299,6 @@ namespace _Scripts._Game.AI{
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
             AudioSource pooledSource = ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(EAudioType.SFX_Exposed, transform.position);
-            VolumeManager.Instance.OnExposed();
         }
 
         public void OnUnexposed()

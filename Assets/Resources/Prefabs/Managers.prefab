@@ -2218,7 +2218,7 @@ MonoBehaviour:
   _bloomIntensityBondableHitEase: 27
   _bloomIntensityBondableExposed: 5
   _bloomIntensityBondableExposedDuration: 0.2
-  _bloomIntensityBondableExposedEase: 27
+  _bloomIntensityBondableExposedEase: 24
   _vignetteIntensityPlayerDamage: 0.415
   _vignetteIntensityPlayerDamageDuration: 0.5
   _vignetteIntensityPlayerDamageEase: 8
