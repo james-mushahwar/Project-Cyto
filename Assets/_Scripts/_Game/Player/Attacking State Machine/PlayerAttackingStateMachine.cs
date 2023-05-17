@@ -19,11 +19,13 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         //attack
         private bool _isAttackPressed = false;
         private bool _isAttackInputValid = false;
+        private float _attackHeld = 0.0f; 
         //aim L stick
         private Vector2 _currentAimInput = Vector2.zero;
 
         public bool IsAttackPressed { get => _isAttackPressed; }
         public bool IsAttackInputValid { get => _isAttackInputValid; }
+        public float AttackHeld { get => _attackHeld; set => _attackHeld = value; }
         public Vector2 CurrentAimInput { get => _currentAimInput; }
         #endregion
 
@@ -63,7 +65,6 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         public int CurrentBasicAttackCombo { get => _currentBasicAttackCombo; set => _currentBasicAttackCombo = value; }
         public bool BasicAttackBuffered { get => _basicAttackBuffered; set => _basicAttackBuffered = value; }
 
-
         [Header("Damageable Range properties")]
         [SerializeField]
         private float _damageableOverlapRange;
@@ -84,12 +85,16 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         [SerializeField]
         private GameEvent _comboModeEndedGameEvent;
 
+        [SerializeField]
+        private float[] _comboModeBasicComboWaitTimes = new float[5]; // wait for next combo to be ready
+
         public float ComboModeTimer
         {
             get => _comboModeTimer;
         }
 
         public float ComboModeDuration => _comboModeDuration;
+        public float[] ComboModeBasicComboWaitTimes => _comboModeBasicComboWaitTimes;
         #endregion
 
         #region General
@@ -123,6 +128,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             PlayerInput playerInput = InputManager.Instance.PlayerInput;
             //setup player input callbacks
             playerInput.Player.Attack.started += OnAttackInput;
+            playerInput.Player.Attack.performed += OnAttackInput;
             playerInput.Player.Attack.canceled += OnAttackInput;
 
             playerInput.Player.Movement.started += OnAimInput;
@@ -150,6 +156,9 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         private void TickTimers()
         {
             float deltaTime = Time.deltaTime;
+            //input timers
+            _attackHeld = _isAttackPressed ? _attackHeld + deltaTime : 0.0f;
+
             // recent attack timer
             if (_recentAttackTimer > 0.0f)
             {
@@ -159,7 +168,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             //combo mode timers
             if (_comboModeTimer > 0.0f)
             {
-                _comboModeTimer = Mathf.Clamp(_comboModeTimer - deltaTime, 0.0f, 100.0f);
+                _comboModeTimer = Mathf.Clamp(_comboModeTimer - deltaTime, _currentBasicAttackCombo > 0 ? 0.01f :0.0f, 100.0f);
                 if (_comboModeTimer <= 0.0f)
                 {
                     _comboModeEndedGameEvent.TriggerEvent();
@@ -171,6 +180,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         {
             _isAttackPressed = context.ReadValueAsButton();
             _isAttackInputValid = _isAttackPressed;
+            //Debug.Log("Attack held = " + _attackHeld);
         }
 
         void OnAimInput(InputAction.CallbackContext context)
@@ -185,6 +195,10 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             {
                 case AttackingState.Basic_Attack:
                     _isAttackInputValid = false;
+                    if (IsInComboMode())
+                    {
+                        _attackHeld = 0.0f;
+                    }
                     break;
                 default:
                     break;
@@ -200,6 +214,12 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         {
             _comboModeTimer = ComboModeDuration;
             _comboModeStartedGameEvent.TriggerEvent();
+        }
+
+        public void EndComboMode()
+        {
+            _comboModeTimer = 0.0f;
+            _comboModeEndedGameEvent.TriggerEvent();
         }
 
         public bool IsInComboMode()

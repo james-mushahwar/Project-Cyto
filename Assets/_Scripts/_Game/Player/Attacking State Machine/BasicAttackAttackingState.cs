@@ -21,7 +21,12 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public override bool CheckSwitchStates()
         {
-            if (_stateTimer >= _comboBufferStartTime && _ctx.BasicAttackBuffered == false)
+            if (_ctx.IsInComboMode() && _ctx.AttackHeld >= _comboWaitDuration && _ctx.CurrentBasicAttackCombo < _ctx.BasicComboLimit)
+            {
+                SwitchStates(_factory.GetState(AttackingState.Basic_Attack));
+                return true;
+            }
+            else if (_stateTimer >= _comboBufferStartTime && _ctx.BasicAttackBuffered == false)
             {
                 if (_ctx.IsAttackInputValid == true)
                 {
@@ -55,7 +60,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             _stateTimer = 0.0f;
 
             int comboIndex = _ctx.CurrentBasicAttackCombo;
-            _comboWaitDuration = _ctx.BasicComboWaitTimes[comboIndex];
+            _comboWaitDuration = _ctx.IsInComboMode() ? _ctx.ComboModeBasicComboWaitTimes[comboIndex] : _ctx.BasicComboWaitTimes[comboIndex];
             _comboElapseTime = _ctx.BasicComboElapseTimes[comboIndex];
             _comboBufferStartTime = _comboWaitDuration - _ctx.BasicComboBufferTimes[comboIndex];
             _ctx.BasicAttackBuffered = false;
@@ -63,7 +68,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             _ctx.CurrentBasicAttackCombo++;
 
             _ctx.NullifyInput(AttackingState.Basic_Attack);
-
+            
             //Debug.Log("Basic attack combo stats- Combo Index = " + comboIndex);
             //Debug.Log("Basic attack combo: " + _ctx.CurrentBasicAttackCombo);
             bool success = false;
@@ -85,6 +90,15 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             {
                 _ctx.RecentAttackTimer = _ctx.BasicAttackRecentTimer;
             }
+
+            if (_ctx.IsInComboMode())
+            {
+                if (_ctx.CurrentBasicAttackCombo >= _ctx.BasicComboLimit)
+                {
+                    _ctx.EndComboMode();
+                }
+            }
+            
         }
 
         public override void ExitState()
