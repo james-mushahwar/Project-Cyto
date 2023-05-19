@@ -60,8 +60,11 @@ MonoBehaviour:
   _floatingXYLerpSpeeds: {x: 2, y: 2}
   _bouncingXYLerpSpeeds: {x: 5, y: 5}
   _playerAttackZOffset: -22.9
-  _playerAttackZOffsetDuration: 0.33
+  _playerAttackZOffsetDuration: 0.3
   _playerAttackZOffsetEase: 27
+  _playerExposedZOffset: -22.8
+  _playerExposedZOffsetDuration: 0.3
+  _playerExposedZOffsetEase: 27
   _targetXYCameraMagnitude: {x: 3, y: 2.25}
 --- !u!1 &6544084828957508067
 GameObject:

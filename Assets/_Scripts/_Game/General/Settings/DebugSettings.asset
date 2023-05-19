@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dac9aae6640c7e4dbb8bc525ff27dad, type: 3}
   m_Name: DebugSettings
   m_EditorClassIdentifier: 
-  _playerImmune: 0
-  _enemiesImmune: 0
+  _playerImmune: 1
+  _enemiesImmune: 1
   _alwaysBondable: 0
   _aiFreezeMovement: 0

@@ -41,15 +41,21 @@ namespace _Scripts._Game.General.Managers{
         private EEntity _entity;
         [SerializeField]
         private float _maxHealth;
+        [SerializeField]
+        private float _maxBondableHealth;
 
         public float MaxHealth { get => _maxHealth; }
+        public float MaxBondableHealth => _maxBondableHealth;
     }
 
     public class StatsManager : Singleton<StatsManager>, ISaveable
     {
         private int[] _completionStats = new int[(int)EStatsType.COUNT]; 
-        [SerializeField]
-        private FEntityStats[] _entityStats = new FEntityStats[(int)EEntity.COUNT]; 
+        //[SerializeField]
+        //private FEntityStats[] _entityStats = new FEntityStats[(int)EEntity.COUNT];
+
+        [SerializeField] 
+        private EEntityFEntityStatsDictionary _entityStatsDict = new EEntityFEntityStatsDictionary();
 
         // Start is called before the first frame update
         void Start()
@@ -95,7 +101,9 @@ namespace _Scripts._Game.General.Managers{
                 return new FEntityStats();
             }
 
-            return _entityStats[index];
+            FEntityStats foundEntityStats;
+            _entityStatsDict.TryGetValue(type, out foundEntityStats);
+            return foundEntityStats;
         }
 
         [System.Serializable]

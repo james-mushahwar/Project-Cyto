@@ -108,8 +108,9 @@ namespace _Scripts._Game.AI{
 
         protected void Awake()
         {
-            _enemyHealthStats         = new EnemyHealthStats(1.0f, 1.0f, EHealthStatType.EnemyHealth);
-            _enemyBondableHealthStats = new EnemyHealthStats(3.0f, 3.0f, EHealthStatType.BondableHealth);
+            FEntityStats entityStats = StatsManager.Instance.GetEntityStat(_entity);
+            _enemyHealthStats         = new EnemyHealthStats(entityStats.MaxHealth, entityStats.MaxHealth, EHealthStatType.EnemyHealth);
+            _enemyBondableHealthStats = new EnemyHealthStats(entityStats.MaxBondableHealth, entityStats.MaxBondableHealth, EHealthStatType.BondableHealth);
         }
 
         public bool CanBeBonded()
@@ -235,6 +236,7 @@ namespace _Scripts._Game.AI{
                     {
                         PlayerEntity.Instance.AttackingSM.RestartComboMode();
                         VolumeManager.Instance.OnExposed();
+                        FollowCamera.Instance.OnExposed();
                     }
                 }
                 //broken shield

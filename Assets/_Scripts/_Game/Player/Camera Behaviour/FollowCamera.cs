@@ -62,12 +62,20 @@ public class FollowCamera : Singleton<FollowCamera>
     private Vector2 _bouncingXYLerpSpeeds;
 
     [Header("Target Z offsets")]
+    // attack
     [SerializeField]
     private float _playerAttackZOffset;
     [SerializeField]
     private float _playerAttackZOffsetDuration;
     [SerializeField]
     private Ease _playerAttackZOffsetEase;
+    //exposed
+    [SerializeField]
+    private float _playerExposedZOffset;
+    [SerializeField]
+    private float _playerExposedZOffsetDuration;
+    [SerializeField]
+    private Ease _playerExposedZOffsetEase;
 
     [Header("External forces")] 
     [SerializeField]
@@ -261,6 +269,13 @@ public class FollowCamera : Singleton<FollowCamera>
     {
         KillActiveTween(ref _targetZOffsetTweener);
         TweenZOffset(ref _targetZOffsetTweener, _defaultZOffset, _playerAttackZOffset, _playerAttackZOffsetDuration, _playerAttackZOffsetEase);
+        _targetZOffsetTweener.OnComplete(() => _targetZOffset = _defaultZOffset);
+    }
+
+    public void OnExposed()
+    {
+        KillActiveTween(ref _targetZOffsetTweener);
+        TweenZOffset(ref _targetZOffsetTweener, _defaultZOffset, _playerExposedZOffset, _playerExposedZOffsetDuration, _playerExposedZOffsetEase);
         _targetZOffsetTweener.OnComplete(() => _targetZOffset = _defaultZOffset);
     }
 

@@ -212,8 +212,11 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         public void RestartComboMode()
         {
-            _comboModeTimer = ComboModeDuration;
-            _comboModeStartedGameEvent.TriggerEvent();
+            if (_comboModeTimer <= 0.0f)
+            {
+                _comboModeTimer = ComboModeDuration;
+                _comboModeStartedGameEvent.TriggerEvent();
+            }
         }
 
         public void EndComboMode()
