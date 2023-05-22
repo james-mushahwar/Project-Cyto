@@ -39,7 +39,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             }
         }
 
-        public AttackingState GetMovementStateEnum(BaseAttackingState state)
+        public AttackingState GetAttackingStateEnum(BaseAttackingState state)
         {
             if (state is BasicAttackIdleState || state is BasicAttackAttackingState)
             {

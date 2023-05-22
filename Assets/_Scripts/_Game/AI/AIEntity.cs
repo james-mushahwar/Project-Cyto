@@ -234,7 +234,7 @@ namespace _Scripts._Game.AI{
                     killedOrBroken = true;
                     if (causer == EEntityType.Player || causer == EEntityType.BondedEnemy)
                     {
-                        PlayerEntity.Instance.AttackingSM.RestartComboMode();
+                        PlayerEntity.Instance.AttackingSM.RestartChargedMode();
                         VolumeManager.Instance.OnExposed();
                         FollowCamera.Instance.OnExposed();
                     }

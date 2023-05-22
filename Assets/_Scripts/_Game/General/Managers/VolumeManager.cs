@@ -152,7 +152,7 @@ namespace _Scripts._Game.General.Managers{
 
         public void OnBondableHit()
         {
-            if (_globalVolumeBloom != null && !PlayerEntity.Instance.AttackingSM.IsInComboMode())
+            if (_globalVolumeBloom != null && !PlayerEntity.Instance.AttackingSM.IsInChargedMode())
             {
                 // bloom
                 KillActiveTween(ref _bloomIntensityTweener);
@@ -167,7 +167,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 // bloom
                 KillActiveTween(ref _bloomIntensityTweener);
-                TweenFloat(ref _bloomIntensityTweener, _bloomDefaultIntensity, _bloomIntensityBondableExposed, PlayerEntity.Instance.AttackingSM.ComboModeDuration, _globalVolumeBloom.intensity, _bloomIntensityBondableExposedEase);
+                TweenFloat(ref _bloomIntensityTweener, _bloomDefaultIntensity, _bloomIntensityBondableExposed, PlayerEntity.Instance.AttackingSM.ChargedModeDuration, _globalVolumeBloom.intensity, _bloomIntensityBondableExposedEase);
                 _bloomIntensityTweener.OnComplete(() => TweenFloat(ref _bloomIntensityTweener, _globalVolumeBloom.intensity.value, _bloomDefaultIntensity, 0.1f, _globalVolumeBloom.intensity, Ease.OutExpo));
             }
         }

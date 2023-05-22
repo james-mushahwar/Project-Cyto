@@ -76,25 +76,25 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         #region Combo mode
         [Header("Combo mode")]
-        private bool _comboModeActive = false;
-        private float _comboModeTimer;
+        private bool _chargedModeActive = false;
+        private float _chargedModeTimer;
         [SerializeField]
-        private float _comboModeDuration;
+        private float _chargedModeDuration;
         [SerializeField]
-        private GameEvent _comboModeStartedGameEvent;
+        private GameEvent _chargedModeStartedGameEvent;
         [SerializeField]
-        private GameEvent _comboModeEndedGameEvent;
+        private GameEvent _chargedModeEndedGameEvent;
 
         [SerializeField]
-        private float[] _comboModeBasicComboWaitTimes = new float[5]; // wait for next combo to be ready
+        private float[] _chargedModeBasicComboWaitTimes = new float[5]; // wait for next combo to be ready
 
-        public float ComboModeTimer
+        public float ChargedModeTimer
         {
-            get => _comboModeTimer;
+            get => _chargedModeTimer;
         }
 
-        public float ComboModeDuration => _comboModeDuration;
-        public float[] ComboModeBasicComboWaitTimes => _comboModeBasicComboWaitTimes;
+        public float ChargedModeDuration => _chargedModeDuration;
+        public float[] ChargedModeBasicComboWaitTimes => _chargedModeBasicComboWaitTimes;
         #endregion
 
         #region General
@@ -166,12 +166,12 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             }
 
             //combo mode timers
-            if (_comboModeTimer > 0.0f)
+            if (_chargedModeTimer > 0.0f)
             {
-                _comboModeTimer = Mathf.Clamp(_comboModeTimer - deltaTime, _currentBasicAttackCombo > 0 ? 0.01f :0.0f, 100.0f);
-                if (_comboModeTimer <= 0.0f)
+                _chargedModeTimer = Mathf.Clamp(_chargedModeTimer - deltaTime, _currentBasicAttackCombo > 0 ? 0.01f :0.0f, 100.0f);
+                if (_chargedModeTimer <= 0.0f)
                 {
-                    _comboModeEndedGameEvent.TriggerEvent();
+                    _chargedModeEndedGameEvent.TriggerEvent();
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             {
                 case AttackingState.Basic_Attack:
                     _isAttackInputValid = false;
-                    if (IsInComboMode())
+                    if (IsInChargedMode())
                     {
                         _attackHeld = 0.0f;
                     }
@@ -210,24 +210,36 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
             return _recentAttackTimer > 0.0f || _basicAttackBuffered;
         }
 
-        public void RestartComboMode()
+        public void RestartChargedMode()
         {
-            if (_comboModeTimer <= 0.0f)
+            if (_chargedModeTimer <= 0.0f)
             {
-                _comboModeTimer = ComboModeDuration;
-                _comboModeStartedGameEvent.TriggerEvent();
+                _chargedModeTimer = ChargedModeDuration;
+                _chargedModeStartedGameEvent.TriggerEvent();
+
+                if (_states.GetAttackingStateEnum(_basicAttackCurrentState) != AttackingState.Basic_Idle)
+                {
+                    OverrideState(ref _basicAttackCurrentState, AttackingState.Basic_Idle);
+                }
             }
         }
 
-        public void EndComboMode()
+        public void EndChargedMode()
         {
-            _comboModeTimer = 0.0f;
-            _comboModeEndedGameEvent.TriggerEvent();
+            _chargedModeTimer = 0.0f;
+            _chargedModeEndedGameEvent.TriggerEvent();
         }
 
-        public bool IsInComboMode()
+        public bool IsInChargedMode()
         {
-            return _comboModeTimer > 0.0f;
+            return _chargedModeTimer > 0.0f;
+        }
+
+        public void OverrideState(ref BaseAttackingState stateRef, AttackingState state)
+        {
+            stateRef.ExitState();
+            stateRef = _states.GetState(state);
+            stateRef.EnterState();
         }
 
         //ISaveable
