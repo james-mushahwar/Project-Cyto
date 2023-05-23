@@ -8,6 +8,11 @@ namespace _Scripts._Game.General.Managers
     public class UIManager : Singleton<UIManager>
     {
         [Header("UI references")]
+        #region General
+        [SerializeField] 
+        private GameObject _pauseBackgroundGO;
+        #endregion
+
         #region Pause menu
         [SerializeField]
         private GameObject _pauseMenuGO;
@@ -24,6 +29,7 @@ namespace _Scripts._Game.General.Managers
             float targetOpactity = show ? 1.0f : 0.0f;
 
             _pauseMenuGO.SetActive(show);
+            _pauseBackgroundGO.SetActive(show);
         }
     }
     
