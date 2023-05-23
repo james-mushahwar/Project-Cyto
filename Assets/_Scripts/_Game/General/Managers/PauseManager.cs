@@ -15,6 +15,7 @@ namespace _Scripts._Game.General.Managers{
             _isPaused = !_isPaused;
             TimeManager.Instance.TryRequestPauseGame(_isPaused);
             UIManager.Instance.ShowPauseMenu(_isPaused);
+            InputManager.Instance.TryEnableActionMap(_isPaused ? EInputSystem.Menu : EInputSystem.Player);
         }
     }
 }

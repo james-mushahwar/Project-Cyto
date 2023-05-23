@@ -758,7 +758,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: e9a96787d0dc1c549abc7a811fa90f82, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: e9a96787d0dc1c549abc7a811fa90f82, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2480,7 +2480,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: fa241b9544300924a8e28c9146cfcf5d, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: fa241b9544300924a8e28c9146cfcf5d, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2836,7 +2836,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 469f14301f8fd5e459192a69177ba554, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 469f14301f8fd5e459192a69177ba554, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3497,6 +3497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseBackgroundGO: {fileID: 4795245971026528574}
   _pauseMenuGO: {fileID: 4626315535243034642}
+  _pauseMenuFirstButton: {fileID: 7896846396921709698}
   _dialogueBoxGO: {fileID: 0}
 --- !u!1 &5473556727346108324
 GameObject:
@@ -4216,7 +4217,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: d691f8f34eb3c614788c14a9bd17b444, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: d691f8f34eb3c614788c14a9bd17b444, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -4486,7 +4487,7 @@ GameObject:
   - component: {fileID: 5492838565038574904}
   - component: {fileID: 6302028318559617047}
   m_Layer: 5
-  m_Name: PauseMenu_Background
+  m_Name: PauseMenu_Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

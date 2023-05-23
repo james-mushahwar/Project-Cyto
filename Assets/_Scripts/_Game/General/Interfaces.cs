@@ -153,6 +153,39 @@ namespace _Scripts._Game.General{
     }
     #endregion
 
+    #region UI
+
+    public enum UIInputState
+    {
+        None,
+        // everything in pause menu
+        PauseMenu,
+        Options,
+        Save,
+        //everything in inventory
+        Inventory,
+        //everything else
+        Vendor,
+        COUNT,
+    }
+
+    public enum EPlayerInput
+    {
+        Movement,
+        Direction,
+        NButton,
+        SButton,
+        EButton,
+        WButton,
+        LBumper,
+        RBumper,
+        LTrigger,
+        RTrigger,
+        COUNT
+    }
+    #endregion
+
+
     #region Saving
     public interface ISaveable
     {
