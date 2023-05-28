@@ -266,13 +266,18 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private ContactFilter2D _bondingContactFilter;
     [SerializeField]
     private float _bondTransitionDuration;
-    [SerializeField]
-    private float _bondingExitForce;
-
-    private Collider2D[] _aiColliders = new Collider2D[20];
-
-    public float BondingExitForce { get => _bondingExitForce; }
+    
     public float BondTransitionDuration { get => _bondTransitionDuration; }
+
+    [Header("Phasing Properties")] 
+    [SerializeField]
+    private float _phasingMaxDuration;
+    [SerializeField]
+    private float _phasingExitForce;
+
+    public float PhasingMaxDuration => _phasingMaxDuration;
+    public float PhasingExitForce { get => _phasingExitForce; }
+
 
     [Header("Collision detection")]
     [SerializeField]
@@ -284,7 +289,9 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     [SerializeField]
     private float _directionToNormalThreshold = 0.5f;
 
+    private Collider2D[] _aiColliders = new Collider2D[20];
     public Collider2D ClosestCollider { get => _closestCollider; }
+
 
     #endregion
 

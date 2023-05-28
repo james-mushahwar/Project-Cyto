@@ -151,6 +151,9 @@ MonoBehaviour:
     _rate: 25
     _displacement: 0.3
     _dampenOverTime: {x: 1, y: 0.5}
+  _attackJoltXYMagnitude: {x: 0, y: 0}
+  _attackJoltDuration: 0
+  _attackJoltEase: 0
 --- !u!1 &8527710219603585278
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +193,7 @@ Transform:
   m_Children:
   - {fileID: 8527710219251885143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2639065142676816087
 MonoBehaviour:
@@ -276,7 +279,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onExposedGameEvent: {fileID: 11400000, guid: 9fb97563005353f469d049066de5431a, type: 2}
   _onExposedEvent:
     m_PersistentCalls:
       m_Calls:

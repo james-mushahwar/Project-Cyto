@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Scripts._Game.Player.MovementStateMachine {
@@ -11,6 +12,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
         private bool _isInBondTransition;
         private float _bondTransitionTimer;
         private float _unbondTransitionTimer;
+        private bool _isBondInputHeld;
         private IBondable _localBondingTarget;
     
         public BondingMovementState(PlayerMovementStateMachine ctx, PlayerMovementStateMachineFactory factory) : base(ctx, factory)
@@ -31,15 +33,17 @@ namespace _Scripts._Game.Player.MovementStateMachine {
         public override void EnterState()
         {
             _isInBondTransition = true;
+            _isBondInputHeld = true;
             _bondTransitionTimer = _ctx.BondTransitionDuration;
             _localBondingTarget = TargetManager.Instance.BondableTarget;
             TargetManager.Instance.LockedBondableTarget = _localBondingTarget;
+            _localBondingTarget.OnStartBond();
 
             _ctx.Rb.velocity = Vector2.zero;
             _ctx.Rb.gravityScale = 0.0f;
             _ctx.Capsule.isTrigger = true;
 
-            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondStart, PlayerEntity.Instance.transform.position);
+            AudioSource pooledSource = ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondStart, PlayerEntity.Instance.transform.position);
 
         }
 
@@ -48,9 +52,8 @@ namespace _Scripts._Game.Player.MovementStateMachine {
             _isInBondTransition = false;
             _localBondingTarget = null;
 
-            // player components
-            Vector2 inputDirection = _ctx.CurrentMovementInput.normalized;
-            _ctx.Rb.AddForce(inputDirection * _ctx.BondingExitForce, ForceMode2D.Impulse);
+            //Vector2 inputDirection = _ctx.CurrentMovementInput.normalized;
+            //_ctx.Rb.AddForce(inputDirection * _ctx.BondingExitForce, ForceMode2D.Impulse);
             _ctx.Capsule.isTrigger = false;
         }
     
@@ -61,6 +64,14 @@ namespace _Scripts._Game.Player.MovementStateMachine {
     
         public override void ManagedStateTick()
         {
+            if (_isBondInputHeld)
+            {
+                if (!_ctx.IsBondPressed)
+                {
+                    _isBondInputHeld = false;
+                }
+            }
+
             if (CheckSwitchStates() == false)
             {
                 if (_isInBondTransition && _localBondingTarget.CanBeBonded())
@@ -73,9 +84,16 @@ namespace _Scripts._Game.Player.MovementStateMachine {
                     float sqDistance = (_ctx.transform.position - _localBondingTarget.BondTargetTransform.position).sqrMagnitude;
                     if (_bondTransitionTimer <= 0.0f || sqDistance <= _localBondingTarget.SqDistanceToCompleteBond)
                     {
-                        // dispossess and possess
                         _isInBondTransition = false;
-                        PlayerEntity.Instance.OnDispossess();
+                        if (_isBondInputHeld)
+                        {
+                            SwitchStates(_factory.GetState(MovementState.Phasing));
+                        }
+                        else
+                        {
+                            // dispossess and possess
+                            PlayerEntity.Instance.OnDispossess();
+                        }
                     }
                 }
             }

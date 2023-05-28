@@ -118,6 +118,8 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             if (_entity)
             {
                 _entity.MovementSM = this;
+                _entity.OnExposedEvent.AddListener(OnExposed);
+                _entity.OnStartBondEvent.AddListener(OnStartBond);
             }
 
             _states = new AIMovementStateMachineFactory(this);
@@ -156,12 +158,22 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                 CurrentBondedState.ManagedStateTick();
             }
         }
-
+        
         private void OverrideState(AIMovementState state)
         {
             CurrentState.ExitState();
             CurrentState = _states.GetState(state);
             CurrentState.EnterState();
+        }
+
+        public virtual void OnExposed()
+        {
+            OverrideState(AIMovementState.Idle);
+        }
+
+        public virtual void OnStartBond()
+        {
+            OverrideState(AIMovementState.Idle);
         }
 
         // ISaveable

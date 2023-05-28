@@ -23,6 +23,18 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
                 return false;
             }
 
+            // is exposed - freeze
+            if (_ctx.Entity.IsExposed())
+            {
+                return false;
+            }
+
+            // being bonded - freeze
+            if ((AIEntity)TargetManager.Instance.LockedBondableTarget == _ctx.Entity)
+            {
+                return false;
+            }
+
             if (_stateTimer >= 2.0f)
             {
                 SwitchStates(_factory.GetState(AIMovementState.Patrol));
@@ -36,9 +48,9 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         {
             //Debug.Log("Hello I'm a bomb droid in chase");
 
-            _bdCtx.Seeker.enabled = true;
-            _bdCtx.DestinationSetter.enabled = true;
-            _bdCtx.AIPath.enabled = true;
+            _bdCtx.Seeker.enabled = false;
+            _bdCtx.DestinationSetter.enabled = false;
+            _bdCtx.AIPath.enabled = false;
         }
 
         public override void ExitState()

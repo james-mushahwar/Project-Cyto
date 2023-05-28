@@ -53,7 +53,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
 
         public void EndKnockbackEffect()
         {
-            if (CurrentState.UsesAIPathfinding)
+            if (CurrentState.UsesAIPathfinding && !Entity.IsExposed())
             {
                 Seeker.enabled = true;
                 DestinationSetter.enabled = true;

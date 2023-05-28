@@ -94,6 +94,8 @@ namespace _Scripts._Game.AI{
         [SerializeField]
         private UnityEvent _onUnexposedEvent;
 
+        public UnityEvent OnExposedEvent => _onExposedEvent;
+
         // IBondable
         public EBondBehaviourType BondBehaviourType => EBondBehaviourType.Possess;
         public Transform BondTargetTransform => Transform;
@@ -106,6 +108,13 @@ namespace _Scripts._Game.AI{
 
         public float SqDistanceToCompleteBond => _sqDistanceToCompleteBond;
 
+        [SerializeField]
+        [HideInInspector]
+        private UnityEvent _onStartBondEvent;
+
+        public UnityEvent OnStartBondEvent => _onStartBondEvent;
+
+
         protected void Awake()
         {
             FEntityStats entityStats = StatsManager.Instance.GetEntityStat(_entity);
@@ -116,6 +125,11 @@ namespace _Scripts._Game.AI{
         public bool CanBeBonded()
         {
             return !_isPossessed && ((_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable);
+        }
+
+        public void OnStartBond()
+        {
+            _onStartBondEvent.Invoke();
         }
 
         // IPossessable
@@ -161,7 +175,7 @@ namespace _Scripts._Game.AI{
             _isPossessed = false;
 
             bool bond = TargetManager.Instance.BondableTarget != null;
-            
+
             PlayerEntity.Instance.OnPossess(bond);
             AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
 
@@ -297,7 +311,7 @@ namespace _Scripts._Game.AI{
         public void OnExposed()
         {
             TimeManager.Instance.TryRequestTimeScale(ETimeImportance.Low, 0.25f, 0.0f, 0.1f, 0.1f);
-            _onExposedEvent.Invoke();
+            OnExposedEvent.Invoke();
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
             AudioSource pooledSource = ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(EAudioType.SFX_Exposed, transform.position);
@@ -307,6 +321,7 @@ namespace _Scripts._Game.AI{
         {
             _onUnexposedEvent.Invoke();
         }
+
     }
     
 }

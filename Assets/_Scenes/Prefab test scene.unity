@@ -2328,10 +2328,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BombDroid
       objectReference: {fileID: 0}
-    - target: {fileID: 8527710219603585278, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}

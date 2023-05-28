@@ -128,50 +128,52 @@ namespace _Scripts._Game.General.Managers{
         {
             IBondable newBondable = null;
 
-            int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.position, _bondingOverlapRange, _bondingContactFilter, _bondingColliders);
-
-            if (aiOverlapCount > 0)
+            if (PlayerEntity.Instance.IsPossessed())
             {
-                float bestScore = -1.0f;
-                IBondable currentBondable = null;
+                int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.position, _bondingOverlapRange, _bondingContactFilter, _bondingColliders);
 
-                Collider2D col = null;
-
-                for (int i = 0; i < aiOverlapCount; i++)
+                if (aiOverlapCount > 0)
                 {
-                    col = _bondingColliders[i];
-                    if (col == null)
-                    {
-                        continue;
-                    }
-                    currentBondable = col.gameObject.GetComponent<IBondable>();
+                    float bestScore = -1.0f;
+                    IBondable currentBondable = null;
 
-                    if (currentBondable != null)
+                    Collider2D col = null;
+
+                    for (int i = 0; i < aiOverlapCount; i++)
                     {
-                        if (currentBondable.CanBeBonded() == false)
+                        col = _bondingColliders[i];
+                        if (col == null)
                         {
                             continue;
                         }
+                        currentBondable = col.gameObject.GetComponent<IBondable>();
 
-                        float currentScore = GetBondableTargetScore(PlayerEntity.Instance, currentBondable);
-                        
-                        if (newBondable == null)
+                        if (currentBondable != null)
                         {
-                            bestScore = currentScore;
-                            newBondable = currentBondable;
-                            continue;
-                        }
+                            if (currentBondable.CanBeBonded() == false)
+                            {
+                                continue;
+                            }
 
-                        // calculate then compare scores
-                        // dot poduct aim direction
-                        if (currentScore > bestScore)
-                        {
-                            bestScore = currentScore;
-                            newBondable = currentBondable;
+                            float currentScore = GetBondableTargetScore(PlayerEntity.Instance, currentBondable);
+
+                            if (newBondable == null)
+                            {
+                                bestScore = currentScore;
+                                newBondable = currentBondable;
+                                continue;
+                            }
+
+                            // calculate then compare scores
+                            // dot poduct aim direction
+                            if (currentScore > bestScore)
+                            {
+                                bestScore = currentScore;
+                                newBondable = currentBondable;
+                            }
                         }
                     }
                 }
-
             }
 
             if (newBondable != _bondableTarget)
@@ -188,7 +190,7 @@ namespace _Scripts._Game.General.Managers{
                 }
             }
 
-            if (_bondableTarget == null)
+            if (_bondableTarget == null || !PlayerEntity.Instance.IsPossessed())
             {
                 if (_bondHighlightPS.isPlaying)
                 {
@@ -204,50 +206,53 @@ namespace _Scripts._Game.General.Managers{
         {
             IDamageable newDamageable = null;
 
-            int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.localPosition, _damageableOverlapRange, _damageableContactFilter, _damageColliders);
-
-            if (aiOverlapCount > 0)
+            if (PlayerEntity.Instance.IsPossessed())
             {
-                float bestScore = -1.0f;
-                IDamageable currentDamageable = null;
+                int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.localPosition, _damageableOverlapRange, _damageableContactFilter, _damageColliders);
 
-                Collider2D col = null;
-
-                for (int i = 0; i < aiOverlapCount; i++)
+                if (aiOverlapCount > 0)
                 {
-                    col = _damageColliders[i];
-                    if (col == null)
-                    {
-                        continue;
-                    }
-                    currentDamageable = col.gameObject.GetComponent<IDamageable>();
+                    float bestScore = -1.0f;
+                    IDamageable currentDamageable = null;
 
-                    if (currentDamageable != null)
+                    Collider2D col = null;
+
+                    for (int i = 0; i < aiOverlapCount; i++)
                     {
-                        if (currentDamageable.IsAlive() == false)
+                        col = _damageColliders[i];
+                        if (col == null)
                         {
                             continue;
                         }
+                        currentDamageable = col.gameObject.GetComponent<IDamageable>();
 
-                        // calculate then compare scores
-                        float currentScore = GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
-
-                        if (newDamageable == null)
+                        if (currentDamageable != null)
                         {
-                            bestScore = currentScore;
-                            newDamageable = currentDamageable;
-                            continue;
-                        }
+                            if (currentDamageable.IsAlive() == false)
+                            {
+                                continue;
+                            }
 
-                        // dot poduct aim direction
-                        if (currentScore > bestScore)
-                        {
-                            bestScore = currentScore;
-                            newDamageable = currentDamageable;
+                            // calculate then compare scores
+                            float currentScore = GetDamageableTargetScore(PlayerEntity.Instance, currentDamageable);
+
+                            if (newDamageable == null)
+                            {
+                                bestScore = currentScore;
+                                newDamageable = currentDamageable;
+                                continue;
+                            }
+
+                            // dot poduct aim direction
+                            if (currentScore > bestScore)
+                            {
+                                bestScore = currentScore;
+                                newDamageable = currentDamageable;
+                            }
                         }
                     }
+
                 }
-
             }
 
             if (newDamageable != _damageableTarget)

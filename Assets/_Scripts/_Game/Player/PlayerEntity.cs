@@ -89,7 +89,7 @@ namespace _Scripts._Game.Player{
 
         void Start()
         {
-            OnPossess(false);
+            OnPossess();
         }
 
         private void FixedUpdate() 
@@ -141,7 +141,7 @@ namespace _Scripts._Game.Player{
             return !_isPossessed && _playerHealthStats.IsAlive();
         }
 
-        public void OnPossess(bool bondPressed)
+        public void OnPossess(bool bondPressed = false)
         {
             InputManager.Instance.TryEnableActionMap(EInputSystem.Player);
             _isPossessed = true;
@@ -156,8 +156,10 @@ namespace _Scripts._Game.Player{
 
             if (bondPressed)
             {
-                _movementSM.OverrideState(MovementState.Bonding);
+                _movementSM.OverrideState(MovementState.Phasing);
             }
+
+            TargetManager.Instance.LockedBondableTarget = null;
         }
 
         public void OnDispossess()
@@ -185,8 +187,6 @@ namespace _Scripts._Game.Player{
                 }
 
             }
-
-            TargetManager.Instance.LockedBondableTarget = null;
         }
 
         public Vector2 GetMovementInput()

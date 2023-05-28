@@ -1,4 +1,5 @@
-﻿using _Scripts._Game.Player;
+﻿using _Scripts._Game.General.Managers;
+using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,18 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public override bool CheckSwitchStates()
         {
+            // is exposed - freeze
+            if (_ctx.Entity.IsExposed())
+            {
+                return false;
+            }
+
+            // being bonded - freeze
+            if ((AIEntity)TargetManager.Instance.LockedBondableTarget == _ctx.Entity)
+            {
+                return false;
+            }
+
             if (_stateTimer >= _bdCtx.BombDropCooldown)
             {
                 GameObject playerGO = PlayerEntity.Instance.GetControlledGameObject();

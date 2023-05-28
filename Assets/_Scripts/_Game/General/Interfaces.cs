@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.Player;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace _Scripts._Game.General{
@@ -89,6 +90,8 @@ namespace _Scripts._Game.General{
         EBondBehaviourType BondBehaviourType { get; }
         Transform BondTargetTransform { get; }
         float SqDistanceToCompleteBond { get; }
+
+        void OnStartBond();
 
         bool CanBeBonded();
 

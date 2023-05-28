@@ -12,6 +12,7 @@ public enum MovementState
     Bouncing,
     Floating,
     Bonding,
+    Phasing,
 }
 
 public class PlayerMovementStateMachineFactory
@@ -28,6 +29,7 @@ public class PlayerMovementStateMachineFactory
         _stateDict.Add(MovementState.Bouncing, new BouncingMovementState(sm, this));
         _stateDict.Add(MovementState.Floating, new FloatingMovementState(sm, this));
         _stateDict.Add(MovementState.Bonding, new BondingMovementState(sm, this));
+        _stateDict.Add(MovementState.Phasing, new PhasingMovementState(sm, this));
 
         _moveStateMachine = sm;
     }

@@ -92,9 +92,29 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             if (_entity)
             {
                 _entity.AttackSM = this;
+                _entity.OnExposedEvent.AddListener(OnExposed);
+                _entity.OnStartBondEvent.AddListener(OnStartBond);
             }
             
             _states = new AIAttackStateMachineFactory(this);
+        }
+
+        public virtual void OnExposed()
+        {
+            Debug.Log("Overriding state Onexposed");
+            OverrideState(AIAttackState.Idle);
+        }
+
+        public virtual void OnStartBond()
+        {
+            OverrideState(AIAttackState.Idle);
+        }
+
+        private void OverrideState(AIAttackState state)
+        {
+            CurrentState.ExitState();
+            CurrentState = _states.GetState(state);
+            CurrentState.EnterState();
         }
 
         // IPossessControllable
