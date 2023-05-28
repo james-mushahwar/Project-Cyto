@@ -174,7 +174,7 @@ namespace _Scripts._Game.AI{
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);
             _isPossessed = false;
 
-            bool bond = TargetManager.Instance.BondableTarget != null;
+            bool bond = TargetManager.Instance.LockedBondableTarget != null;
 
             PlayerEntity.Instance.OnPossess(bond);
             AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
