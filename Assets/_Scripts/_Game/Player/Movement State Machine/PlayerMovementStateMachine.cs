@@ -266,8 +266,13 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private ContactFilter2D _bondingContactFilter;
     [SerializeField]
     private float _bondTransitionDuration;
+    [SerializeField]
+    private float _postBondCooldownTime;
+    private float _postBondTimeElapsed;
     
     public float BondTransitionDuration { get => _bondTransitionDuration; }
+    public float PostBondCooldownTime { get => _postBondCooldownTime; }
+    public float PostBondTimeElapsed { get => _postBondTimeElapsed; set => _postBondTimeElapsed = value; }
 
     [Header("Phasing Properties")] 
     [SerializeField]
@@ -291,7 +296,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     private Collider2D[] _aiColliders = new Collider2D[20];
     public Collider2D ClosestCollider { get => _closestCollider; }
-
 
     #endregion
 
@@ -369,6 +373,9 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         //timers
         TickTimers();
 
+        //tick inputs
+        TickInputs();
+
         MovementState stateType = _states.GetMovementStateEnum(CurrentState);
 
         _isGrounded = IsGroundedCheck();
@@ -380,12 +387,18 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         }
         
         //nullify any inputs
-        NullifyInput(MovementState.Bonding);
+        //NullifyInput(MovementState.Bonding);
     }
 
     private void TickTimers()
     {
         _dashTimeElapsed = Mathf.Clamp(_dashTimeElapsed - Time.deltaTime, 0.0f, _dashingCooldownTime);
+        _postBondTimeElapsed = Mathf.Clamp(_postBondTimeElapsed - Time.deltaTime, 0.0f, _postBondCooldownTime);
+    }
+
+    private void TickInputs()
+    {
+        _isBondInputValid = _isBondPressed && _postBondTimeElapsed <= 0.0f;
     }
 
     void OnMovementInput(InputAction.CallbackContext context)
@@ -429,7 +442,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     void OnBondInput(InputAction.CallbackContext context)
     {
         _isBondPressed = PlayerEntity.Instance.IsAlive() ? context.ReadValueAsButton() : false;
-        _isBondInputValid = _isBondPressed;
+        _postBondTimeElapsed = !_isBondPressed ? 0.0f : _postBondTimeElapsed;
+        //_isBondInputValid = _isBondPressed;
     }
 
     void OnPauseInput(InputAction.CallbackContext context)

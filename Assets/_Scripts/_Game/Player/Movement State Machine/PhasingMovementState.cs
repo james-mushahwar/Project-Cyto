@@ -40,6 +40,8 @@ namespace _Scripts._Game.Player.MovementStateMachine{
 
         public override void ExitState()
         {
+            _ctx.PostBondTimeElapsed = _ctx.PostBondCooldownTime;
+
             // do phase movement!
             Vector2 inputDirection = _ctx.CurrentMovementInput.normalized;
             _ctx.Rb.AddForce(inputDirection * _ctx.PhasingExitForce, ForceMode2D.Impulse);

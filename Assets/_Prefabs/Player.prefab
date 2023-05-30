@@ -435,6 +435,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   _bondTransitionDuration: 0.66
+  _postBondCooldownTime: 0.9
   _phasingMaxDuration: 1
   _phasingExitForce: 40
   _closestCollider: {fileID: 0}
