@@ -57,6 +57,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private PlayerMovementStateMachineFactory _states;
 
     public BaseMovementState CurrentState { get => _currentState; set => _currentState = value; }
+
+    private MovementState _queuedMovementState = MovementState.NONE;
     #endregion
 
     #region Player attributes
@@ -381,13 +383,23 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
         IsFacingRightCheck();
+
+        //handle any queued state overrides
+        if (_queuedMovementState != MovementState.NONE)
+        {
+            MovementState state = _queuedMovementState;
+            _queuedMovementState = MovementState.NONE;
+            OverrideState(state);
+        }
+
         if (PlayerEntity.Instance.IsAlive())
         {
             _currentState.ManagedStateTick();
         }
-        
+
         //nullify any inputs
         //NullifyInput(MovementState.Bonding);
+
     }
 
     private void TickTimers()
@@ -518,6 +530,17 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         CurrentState.ExitState();
         CurrentState = _states.GetState(state);
         CurrentState.EnterState();
+    }
+
+    public void QueueOverrideState(MovementState state)
+    {
+        if (_queuedMovementState == MovementState.NONE)
+        {
+            if (state != MovementState.NONE)
+            {
+                _queuedMovementState = state;
+            }
+        }
     }
 
     [System.Serializable]

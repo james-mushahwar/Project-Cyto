@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum MovementState
 {
+    NONE,
     Grounded,
     Jumping,
     Falling,

@@ -156,10 +156,10 @@ namespace _Scripts._Game.Player{
 
             if (bondPressed)
             {
-                _movementSM.OverrideState(MovementState.Phasing);
+                _movementSM.QueueOverrideState(MovementState.Phasing);
             }
 
-            TargetManager.Instance.LockedBondableTarget = null;
+            //TargetManager.Instance.LockedBondableTarget = null;
         }
 
         public void OnDispossess()
