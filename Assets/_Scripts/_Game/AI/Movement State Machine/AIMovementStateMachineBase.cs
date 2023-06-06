@@ -210,7 +210,10 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _isNorthInputValid = _isNorthButtonPressed;
 
             //temp dispossess
-            _entity.OnDispossess();
+            if (_isNorthButtonPressed)
+            {
+                _entity.OnDispossess();
+            }
         }
         public void OnSouthButtonInput(InputAction.CallbackContext context)
         {
@@ -364,11 +367,13 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                     {
                         case PossessInput.Movement:
                             playerInput.BondedPlayer.Movement.started -= bondedAction;
+                            playerInput.BondedPlayer.Movement.performed -= bondedAction;
                             playerInput.BondedPlayer.Movement.canceled -= bondedAction;
                             break;
 
                         case PossessInput.Direction:
                             playerInput.BondedPlayer.Direction.started -= bondedAction;
+                            playerInput.BondedPlayer.Direction.performed -= bondedAction;
                             playerInput.BondedPlayer.Direction.canceled -= bondedAction;
                             break;
                         case PossessInput.NButton:

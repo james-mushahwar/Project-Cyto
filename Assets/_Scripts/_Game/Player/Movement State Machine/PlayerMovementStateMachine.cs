@@ -532,16 +532,16 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         CurrentState.EnterState();
     }
 
-    public void QueueOverrideState(MovementState state)
-    {
-        if (_queuedMovementState == MovementState.NONE)
-        {
-            if (state != MovementState.NONE)
-            {
-                _queuedMovementState = state;
-            }
-        }
-    }
+    //public void QueueOverrideState(MovementState state)
+    //{
+    //    if (_queuedMovementState == MovementState.NONE)
+    //    {
+    //        if (state != MovementState.NONE)
+    //        {
+    //            _queuedMovementState = state;
+    //        }
+    //    }
+    //}
 
     [System.Serializable]
     private struct SaveData

@@ -156,7 +156,7 @@ namespace _Scripts._Game.Player{
 
             if (bondPressed)
             {
-                _movementSM.QueueOverrideState(MovementState.Phasing);
+                _movementSM.OverrideState(MovementState.Phasing);
             }
 
             //TargetManager.Instance.LockedBondableTarget = null;

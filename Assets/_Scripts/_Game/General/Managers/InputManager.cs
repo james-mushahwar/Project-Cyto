@@ -19,15 +19,22 @@ namespace _Scripts._Game.General.Managers{
 
         public PlayerInput PlayerInput => _playerInput;
 
+        private Vector2 _globalMovementInput;
+
+        public Vector2 GlobalMovementInput => _globalMovementInput;
+
         protected override void Awake()
         {
             base.Awake();
             _playerInput = new PlayerInput();
+
+            _playerInput.Global.Movement.performed += ctx => _globalMovementInput = ctx.ReadValue<Vector2>();
         }
 
         public void TryEnableActionMap(EInputSystem inputType)
         {
             _playerInput.Disable();
+            _playerInput.Global.Enable();
             switch (inputType)
             {
                 case EInputSystem.Menu:

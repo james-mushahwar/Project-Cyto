@@ -43,7 +43,8 @@ namespace _Scripts._Game.Player.MovementStateMachine{
             _ctx.PostBondTimeElapsed = _ctx.PostBondCooldownTime;
 
             // do phase movement!
-            Vector2 inputDirection = _ctx.CurrentMovementInput.normalized;
+            Vector2 inputDirection = InputManager.Instance.GlobalMovementInput.normalized;
+            Debug.Log("Input direction = " + inputDirection);
             _ctx.Rb.AddForce(inputDirection * _ctx.PhasingExitForce, ForceMode2D.Impulse);
             _ctx.Capsule.isTrigger = false;
 
