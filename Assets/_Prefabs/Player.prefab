@@ -382,6 +382,8 @@ MonoBehaviour:
   _coyoteTimeLimit: 0.35
   _jumpBufferLimit: 0.45
   _fallingGravityScale: 5
+  _fallingPreApexGravityScale: 5
+  _fallingPostApexGravityScale: 5
   _fallingEnterMaximumYVelocity: 0
   _fallingEnterClampedYVelocity: 0
   _fallingMaximumDownwardsVelocity: -50
@@ -389,6 +391,7 @@ MonoBehaviour:
   _fallingAcceleration: 8
   _fallingDeceleration: 8
   _fallingVelocityPower: 0.9
+  _postPhaseFallingGravityScale: 2
   _attackFallingGravityScale: 0.25
   _attackFallingMaximumDownwardsVelocity: 0
   _attackFallingHorizontalVelocity: 6

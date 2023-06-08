@@ -108,16 +108,6 @@ public class FallingMovementState : BaseMovementState
             _jumpBufferTimer -= Time.deltaTime;
 
             bool hasAttackedRecently = PlayerEntity.Instance.AttackingSM.HasAttackedRecently();
-            #region Gravity
-
-            float gravityScale = _ctx.FallingGravityScale;
-            if (hasAttackedRecently && _ctx.Rb.velocity.sqrMagnitude <= 0.0f)
-            {
-                gravityScale = _ctx.AttackFallingGravityScale;
-            }
-            _ctx.Rb.gravityScale = gravityScale;
-
-            #endregion
 
             // TIP: clamp Ymovement first before adding force - doesn't work other way round
             #region YMovement
@@ -138,6 +128,21 @@ public class FallingMovementState : BaseMovementState
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.FallingVelocityPower) * Mathf.Sign(speedDif);
 
             _ctx.Rb.AddForce(movement * Vector2.right);
+
+            #endregion
+
+            #region Gravity
+
+            float gravityScale = _ctx.Rb.velocity.y > 0.0f ? _ctx.FallingPreApexGravityScale : _ctx.FallingPostApexGravityScale;
+            if (_ctx.PostBondTimeElapsed > 0.0f)
+            {
+                gravityScale = _ctx.PostPhaseFallingGravityScale;
+            }
+            else if (hasAttackedRecently && _ctx.Rb.velocity.sqrMagnitude <= 0.0f)
+            {
+                gravityScale = _ctx.AttackFallingGravityScale;
+            }
+            _ctx.Rb.gravityScale = gravityScale;
 
             #endregion
 

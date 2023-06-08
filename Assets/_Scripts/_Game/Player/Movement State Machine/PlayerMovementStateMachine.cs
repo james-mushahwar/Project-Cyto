@@ -123,7 +123,11 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     [Header("Fall Properties")]
     [SerializeField]
-    private float _fallingGravityScale;
+    private float _fallingGravityScale;  // falling gravity scale was 5
+    [SerializeField]
+    private float _fallingPreApexGravityScale;
+    [SerializeField]
+    private float _fallingPostApexGravityScale;
     [SerializeField]
     private float _fallingEnterMaximumYVelocity;
     [SerializeField]
@@ -138,6 +142,9 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _fallingDeceleration;
     [SerializeField]
     private float _fallingVelocityPower;
+    // post phase fall properties
+    [SerializeField]
+    private float _postPhaseFallingGravityScale;
 
     [Header("Attack falling properties")]
     [SerializeField]
@@ -148,6 +155,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _attackFallingHorizontalVelocity;
 
     public float FallingGravityScale { get => _fallingGravityScale; set => _fallingGravityScale = value; }
+    public float FallingPreApexGravityScale { get => _fallingPreApexGravityScale; set => _fallingPreApexGravityScale = value; }
+    public float FallingPostApexGravityScale { get => _fallingPostApexGravityScale; set => _fallingPostApexGravityScale = value; }
     public float FallingEnterMaximumYVelocity { get => _fallingEnterMaximumYVelocity; }
     public float FallingEnterClampedYVelocity { get => _fallingEnterClampedYVelocity; }
     public float FallingMaximumDownwardsVelocity { get => _fallingMaximumDownwardsVelocity; }
@@ -155,6 +164,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public float FallingAcceleration { get => _fallingAcceleration; }
     public float FallingDeceleration { get => _fallingDeceleration; }
     public float FallingVelocityPower { get => _fallingVelocityPower; }
+    public float PostPhaseFallingGravityScale { get => _postPhaseFallingGravityScale; }
 
     public float AttackFallingGravityScale => _attackFallingGravityScale;
     public float AttackFallingMaximumDownwardsVelocity => _attackFallingMaximumDownwardsVelocity;
