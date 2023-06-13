@@ -149,6 +149,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private AnimationCurve _postPhaseFallingGravityCurve;
     [SerializeField] 
     private AnimationCurve _postPhaseVelocityMagnitudeCurve;
+    [SerializeField] 
+    private AnimationCurve _postPhaseInputForceCurve;
+    [SerializeField]
+    private float _postPhaseInputMagnitude;
 
     [Header("Attack falling properties")]
     [SerializeField]
@@ -171,6 +175,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public float PostPhaseFallingGravityScale { get => _postPhaseFallingGravityScale; }
     public AnimationCurve PostPhaseFallingGravityCurve { get => _postPhaseFallingGravityCurve; }
     public AnimationCurve PostPhaseVelocityMagnitudeCurve { get => _postPhaseVelocityMagnitudeCurve; }
+    public AnimationCurve PostPhaseInputForceCurve { get => _postPhaseInputForceCurve; }
+    public float PostPhaseInputMagnitude { get => _postPhaseInputMagnitude; }
 
     public float AttackFallingGravityScale => _attackFallingGravityScale;
     public float AttackFallingMaximumDownwardsVelocity => _attackFallingMaximumDownwardsVelocity;

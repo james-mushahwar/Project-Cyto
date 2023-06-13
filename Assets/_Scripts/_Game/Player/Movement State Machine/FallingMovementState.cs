@@ -117,6 +117,8 @@ public class FallingMovementState : BaseMovementState
                 Vector2 newVelocity = _ctx.PhasingExitDirection * _ctx.PostPhaseVelocityMagnitudeCurve.Evaluate(bondTimeElapsed);
 
                 _ctx.Rb.velocity = newVelocity;
+                Vector2 horizontalInput = new Vector2(_ctx.CurrentMovementInput.x, 0.0f);
+                _ctx.Rb.AddForce(horizontalInput * _ctx.PostPhaseInputForceCurve.Evaluate(bondTimeElapsed) * _ctx.PostPhaseInputMagnitude);
             }
             else
             {

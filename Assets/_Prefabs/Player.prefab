@@ -402,8 +402,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0015966222
-      value: 40.629177
+      time: 0.002221678
+      value: 45.11911
       inSlope: -4.931382
       outSlope: -4.931382
       tangentMode: 0
@@ -429,8 +429,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.49385375
-      value: 12.043892
+      time: 0.435
+      value: 12.706341
       inSlope: -20.315432
       outSlope: -20.315432
       tangentMode: 0
@@ -438,8 +438,8 @@ MonoBehaviour:
       inWeight: 0.10370084
       outWeight: 0.114512436
     - serializedVersion: 3
-      time: 0.74902606
-      value: 2.5159311
+      time: 0.69
+      value: 3.1783805
       inSlope: -60.062508
       outSlope: -60.062508
       tangentMode: 0
@@ -449,6 +449,49 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _postPhaseInputForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.55
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.73503727
+      value: 2.48677
+      inSlope: 0.008165494
+      outSlope: 0.008165494
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 2.4876885
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _postPhaseInputMagnitude: 100
   _attackFallingGravityScale: 0.25
   _attackFallingMaximumDownwardsVelocity: 0
   _attackFallingHorizontalVelocity: 6
