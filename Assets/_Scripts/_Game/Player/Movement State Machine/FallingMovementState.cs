@@ -108,43 +108,53 @@ public class FallingMovementState : BaseMovementState
             _jumpBufferTimer -= Time.deltaTime;
 
             bool hasAttackedRecently = PlayerEntity.Instance.AttackingSM.HasAttackedRecently();
+            bool postPhaseFalling = _ctx.PostBondTimeElapsed > 0.0f;
 
-            // TIP: clamp Ymovement first before adding force - doesn't work other way round
-            #region YMovement
-
-            float maxDownwardsVelocity = hasAttackedRecently ? _ctx.AttackFallingMaximumDownwardsVelocity : _ctx.FallingMaximumDownwardsVelocity;
-            if (_ctx.Rb.velocity.y < maxDownwardsVelocity)
+            if (postPhaseFalling)
             {
-                _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, maxDownwardsVelocity);
+                //velocity
+                float bondTimeElapsed = _ctx.PostBondCooldownTime - _ctx.PostBondTimeElapsed;
+                Vector2 newVelocity = _ctx.PhasingExitDirection * _ctx.PostPhaseVelocityMagnitudeCurve.Evaluate(bondTimeElapsed);
+
+                _ctx.Rb.velocity = newVelocity;
+            }
+            else
+            {
+                // TIP: clamp Ymovement first before adding force - doesn't work other way round
+                #region YMovement
+
+                float maxDownwardsVelocity = hasAttackedRecently ? _ctx.AttackFallingMaximumDownwardsVelocity : _ctx.FallingMaximumDownwardsVelocity;
+                if (_ctx.Rb.velocity.y < maxDownwardsVelocity)
+                {
+                    _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, maxDownwardsVelocity);
+                }
+
+                #endregion
+
+                #region XMovement
+
+                float targetSpeed = _ctx.CurrentMovementInput.x * (hasAttackedRecently ? _ctx.FallingHorizontalVelocity : _ctx.FallingHorizontalVelocity);
+                float speedDif = targetSpeed - _ctx.Rb.velocity.x;
+                float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.FallingAcceleration : _ctx.FallingDeceleration;
+                float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.FallingVelocityPower) * Mathf.Sign(speedDif);
+
+                _ctx.Rb.AddForce(movement * Vector2.right);
+
+                #endregion
+
+                #region Gravity
+
+                float gravityScale = _ctx.Rb.velocity.y > 0.0f ? _ctx.FallingPreApexGravityScale : _ctx.FallingPostApexGravityScale;
+                
+                if (hasAttackedRecently && _ctx.Rb.velocity.sqrMagnitude <= 0.0f)
+                {
+                    gravityScale = _ctx.AttackFallingGravityScale;
+                }
+                _ctx.Rb.gravityScale = gravityScale;
+
+                #endregion
             }
 
-            #endregion
-
-            #region XMovement
-
-            float targetSpeed = _ctx.CurrentMovementInput.x * (hasAttackedRecently ? _ctx.FallingHorizontalVelocity : _ctx.FallingHorizontalVelocity);
-            float speedDif = targetSpeed - _ctx.Rb.velocity.x;
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.FallingAcceleration : _ctx.FallingDeceleration;
-            float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.FallingVelocityPower) * Mathf.Sign(speedDif);
-
-            _ctx.Rb.AddForce(movement * Vector2.right);
-
-            #endregion
-
-            #region Gravity
-
-            float gravityScale = _ctx.Rb.velocity.y > 0.0f ? _ctx.FallingPreApexGravityScale : _ctx.FallingPostApexGravityScale;
-            if (_ctx.PostBondTimeElapsed > 0.0f)
-            {
-                gravityScale = _ctx.PostPhaseFallingGravityScale;
-            }
-            else if (hasAttackedRecently && _ctx.Rb.velocity.sqrMagnitude <= 0.0f)
-            {
-                gravityScale = _ctx.AttackFallingGravityScale;
-            }
-            _ctx.Rb.gravityScale = gravityScale;
-
-            #endregion
 
         }
     }

@@ -145,6 +145,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     // post phase fall properties
     [SerializeField]
     private float _postPhaseFallingGravityScale;
+    [SerializeField] 
+    private AnimationCurve _postPhaseFallingGravityCurve;
+    [SerializeField] 
+    private AnimationCurve _postPhaseVelocityMagnitudeCurve;
 
     [Header("Attack falling properties")]
     [SerializeField]
@@ -165,6 +169,8 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public float FallingDeceleration { get => _fallingDeceleration; }
     public float FallingVelocityPower { get => _fallingVelocityPower; }
     public float PostPhaseFallingGravityScale { get => _postPhaseFallingGravityScale; }
+    public AnimationCurve PostPhaseFallingGravityCurve { get => _postPhaseFallingGravityCurve; }
+    public AnimationCurve PostPhaseVelocityMagnitudeCurve { get => _postPhaseVelocityMagnitudeCurve; }
 
     public float AttackFallingGravityScale => _attackFallingGravityScale;
     public float AttackFallingMaximumDownwardsVelocity => _attackFallingMaximumDownwardsVelocity;
@@ -291,10 +297,11 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _phasingMaxDuration;
     [SerializeField]
     private float _phasingExitForce;
+    private Vector2 _phasingExitDirection;
 
     public float PhasingMaxDuration => _phasingMaxDuration;
     public float PhasingExitForce { get => _phasingExitForce; }
-
+    public Vector2 PhasingExitDirection { get => _phasingExitDirection; set => _phasingExitDirection = value; }
 
     [Header("Collision detection")]
     [SerializeField]
@@ -307,6 +314,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _directionToNormalThreshold = 0.5f;
 
     private Collider2D[] _aiColliders = new Collider2D[20];
+
     public Collider2D ClosestCollider { get => _closestCollider; }
 
     #endregion

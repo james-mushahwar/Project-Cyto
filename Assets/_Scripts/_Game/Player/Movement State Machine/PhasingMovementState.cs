@@ -46,7 +46,10 @@ namespace _Scripts._Game.Player.MovementStateMachine{
             Vector2 inputDirection = InputManager.Instance.GlobalMovementInput.normalized;
             //Debug.Log("Input direction = " + inputDirection);
             _ctx.Rb.AddForce(inputDirection * _ctx.PhasingExitForce, ForceMode2D.Impulse);
+            _ctx.PhasingExitDirection = inputDirection;
             _ctx.Capsule.isTrigger = false;
+
+            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
 
             _ctx.transform.SetParent(null);
             PlayerEntity.Instance.SpriteAnimator.enabled = true;

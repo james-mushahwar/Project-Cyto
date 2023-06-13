@@ -383,7 +383,7 @@ MonoBehaviour:
   _jumpBufferLimit: 0.45
   _fallingGravityScale: 5
   _fallingPreApexGravityScale: 5
-  _fallingPostApexGravityScale: 5
+  _fallingPostApexGravityScale: 9
   _fallingEnterMaximumYVelocity: 0
   _fallingEnterClampedYVelocity: 0
   _fallingMaximumDownwardsVelocity: -50
@@ -392,6 +392,63 @@ MonoBehaviour:
   _fallingDeceleration: 8
   _fallingVelocityPower: 0.9
   _postPhaseFallingGravityScale: 2
+  _postPhaseFallingGravityCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _postPhaseVelocityMagnitudeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0015966222
+      value: 40.629177
+      inSlope: -4.931382
+      outSlope: -4.931382
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.36940405
+    - serializedVersion: 3
+      time: 0.14285743
+      value: 33.26869
+      inSlope: -16.998096
+      outSlope: -16.998096
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20968972
+      outWeight: 0.45228857
+    - serializedVersion: 3
+      time: 0.25967833
+      value: 19.959408
+      inSlope: -33.38305
+      outSlope: -33.38305
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49385375
+      value: 12.043892
+      inSlope: -20.315432
+      outSlope: -20.315432
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10370084
+      outWeight: 0.114512436
+    - serializedVersion: 3
+      time: 0.74902606
+      value: 2.5159311
+      inSlope: -60.062508
+      outSlope: -60.062508
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11668965
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _attackFallingGravityScale: 0.25
   _attackFallingMaximumDownwardsVelocity: 0
   _attackFallingHorizontalVelocity: 6
@@ -438,9 +495,9 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   _bondTransitionDuration: 0.66
-  _postBondCooldownTime: 0.9
+  _postBondCooldownTime: 0.8
   _phasingMaxDuration: 1
-  _phasingExitForce: 40
+  _phasingExitForce: 20
   _closestCollider: {fileID: 0}
   _collisionDetectionLayerMask:
     serializedVersion: 2
