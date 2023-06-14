@@ -145,11 +145,11 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     // post phase fall properties
     [SerializeField]
     private float _postPhaseFallingGravityScale;
-    [SerializeField] 
+    [SerializeField]
     private AnimationCurve _postPhaseFallingGravityCurve;
-    [SerializeField] 
+    [SerializeField]
     private AnimationCurve _postPhaseVelocityMagnitudeCurve;
-    [SerializeField] 
+    [SerializeField]
     private AnimationCurve _postPhaseInputForceCurve;
     [SerializeField]
     private float _postPhaseInputMagnitude;
@@ -291,10 +291,19 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     [SerializeField]
     private float _bondTransitionDuration;
     [SerializeField]
+    private AnimationCurve _bondingSpeedCurve;
+    [SerializeField]
+    private AnimationCurve _bondingDisplacementCurve;
+    [SerializeField]
+    private AnimationCurve _bondingMagnitudeCurve;
+    [SerializeField]
     private float _postBondCooldownTime;
     private float _postBondTimeElapsed;
     
     public float BondTransitionDuration { get => _bondTransitionDuration; }
+    public AnimationCurve BondingSpeedCurve { get => _bondingSpeedCurve; }
+    public AnimationCurve BondingDisplacementCurve { get => _bondingDisplacementCurve; }
+    public AnimationCurve BondingMagnitudeCurve { get => _bondingMagnitudeCurve; }
     public float PostBondCooldownTime { get => _postBondCooldownTime; }
     public float PostBondTimeElapsed { get => _postBondTimeElapsed; set => _postBondTimeElapsed = value; }
 
@@ -309,6 +318,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     public float PhasingExitForce { get => _phasingExitForce; }
     public Vector2 PhasingExitDirection { get => _phasingExitDirection; set => _phasingExitDirection = value; }
 
+
     [Header("Collision detection")]
     [SerializeField]
     private Collider2D _closestCollider;
@@ -320,7 +330,6 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     private float _directionToNormalThreshold = 0.5f;
 
     private Collider2D[] _aiColliders = new Collider2D[20];
-
     public Collider2D ClosestCollider { get => _closestCollider; }
 
     #endregion

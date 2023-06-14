@@ -4,6 +4,7 @@ using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace _Scripts._Game.Player.MovementStateMachine {
     
@@ -77,9 +78,26 @@ namespace _Scripts._Game.Player.MovementStateMachine {
                 if (_isInBondTransition && _localBondingTarget.CanBeBonded())
                 {
                     _bondTransitionTimer -= Time.deltaTime;
+                    float timeStep = (_ctx.BondTransitionDuration - _bondTransitionTimer);
+                    float timeStepAlpha = timeStep / _ctx.BondTransitionDuration;
 
-                    Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, _localBondingTarget.BondTargetTransform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
-                    _ctx.transform.position = newPosition;
+                    float newLocation = _ctx.BondingSpeedCurve.Evaluate(_ctx.BondTransitionDuration - _bondTransitionTimer) * Time.deltaTime;
+
+                    Vector2 straightPathPosition = Vector2.MoveTowards(_ctx.transform.position, _localBondingTarget.BondTargetTransform.position, newLocation);
+
+                    Vector2 direction = (_localBondingTarget.BondTargetTransform.position - _ctx.transform.position).normalized;
+                    Vector2 perpendicularDirection = Vector2.Perpendicular(direction);
+
+                    float displacement = _ctx.BondingDisplacementCurve.Evaluate(timeStep);
+                    float magnitude = _ctx.BondingMagnitudeCurve.Evaluate(timeStep);
+
+                    Vector2 resultingPostion = straightPathPosition + (perpendicularDirection * displacement * magnitude);
+
+                    _ctx.transform.position = resultingPostion;
+
+
+                    //Vector2 newPosition = Vector2.Lerp(_ctx.transform.position, _localBondingTarget.BondTargetTransform.position, (_ctx.BondTransitionDuration - _bondTransitionTimer) / _ctx.BondTransitionDuration);
+                    //_ctx.transform.position = newPosition;
 
                     float sqDistance = (_ctx.transform.position - _localBondingTarget.BondTargetTransform.position).sqrMagnitude;
                     if (_bondTransitionTimer <= 0.0f || sqDistance <= _localBondingTarget.SqDistanceToCompleteBond)
