@@ -77,12 +77,12 @@ namespace _Scripts._Game.Animation{
             }
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _renderer.enabled = true;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             StopAllCoroutines();
 
