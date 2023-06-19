@@ -156,6 +156,14 @@ namespace _Scripts._Game.General{
     }
     #endregion
 
+    #region Interactable
+    public interface IInteractable
+    {
+        public bool IsInteractionLocked { get; set; } // is interacting with or has already interacted
+        public bool IsInteractable(); // do overlap or distance check
+    }
+    #endregion
+
     #region UI
 
     public enum UIInputState
