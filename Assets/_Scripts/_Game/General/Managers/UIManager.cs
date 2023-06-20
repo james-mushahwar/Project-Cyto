@@ -50,6 +50,9 @@ namespace _Scripts._Game.General.Managers
         private bool _isRightBumperInputValid = false;
         private bool _isLeftTriggerInputValid = false;
         private bool _isRightTriggerInputValid = false;
+
+        public bool IsSouthButtonPressed { get => _isSouthButtonPressed; }
+
         #endregion
 
         #region Pause menu

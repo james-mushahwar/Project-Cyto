@@ -3,7 +3,9 @@ using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using _Scripts._Game.General;
 using TMPro;
+using UnityEditor.EventSystems;
 using UnityEngine;
 
 namespace _Scripts._Game.UI.Dialogue{
@@ -65,7 +67,16 @@ namespace _Scripts._Game.UI.Dialogue{
             {
                 yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.EndOfPhraseWait);
             }
-            
+
+            if (!phrase.IsAuto)
+            {
+                while (InputManager.Instance.GlobalSouthButtonDown == false)
+                {
+                    yield return null;
+                }
+                //InputManager.Instance.NullifyInput(PossessInput.SButton);
+            }
+
             textLabel.text = "";
         }
     }

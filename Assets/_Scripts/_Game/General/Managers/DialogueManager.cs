@@ -87,7 +87,8 @@ namespace _Scripts._Game.General.Managers{
                     _dialogueTasks[EDialogueType.Overview] = null;
                 }
            }
-           
+
+
         }
 
         public Task PostText<T>(T text, EDialogueType dialogueType)

@@ -157,10 +157,33 @@ namespace _Scripts._Game.General{
     #endregion
 
     #region Interactable
+    [System.Serializable]
+    public struct RangeParams
+    {
+        public float _maxSqDistance;
+        public bool _useDotProduct;
+        public Vector2 _dotRange;
+        public Vector2 _dotDirection;
+
+        public RangeParams(bool useDotProduct = false)
+        {
+            _maxSqDistance = 10.0f;
+            _useDotProduct = useDotProduct;
+            _dotRange = new Vector2(0.0f, 0.0f);
+            _dotDirection = new Vector2(1.0f,1.0f);
+        }
+    }
+
     public interface IInteractable
     {
+        public Transform InteractRoot { get; set; }
         public bool IsInteractionLocked { get; set; } // is interacting with or has already interacted
+        public RangeParams RangeParams { get; }
+        UnityEvent OnInteractStart { get; }
+        UnityEvent OnInteractEnd { get; }
         public bool IsInteractable(); // do overlap or distance check
+
+        public void OnInteract();
     }
     #endregion
 

@@ -1366,6 +1366,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SouthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""1895bf0d-663f-4e26-b4b1-b154fecb386d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1432,6 +1441,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df9072a2-0e45-425e-86ab-6b3583ea24c9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""SouthButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ed44093-38c3-4c3f-b2f8-faaab2c71290"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SouthButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1511,6 +1542,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // Global
         m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
         m_Global_Movement = m_Global.FindAction("Movement", throwIfNotFound: true);
+        m_Global_SouthButton = m_Global.FindAction("SouthButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1918,11 +1950,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Global;
     private IGlobalActions m_GlobalActionsCallbackInterface;
     private readonly InputAction m_Global_Movement;
+    private readonly InputAction m_Global_SouthButton;
     public struct GlobalActions
     {
         private @PlayerInput m_Wrapper;
         public GlobalActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Global_Movement;
+        public InputAction @SouthButton => m_Wrapper.m_Global_SouthButton;
         public InputActionMap Get() { return m_Wrapper.m_Global; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1935,6 +1969,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnMovement;
+                @SouthButton.started -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSouthButton;
+                @SouthButton.performed -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSouthButton;
+                @SouthButton.canceled -= m_Wrapper.m_GlobalActionsCallbackInterface.OnSouthButton;
             }
             m_Wrapper.m_GlobalActionsCallbackInterface = instance;
             if (instance != null)
@@ -1942,6 +1979,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @SouthButton.started += instance.OnSouthButton;
+                @SouthButton.performed += instance.OnSouthButton;
+                @SouthButton.canceled += instance.OnSouthButton;
             }
         }
     }
@@ -2010,5 +2050,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IGlobalActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnSouthButton(InputAction.CallbackContext context);
     }
 }

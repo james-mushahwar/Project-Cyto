@@ -20,15 +20,29 @@ namespace _Scripts._Game.General.Managers{
         public PlayerInput PlayerInput => _playerInput;
 
         private Vector2 _globalMovementInput;
+        private bool _globalSouthButtonDown;
 
         public Vector2 GlobalMovementInput => _globalMovementInput;
+        public bool GlobalSouthButtonDown => _globalSouthButtonDown;
 
         protected override void Awake()
         {
             base.Awake();
             _playerInput = new PlayerInput();
 
+            //movement
             _playerInput.Global.Movement.performed += ctx => _globalMovementInput = ctx.ReadValue<Vector2>();
+            //south button
+            _playerInput.Global.SouthButton.started += ctx => _globalSouthButtonDown = true;
+            _playerInput.Global.SouthButton.canceled += ctx => _globalSouthButtonDown = false;
+        }
+
+        private void Update()
+        {
+            if (_globalSouthButtonDown)
+            {
+                InteractableManager.Instance.InteractInput();
+            }
         }
 
         public void TryEnableActionMap(EInputSystem inputType)
@@ -69,6 +83,13 @@ namespace _Scripts._Game.General.Managers{
                     break;
             }
         }
+
+        public void NullifyInput(EPlayerInput input)
+        {
+            if (input == EPlayerInput.SButton)
+            {
+                _globalSouthButtonDown = false;
+            }
+        }
     }
-    
 }
