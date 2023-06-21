@@ -41,6 +41,7 @@ namespace _Scripts._Game.General.Managers{
         {
             if (_globalSouthButtonDown)
             {
+                _globalSouthButtonDown = false;
                 InteractableManager.Instance.InteractInput();
             }
         }

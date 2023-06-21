@@ -77,16 +77,32 @@ namespace _Scripts._Game.General.Managers{
 
         private void Update()
         {
-           _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task textTask);
-           if (textTask != null)
-           {
+            foreach(EDialogueType dialogueType in _dialogueTasks.Keys)
+            {
+                _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task task);
+                if (task != null)
+                {
+                    if (task.Running == false && task.Paused == false)
+                    {
+                        _textGameObjectDictionary[dialogueType].SetActive(false);
+                        task.Stop();
+                        _dialogueTasks[dialogueType] = null;
+                    }
+                }
+            }
+            return;
+
+            _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task textTask);
+            if (textTask != null)
+            {
                 if (textTask.Running == false && textTask.Paused == false)
                 {
                     _textGameObjectDictionary[EDialogueType.Overview].SetActive(false);
                     textTask.Stop();
                     _dialogueTasks[EDialogueType.Overview] = null;
                 }
-           }
+            }
+
 
 
         }

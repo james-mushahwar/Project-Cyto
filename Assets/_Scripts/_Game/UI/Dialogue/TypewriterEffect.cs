@@ -70,11 +70,11 @@ namespace _Scripts._Game.UI.Dialogue{
 
             if (!phrase.IsAuto)
             {
-                while (InputManager.Instance.GlobalSouthButtonDown == false)
+                while (UIManager.Instance.IsSouthButtonPressed == false)
                 {
                     yield return null;
                 }
-                //InputManager.Instance.NullifyInput(PossessInput.SButton);
+                UIManager.Instance.NullifyInput(EPlayerInput.SButton);
             }
 
             textLabel.text = "";
