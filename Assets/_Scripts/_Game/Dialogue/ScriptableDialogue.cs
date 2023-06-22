@@ -21,6 +21,7 @@ namespace _Scripts._Game.Dialogue{
         [SerializeField] private bool _receiveInput; // can this phrase receive input
         [SerializeField] private bool _isSkipable; // can we skip to end of phrase with input
         [SerializeField] private bool _isAuto;      // does text move onto next or close automatically?
+        [SerializeField] private bool _instantText; // post all text instantly
         [Header("Text speed properties")]
         [SerializeField] private float _textSpeed = 48.0f;
         [SerializeField] private float _fasterTextSpeed = 64.0f;
@@ -41,6 +42,7 @@ namespace _Scripts._Game.Dialogue{
         public bool ReceiveInput { get { return _receiveInput; } }
         public bool IsSkipable { get { return _isSkipable; } }
         public bool IsAuto { get { return _isAuto; } }
+        public bool InstantText { get { return _instantText; } }
 
         public float TextSpeed { get { return _textSpeed; } }
         public float FasterTextSpeed { get { return _fasterTextSpeed; } }
@@ -55,6 +57,11 @@ namespace _Scripts._Game.Dialogue{
         [SerializeField] private EDialogueType _dialogueType;
 
         [SerializeField] private Phrase[] _phrases = { new Phrase() };
+
+        public EDialogueType DialogueType
+        {
+            get => _dialogueType;
+        }
 
         public Phrase GetPhrase(int index)
         {

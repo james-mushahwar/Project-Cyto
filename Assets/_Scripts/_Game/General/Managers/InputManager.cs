@@ -41,8 +41,17 @@ namespace _Scripts._Game.General.Managers{
         {
             if (_globalSouthButtonDown)
             {
-                _globalSouthButtonDown = false;
+                //Debug.Log("Interact input");
                 InteractableManager.Instance.InteractInput();
+                _globalSouthButtonDown = false;
+            }
+
+            // safe check what should be enabled
+            // disable menu
+            if (!DialogueManager.Instance.IsAnyDialogueActive() && (!UIManager.Instance.IsAnyMenuActive()) &&
+                _playerInput.Menu.enabled)
+            {
+                TryEnableActionMap(EInputSystem.Player);
             }
         }
 

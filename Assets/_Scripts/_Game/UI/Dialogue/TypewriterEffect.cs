@@ -42,29 +42,43 @@ namespace _Scripts._Game.UI.Dialogue{
             int charIndex = 0;
             string textToType = phrase.Text;
 
+            //Debug.Log("Started typing text");
+
             if (phrase.StartOfPhraseWait > 0.0f)
             {
+                //Debug.Log("Wait before");
+
                 yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.StartOfPhraseWait);
             }
 
-            while (charIndex < textToType.Length)
+            if (phrase.InstantText)
             {
-                t += Time.deltaTime * phrase.TextSpeed;
+                //Debug.Log("Paste all text");
 
-                int newcharIndex = Mathf.FloorToInt(t);
-
-                if (newcharIndex > charIndex)
+                textLabel.text = textToType;
+            }
+            else
+            {
+                while (charIndex < textToType.Length)
                 {
-                    charIndex = Mathf.Clamp(newcharIndex, 0, textToType.Length);
+                    t += Time.deltaTime * phrase.TextSpeed;
 
-                    textLabel.text = textToType.Substring(0, charIndex);
+                    int newcharIndex = Mathf.FloorToInt(t);
+
+                    if (newcharIndex > charIndex)
+                    {
+                        charIndex = Mathf.Clamp(newcharIndex, 0, textToType.Length);
+
+                        textLabel.text = textToType.Substring(0, charIndex);
+                    }
+
+                    yield return null;
                 }
-
-                yield return null;
             }
 
             if (phrase.EndOfPhraseWait > 0.0f)
             {
+                //Debug.Log("Wait after");
                 yield return TaskManager.Instance.WaitForSecondsPool.Get(phrase.EndOfPhraseWait);
             }
 
@@ -72,6 +86,7 @@ namespace _Scripts._Game.UI.Dialogue{
             {
                 while (UIManager.Instance.IsSouthButtonPressed == false)
                 {
+                    //Debug.Log("South button is not pressed");
                     yield return null;
                 }
                 UIManager.Instance.NullifyInput(EPlayerInput.SButton);

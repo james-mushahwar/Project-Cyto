@@ -77,34 +77,58 @@ namespace _Scripts._Game.General.Managers{
 
         private void Update()
         {
-            foreach(EDialogueType dialogueType in _dialogueTasks.Keys)
-            {
-                _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task task);
-                if (task != null)
-                {
-                    if (task.Running == false && task.Paused == false)
-                    {
-                        _textGameObjectDictionary[dialogueType].SetActive(false);
-                        task.Stop();
-                        _dialogueTasks[dialogueType] = null;
-                    }
-                }
-            }
-            return;
+            //foreach(EDialogueType dialogueType in _dialogueTasks.Keys)
+            //{
+            //    _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task task);
+            //    if (task != null)
+            //    {
+            //        if (task.Running == false && task.Paused == false)
+            //        {
+            //            _textGameObjectDictionary[dialogueType].SetActive(false);
+            //            task.Stop();
+            //            _dialogueTasks[dialogueType] = null;
+            //        }
+            //    }
+            //}
+            //return;
 
-            _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task textTask);
-            if (textTask != null)
+            _dialogueTasks.TryGetValue(EDialogueType.Overview, out Task overviewTask);
+            if (overviewTask != null)
             {
-                if (textTask.Running == false && textTask.Paused == false)
+                if (overviewTask.Running == false && overviewTask.Paused == false)
                 {
                     _textGameObjectDictionary[EDialogueType.Overview].SetActive(false);
-                    textTask.Stop();
+                    overviewTask.Stop();
                     _dialogueTasks[EDialogueType.Overview] = null;
                 }
             }
 
+            _dialogueTasks.TryGetValue(EDialogueType.CharacterOverview, out Task charOverviewTask);
+            if (charOverviewTask != null)
+            {
+                if (charOverviewTask.Running == false && charOverviewTask.Paused == false)
+                {
+                    _textGameObjectDictionary[EDialogueType.CharacterOverview].SetActive(false);
+                    charOverviewTask.Stop();
+                    _dialogueTasks[EDialogueType.CharacterOverview] = null;
+                }
+            }
+        }
 
+        public bool IsAnyDialogueActive()
+        {
+            bool anyActive = false;
 
+            foreach (GameObject textGO in _textGameObjectDictionary.Values)
+            {
+                if (textGO.activeSelf)
+                {
+                    anyActive = true;
+                    break;
+                }
+            }
+
+            return anyActive;
         }
 
         public Task PostText<T>(T text, EDialogueType dialogueType)

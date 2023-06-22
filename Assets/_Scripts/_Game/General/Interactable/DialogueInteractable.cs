@@ -12,11 +12,10 @@ namespace _Scripts._Game.General.Interactable{
     public class DialogueInteractable : MonoBehaviour, IInteractable
     {
         #region Dialogue
-
         [SerializeField] 
-        private EDialogueType _dialogueType;
+        private ScriptableDialogue _scriptableDialogue;
         [SerializeField] 
-        private Phrase _phrase;
+        private EDialogueType _dialogueTypeOverride = EDialogueType.INVALID;
         private Task _task;
 
         #endregion
@@ -24,7 +23,6 @@ namespace _Scripts._Game.General.Interactable{
         //IInteractable
         [SerializeField]
         private Transform _interactRoot;
-        [SerializeField]
         private bool _isInteractableLocked;
         [SerializeField]
         private RangeParams _rangeParams = new RangeParams(false);
@@ -59,7 +57,19 @@ namespace _Scripts._Game.General.Interactable{
         {
             if (IsInteractionLocked)
             {
-
+                if (_task != null)
+                {
+                    if (_task.Running == false && _task.Paused == false)
+                    {
+                        _task = null;
+                        IsInteractionLocked = false;
+                    }
+                }
+                else
+                {
+                    IsInteractionLocked = false;
+                }
+                
             }
         }
 
@@ -75,6 +85,11 @@ namespace _Scripts._Game.General.Interactable{
 
         public bool IsInteractable()
         {
+            if (IsInteractionLocked)
+            {
+                return false;
+            }
+
             Vector2 playerPos = PlayerEntity.Instance.GetControlledGameObject().transform.position;
             Vector2 interactablePos = InteractRoot.position;
             Vector2 difference = (interactablePos - playerPos);
@@ -87,18 +102,19 @@ namespace _Scripts._Game.General.Interactable{
                 isInDotProductRange = dotProduct >= Mathf.Min(_rangeParams._dotRange.x, _rangeParams._dotRange.y);
             }
 
+            //Debug.Log("SqDistance from interactable is" + difference.SqrMagnitude());
             bool isInDistanceRange = isInDotProductRange && (difference.SqrMagnitude() <= _rangeParams._maxSqDistance);
             
-            return !IsInteractionLocked && isInDistanceRange;
+            return isInDistanceRange;
         }
 
         public void OnInteract()
         {
             if (_task == null)
             {
-                IsInteractionLocked = true;
                 InputManager.Instance.TryEnableActionMap(EInputSystem.Menu);
-                _task = DialogueManager.Instance.PostText<Phrase>(_phrase, _dialogueType);
+                _task = DialogueManager.Instance.PostText<Phrase>(_scriptableDialogue.GetPhrase(0), _dialogueTypeOverride != EDialogueType.INVALID ? _dialogueTypeOverride : _scriptableDialogue.DialogueType);
+                IsInteractionLocked = true;
             }
         }
     }

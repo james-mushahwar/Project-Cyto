@@ -18,6 +18,8 @@ namespace _Scripts._Game.General.Managers
         private GameObject _pauseBackgroundGO;
         private Dictionary<EPlayerInput, Action<InputAction.CallbackContext>> _inputsDict = new Dictionary<EPlayerInput, Action<InputAction.CallbackContext>>();
 
+        private Dictionary<UIInputState, GameObject> _menuGameObjectDict = new Dictionary<UIInputState, GameObject>();
+
         public Dictionary<EPlayerInput, Action<InputAction.CallbackContext>> InputsDict { get => _inputsDict; }
         #endregion
 
@@ -55,6 +57,8 @@ namespace _Scripts._Game.General.Managers
 
         #endregion
 
+
+
         #region Pause menu
         [SerializeField]
         private GameObject _pauseMenuGO;
@@ -75,6 +79,9 @@ namespace _Scripts._Game.General.Managers
 
         public void Start()
         {
+            // Gameobject dict
+            _menuGameObjectDict.Add(UIInputState.PauseMenu, _pauseMenuGO);
+
             // assign bond inputs
             PlayerInput playerInput = InputManager.Instance.PlayerInput;
 
@@ -99,6 +106,22 @@ namespace _Scripts._Game.General.Managers
                         break;
                 }
             }
+        }
+
+        public bool IsAnyMenuActive()
+        {
+            bool anyActive = false;
+
+            foreach (GameObject menuGO in _menuGameObjectDict.Values)
+            {
+                if (menuGO.activeSelf)
+                {
+                    anyActive = true;
+                    break;
+                }
+            }
+
+            return anyActive;
         }
 
         public void ShowPauseMenu(bool show)
@@ -161,6 +184,14 @@ namespace _Scripts._Game.General.Managers
         {
             _isRightTriggerPressed = context.ReadValueAsButton();
             _isRightTriggerInputValid = _isRightTriggerPressed;
+        }
+
+        public void NullifyInput(EPlayerInput input)
+        {
+            if (input == EPlayerInput.SButton)
+            {
+                _isSouthButtonPressed = false;
+            }
         }
     }
     

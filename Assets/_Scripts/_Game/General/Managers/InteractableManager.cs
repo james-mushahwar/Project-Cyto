@@ -25,6 +25,7 @@ namespace _Scripts._Game.General.Managers{
 
         private void FixedUpdate()
         {
+            _closestInteractable = null;
             foreach (IInteractable interactable in _activeInteractables)
             {
                 if (interactable.IsInteractable())
