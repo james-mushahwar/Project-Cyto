@@ -23,7 +23,7 @@ public abstract class BaseCameraBounds : MonoBehaviour
     [SerializeField]
     private float _lerpYSpeed = 5.0f;
 
-    protected BoxCollider _boxCollider;
+    protected BoxCollider2D _boxCollider;
 
     protected FollowCamera _followCamera;
 
@@ -31,7 +31,7 @@ public abstract class BaseCameraBounds : MonoBehaviour
     public float LerpXSpeed { get => _lerpXSpeed; set => _lerpXSpeed = value; }
     public float LerpYSpeed { get => _lerpYSpeed; set => _lerpYSpeed = value; }
     
-    public BoxCollider BoxCollider { get => _boxCollider; }
+    public BoxCollider2D BoxCollider { get => _boxCollider; }
 
     public abstract float GetTargetXOffset();
     public abstract float GetTargetYOffset();

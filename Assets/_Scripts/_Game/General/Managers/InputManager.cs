@@ -48,7 +48,7 @@ namespace _Scripts._Game.General.Managers{
 
             // safe check what should be enabled
             // disable menu
-            if (!DialogueManager.Instance.IsAnyDialogueActive() && (!UIManager.Instance.IsAnyMenuActive()) &&
+            if (!DialogueManager.Instance.IsDialogueActive() && (!UIManager.Instance.IsAnyMenuActive()) &&
                 _playerInput.Menu.enabled)
             {
                 TryEnableActionMap(EInputSystem.Player);

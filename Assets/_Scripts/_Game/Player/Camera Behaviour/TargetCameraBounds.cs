@@ -36,7 +36,7 @@ public class TargetCameraBounds : BaseCameraBounds
     // Start is called before the first frame update
     void Start()
     {
-        _boxCollider = GetComponent<BoxCollider>();
+        _boxCollider = GetComponent<BoxCollider2D>();
         _followCamera = FindObjectOfType<FollowCamera>();
     }
 

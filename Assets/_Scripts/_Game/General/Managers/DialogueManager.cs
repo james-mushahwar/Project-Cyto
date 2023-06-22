@@ -11,6 +11,7 @@ namespace _Scripts._Game.General.Managers{
     {
         private Dictionary<EDialogueType, GameObject> _textGameObjectDictionary = new Dictionary<EDialogueType, GameObject>();
         private Dictionary<EDialogueType, TMP_Text> _textBoxDictionary = new Dictionary<EDialogueType, TMP_Text>();
+        private Dictionary<EDialogueType, bool> _dialoguePauseCheckDict = new Dictionary<EDialogueType, bool>(); // should each dialogue type pause the game when active?
 
         private BaseWriterEffect[] _writerEffects;
 
@@ -28,6 +29,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 TMP_Text overviewTextBox = overviewGameObject.GetComponentInChildren<TMP_Text>();
                 overviewGameObject.SetActive(false);
+                _dialoguePauseCheckDict.Add(EDialogueType.Overview, false);
                 _textGameObjectDictionary.Add(EDialogueType.Overview, overviewGameObject);
                 if (overviewTextBox)
                 {
@@ -40,6 +42,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 TMP_Text characterOverviewTextBox = characterOverviewGameObject.GetComponentInChildren<TMP_Text>();
                 characterOverviewGameObject.SetActive(false);
+                _dialoguePauseCheckDict.Add(EDialogueType.CharacterOverview, true);
                 _textGameObjectDictionary.Add(EDialogueType.CharacterOverview, characterOverviewGameObject);
                 if (characterOverviewTextBox)
                 {
@@ -52,6 +55,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 TMP_Text characterWorldTextBox = characterWorldGameObject.GetComponentInChildren<TMP_Text>();
                 characterWorldGameObject.SetActive(false);
+                _dialoguePauseCheckDict.Add(EDialogueType.CharacterWorld, false);
                 _textGameObjectDictionary.Add(EDialogueType.CharacterWorld, characterWorldGameObject);
                 if (characterWorldTextBox)
                 {
@@ -64,6 +68,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 TMP_Text worldTextBox = worldGameObject.GetComponentInChildren<TMP_Text>();
                 worldGameObject.SetActive(false);
+                _dialoguePauseCheckDict.Add(EDialogueType.World, false);
                 _textGameObjectDictionary.Add(EDialogueType.World, worldGameObject);
                 if (worldTextBox)
                 {
@@ -115,13 +120,15 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public bool IsAnyDialogueActive()
+        public bool IsDialogueActive()
         {
             bool anyActive = false;
 
-            foreach (GameObject textGO in _textGameObjectDictionary.Values)
+            foreach (EDialogueType dialogueType in _textGameObjectDictionary.Keys)
             {
-                if (textGO.activeSelf)
+                GameObject textGO = _textGameObjectDictionary[dialogueType];
+                bool pause = _dialoguePauseCheckDict[dialogueType];
+                if (textGO.activeSelf && pause)
                 {
                     anyActive = true;
                     break;

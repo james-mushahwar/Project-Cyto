@@ -57,8 +57,6 @@ namespace _Scripts._Game.General.Managers
 
         #endregion
 
-
-
         #region Pause menu
         [SerializeField]
         private GameObject _pauseMenuGO;
