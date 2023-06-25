@@ -43,6 +43,11 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
+            if (_closestInteractable.InteractableType != EInteractableType.PlayerInput)
+            {
+                return;
+            }
+
             if (_closestInteractable.IsInteractionLocked)
             {
                 return;

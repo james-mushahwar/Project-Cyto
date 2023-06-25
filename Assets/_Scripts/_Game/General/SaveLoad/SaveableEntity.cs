@@ -41,5 +41,13 @@ namespace _Scripts._Game.General.SaveLoad{
                 }
             }
         }
+
+        void Reset()
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                GenerateId();
+            }
+        }
     }
 }

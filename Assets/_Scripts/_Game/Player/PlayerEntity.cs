@@ -25,7 +25,7 @@ namespace _Scripts._Game.Player{
         public float _respawnTimer;
     }
 
-    public class PlayerEntity : Singleton<PlayerEntity>, IDamageable
+    public class PlayerEntity : Singleton<PlayerEntity>, IDamageable, IDamageCauser
     {
         #region Properties
         private bool _isPossessed;

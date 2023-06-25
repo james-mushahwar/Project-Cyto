@@ -19,11 +19,16 @@ namespace _Scripts._Game.General{
         bool IsAlive();
         void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
         Vector2 DamageDirection { get; set; }
-        bool FacingRight { get; }
         //Components
         Transform Transform { get; }
+    }
+
+    public interface IDamageCauser
+    {
         //Inputs
+        Transform Transform { get; }
         Vector2 GetMovementInput();
+        bool FacingRight { get; }
     }
 
     public interface IExposable
@@ -176,6 +181,7 @@ namespace _Scripts._Game.General{
 
     public interface IInteractable
     {
+        public EInteractableType InteractableType { get; }
         public Transform InteractRoot { get; set; }
         public bool IsInteractionLocked { get; set; } // is interacting with or has already interacted
         public RangeParams RangeParams { get; }
@@ -185,6 +191,31 @@ namespace _Scripts._Game.General{
 
         public void OnInteract();
     }
+
+    public enum EInteractableType
+    {
+        PlayerInput,
+        CollisionInput,
+        LogicInput
+    }
+
+    public interface IReactable
+    {
+        public bool CanReact { get; }
+        public void OnStartReact();
+        public void OnEndReact();
+    }
+    #endregion
+
+    #region Logic Control
+
+    public interface ILogicEntity
+    {
+        public bool IsLogicValid { get; } // are all inputs leading to this true?
+        public List<ILogicEntity> Inputs { get; }
+        public List<ILogicEntity> Outputs { get; }
+    }
+
     #endregion
 
     #region UI

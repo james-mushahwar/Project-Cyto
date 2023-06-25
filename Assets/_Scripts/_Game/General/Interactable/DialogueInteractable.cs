@@ -29,6 +29,7 @@ namespace _Scripts._Game.General.Interactable{
         private UnityEvent _onInteractStart;
         private UnityEvent _onInteractEnd;
 
+        public EInteractableType InteractableType { get; }
         public Transform InteractRoot 
         {
             get => _interactRoot;

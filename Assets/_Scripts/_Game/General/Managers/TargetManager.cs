@@ -348,21 +348,21 @@ namespace _Scripts._Game.General.Managers{
             return finalScore;
         }
 
-        private float GetDamageableTargetScore(IDamageable dInstigator, IDamageable dTarget)
+        private float GetDamageableTargetScore(IDamageCauser damageCauser, IDamageable dTarget)
         {
             TargetingParameters tp = GetTargetingParameters(ETargetType.Damageable);
-            Vector2 inputDirection = dInstigator.GetMovementInput();
+            Vector2 inputDirection = damageCauser.GetMovementInput();
             bool noPlayerInput = inputDirection.sqrMagnitude == 0.0f;
             if (noPlayerInput)
             {
-                inputDirection = dInstigator.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
+                inputDirection = damageCauser.FacingRight ? new Vector2(1.0f, 0.0f) : new Vector2(-1.0f, 0.0f);
             }
 
             float finalScore = 0.0f;
             float distanceScore = 0.0f;
             float angleScore = 0.0f;
 
-            Vector2 targetVector = dTarget.Transform.position - dInstigator.Transform.position;
+            Vector2 targetVector = dTarget.Transform.position - damageCauser.Transform.position;
 
             if (!tp.IgnoreDotProductScore && !noPlayerInput)
             {
