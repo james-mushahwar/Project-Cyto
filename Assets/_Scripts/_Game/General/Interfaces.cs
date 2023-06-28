@@ -4,13 +4,14 @@ using _Scripts._Game.General.Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.LogicController;
 using _Scripts._Game.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace _Scripts._Game.General{
-
+    
     // GAMEPLAY //////////////////////////////////////
     #region Combat
     public interface IDamageable
@@ -199,21 +200,32 @@ namespace _Scripts._Game.General{
         LogicInput
     }
 
-    public interface IReactable
-    {
-        public bool CanReact { get; }
-        public void OnStartReact();
-        public void OnEndReact();
-    }
+    //public interface IReactable
+    //{
+    //    public bool CanReact { get; }
+    //    public void OnStartReact();
+    //    public void OnEndReact();
+    //}
     #endregion
 
     #region Logic Control
 
+    public enum ELogicType
+    {
+        Constant, // once on it stays on regardless of inputs before
+        Dependent, // dependent on all inputs being true
+        Timed, // once on it stays on for a limited time until switching off
+    }
+
     public interface ILogicEntity
     {
-        public bool IsLogicValid { get; } // are all inputs leading to this true?
-        public List<ILogicEntity> Inputs { get; }
-        public List<ILogicEntity> Outputs { get; }
+        public ELogicType LogicType { get; }
+        public bool IsInputLogicValid { get; set; } // are all inputs leading to this true?
+        public bool IsOutputLogicValid { get; set; } // is this output true?
+        UnityEvent OnInputChanged { get; }
+        UnityEvent OnOutputChanged { get; }
+        public List<LogicEntity> Inputs { get; }
+        public List<LogicEntity> Outputs { get; }
     }
 
     #endregion

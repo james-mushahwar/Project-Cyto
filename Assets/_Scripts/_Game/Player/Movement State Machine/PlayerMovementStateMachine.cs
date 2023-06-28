@@ -346,7 +346,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         // set up player input callbacks
         playerInput.Player.Movement.started += OnMovementInput;
         playerInput.Player.Movement.canceled += OnMovementInput;
-        //playerInput.Player.Movement.performed += OnMovementInput;
+        playerInput.Player.Movement.performed += OnMovementInput;
 
         playerInput.Player.Direction.started += OnDirectionInput;
         playerInput.Player.Direction.canceled += OnDirectionInput;
@@ -448,7 +448,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnMovementInput(InputAction.CallbackContext context)
     {
-        Vector2 movementInput = context.ReadValue<Vector2>();
+        Vector2 movementInput = context.ReadValue<Vector2>().normalized;
         _currentMovementInput = PlayerEntity.Instance.IsAlive() && movementInput.sqrMagnitude >= 0.4 ? movementInput : Vector2.zero;
         _isMovementPressed = _currentMovementInput.sqrMagnitude != 0.0f;
     }

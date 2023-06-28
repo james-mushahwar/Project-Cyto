@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.LogicController;
+using _Scripts._Game.General.Managers;
 using _Scripts._Game.General.SaveLoad;
 using UnityEngine;
 
 namespace _Scripts._Game.General.Interactable.Reactable{
 
-    [RequireComponent(typeof(SaveableEntity))]
-    public class DoorEntity : MonoBehaviour, IReactable, ISaveable
+    [RequireComponent(typeof(SaveableEntity)), RequireComponent(typeof(LogicEntity))]
+    public class DoorEntity : MonoBehaviour, ISaveable
     {
         #region General
         private bool _isClosed;
-        #endregion
 
-        #region IReactable
-        public bool CanReact { get; }
+        private ILogicEntity _logicEntity;
         #endregion
 
         #region Interactable
@@ -49,9 +49,15 @@ namespace _Scripts._Game.General.Interactable.Reactable{
                 }
             }
 
-            _animator = GetComponent<Animator>();
+            _logicEntity = GetComponent<LogicEntity>();
+            _logicEntity.IsInputLogicValid = LogicManager.Instance.AreAllInputsValid(_logicEntity);
+
+            _animator = GetComponentInChildren<Animator>();
+
             _renderer = GetComponent<SpriteRenderer>();
+
             _blockingCollider = GetComponent<BoxCollider2D>();
+            _blockingCollider.enabled = _logicEntity.IsInputLogicValid;
         }
 
         private void OnEnable()
@@ -59,35 +65,64 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             if (_animator != null)
             {
                 _animator.enabled = false;
-
-                
             }
 
-            if (_interactable != null)
+            if (_logicEntity == null)
             {
-                _interactable.OnInteractStart.AddListener(OnStartReact);
+                _logicEntity = GetComponent<LogicEntity>();
             }
+            _logicEntity.OnInputChanged.AddListener(OnInputChanged);
+
+            _blockingCollider.enabled = !_logicEntity.IsInputLogicValid;
         }
 
         private void OnDisable()
         {
-            if (_interactable != null)
+            if (_logicEntity == null)
             {
-                _interactable.OnInteractStart.RemoveListener(OnStartReact);
+                _logicEntity = GetComponent<LogicEntity>();
+            }
+            _logicEntity.OnInputChanged.RemoveListener(OnInputChanged);
+        }
+
+        private void OnInputChanged()
+        {
+            if (_logicEntity.IsInputLogicValid)
+            {
+                OnPower();
+            }
+            else
+            {
+                OnLosePower();
             }
         }
 
-        public void OnStartReact()
+        public void OnPower()
         {
+            _logicEntity.IsOutputLogicValid = true;
             if (_animator != null)
             {
-                int hash = _isClosed ? _closingHash : _openingHash;
+                _animator.enabled = true;
+                int hash = _openingHash;
                 _animator.CrossFade(hash, 0, 0);
             }
+
+            _blockingCollider.enabled = !_logicEntity.IsInputLogicValid;
+            LogicManager.Instance.OnOutputChanged(_logicEntity);
         }
 
-        public void OnEndReact()
+        public void OnLosePower()
         {
+            _logicEntity.IsOutputLogicValid = false;
+            if (_animator != null)
+            {
+                _animator.enabled = true;
+                int hash = _closingHash;
+                _animator.CrossFade(hash, 0, 0);
+            }
+
+            _blockingCollider.enabled = !_logicEntity.IsInputLogicValid;
+            LogicManager.Instance.OnOutputChanged(_logicEntity);
         }
 
         //ISaveable

@@ -1,11 +1,60 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.SaveLoad;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _Scripts._Game.General.LogicController{
-    
-    public class LogicEntity : MonoBehaviour
+
+    [RequireComponent(typeof(SaveableEntity))]
+    public class LogicEntity : MonoBehaviour, ILogicEntity
     {
+        //IlogicEntity
+        [SerializeField]
+        private ELogicType _logicType;
+        private bool _isInputLogicValid;
+        private bool _isOutputLogicValid;
+        [SerializeField]
+        private List<LogicEntity> _inputs;
+        [SerializeField]
+        private List<LogicEntity> _outputs;
+        private UnityEvent _onInputChanged = new UnityEvent();
+        private UnityEvent _onOutputChanged = new UnityEvent();
+
+        public ELogicType LogicType
+        {
+            get { return _logicType; }
+        }
+        public bool IsInputLogicValid
+        {
+            get { return _isInputLogicValid; }
+            set { _isInputLogicValid = value; }
+        }
+        public bool IsOutputLogicValid
+        {
+            get { return _isOutputLogicValid; }
+            set { _isOutputLogicValid = value; }
+        }
+
+        public UnityEvent OnInputChanged
+        {
+            get { return _onInputChanged; }
+        }
+
+        public UnityEvent OnOutputChanged
+        {
+            get { return _onOutputChanged; }
+        }
+
+        public List<LogicEntity> Inputs
+        {
+            get { return _inputs; }
+        }
+        public List<LogicEntity> Outputs
+        {
+            get { return _outputs; }
+        }
+
         // Start is called before the first frame update
         void Start()
         {

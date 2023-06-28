@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.Dialogue;
+using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.Player;
@@ -9,7 +10,7 @@ using UnityEngine.Events;
 
 namespace _Scripts._Game.General.Interactable{
 
-    [RequireComponent(typeof(SaveableEntity))]
+    [RequireComponent(typeof(SaveableEntity)), RequireComponent(typeof(LogicEntity))]
     public class InteractableEntity : MonoBehaviour, IInteractable
     {
         //IInteractable
@@ -23,8 +24,6 @@ namespace _Scripts._Game.General.Interactable{
         private RangeParams _rangeParams = new RangeParams(false);
         private UnityEvent _onInteractStart;
         private UnityEvent _onInteractEnd;
-
-        private IReactable _reactable;
 
         public EInteractableType InteractableType { get => _interactableType; }
 
@@ -69,14 +68,6 @@ namespace _Scripts._Game.General.Interactable{
 
         public bool IsInteractable()
         {
-            if (_reactable != null)
-            {
-                if (!_reactable.CanReact)
-                {
-                    return false;
-                }
-            }
-
             if (IsInteractionLocked)
             {
                 return false;
