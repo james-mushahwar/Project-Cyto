@@ -8,13 +8,16 @@ using UnityEngine;
 namespace _Scripts._Game.General.Interactable.Shootable{
 
     [RequireComponent(typeof(LogicEntity))]
-    public class ShootableEntity : MonoBehaviour, IDamageable, IExposable
+    public class ShootableEntity : MonoBehaviour, IDamageable, IExposable, ISaveable
     {
         #region General
         [SerializeField] 
         private int _exposeHealth;
 
         private ILogicEntity _logicEntity;
+
+        private Animator _animator;
+        private SpriteRenderer _renderer;
         #endregion
 
         //IDamageable
@@ -23,10 +26,20 @@ namespace _Scripts._Game.General.Interactable.Shootable{
             get { return this; }
         }
 
+        #region Animation
+        private readonly int _startup = Animator.StringToHash("ShootButton_Startup");
+        private readonly int _onIdle = Animator.StringToHash("ShootButton_OnIdle");
+        private readonly int _powerDown = Animator.StringToHash("ShootButton_PowerDown");
+        #endregion
+
         private void Awake()
         {
             _logicEntity = GetComponent<LogicEntity>();
             _logicEntity.IsInputLogicValid = LogicManager.Instance.AreAllInputsValid(_logicEntity);
+            
+            _animator = GetComponentInChildren<Animator>();
+            _animator.enabled = false;
+            _renderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -89,13 +102,28 @@ namespace _Scripts._Game.General.Interactable.Shootable{
 
         public void OnExposed()
         {
+            Animate(_startup);
+
             _logicEntity.IsOutputLogicValid = true;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
+
+        }
+
+        
+        public void FinishedStartup()
+        {
+            Animate(_onIdle);
+        }
+
+        public void FinishedPowerDown()
+        {
+            _animator.enabled = false;
         }
 
         public void OnUnexposed()
         {
             _exposeHealth = 1;
+            Animate(_powerDown);
 
             _logicEntity.IsOutputLogicValid = false;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
@@ -116,6 +144,42 @@ namespace _Scripts._Game.General.Interactable.Shootable{
             }
         }
 
+        private void Animate(int hash)
+        {
+            _animator.enabled = true;
+            _animator.CrossFade(hash, 0, 0);
+        }
+
+        //ISaveable
+        [System.Serializable]
+        private struct SaveData
+        {
+            public int exposeHealth;
+        }
+
+        public object SaveState()
+        {
+            return new SaveData()
+            {
+                exposeHealth = _exposeHealth
+            };
+        }
+
+        public void LoadState(object state)
+        {
+            SaveData saveData = (SaveData)state;
+
+            _exposeHealth = saveData.exposeHealth;
+
+            if (IsExposed())
+            {
+                OnExposed();
+            }
+            else
+            {
+                OnUnexposed();
+            }
+        }
     }
     
 }

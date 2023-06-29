@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace _Scripts._Game.General.LogicController{
 
     [RequireComponent(typeof(SaveableEntity))]
-    public class LogicEntity : MonoBehaviour, ILogicEntity
+    public class LogicEntity : MonoBehaviour, ILogicEntity, ISaveable
     {
         //IlogicEntity
         [SerializeField]
@@ -66,6 +66,32 @@ namespace _Scripts._Game.General.LogicController{
         {
             
         }
+
+        //ISaveable
+        [System.Serializable]
+        private struct SaveData
+        {
+            public bool isInputLogicValid;
+            public bool isOutputLogicValid;
+        }
+
+        public object SaveState()
+        {
+            return new SaveData()
+            {
+                isInputLogicValid = _isInputLogicValid,
+                isOutputLogicValid = _isOutputLogicValid
+            };
+        }
+
+        public void LoadState(object state)
+        {
+            SaveData saveData = (SaveData)state;
+
+            _isInputLogicValid = saveData.isInputLogicValid;
+            _isOutputLogicValid = saveData.isOutputLogicValid;
+        }
+
     }
     
 }

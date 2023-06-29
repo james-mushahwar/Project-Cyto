@@ -54,7 +54,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
 
             _animator = GetComponentInChildren<Animator>();
 
-            _renderer = GetComponent<SpriteRenderer>();
+            _renderer = GetComponentInChildren<SpriteRenderer>();
 
             _blockingCollider = GetComponent<BoxCollider2D>();
             _blockingCollider.enabled = _logicEntity.IsInputLogicValid;
@@ -102,12 +102,9 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             _logicEntity.IsOutputLogicValid = true;
             if (_animator != null)
             {
-                _animator.enabled = true;
-                int hash = _openingHash;
-                _animator.CrossFade(hash, 0, 0);
+                Animate(_openingHash);
             }
 
-            _blockingCollider.enabled = !_logicEntity.IsInputLogicValid;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
         }
 
@@ -116,33 +113,54 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             _logicEntity.IsOutputLogicValid = false;
             if (_animator != null)
             {
-                _animator.enabled = true;
-                int hash = _closingHash;
-                _animator.CrossFade(hash, 0, 0);
+                Animate(_closingHash);
             }
 
-            _blockingCollider.enabled = !_logicEntity.IsInputLogicValid;
+            _blockingCollider.enabled = false;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
+        }
+
+        public void FinishedOpening()
+        {
+            _animator.enabled = false;
+            _blockingCollider.enabled = false;
+
+        }
+
+        public void FinishedClosing()
+        {
+            _animator.enabled = false;
+            _blockingCollider.enabled = true;
+        }
+
+        private void Animate(int hash)
+        {
+            _animator.enabled = true;
+            _animator.CrossFade(hash, 0, 0);
         }
 
         //ISaveable
         [System.Serializable]
         private struct SaveData
         {
-            public bool _isClosed;
+            public bool isClosed;
         }
 
         public object SaveState()
         {
             return new SaveData()
             {
-                 
+                 isClosed = _isClosed
             };
         }
 
         public void LoadState(object state)
         {
-            
+            SaveData saveData = (SaveData)state;
+
+            _isClosed = saveData.isClosed;
+
+            Animate(_isClosed ? _openingHash : _closingHash);
         }
     }
     
