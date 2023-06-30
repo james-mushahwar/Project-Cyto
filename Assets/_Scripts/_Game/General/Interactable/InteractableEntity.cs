@@ -14,7 +14,6 @@ namespace _Scripts._Game.General.Interactable{
     public class InteractableEntity : MonoBehaviour, IInteractable
     {
         //IInteractable
-
         [SerializeField]
         private EInteractableType _interactableType;
         [SerializeField]
@@ -22,6 +21,8 @@ namespace _Scripts._Game.General.Interactable{
         private bool _isInteractableLocked;
         [SerializeField]
         private RangeParams _rangeParams = new RangeParams(false);
+        private UnityEvent _onHighlight;
+        private UnityEvent _onUnhighlight;
         private UnityEvent _onInteractStart;
         private UnityEvent _onInteractEnd;
 
@@ -40,6 +41,8 @@ namespace _Scripts._Game.General.Interactable{
         }
 
         public RangeParams RangeParams { get => _rangeParams; }
+        public UnityEvent OnHighlight { get => _onHighlight; }
+        public UnityEvent OnUnhighlight { get => _onUnhighlight; }
         public UnityEvent OnInteractStart { get => _onInteractStart; }
         public UnityEvent OnInteractEnd { get => _onInteractEnd; }
 

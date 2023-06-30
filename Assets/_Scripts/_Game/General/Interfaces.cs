@@ -186,6 +186,8 @@ namespace _Scripts._Game.General{
         public Transform InteractRoot { get; set; }
         public bool IsInteractionLocked { get; set; } // is interacting with or has already interacted
         public RangeParams RangeParams { get; }
+        UnityEvent OnHighlight { get; }
+        UnityEvent OnUnhighlight { get; }
         UnityEvent OnInteractStart { get; }
         UnityEvent OnInteractEnd { get; }
         public bool IsInteractable(); // do overlap or distance check

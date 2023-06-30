@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4598872028749082341}
   - component: {fileID: 4598872028749082342}
-  - component: {fileID: 4598872028749082343}
+  - component: {fileID: 2092706079}
+  - component: {fileID: 7122126277396095190}
   m_Layer: 0
   m_Name: World Prompt
   m_TagString: Untagged
@@ -53,7 +54,7 @@ MonoBehaviour:
     _useDotProduct: 0
     _dotRange: {x: 0, y: 0}
     _dotDirection: {x: 0, y: 1}
---- !u!212 &4598872028749082343
+--- !u!212 &2092706079
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,3 +106,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7122126277396095190
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598872028749082340}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ed2eb7bc474ce6945b1cb69bf1b9f043, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -17,7 +17,15 @@ namespace _Scripts._Game.General.Interactable{
         [SerializeField] 
         private EDialogueType _dialogueTypeOverride = EDialogueType.INVALID;
         private Task _task;
+        #endregion
 
+        #region Animation
+        private Animator _animator;
+        private SpriteRenderer _renderer;
+
+        private readonly int _idle = Animator.StringToHash("LoopStone_Idle");
+        private readonly int _powerOn = Animator.StringToHash("LoopStone_On");
+        private readonly int _powerOff = Animator.StringToHash("LoopStone_Off");
         #endregion
 
         //IInteractable
@@ -26,8 +34,10 @@ namespace _Scripts._Game.General.Interactable{
         private bool _isInteractableLocked;
         [SerializeField]
         private RangeParams _rangeParams = new RangeParams(false);
-        private UnityEvent _onInteractStart;
-        private UnityEvent _onInteractEnd;
+        private UnityEvent _onHighlight = new UnityEvent();
+        private UnityEvent _onUnhighlight = new UnityEvent();
+        private UnityEvent _onInteractStart = new UnityEvent();
+        private UnityEvent _onInteractEnd = new UnityEvent();
 
         public EInteractableType InteractableType { get; }
         public Transform InteractRoot 
@@ -43,6 +53,8 @@ namespace _Scripts._Game.General.Interactable{
         }
 
         public RangeParams RangeParams { get => _rangeParams; }
+        public UnityEvent OnHighlight { get => _onHighlight; }
+        public UnityEvent OnUnhighlight { get => _onUnhighlight; }
         public UnityEvent OnInteractStart { get => _onInteractStart; }
         public UnityEvent OnInteractEnd { get => _onInteractEnd; }
 
@@ -52,6 +64,8 @@ namespace _Scripts._Game.General.Interactable{
             {
                 _interactRoot = transform;
             }
+
+            _animator = GetComponentInChildren<Animator>();
         }
 
         private void Update()
@@ -76,12 +90,42 @@ namespace _Scripts._Game.General.Interactable{
 
         private void OnEnable()
         { 
+            _onHighlight.AddListener(PowerOn);
+            _onUnhighlight.AddListener(PowerOff);
             InteractableManager.Instance?.AddInteractable(this);
         }
 
         private void OnDisable()
         {
+            _onHighlight.RemoveAllListeners();
+            _onUnhighlight.RemoveAllListeners();
             InteractableManager.Instance?.RemoveInteractable(this);
+        }
+
+        private void PowerOn()
+        {
+            Animate(_powerOn);
+        }
+
+        private void PowerOff()
+        {
+            Animate(_powerOff);
+        }
+
+        public void FinishedOn()
+        {
+            _animator.enabled = false;
+        }
+
+        public void FinishedOff()
+        {
+            Animate(_idle);
+        }
+
+        private void Animate(int hash)
+        {
+            _animator.enabled = true;
+            _animator.CrossFade(hash, 0, 0);
         }
 
         public bool IsInteractable()

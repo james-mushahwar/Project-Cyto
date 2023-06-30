@@ -25,15 +25,40 @@ namespace _Scripts._Game.General.Managers{
 
         private void FixedUpdate()
         {
-            _closestInteractable = null;
+            if (_closestInteractable != null)
+            {
+                if (_closestInteractable.IsInteractionLocked)
+                {
+                    return;
+                }
+            }
+
+            IInteractable newInteractable = null;
             foreach (IInteractable interactable in _activeInteractables)
             {
                 if (interactable.IsInteractable())
                 {
-                    _closestInteractable = interactable;
+                    newInteractable = interactable;
                     break;
                 }
             }
+
+            if (newInteractable == null)
+            {
+                if (_closestInteractable != null)
+                {
+                    _closestInteractable.OnUnhighlight.Invoke();
+                }
+            }
+            else
+            {
+                if (_closestInteractable == null)
+                {
+                    newInteractable.OnHighlight.Invoke();
+                }
+            }
+
+            _closestInteractable = newInteractable;
         }
 
         public void InteractInput()
