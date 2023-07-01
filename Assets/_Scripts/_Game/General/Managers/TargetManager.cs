@@ -6,6 +6,7 @@ using UnityEngine;
 using _Scripts._Game.Player;
 using _Scripts._Game.AI.Bonding;
 using System;
+using _Scripts._Game.UI.World;
 using UnityEngine.InputSystem;
 using _Scripts.Editortools.Draw;
 
@@ -257,6 +258,16 @@ namespace _Scripts._Game.General.Managers{
 
             if (newDamageable != _damageableTarget)
             {
+                if (_damageableTarget != null)
+                {
+                    //prompt highlight
+                    InputPrompt inputprompt = _damageableTarget.Transform.parent.GetComponentInChildren<InputPrompt>();
+                    if (inputprompt)
+                    {
+                        inputprompt.EndPrompt();
+                    }
+                }
+
                 _damageableTarget = newDamageable;
 
                 if (_damageableTarget != null)
@@ -266,6 +277,13 @@ namespace _Scripts._Game.General.Managers{
                     _targetHighlightPS.transform.parent = _damageableTarget.Transform;
                     _targetHighlightPS.transform.localPosition = Vector3.zero;
                     _targetHighlightPS.Play();
+
+                    //prompt highlight
+                    InputPrompt inputprompt = _damageableTarget.Transform.parent.GetComponentInChildren<InputPrompt>();
+                    if (inputprompt)
+                    {
+                        inputprompt.StartPrompt();
+                    }
                 }
             }
 

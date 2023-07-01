@@ -110,12 +110,12 @@ TextureImporter:
       name: Electric Hit 4_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 0
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5523256, y: 0.39731655}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -131,12 +131,12 @@ TextureImporter:
       name: Electric Hit 4_1
       rect:
         serializedVersion: 2
-        x: 90
+        x: 82
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.55232567, y: 0.40465105}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,12 +152,12 @@ TextureImporter:
       name: Electric Hit 4_2
       rect:
         serializedVersion: 2
-        x: 171
+        x: 164
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.54069763, y: 0.40465105}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,12 +173,12 @@ TextureImporter:
       name: Electric Hit 4_3
       rect:
         serializedVersion: 2
-        x: 252
+        x: 246
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5639533, y: 0.39731655}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,12 +194,12 @@ TextureImporter:
       name: Electric Hit 4_4
       rect:
         serializedVersion: 2
-        x: 333
+        x: 328
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.56187886, y: 0.39783424}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,12 +215,12 @@ TextureImporter:
       name: Electric Hit 4_5
       rect:
         serializedVersion: 2
-        x: 414
+        x: 410
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.56211036, y: 0.39859805}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,12 +236,12 @@ TextureImporter:
       name: Electric Hit 4_6
       rect:
         serializedVersion: 2
-        x: 495
+        x: 492
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.56125546, y: 0.39803827}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -257,12 +257,12 @@ TextureImporter:
       name: Electric Hit 4_7
       rect:
         serializedVersion: 2
-        x: 576
+        x: 574
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5639544, y: 0.39853767}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -278,12 +278,12 @@ TextureImporter:
       name: Electric Hit 4_8
       rect:
         serializedVersion: 2
-        x: 657
+        x: 656
         y: 0
-        width: 75
+        width: 82
         height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5638011, y: 0.39939123}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

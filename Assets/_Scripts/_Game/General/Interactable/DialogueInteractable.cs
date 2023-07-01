@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using _Scripts._Game.Dialogue;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using _Scripts._Game.UI.World;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -58,11 +59,18 @@ namespace _Scripts._Game.General.Interactable{
         public UnityEvent OnInteractStart { get => _onInteractStart; }
         public UnityEvent OnInteractEnd { get => _onInteractEnd; }
 
+        private InputPrompt _inputPrompt;
+
         private void Awake()
         {
             if (_interactRoot == null)
             {
                 _interactRoot = transform;
+            }
+
+            if (_inputPrompt == null)
+            {
+                _inputPrompt = GetComponentInChildren<InputPrompt>();
             }
 
             _animator = GetComponentInChildren<Animator>();
@@ -110,11 +118,13 @@ namespace _Scripts._Game.General.Interactable{
         private void PowerOff()
         {
             Animate(_powerOff);
+            _inputPrompt?.EndPrompt();
         }
 
         public void FinishedOn()
         {
             _animator.enabled = false;
+            _inputPrompt?.StartPrompt();
         }
 
         public void FinishedOff()

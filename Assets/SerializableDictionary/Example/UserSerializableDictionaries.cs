@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
 using UnityEngine;
 
@@ -31,3 +32,5 @@ public class QuaternionMyClassDictionary : SerializableDictionary<Quaternion, My
 // Cyto classes
 [Serializable]
 public class EEntityFEntityStatsDictionary : SerializableDictionary<EEntity, FEntityStats> {}
+[Serializable]
+public class PlayerInputPromptDictionary : SerializableDictionary<EPlayerInput, RectTransform> {}

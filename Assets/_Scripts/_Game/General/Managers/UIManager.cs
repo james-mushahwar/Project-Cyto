@@ -12,7 +12,7 @@ namespace _Scripts._Game.General.Managers
 {
     public class UIManager : Singleton<UIManager>
     {
-        [Header("UI references")]
+        [Header("General")]
         #region General
         [SerializeField] 
         private GameObject _pauseBackgroundGO;
@@ -28,6 +28,15 @@ namespace _Scripts._Game.General.Managers
         private PlayerMovementStateMachineFactory _states;
 
         public BaseUIState CurrentState { get => _currentState; set => _currentState = value; }
+        #endregion
+
+        [Header("World")]
+        #region World
+        [SerializeField] 
+        private Canvas _promptCanvas;
+        [SerializeField] 
+        private PlayerInputPromptDictionary _playerInputPromptDict = new PlayerInputPromptDictionary();
+        private Dictionary<EPlayerInput, Transform> _promptWorldTransformDict = new Dictionary<EPlayerInput, Transform>();
         #endregion
 
         #region Player Inputs
@@ -77,6 +86,12 @@ namespace _Scripts._Game.General.Managers
 
         public void Start()
         {
+            //prompts
+            foreach (EPlayerInput inputType in _playerInputPromptDict.Keys)
+            {
+                _promptWorldTransformDict.Add(inputType, transform);
+            }
+
             // Gameobject dict
             _menuGameObjectDict.Add(UIInputState.PauseMenu, _pauseMenuGO);
 
@@ -103,6 +118,36 @@ namespace _Scripts._Game.General.Managers
                         playerInput.Menu.Enter.canceled += OnSouthButtonInput;
                         break;
                 }
+            }
+        }
+
+        private void Update()
+        {
+            foreach (EPlayerInput inputType in _playerInputPromptDict.Keys)
+            {
+                _playerInputPromptDict.TryGetValue(inputType, out RectTransform promptTransform);
+                _promptWorldTransformDict.TryGetValue(inputType, out Transform targetTransform);
+
+                if (promptTransform == null || targetTransform == null || targetTransform == transform)
+                {
+                    continue;
+                }
+
+                if (promptTransform.gameObject.activeSelf == false)
+                {
+                    continue;
+                }
+
+                //first you need the RectTransform component of your canvas
+                RectTransform CanvasRect = _promptCanvas.GetComponent<RectTransform>();
+
+                Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(targetTransform.position);
+                Vector2 WorldObject_ScreenPosition = new Vector2(
+                    ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
+                    ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+
+                //now you can set the position of the ui element
+                promptTransform.anchoredPosition = WorldObject_ScreenPosition;
             }
         }
 
@@ -189,6 +234,28 @@ namespace _Scripts._Game.General.Managers
             if (input == EPlayerInput.SButton)
             {
                 _isSouthButtonPressed = false;
+            }
+        }
+
+        // prompts
+        public void TogglePlayerInputPrompt(EPlayerInput inputType, bool show, Transform attachTransform)
+        {
+            _playerInputPromptDict.TryGetValue(inputType, out RectTransform promptGO);
+            _promptWorldTransformDict.TryGetValue(inputType, out Transform targetTransform);
+            if (promptGO)
+            {
+                if ((!show && targetTransform != attachTransform) ||
+                    (show && targetTransform != transform))
+                {
+                    return;
+                }
+
+                if (promptGO.gameObject.activeSelf != show)
+                {
+                    promptGO.gameObject.SetActive(show);
+                }
+
+                _promptWorldTransformDict[inputType] = show ? attachTransform : this.transform;
             }
         }
     }
