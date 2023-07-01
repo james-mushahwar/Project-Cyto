@@ -29,6 +29,7 @@ namespace _Scripts._Game.General.Managers {
         SFX_Player_BondExit,
         SFX_Player_PossessStart,
         SFX_Player_Jump,
+        SFX_Player_Dash,
         // 
         COUNT
     }
@@ -84,6 +85,7 @@ namespace _Scripts._Game.General.Managers {
             EAudioType.SFX_Player_BondExit,
             EAudioType.SFX_Player_PossessStart,
             EAudioType.SFX_Player_Jump,
+            EAudioType.SFX_Player_Dash,
         };
 
         private Dictionary<EAudioType, string> _AudioTypeLocationsDict = new Dictionary<EAudioType, string>();
@@ -178,6 +180,28 @@ namespace _Scripts._Game.General.Managers {
             if (pooledComp)
             {
                 pooledComp.gameObject.transform.position = worldLoc;
+                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _AudioTypeLocationsDict[audioType]);
+                pooledComp.Play();
+            }
+            else
+            {
+                Log("No more pooled audio components");
+            }
+
+            return pooledComp;
+        }
+
+        public AudioSource TryPlayAudioSourceAttached(EAudioType audioType, Transform attachTransform, Vector3 localPosition = default)
+        {
+            AudioSource pooledComp = GetPooledComponent();
+
+            if (pooledComp)
+            {
+                if (attachTransform != null)
+                {
+                    pooledComp.transform.parent = attachTransform;
+                }
+                pooledComp.gameObject.transform.position = localPosition;
                 pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _AudioTypeLocationsDict[audioType]);
                 pooledComp.Play();
             }

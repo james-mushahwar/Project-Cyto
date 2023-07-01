@@ -1,6 +1,7 @@
 using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.Player;
 using UnityEngine;
 
 public class DashingMovementState : BaseMovementState
@@ -83,6 +84,9 @@ public class DashingMovementState : BaseMovementState
         _ctx.Rb.velocity = _ctx.Rb.velocity * Vector2.right;
 
         _ctx.Rb.AddForce(Vector2.right * _ctx.DashingForce * Mathf.Sign(_ctx.CurrentMovementInput.x));
+
+        AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAttached(EAudioType.SFX_Player_Dash, PlayerEntity.Instance.transform);
+
     }
 
     public override void ExitState()
