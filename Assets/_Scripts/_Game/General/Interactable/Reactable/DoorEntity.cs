@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.General.SaveLoad;
+using _Scripts._Game.Player;
 using UnityEngine;
 
 namespace _Scripts._Game.General.Interactable.Reactable{
@@ -103,6 +104,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             if (_animator != null)
             {
                 Animate(_openingHash);
+                (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_SpaceDoor_Open, transform.position);
             }
 
             LogicManager.Instance.OnOutputChanged(_logicEntity);

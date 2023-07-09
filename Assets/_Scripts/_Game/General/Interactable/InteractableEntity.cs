@@ -5,6 +5,7 @@ using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,8 +24,12 @@ namespace _Scripts._Game.General.Interactable{
         private RangeParams _rangeParams = new RangeParams(false);
         private UnityEvent _onHighlight;
         private UnityEvent _onUnhighlight;
+        [SerializeField]
         private UnityEvent _onInteractStart;
+        [SerializeField]
         private UnityEvent _onInteractEnd;
+
+        [SerializeField] private GameEvent _onInteractedGameEvent;
 
         public EInteractableType InteractableType { get => _interactableType; }
 
@@ -64,17 +69,12 @@ namespace _Scripts._Game.General.Interactable{
             InteractableManager.Instance?.RemoveInteractable(this);
         }
 
-        private void Update()
-        {
-            
-        }
-
         public bool IsInteractable()
         {
-            if (IsInteractionLocked)
-            {
-                return false;
-            }
+            //if (IsInteractionLocked)
+            //{
+            //    return false;
+            //}
 
             Vector2 playerPos = PlayerEntity.Instance.GetControlledGameObject().transform.position;
             Vector2 interactablePos = InteractRoot.position;
@@ -96,8 +96,17 @@ namespace _Scripts._Game.General.Interactable{
 
         public void OnInteract()
         {
-            IsInteractionLocked = true;
-            OnInteractStart.Invoke();
+            if (IsInteractionLocked)
+            {
+                IsInteractionLocked = false;
+                OnInteractEnd.Invoke();
+            }
+            else
+            {
+                IsInteractionLocked = true;
+                OnInteractStart.Invoke();
+            }
+            
         }
     }
     

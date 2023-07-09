@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System;
 using System.Collections.Generic;
+using _Scripts._Game.Audio;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.Audio;
@@ -30,6 +31,7 @@ namespace _Scripts._Game.General.Managers {
         SFX_Player_PossessStart,
         SFX_Player_Jump,
         SFX_Player_Dash,
+        SFX_SpaceDoor_Open,
         // 
         COUNT
     }
@@ -86,11 +88,15 @@ namespace _Scripts._Game.General.Managers {
             EAudioType.SFX_Player_PossessStart,
             EAudioType.SFX_Player_Jump,
             EAudioType.SFX_Player_Dash,
+            EAudioType.SFX_SpaceDoor_Open,
         };
 
-        private Dictionary<EAudioType, string> _AudioTypeLocationsDict = new Dictionary<EAudioType, string>();
+        private Dictionary<EAudioType, string> _audioTypeLocationsDict = new Dictionary<EAudioType, string>();
 
-        private AudioClip[] _AudioClips = new AudioClip[(int) EAudioType.COUNT];
+        [SerializeField]
+        private AudioPlaybackDictionary _audioPlaybackDict = new AudioPlaybackDictionary();
+
+        private AudioClip[] _audioClips = new AudioClip[(int) EAudioType.COUNT];
 
         [Header("SFX")]
         [SerializeField]
@@ -160,7 +166,7 @@ namespace _Scripts._Game.General.Managers {
 
             for (int i = 0; i < (int)EAudioType.COUNT; ++i)
             {
-                _AudioTypeLocationsDict.Add((EAudioType)i, Enum.GetName(typeof(EAudioType), (EAudioType)i));
+                _audioTypeLocationsDict.Add((EAudioType)i, Enum.GetName(typeof(EAudioType), (EAudioType)i));
             }
 
             _audioTable = new Dictionary<EAudioTrackTypes, AudioTrack>();
@@ -179,8 +185,11 @@ namespace _Scripts._Game.General.Managers {
 
             if (pooledComp)
             {
+                // audio playback
+                AdjustAudioPlayback(audioType, pooledComp);
+
                 pooledComp.gameObject.transform.position = worldLoc;
-                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _AudioTypeLocationsDict[audioType]);
+                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _audioTypeLocationsDict[audioType]);
                 pooledComp.Play();
             }
             else
@@ -197,12 +206,15 @@ namespace _Scripts._Game.General.Managers {
 
             if (pooledComp)
             {
+                // audio playback
+                AdjustAudioPlayback(audioType, pooledComp);
+
                 if (attachTransform != null)
                 {
                     pooledComp.transform.parent = attachTransform;
                 }
                 pooledComp.gameObject.transform.position = localPosition;
-                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _AudioTypeLocationsDict[audioType]);
+                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _audioTypeLocationsDict[audioType]);
                 pooledComp.Play();
             }
             else
@@ -211,6 +223,22 @@ namespace _Scripts._Game.General.Managers {
             }
 
             return pooledComp;
+        }
+
+        private void AdjustAudioPlayback(EAudioType audioType, AudioSource audioSource)
+        {
+            ScriptableAudioPlayback audioPlayback = null;
+
+            _audioPlaybackDict.TryGetValue(audioType, out audioPlayback);
+
+            if (audioPlayback != null)
+            {
+                audioSource.volume = audioPlayback.Volume;
+            }
+            else
+            {
+                audioSource.volume = 1.0f;
+            }
         }
 
         public void PlayAudio(EAudioTrackTypes type, bool fade = false, float delay = 0.0f)

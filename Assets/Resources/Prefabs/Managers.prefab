@@ -1339,6 +1339,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useTickMaster: 0
   m_PoolCount: 30
+  _audioPlaybackDict:
+    m_keys: 14000000
+    m_values:
+    - {fileID: 11400000, guid: 36be3e86408f8064a80acc19d825b3a0, type: 2}
   _sfxMixerGroup: {fileID: 7588592271706278492, guid: 96b5b7a2d6dfd423984ebde6148cea78, type: 2}
   _tracks:
   - _source: {fileID: 7702300481871731506}

@@ -4,6 +4,7 @@ using System;
 using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
 using UnityEngine;
+using _Scripts._Game.Audio;
 
 // premade
 
@@ -34,3 +35,5 @@ public class QuaternionMyClassDictionary : SerializableDictionary<Quaternion, My
 public class EEntityFEntityStatsDictionary : SerializableDictionary<EEntity, FEntityStats> {}
 [Serializable]
 public class PlayerInputPromptDictionary : SerializableDictionary<EPlayerInput, RectTransform> {}
+[Serializable]
+public class AudioPlaybackDictionary : SerializableDictionary<EAudioType, ScriptableAudioPlayback> {}
