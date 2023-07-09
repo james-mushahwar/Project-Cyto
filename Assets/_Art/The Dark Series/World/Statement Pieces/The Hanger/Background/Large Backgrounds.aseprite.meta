@@ -1,7 +1,864 @@
 fileFormatVersion: 2
 guid: 519a3f04d7d8ae245a8b0c695bf09efa
-DefaultImporter:
+ScriptedImporter:
+  internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Large Backgrounds_Frame_0
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 314
+      height: 192
+    spriteID: 7e47447568452bf48baa66b5b79180b4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Large Backgrounds_Frame_1
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 204
+      width: 314
+      height: 192
+    spriteID: 38c570398da553044bcfa6756604302a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 204}
+  - name: Large Backgrounds_Frame_2
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 404
+      width: 314
+      height: 192
+    spriteID: 54c7b752f4e1b3f4792c277c0bbe8947
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 404}
+  - name: Large Backgrounds_Frame_3
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 604
+      width: 314
+      height: 192
+    spriteID: ee67690bc6656c148abb672cb1f91e58
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 604}
+  - name: Large Backgrounds_Frame_4
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 804
+      width: 314
+      height: 192
+    spriteID: 0dcafc6a43d4cda41b9032af22dc529c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 804}
+  - name: Large Backgrounds_Frame_5
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1004
+      width: 314
+      height: 192
+    spriteID: fa35ac68c50775b4f9eeb2b643f87efc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1004}
+  - name: Large Backgrounds_Frame_6
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1204
+      width: 314
+      height: 192
+    spriteID: 17595edcb0fa96d4cac8ecb54497cea1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1204}
+  - name: Large Backgrounds_Frame_7
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1404
+      width: 314
+      height: 192
+    spriteID: 9ce5a651c2958394697dab4c308cd3e7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1404}
+  - name: Large Backgrounds_Frame_8
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1604
+      width: 314
+      height: 192
+    spriteID: 3d088cf3a5535db42ac13ac6bd1920fd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1604}
+  - name: Large Backgrounds_Frame_9
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1804
+      width: 314
+      height: 192
+    spriteID: f2c0eee50f11db940a2f14378d6eb2e6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1804}
+  - name: Large Backgrounds_Frame_10
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 4
+      width: 314
+      height: 192
+    spriteID: ca6a32bdce9f66e4990b2f4c16a9a0bb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 4}
+  - name: Large Backgrounds_Frame_11
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 204
+      width: 314
+      height: 192
+    spriteID: 4093654a51d501f4381c2875550f5ba8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 204}
+  - name: Large Backgrounds_Frame_12
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 404
+      width: 314
+      height: 192
+    spriteID: d1e5f1ec27a81d449830a4e3fc50c82b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 404}
+  - name: Large Backgrounds_Frame_13
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 604
+      width: 314
+      height: 192
+    spriteID: 24cc428444dd5b445aa7e026c2424580
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 604}
+  - name: Large Backgrounds_Frame_14
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 804
+      width: 314
+      height: 192
+    spriteID: 3d9ba108e98543e4a93907d51deea2ce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 804}
+  - name: Large Backgrounds_Frame_15
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 1004
+      width: 314
+      height: 192
+    spriteID: 5343c59c54cac414a879322402640041
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 1004}
+  - name: Large Backgrounds_Frame_16
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 1204
+      width: 314
+      height: 192
+    spriteID: 26e2f0dbea3e89e4899418382a761194
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 1204}
+  - name: Large Backgrounds_Frame_17
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 1404
+      width: 314
+      height: 192
+    spriteID: b08ae271ee60f1d42995fa2ba3ef303d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 1404}
+  - name: Large Backgrounds_Frame_18
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 1604
+      width: 314
+      height: 192
+    spriteID: a46eda242e02b7f4fa6b96b396769dfa
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 1604}
+  - name: Large Backgrounds_Frame_19
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 326
+      y: 1804
+      width: 314
+      height: 192
+    spriteID: 2c4db820d3bdca14990a5ab05aae1241
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 326, y: 1804}
+  - name: Large Backgrounds_Frame_20
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 648
+      y: 4
+      width: 314
+      height: 192
+    spriteID: 4d2e0f5d7ba0f354697a4f0eed7620f8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 648, y: 4}
+  - name: Large Backgrounds_Frame_21
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 648
+      y: 204
+      width: 314
+      height: 192
+    spriteID: 62806dd75fd70a1419656f0d0e401ae6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 648, y: 204}
+  - name: Large Backgrounds_Frame_22
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 648
+      y: 404
+      width: 314
+      height: 192
+    spriteID: daaaee37b2766784180e7c18a068206b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 648, y: 404}
+  - name: Large Backgrounds_Frame_23
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 648
+      y: 604
+      width: 314
+      height: 192
+    spriteID: d6368f48fc13dcc4d945c18495aa8e81
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 648, y: 604}
+  - name: Large Backgrounds_Frame_24
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 648
+      y: 804
+      width: 314
+      height: 192
+    spriteID: 9a833f658a4e19843889e2e92b0148a0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 648, y: 804}
+  - name: Large Backgrounds_Frame_25
+    originalName: 
+    pivot: {x: 0.49840763, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 648
+      y: 1004
+      width: 314
+      height: 192
+    spriteID: 3b5af9e2c113af849b3e9af0251801d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 648, y: 1004}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1484414772
+    name: Large Backgrounds
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Large Backgrounds_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 7e47447568452bf48baa66b5b79180b4
+    - name: Large Backgrounds_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 38c570398da553044bcfa6756604302a
+    - name: Large Backgrounds_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 54c7b752f4e1b3f4792c277c0bbe8947
+    - name: Large Backgrounds_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: ee67690bc6656c148abb672cb1f91e58
+    - name: Large Backgrounds_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 0dcafc6a43d4cda41b9032af22dc529c
+    - name: Large Backgrounds_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: fa35ac68c50775b4f9eeb2b643f87efc
+    - name: Large Backgrounds_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 17595edcb0fa96d4cac8ecb54497cea1
+    - name: Large Backgrounds_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 9ce5a651c2958394697dab4c308cd3e7
+    - name: Large Backgrounds_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 3d088cf3a5535db42ac13ac6bd1920fd
+    - name: Large Backgrounds_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: f2c0eee50f11db940a2f14378d6eb2e6
+    - name: Large Backgrounds_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: ca6a32bdce9f66e4990b2f4c16a9a0bb
+    - name: Large Backgrounds_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 4093654a51d501f4381c2875550f5ba8
+    - name: Large Backgrounds_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: d1e5f1ec27a81d449830a4e3fc50c82b
+    - name: Large Backgrounds_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 24cc428444dd5b445aa7e026c2424580
+    - name: Large Backgrounds_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 3d9ba108e98543e4a93907d51deea2ce
+    - name: Large Backgrounds_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 5343c59c54cac414a879322402640041
+    - name: Large Backgrounds_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 26e2f0dbea3e89e4899418382a761194
+    - name: Large Backgrounds_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: b08ae271ee60f1d42995fa2ba3ef303d
+    - name: Large Backgrounds_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: a46eda242e02b7f4fa6b96b396769dfa
+    - name: Large Backgrounds_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 2c4db820d3bdca14990a5ab05aae1241
+    - name: Large Backgrounds_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 4d2e0f5d7ba0f354697a4f0eed7620f8
+    - name: Large Backgrounds_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 62806dd75fd70a1419656f0d0e401ae6
+    - name: Large Backgrounds_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: daaaee37b2766784180e7c18a068206b
+    - name: Large Backgrounds_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: d6368f48fc13dcc4d945c18495aa8e81
+    - name: Large Backgrounds_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 9a833f658a4e19843889e2e92b0148a0
+    - name: Large Backgrounds_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 0
+        y: 0
+        width: 314
+        height: 193
+      spriteId: 3b5af9e2c113af849b3e9af0251801d9
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 313, y: 192}

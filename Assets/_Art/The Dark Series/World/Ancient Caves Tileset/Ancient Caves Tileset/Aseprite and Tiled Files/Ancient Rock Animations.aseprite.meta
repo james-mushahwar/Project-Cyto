@@ -1,7 +1,1116 @@
 fileFormatVersion: 2
 guid: ead02a293db2d53439fb2f1cd66732c9
-DefaultImporter:
+ScriptedImporter:
+  internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Ancient Rock Animations_Frame_0
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 192
+      height: 208
+    spriteID: 710d4a92e429d3f44a316962dd1ac261
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Ancient Rock Animations_Frame_1
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 220
+      width: 192
+      height: 208
+    spriteID: 4930885fa226003408f5d7b9c824f77b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 220}
+  - name: Ancient Rock Animations_Frame_2
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 436
+      width: 192
+      height: 208
+    spriteID: 14e9afa3a8451f74993442927ed555a0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 436}
+  - name: Ancient Rock Animations_Frame_3
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 652
+      width: 192
+      height: 208
+    spriteID: 85eb79b604fb0374e8db256784deb26d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 652}
+  - name: Ancient Rock Animations_Frame_4
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 868
+      width: 192
+      height: 208
+    spriteID: 06446a13e1449774d82bca136297c388
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 868}
+  - name: Ancient Rock Animations_Frame_5
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1084
+      width: 192
+      height: 208
+    spriteID: 68c91825b62b44048af46f8f6f7d97f6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1084}
+  - name: Ancient Rock Animations_Frame_6
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1300
+      width: 192
+      height: 208
+    spriteID: 536e50cd3912304449c9af903b5638b1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1300}
+  - name: Ancient Rock Animations_Frame_7
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1516
+      width: 192
+      height: 208
+    spriteID: 2dd2bf42f91f0104eabd66a0c3639684
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1516}
+  - name: Ancient Rock Animations_Frame_8
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1732
+      width: 192
+      height: 208
+    spriteID: 15f9dddad5f5adc4082b989f0f3a1544
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1732}
+  - name: Ancient Rock Animations_Frame_9
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 4
+      width: 192
+      height: 208
+    spriteID: 1f1dccb3b7cf0cb438fea30157bdb15b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 4}
+  - name: Ancient Rock Animations_Frame_10
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 220
+      width: 192
+      height: 208
+    spriteID: 08a9aa771d82f664e98a57f2700ae68d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 220}
+  - name: Ancient Rock Animations_Frame_11
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 436
+      width: 192
+      height: 208
+    spriteID: bf841dfacdd6cc24eba9f939daa05dd0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 436}
+  - name: Ancient Rock Animations_Frame_12
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 652
+      width: 192
+      height: 208
+    spriteID: 9da36a6233677594883757d70ed577f8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 652}
+  - name: Ancient Rock Animations_Frame_13
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 868
+      width: 192
+      height: 208
+    spriteID: e9e431639993cb84aac280ea62cd84d8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 868}
+  - name: Ancient Rock Animations_Frame_14
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 1084
+      width: 192
+      height: 208
+    spriteID: 2626fa2de1a87834f92b4e83a6e5d0d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 1084}
+  - name: Ancient Rock Animations_Frame_15
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 1300
+      width: 192
+      height: 208
+    spriteID: 4976398637cf52e4794704a3337e97b2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 1300}
+  - name: Ancient Rock Animations_Frame_16
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 1516
+      width: 192
+      height: 208
+    spriteID: 60f8f3efd29f59942be3cf3c92c3304b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 1516}
+  - name: Ancient Rock Animations_Frame_17
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 204
+      y: 1732
+      width: 192
+      height: 208
+    spriteID: 8e34d0f773f764742bb9ebe6e5ce47e2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 204, y: 1732}
+  - name: Ancient Rock Animations_Frame_18
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 4
+      width: 192
+      height: 208
+    spriteID: d987517ac05c98740a9ccd7d8b8f5301
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 4}
+  - name: Ancient Rock Animations_Frame_19
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 220
+      width: 192
+      height: 208
+    spriteID: b7fa7096906599e4fbd338e01a699a18
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 220}
+  - name: Ancient Rock Animations_Frame_20
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 436
+      width: 192
+      height: 208
+    spriteID: 63caf40df87b9aa4c8666dd5aefeb383
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 436}
+  - name: Ancient Rock Animations_Frame_21
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 652
+      width: 192
+      height: 208
+    spriteID: 765b9fbdb506d6a448ae39b8185f67d1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 652}
+  - name: Ancient Rock Animations_Frame_22
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 868
+      width: 192
+      height: 208
+    spriteID: 66048d184faff9c42a2136bfa030b5d5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 868}
+  - name: Ancient Rock Animations_Frame_23
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 1084
+      width: 192
+      height: 208
+    spriteID: d54a880294713824aa79d482e55419bd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 1084}
+  - name: Ancient Rock Animations_Frame_24
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 1300
+      width: 192
+      height: 208
+    spriteID: d20d33a2c7b45e5439243aa6d4da1ce0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 1300}
+  - name: Ancient Rock Animations_Frame_25
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 1516
+      width: 192
+      height: 208
+    spriteID: c07946806e3be5b4d87a73a2e74e85c5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 1516}
+  - name: Ancient Rock Animations_Frame_26
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 404
+      y: 1732
+      width: 192
+      height: 208
+    spriteID: fd0f086f31ccfd642a11befda0f77106
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 404, y: 1732}
+  - name: Ancient Rock Animations_Frame_27
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 4
+      width: 192
+      height: 208
+    spriteID: 4f38c6a6302e08246a7887bde447edfe
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 4}
+  - name: Ancient Rock Animations_Frame_28
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 220
+      width: 192
+      height: 208
+    spriteID: bf714c3f7ee99d24bb67620d904b526c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 220}
+  - name: Ancient Rock Animations_Frame_29
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 436
+      width: 192
+      height: 208
+    spriteID: b5f9fa0b66120d441a0e037996a6f914
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 436}
+  - name: Ancient Rock Animations_Frame_30
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 652
+      width: 192
+      height: 208
+    spriteID: 1ddf62c2e2f351549a6f7e4069544475
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 652}
+  - name: Ancient Rock Animations_Frame_31
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 868
+      width: 192
+      height: 208
+    spriteID: c3c5d137054a53c40bd2032f8246da3b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 868}
+  - name: Ancient Rock Animations_Frame_32
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 1084
+      width: 192
+      height: 208
+    spriteID: cb60dde3c0435a141b2e4ec3feb6d099
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 1084}
+  - name: Ancient Rock Animations_Frame_33
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 1300
+      width: 192
+      height: 208
+    spriteID: 32c3f35872e640f4fa9bebf02b726d6e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 1300}
+  - name: Ancient Rock Animations_Frame_34
+    originalName: 
+    pivot: {x: 0.45312497, y: 0.2451923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 604
+      y: 1516
+      width: 192
+      height: 208
+    spriteID: 76d1a229e70f57648a10757996e607c3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 604, y: 1516}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1344899714
+    name: Ancient Rock Animations
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Ancient Rock Animations_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 710d4a92e429d3f44a316962dd1ac261
+    - name: Ancient Rock Animations_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 4930885fa226003408f5d7b9c824f77b
+    - name: Ancient Rock Animations_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 14e9afa3a8451f74993442927ed555a0
+    - name: Ancient Rock Animations_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 85eb79b604fb0374e8db256784deb26d
+    - name: Ancient Rock Animations_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 06446a13e1449774d82bca136297c388
+    - name: Ancient Rock Animations_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 68c91825b62b44048af46f8f6f7d97f6
+    - name: Ancient Rock Animations_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 536e50cd3912304449c9af903b5638b1
+    - name: Ancient Rock Animations_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 2dd2bf42f91f0104eabd66a0c3639684
+    - name: Ancient Rock Animations_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 15f9dddad5f5adc4082b989f0f3a1544
+    - name: Ancient Rock Animations_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 1f1dccb3b7cf0cb438fea30157bdb15b
+    - name: Ancient Rock Animations_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 08a9aa771d82f664e98a57f2700ae68d
+    - name: Ancient Rock Animations_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: bf841dfacdd6cc24eba9f939daa05dd0
+    - name: Ancient Rock Animations_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 9da36a6233677594883757d70ed577f8
+    - name: Ancient Rock Animations_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: e9e431639993cb84aac280ea62cd84d8
+    - name: Ancient Rock Animations_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 2626fa2de1a87834f92b4e83a6e5d0d9
+    - name: Ancient Rock Animations_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 4976398637cf52e4794704a3337e97b2
+    - name: Ancient Rock Animations_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 60f8f3efd29f59942be3cf3c92c3304b
+    - name: Ancient Rock Animations_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 8e34d0f773f764742bb9ebe6e5ce47e2
+    - name: Ancient Rock Animations_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: d987517ac05c98740a9ccd7d8b8f5301
+    - name: Ancient Rock Animations_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: b7fa7096906599e4fbd338e01a699a18
+    - name: Ancient Rock Animations_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 63caf40df87b9aa4c8666dd5aefeb383
+    - name: Ancient Rock Animations_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 765b9fbdb506d6a448ae39b8185f67d1
+    - name: Ancient Rock Animations_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 66048d184faff9c42a2136bfa030b5d5
+    - name: Ancient Rock Animations_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: d54a880294713824aa79d482e55419bd
+    - name: Ancient Rock Animations_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: d20d33a2c7b45e5439243aa6d4da1ce0
+    - name: Ancient Rock Animations_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: c07946806e3be5b4d87a73a2e74e85c5
+    - name: Ancient Rock Animations_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: fd0f086f31ccfd642a11befda0f77106
+    - name: Ancient Rock Animations_Frame_27
+      frameIndex: 27
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 4f38c6a6302e08246a7887bde447edfe
+    - name: Ancient Rock Animations_Frame_28
+      frameIndex: 28
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: bf714c3f7ee99d24bb67620d904b526c
+    - name: Ancient Rock Animations_Frame_29
+      frameIndex: 29
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: b5f9fa0b66120d441a0e037996a6f914
+    - name: Ancient Rock Animations_Frame_30
+      frameIndex: 30
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 1ddf62c2e2f351549a6f7e4069544475
+    - name: Ancient Rock Animations_Frame_31
+      frameIndex: 31
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: c3c5d137054a53c40bd2032f8246da3b
+    - name: Ancient Rock Animations_Frame_32
+      frameIndex: 32
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: cb60dde3c0435a141b2e4ec3feb6d099
+    - name: Ancient Rock Animations_Frame_33
+      frameIndex: 33
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 32c3f35872e640f4fa9bebf02b726d6e
+    - name: Ancient Rock Animations_Frame_34
+      frameIndex: 34
+      cellRect:
+        x: -7
+        y: -51
+        width: 192
+        height: 208
+      spriteId: 76d1a229e70f57648a10757996e607c3
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 160, y: 141}

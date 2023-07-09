@@ -1,7 +1,640 @@
 fileFormatVersion: 2
 guid: 0766fd3a684959a4f91eddba37ee8035
-DefaultImporter:
+ScriptedImporter:
+  internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Peaks Of Lightning_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 576
+      height: 193
+    spriteID: 1e3842e5cdc26444da7f3fe100da3887
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Peaks Of Lightning_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 588
+      y: 4
+      width: 576
+      height: 193
+    spriteID: ca9994b5cea7f354fb79e0abbdb43830
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 588, y: 4}
+  - name: Peaks Of Lightning_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1172
+      y: 4
+      width: 576
+      height: 193
+    spriteID: 13a37bc05dd96aa4a96d61c451f5ec36
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1172, y: 4}
+  - name: Peaks Of Lightning_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 205
+      width: 576
+      height: 193
+    spriteID: a7c8537ed3959ad4a9b10eb38973bbe7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 205}
+  - name: Peaks Of Lightning_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 588
+      y: 205
+      width: 576
+      height: 193
+    spriteID: a2c6c30e135e1e04f952af034be5aac2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 588, y: 205}
+  - name: Peaks Of Lightning_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1172
+      y: 205
+      width: 576
+      height: 193
+    spriteID: 4e0f415f97e809549912df02b3f8a2f9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1172, y: 205}
+  - name: Peaks Of Lightning_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 406
+      width: 576
+      height: 193
+    spriteID: 008a33aa992aedb448343b8f42f2722c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 406}
+  - name: Peaks Of Lightning_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 588
+      y: 406
+      width: 576
+      height: 193
+    spriteID: 298ee2275d2567e4ab3b16b77f116c28
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 588, y: 406}
+  - name: Peaks Of Lightning_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1172
+      y: 406
+      width: 576
+      height: 193
+    spriteID: b8b5d6763934f7e49b4603746fd9e7cc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1172, y: 406}
+  - name: Peaks Of Lightning_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 607
+      width: 576
+      height: 193
+    spriteID: bf2a188b24b9efd49b0edc49c9f97f8c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 607}
+  - name: Peaks Of Lightning_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 588
+      y: 607
+      width: 576
+      height: 193
+    spriteID: a20346a7d701e054cb78c9e8739d239d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 588, y: 607}
+  - name: Peaks Of Lightning_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1172
+      y: 607
+      width: 576
+      height: 193
+    spriteID: b3ce91ee31a079440bc494a3806e550f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1172, y: 607}
+  - name: Peaks Of Lightning_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 808
+      width: 576
+      height: 193
+    spriteID: 126f83b13834a794299c185ac3364256
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 808}
+  - name: Peaks Of Lightning_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 588
+      y: 808
+      width: 576
+      height: 193
+    spriteID: e4e6a1ed1a00d994e865b16fbb2ec59e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 588, y: 808}
+  - name: Peaks Of Lightning_Frame_14
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1172
+      y: 808
+      width: 576
+      height: 193
+    spriteID: c35f93ce9a634a84cbafbb68de0cec97
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1172, y: 808}
+  - name: Peaks Of Lightning_Frame_15
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1009
+      width: 576
+      height: 193
+    spriteID: 4a5050494cea6904ba27952e4427af5f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1009}
+  - name: Peaks Of Lightning_Frame_16
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 588
+      y: 1009
+      width: 576
+      height: 193
+    spriteID: f65639610fa186543a7a954d0192a201
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 588, y: 1009}
+  - name: Peaks Of Lightning_Frame_17
+    originalName: 
+    pivot: {x: 0.5, y: 0.17098445}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1172
+      y: 1009
+      width: 576
+      height: 193
+    spriteID: c045d5cd94a72e14fb46e906eac09ecc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1172, y: 1009}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1420221519
+    name: Peaks Of Lightning
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Peaks Of Lightning_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: 1e3842e5cdc26444da7f3fe100da3887
+    - name: Peaks Of Lightning_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: ca9994b5cea7f354fb79e0abbdb43830
+    - name: Peaks Of Lightning_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: 13a37bc05dd96aa4a96d61c451f5ec36
+    - name: Peaks Of Lightning_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: a7c8537ed3959ad4a9b10eb38973bbe7
+    - name: Peaks Of Lightning_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: a2c6c30e135e1e04f952af034be5aac2
+    - name: Peaks Of Lightning_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: 4e0f415f97e809549912df02b3f8a2f9
+    - name: Peaks Of Lightning_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: 008a33aa992aedb448343b8f42f2722c
+    - name: Peaks Of Lightning_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: 298ee2275d2567e4ab3b16b77f116c28
+    - name: Peaks Of Lightning_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: b8b5d6763934f7e49b4603746fd9e7cc
+    - name: Peaks Of Lightning_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: bf2a188b24b9efd49b0edc49c9f97f8c
+    - name: Peaks Of Lightning_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: a20346a7d701e054cb78c9e8739d239d
+    - name: Peaks Of Lightning_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: b3ce91ee31a079440bc494a3806e550f
+    - name: Peaks Of Lightning_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: 126f83b13834a794299c185ac3364256
+    - name: Peaks Of Lightning_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: e4e6a1ed1a00d994e865b16fbb2ec59e
+    - name: Peaks Of Lightning_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: c35f93ce9a634a84cbafbb68de0cec97
+    - name: Peaks Of Lightning_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: 4a5050494cea6904ba27952e4427af5f
+    - name: Peaks Of Lightning_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: f65639610fa186543a7a954d0192a201
+    - name: Peaks Of Lightning_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 0
+        y: -33
+        width: 576
+        height: 193
+      spriteId: c045d5cd94a72e14fb46e906eac09ecc
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 576, y: 128}
