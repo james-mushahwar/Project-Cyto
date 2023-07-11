@@ -12,8 +12,9 @@ namespace _Scripts._Game.General.SaveLoad{
         public string m_SavePath => $"{Application.persistentDataPath}/save.txt";
 
         [ContextMenu("Save")]
-        void Save()
+        public void Save()
         {
+            Debug.Log("Saving");
             var state = LoadFile();
             SaveState(state);
             SaveFile(state);
