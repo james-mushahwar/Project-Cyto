@@ -182,6 +182,7 @@ namespace _Scripts._Game.General{
 
     public interface IInteractable
     {
+        public EInteractableStimuli InteractableStimuli { get; }
         public EInteractableType InteractableType { get; }
         public Transform InteractRoot { get; set; }
         public bool IsInteractionLocked { get; set; } // is interacting with or has already interacted
@@ -197,9 +198,15 @@ namespace _Scripts._Game.General{
 
     public enum EInteractableType
     {
+        None,
+        SaveStation,
+        COUNT,
+    }
+
+    public enum EInteractableStimuli
+    {
         PlayerInput,
-        CollisionInput,
-        LogicInput
+        CollisionInput
     }
 
     //public interface IReactable

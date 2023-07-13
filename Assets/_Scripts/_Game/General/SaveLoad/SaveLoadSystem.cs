@@ -11,20 +11,40 @@ namespace _Scripts._Game.General.SaveLoad{
     {
         public string m_SavePath => $"{Application.persistentDataPath}/save.txt";
 
+        private static bool _isSaveOrLoadInProgress;
+        public static bool IsSaveOrLoadInProgress { get => _isSaveOrLoadInProgress; }
+
         [ContextMenu("Save")]
         public void Save()
         {
+            if (_isSaveOrLoadInProgress)
+            {
+                return;
+            }
             Debug.Log("Saving");
+            _isSaveOrLoadInProgress = true;
             var state = LoadFile();
             SaveState(state);
             SaveFile(state);
+
+            _isSaveOrLoadInProgress = false;
+
         }
 
         [ContextMenu("Load")]
         void Load()
         {
+            if (_isSaveOrLoadInProgress)
+            {
+                return;
+            }
+            _isSaveOrLoadInProgress = true;
+
             var state = LoadFile();
             LoadState(state);
+
+            _isSaveOrLoadInProgress = false;
+
         }
 
         [ContextMenu("Delete")]

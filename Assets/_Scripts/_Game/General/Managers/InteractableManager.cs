@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.SaveLoad;
 using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
@@ -68,7 +69,7 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
-            if (_closestInteractable.InteractableType != EInteractableType.PlayerInput)
+            if (_closestInteractable.InteractableStimuli != EInteractableStimuli.PlayerInput)
             {
                 return;
             }
@@ -80,6 +81,35 @@ namespace _Scripts._Game.General.Managers{
 
             InputManager.Instance.NullifyInput(EPlayerInput.SButton);
             _closestInteractable.OnInteract();
+        }
+
+        public bool IsInteractableLocked(IInteractable interactable)
+        {
+            if (interactable == null)
+            {
+                return false;
+            }
+
+            if (interactable.InteractableType == EInteractableType.SaveStation)
+            {
+                return SaveLoadSystem.IsSaveOrLoadInProgress;
+            }
+            return true;
+        }
+
+        public void ResolveInteraction(IInteractable interactable)
+        {
+            if (interactable == null)
+            {
+                return;
+            }
+
+            // do nothing
+            if (interactable.InteractableType == EInteractableType.SaveStation)
+            {
+                return;
+            }
+
         }
     }
     

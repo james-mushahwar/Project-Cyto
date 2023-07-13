@@ -34,13 +34,18 @@ namespace _Scripts._Game.General.Interactable{
         private Transform _interactRoot;
         private bool _isInteractableLocked;
         [SerializeField]
+        private EInteractableStimuli _interactableStimuli;
+        [SerializeField]
+        private EInteractableType _interactableType;
+        [SerializeField]
         private RangeParams _rangeParams = new RangeParams(false);
         private UnityEvent _onHighlight = new UnityEvent();
         private UnityEvent _onUnhighlight = new UnityEvent();
         private UnityEvent _onInteractStart = new UnityEvent();
         private UnityEvent _onInteractEnd = new UnityEvent();
 
-        public EInteractableType InteractableType { get; }
+        public EInteractableStimuli InteractableStimuli { get => _interactableStimuli; }
+        public EInteractableType InteractableType { get => _interactableType; }
         public Transform InteractRoot 
         {
             get => _interactRoot;

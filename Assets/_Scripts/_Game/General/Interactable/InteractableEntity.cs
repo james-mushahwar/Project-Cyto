@@ -16,6 +16,8 @@ namespace _Scripts._Game.General.Interactable{
     {
         //IInteractable
         [SerializeField]
+        private EInteractableStimuli _interactableStimuli;
+        [SerializeField]
         private EInteractableType _interactableType;
         [SerializeField]
         private Transform _interactRoot;
@@ -33,6 +35,7 @@ namespace _Scripts._Game.General.Interactable{
         [SerializeField]
         private GameEvent _onInteractEndGE;
 
+        public EInteractableStimuli InteractableStimuli { get => _interactableStimuli; }
         public EInteractableType InteractableType { get => _interactableType; }
 
         public Transform InteractRoot
@@ -52,6 +55,7 @@ namespace _Scripts._Game.General.Interactable{
         public UnityEvent OnUnhighlight { get => _onUnhighlight; }
         public UnityEvent OnInteractStart { get => _onInteractStart; }
         public UnityEvent OnInteractEnd { get => _onInteractEnd; }
+
 
         private void Awake()
         {
@@ -73,10 +77,10 @@ namespace _Scripts._Game.General.Interactable{
 
         public bool IsInteractable()
         {
-            //if (IsInteractionLocked)
-            //{
-            //    return false;
-            //}
+            if (InteractableManager.Instance.IsInteractableLocked(this))
+            {
+                return false;
+            }
 
             Vector2 playerPos = PlayerEntity.Instance.GetControlledGameObject().transform.position;
             Vector2 interactablePos = InteractRoot.position;
@@ -100,17 +104,18 @@ namespace _Scripts._Game.General.Interactable{
         {
             if (IsInteractionLocked)
             {
-                IsInteractionLocked = false;
                 OnInteractEnd.Invoke();
                 _onInteractEndGE.TriggerEvent();
             }
             else
             {
-                IsInteractionLocked = true;
                 OnInteractStart.Invoke();
                 _onInteractStartGE.TriggerEvent();
             }
-            
+            // TEMP FIX: this line is to stop the player from jumping
+            InputManager.Instance.TryEnableActionMap(EInputSystem.Menu);
+
+            InteractableManager.Instance.ResolveInteraction(this);
         }
     }
     

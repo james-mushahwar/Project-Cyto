@@ -12,7 +12,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
     public class DoorEntity : MonoBehaviour, ISaveable
     {
         #region General
-        private bool _isClosed;
+        private bool _isClosed = true;
 
         private ILogicEntity _logicEntity;
         #endregion
@@ -101,6 +101,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
         public void OnPower()
         {
             _logicEntity.IsOutputLogicValid = true;
+            _isClosed = false;
             if (_animator != null)
             {
                 Animate(_openingHash);
@@ -113,6 +114,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
         public void OnLosePower()
         {
             _logicEntity.IsOutputLogicValid = false;
+            _isClosed = true;
             if (_animator != null)
             {
                 Animate(_closingHash);
@@ -162,7 +164,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
 
             _isClosed = saveData.isClosed;
 
-            Animate(_isClosed ? _openingHash : _closingHash);
+            Animate(_isClosed ? _closingHash : _openingHash);
         }
     }
     
