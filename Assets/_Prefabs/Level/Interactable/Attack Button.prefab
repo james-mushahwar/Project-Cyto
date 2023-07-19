@@ -129,7 +129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 17fbedee-b450-4857-b775-2f1bb0df7e06
+  id: 7aca51a7-c937-42b4-bd45-0a376d7d4955
+  _saveOnDisable: 1
+  _loadOnEnable: 1
+  _skipLoadOnFirstPlay: 1
 --- !u!61 &5816247375677860417
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140,6 +143,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -158,7 +180,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!95 &5816247375677860429
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -175,7 +197,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &5816247375677860430
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -23,6 +23,15 @@ namespace _Scripts._Game.General.Settings{
         [SerializeField] private bool _aiFreezeMovement = false;
 
         public bool AIFreezeMovement => _aiFreezeMovement;
+
+        [Header("Save and Load settings")]
+        [SerializeField]
+        private bool _saveLoadSkip = false;
+        [SerializeField]
+        private bool _saveLoadClear = false; // Delete all save data on start
+
+        public bool SaveLoadSkip => _saveLoadSkip;
+        public bool SaveLoadClear => _saveLoadClear;
     }
     
 }

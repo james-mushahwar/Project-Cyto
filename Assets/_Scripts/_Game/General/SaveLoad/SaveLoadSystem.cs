@@ -4,18 +4,42 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.General.SaveLoad{
 
-    public class SaveLoadSystem : MonoBehaviour
+    public class SaveLoadSystem : Singleton<SaveLoadSystem>
     {
         public string m_SavePath => $"{Application.persistentDataPath}/save.txt";
 
+        private bool _hasFirstTickElapsed = false;
+        public bool HasFirstTickElapsed { get => _hasFirstTickElapsed; }
+
         private static bool _isSaveOrLoadInProgress;
+        private ESaveType _saveType;
+
         public static bool IsSaveOrLoadInProgress { get => _isSaveOrLoadInProgress; }
 
+        private void Start()
+        {
+#if UNITY_EDITOR
+            if (DebugManager.Instance.DebugSettings.SaveLoadClear)
+            {
+                Delete();
+            }
+#endif
+        }
+
+        private void Update()
+        {
+            if (!_hasFirstTickElapsed)
+            {
+                _hasFirstTickElapsed = true;
+            }
+        }
+
         [ContextMenu("Save")]
-        public void Save()
+        void Save(ESaveType saveType)
         {
             if (_isSaveOrLoadInProgress)
             {
@@ -23,12 +47,19 @@ namespace _Scripts._Game.General.SaveLoad{
             }
             Debug.Log("Saving");
             _isSaveOrLoadInProgress = true;
+            _saveType = saveType;
             var state = LoadFile();
             SaveState(state);
             SaveFile(state);
 
             _isSaveOrLoadInProgress = false;
+            _saveType = ESaveType.NONE;
 
+        }
+
+        public void SaveManual()
+        {
+            Save(ESaveType.Manual);
         }
 
         [ContextMenu("Load")]
@@ -55,6 +86,7 @@ namespace _Scripts._Game.General.SaveLoad{
                 try
                 {
                     File.Delete(m_SavePath);
+                    Debug.Log("Deleted save file");
                 }
                 catch
                 {
@@ -108,6 +140,10 @@ namespace _Scripts._Game.General.SaveLoad{
         {
             foreach (var saveable in FindObjectsOfType<SaveableEntity>())
             {
+                if (!saveable.CanSave(_saveType))
+                {
+                    continue;
+                }
                 state[saveable.Id] = saveable.SaveState();
             }
         }
@@ -123,5 +159,20 @@ namespace _Scripts._Game.General.SaveLoad{
             }
         }
 
+        public void OnDisableSaveState(SaveableEntity saveable)
+        {
+            var state = LoadFile();
+            state[saveable.Id] = saveable.SaveState();
+            SaveFile(state);
+        }
+
+        public void OnEnableLoadState(SaveableEntity saveable)
+        {
+            var state = LoadFile();
+            if (state.TryGetValue(saveable.Id, out object savedSate))
+            {
+                saveable.LoadState(savedSate);
+            }
+        }
     }
 }

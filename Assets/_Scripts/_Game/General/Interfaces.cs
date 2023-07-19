@@ -273,6 +273,15 @@ namespace _Scripts._Game.General{
 
 
     #region Saving
+    [Serializable]
+    public enum ESaveType
+    {
+        NONE,
+        Manual,
+        WorldEvent,
+        COUNT,
+    }
+
     public interface ISaveable
     {
         object SaveState();

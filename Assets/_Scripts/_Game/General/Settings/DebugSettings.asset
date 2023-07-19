@@ -16,3 +16,5 @@ MonoBehaviour:
   _enemiesImmune: 0
   _alwaysBondable: 0
   _aiFreezeMovement: 0
+  _saveLoadSkip: 0
+  _saveLoadClear: 1

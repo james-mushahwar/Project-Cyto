@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6194265455697307151}
   - component: {fileID: 6194265455697307136}
+  - component: {fileID: 1047767014419703653}
   m_Layer: 0
   m_Name: SaveLoadSystem
   m_TagString: Untagged
@@ -44,3 +45,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a172b46ab21816c408c91630bb880dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1047767014419703653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6194265455697307137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb88e9daf7a84320b5d3411f317c03a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 744aaf14b890a4dcead87f662629c65e, type: 2}
+  _onEventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6194265455697307136}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.SaveLoad.SaveLoadSystem,
+          Assembly-CSharp
+        m_MethodName: OnEnableLoadState
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: _Scripts._Game.General.SaveLoad.SaveableEntity,
+            Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
