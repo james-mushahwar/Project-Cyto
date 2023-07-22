@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.General.SaveLoad;
+using _Scripts._Game.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,11 +29,15 @@ namespace _Scripts._Game.General.Managers{
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             MainMenuCheck(SceneManager.GetActiveScene());
+
+            PlayerSceneCheck();
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
             MainMenuCheck(scene);
+
+            PlayerSceneCheck();
         }
 
         private void MainMenuCheck(Scene scene)
@@ -49,6 +54,29 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
+        private void PlayerSceneCheck()
+        {
+            bool shouldPlayerSceneExist = false;
+
+            if (_gameType == EGameType.InGame)
+            {
+                shouldPlayerSceneExist = true;
+            }
+
+            bool doesPlayerSceneExist = PlayerEntity.Instance != null;
+
+            if (doesPlayerSceneExist && !shouldPlayerSceneExist)
+            {
+                Debug.Log("Unloading player scene");
+                SceneManager.UnloadSceneAsync("PlayerScene");
+            }
+            else if (!doesPlayerSceneExist && shouldPlayerSceneExist)
+            {
+                Debug.Log("Loading player scene");
+                SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive);
+            }
+        }
+
         public void StartGame()
         {
             _saveIndex = 0;
@@ -60,7 +88,9 @@ namespace _Scripts._Game.General.Managers{
 
             UIManager.Instance.ShowMainMenu(false);
 
-            //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            // load playerscene
+
+            SceneManager.LoadSceneAsync("PlayerScene");
         }
 
         public void SetSpawnIndex(int index)

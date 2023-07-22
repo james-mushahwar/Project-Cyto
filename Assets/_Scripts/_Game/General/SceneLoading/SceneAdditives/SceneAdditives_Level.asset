@@ -15,7 +15,19 @@ MonoBehaviour:
   _sceneAdditiveDict:
     m_keys:
     - Area1-1
+    - Area1-2
+    - Area1-3
+    - Area1-4
     m_values:
+    - data:
+      - name: Area1-2
+      - name: Area1-3
+    - data:
+      - name: Area1-1
+      - name: Area1-3
+    - data:
+      - name: Area1-2
+      - name: Area1-4
     - data:
       - name: Area1-2
       - name: Area1-3
