@@ -244,6 +244,8 @@ namespace _Scripts._Game.General{
     public enum UIInputState
     {
         None,
+        // everything in main menu
+        MainMenu,
         // everything in pause menu
         PauseMenu,
         Options,
@@ -271,6 +273,13 @@ namespace _Scripts._Game.General{
     }
     #endregion
 
+    #region GameState
+    public enum EGameType
+    {
+        MainMenu,
+        InGame,
+    }
+    #endregion
 
     #region Saving
     [Serializable]

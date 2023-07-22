@@ -47,12 +47,19 @@ namespace _Scripts._Game.General.Managers{
             }
 
             // safe check what should be enabled
-            // disable menu
+            // enable player input
             if (!DialogueManager.Instance.IsDialogueActive() && (!UIManager.Instance.IsAnyMenuActive()) &&
                 _playerInput.Menu.enabled)
             {
                 TryEnableActionMap(EInputSystem.Player);
             }
+            // enable menu input
+            if (DialogueManager.Instance.IsDialogueActive() || (UIManager.Instance.IsAnyMenuActive()) &&
+                !_playerInput.Menu.enabled)
+            {
+                TryEnableActionMap(EInputSystem.Menu);
+            }
+
         }
 
         public void TryEnableActionMap(EInputSystem inputType)

@@ -5,11 +5,6 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 
 namespace _Scripts._Game.General.SceneLoading{
-    
-    public struct SceneLoadHandshake
-    {
-        int arrival;
-    }
 
     public class SceneSwitcher : MonoBehaviour
     {
@@ -17,16 +12,10 @@ namespace _Scripts._Game.General.SceneLoading{
         private string[] _sceneAssets = new string[2];
         [SerializeField]
         private Collider2D[] _colliders = new Collider2D[2];
-        private SceneLoadHandshake _handshake;
 
         private IEnumerator[] _asyncSceneOperation = new IEnumerator[2];
+
         // Start is called before the first frame update
-
-        void OnDrawGizmos()
-        {
-            
-        }
-
         void Start()
         {
             for (int i = 0; i < 2; ++i)

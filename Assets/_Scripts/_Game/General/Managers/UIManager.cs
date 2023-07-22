@@ -66,6 +66,13 @@ namespace _Scripts._Game.General.Managers
 
         #endregion
 
+        #region Main menu
+        [SerializeField]
+        private GameObject _mainMenuGO;
+        [SerializeField]
+        private GameObject _mainMenuFirstButton;
+        #endregion
+
         #region Pause menu
         [SerializeField]
         private GameObject _pauseMenuGO;
@@ -93,6 +100,7 @@ namespace _Scripts._Game.General.Managers
             }
 
             // Gameobject dict
+            _menuGameObjectDict.Add(UIInputState.MainMenu, _mainMenuGO);
             _menuGameObjectDict.Add(UIInputState.PauseMenu, _pauseMenuGO);
 
             // assign bond inputs
@@ -165,6 +173,15 @@ namespace _Scripts._Game.General.Managers
             }
 
             return anyActive;
+        }
+
+        public void ShowMainMenu(bool show)
+        {
+            float targetOpactity = show ? 1.0f : 0.0f;
+
+            _mainMenuGO.SetActive(show);
+
+            EventSystem.current.SetSelectedGameObject(show ? _mainMenuFirstButton : null);
         }
 
         public void ShowPauseMenu(bool show)

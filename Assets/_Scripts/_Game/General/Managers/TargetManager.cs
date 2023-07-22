@@ -114,6 +114,11 @@ namespace _Scripts._Game.General.Managers{
 
         private void Update()
         {
+            if (GameStateManager.Instance.GameType != EGameType.InGame)
+            {
+                return;
+            }
+
             ManagedTargetsTick();
 
             // bondable target

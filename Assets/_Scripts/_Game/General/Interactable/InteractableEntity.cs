@@ -109,6 +109,10 @@ namespace _Scripts._Game.General.Interactable{
             }
             else
             {
+                if (_interactableType == EInteractableType.SaveStation)
+                {
+                    GameStateManager.Instance.SetSpawnIndex(gameObject.scene.buildIndex);
+                }
                 OnInteractStart.Invoke();
                 _onInteractStartGE.TriggerEvent();
             }
