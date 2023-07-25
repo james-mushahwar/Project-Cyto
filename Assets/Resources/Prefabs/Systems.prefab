@@ -135,6 +135,26 @@ PrefabInstance:
       propertyPath: _onEventTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6194265455697307136, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _savePaths.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194265455697307136, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _gamePrefsPath._string
+      value: gamePrefsSave.txt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194265455697307136, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _savePaths.Array.data[0]._string
+      value: save0.txt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194265455697307136, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _savePaths.Array.data[1]._string
+      value: save1.txt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194265455697307136, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _savePaths.Array.data[2]._string
+      value: save2.txt
+      objectReference: {fileID: 0}
     - target: {fileID: 6194265455697307137, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
       propertyPath: m_Name
       value: SaveLoadSystem

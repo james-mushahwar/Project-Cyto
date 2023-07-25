@@ -8,9 +8,29 @@ using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.General.SaveLoad{
 
+    [System.Serializable]
+    public struct StringStruct
+    {
+        [SerializeField]
+        private string _string;
+
+        public string String { get => _string; }
+    }
+
     public class SaveLoadSystem : Singleton<SaveLoadSystem>
     {
-        public string m_SavePath => $"{Application.persistentDataPath}/save.txt";
+        public string SavePath => $"{Application.persistentDataPath}/{_savePaths[GameStateManager.Instance.SaveIndex].String}";
+
+        public string GamePrefsPath => $"{Application.persistentDataPath}/{_gamePrefsPath.String}";
+        private Dictionary<string, object> _gamePrefsDict = new Dictionary<string, object>();
+
+        // these are the 3 save slots for each game
+        [SerializeField]
+        private StringStruct[] _savePaths; 
+
+        // this is the 1 save to encapsulate things that are saved across the entire game, regardless of which save slot is loaded
+        [SerializeField]
+        private StringStruct _gamePrefsPath;
 
         private bool _hasFirstTickElapsed = false;
         public bool HasFirstTickElapsed { get => _hasFirstTickElapsed; }
@@ -22,12 +42,15 @@ namespace _Scripts._Game.General.SaveLoad{
 
         private void Start()
         {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
             if (DebugManager.Instance.DebugSettings.SaveLoadClear)
             {
-                Delete();
+                DeleteAllSaves();
+                DeleteAllGamePrefs();
             }
-#endif
+        #endif
+
+            LoadGamePrefs();
         }
 
         private void Update()
@@ -48,9 +71,9 @@ namespace _Scripts._Game.General.SaveLoad{
             Debug.Log("Saving");
             _isSaveOrLoadInProgress = true;
             _saveType = saveType;
-            var state = LoadFile();
+            var state = LoadFile(SavePath);
             SaveState(state);
-            SaveFile(state);
+            SaveFile(state, SavePath);
 
             _isSaveOrLoadInProgress = false;
             _saveType = ESaveType.NONE;
@@ -71,21 +94,38 @@ namespace _Scripts._Game.General.SaveLoad{
             }
             _isSaveOrLoadInProgress = true;
 
-            var state = LoadFile();
+            var state = LoadFile(SavePath);
             LoadState(state);
 
             _isSaveOrLoadInProgress = false;
 
         }
 
-        [ContextMenu("Delete")]
-        void Delete()
+        void LoadGamePrefs()
         {
-            if (File.Exists(m_SavePath))
+            _gamePrefsDict = LoadFile(_gamePrefsPath.String);
+        }
+
+        [ContextMenu("Delete All Saves")]
+        void DeleteAllSaves()
+        {
+            Delete($"{Application.persistentDataPath}/{_savePaths[0].String}");
+            Delete($"{Application.persistentDataPath}/{_savePaths[1].String}");
+            Delete($"{Application.persistentDataPath}/{_savePaths[2].String}");
+        }
+        [ContextMenu("Delete All GamePrefs")]
+        void DeleteAllGamePrefs()
+        {
+            Delete($"{Application.persistentDataPath}/{GamePrefsPath}");
+        }
+
+        void Delete(string path)
+        {
+            if (File.Exists(path))
             {
                 try
                 {
-                    File.Delete(m_SavePath);
+                    File.Delete(path);
                     Debug.Log("Deleted save file");
                 }
                 catch
@@ -112,24 +152,24 @@ namespace _Scripts._Game.General.SaveLoad{
             return formatter;
         }
 
-        public void SaveFile(object state)
+        public void SaveFile(object state, string path)
         {
-            using (var stream = File.Open(m_SavePath, FileMode.Create))
+            using (var stream = File.Open(path, FileMode.Create))
             {
                 var formatter = GetBinaryFormatter();
                 formatter.Serialize(stream, state);
             }
         }
 
-        Dictionary<string, object> LoadFile()
+        Dictionary<string, object> LoadFile(string path)
         {
-            if (!File.Exists(m_SavePath))
+            if (!File.Exists(path))
             {
                 Debug.LogWarning("No save file found");
                 return new Dictionary<string, object>();
             }
 
-            using (FileStream stream = File.Open(m_SavePath, FileMode.Open))
+            using (FileStream stream = File.Open(path, FileMode.Open))
             {
                 var formatter = GetBinaryFormatter();
                 return (Dictionary<string, object>)formatter.Deserialize(stream);
@@ -161,14 +201,14 @@ namespace _Scripts._Game.General.SaveLoad{
 
         public void OnDisableSaveState(SaveableEntity saveable)
         {
-            var state = LoadFile();
+            var state = LoadFile(SavePath);
             state[saveable.Id] = saveable.SaveState();
-            SaveFile(state);
+            SaveFile(state, SavePath);
         }
 
         public void OnEnableLoadState(SaveableEntity saveable)
         {
-            var state = LoadFile();
+            var state = LoadFile(SavePath);
             if (state.TryGetValue(saveable.Id, out object savedSate))
             {
                 saveable.LoadState(savedSate);

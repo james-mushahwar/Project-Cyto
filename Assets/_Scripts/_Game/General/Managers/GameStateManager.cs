@@ -13,6 +13,7 @@ namespace _Scripts._Game.General.Managers{
         private int _sceneSpawnIndex = -1;  //what scene to load first
         private EGameType _gameType;
 
+        public int SaveIndex { get => _saveIndex; }
         public EGameType GameType { get => _gameType; }
 
         [Header("Component references")]
@@ -77,9 +78,22 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public void StartGame()
+        public void StartGame(bool newGame = false)
         {
-            _saveIndex = 0;
+            int saveIndex = -1;
+            // new game
+            if (newGame == true)
+            {
+                saveIndex = 0;
+            }
+            else
+            {
+                //continue last save
+                saveIndex = 1;
+            }
+
+
+            _saveIndex = saveIndex;
 
             // load scene index from save
             SaveLoadSystem.Instance.OnEnableLoadState(_saveableEntity);

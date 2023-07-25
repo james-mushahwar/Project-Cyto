@@ -296,7 +296,13 @@ namespace _Scripts._Game.General{
         object SaveState();
 
         void LoadState(object state);
+    }
 
+    public interface IPrefsSaveable
+    {
+        object SaveState();
+
+        void LoadState(object state);
     }
     #endregion
 }
