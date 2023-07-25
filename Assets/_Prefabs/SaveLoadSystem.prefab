@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6194265455697307151}
   - component: {fileID: 6194265455697307136}
   - component: {fileID: 1047767014419703653}
+  - component: {fileID: 6025020982269796723}
   m_Layer: 0
   m_Name: SaveLoadSystem
   m_TagString: Untagged
@@ -45,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a172b46ab21816c408c91630bb880dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _savePaths: []
+  _gamePrefsPath:
+    _string: 
 --- !u!114 &1047767014419703653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,3 +79,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6025020982269796723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6194265455697307137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: cad79f06-0d1a-4f0c-b50f-bae96dcf8fba
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
+  _saveOnDisable: 0
+  _loadOnEnable: 0
+  _skipLoadOnFirstPlay: 0

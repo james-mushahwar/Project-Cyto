@@ -135,6 +135,18 @@ PrefabInstance:
       propertyPath: _onEventTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6025020982269796723, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _skipLoadOnFirstPlay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025020982269796723, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _excludedSaveTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025020982269796723, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
+      propertyPath: _excludedSaveTypes.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6194265455697307136, guid: bc641695f7004604d80e7d7d7a55f3f3, type: 3}
       propertyPath: _savePaths.Array.size
       value: 3

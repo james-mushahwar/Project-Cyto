@@ -26,6 +26,11 @@ namespace _Scripts._Game.General.Managers{
 
         private void FixedUpdate()
         {
+            if (!GameStateManager.Instance.IsGameRunning)
+            {
+                return;
+            }
+
             if (_closestInteractable != null)
             {
                 if (_closestInteractable.IsInteractionLocked)

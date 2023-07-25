@@ -291,6 +291,14 @@ namespace _Scripts._Game.General{
         COUNT,
     }
 
+    [Serializable]
+    public enum ESaveTarget
+    {
+        Saveable,
+        GamePrefs,
+        COUNT
+    }
+
     public interface ISaveable
     {
         object SaveState();
@@ -300,9 +308,9 @@ namespace _Scripts._Game.General{
 
     public interface IPrefsSaveable
     {
-        object SaveState();
+        object SavePrefs();
 
-        void LoadState(object state);
+        void LoadPrefs(object state);
     }
     #endregion
 }

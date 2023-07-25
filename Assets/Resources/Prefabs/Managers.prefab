@@ -3477,8 +3477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelSceneAdditives: {fileID: 11400000, guid: 580b378b683dc4e039ebb9f6932758ac, type: 2}
-  _sceneRef:
-    m_Handle: 0
+  _defaultNewSaveSceneName: Area1-1
 --- !u!1 &4626315535243034642
 GameObject:
   m_ObjectHideFlags: 0
@@ -5411,7 +5410,7 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: _Scripts._Game.General.Managers.GameStateManager,
           Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

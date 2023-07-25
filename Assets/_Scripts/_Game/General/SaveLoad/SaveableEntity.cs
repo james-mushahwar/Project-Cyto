@@ -54,7 +54,7 @@ namespace _Scripts._Game.General.SaveLoad{
             {
                 return;
             }
-            SaveLoadSystem.Instance?.OnEnableLoadState(this);
+            SaveLoadSystem.Instance?.OnEnableLoadState(ESaveTarget.Saveable, this);
         }
 
         public void OnDestroy()
@@ -70,32 +70,69 @@ namespace _Scripts._Game.General.SaveLoad{
             {
                 return;
             }
-            SaveLoadSystem.Instance?.OnDisableSaveState(this);
+            SaveLoadSystem.Instance?.OnDisableSaveState(ESaveTarget.Saveable, this);
         }
 
-        public object SaveState()
+        public object SaveState(ESaveTarget saveTarget)
         {
             var state = new Dictionary<string, object>();
-            foreach (var saveable in GetComponents<ISaveable>())
+
+            if (saveTarget == ESaveTarget.COUNT)
             {
-                state[saveable.GetType().ToString()] = saveable.SaveState();
+                return state;
+            }
+
+            if (saveTarget == ESaveTarget.GamePrefs)
+            {
+                foreach (var saveable in GetComponents<IPrefsSaveable>())
+                {
+                    state[saveable.GetType().ToString()] = saveable.SavePrefs();
+                }
+            }
+            else
+            {
+                foreach (var saveable in GetComponents<ISaveable>())
+                {
+                    state[saveable.GetType().ToString()] = saveable.SaveState();
+                }
             }
 
             return state;
         }
 
-        public void LoadState(object state)
+        public void LoadState(ESaveTarget saveTarget, object state)
         {
             var stateDictionary = (Dictionary<string, object>)state;
 
-            foreach (var saveable in GetComponents<ISaveable>())
+            if (saveTarget == ESaveTarget.COUNT)
             {
-                string typeName = saveable.GetType().ToString();
-                if (stateDictionary.TryGetValue(typeName, out object savedState))
+                return;
+            }
+
+            if (saveTarget == ESaveTarget.GamePrefs)
+            {
+                foreach (var saveable in GetComponents<IPrefsSaveable>())
                 {
-                    saveable.LoadState(savedState);
+                    string typeName = saveable.GetType().ToString();
+                    if (stateDictionary.TryGetValue(typeName, out object savedState))
+                    {
+                        saveable.LoadPrefs(savedState);
+                    }
                 }
             }
+            else
+            {
+                foreach (var saveable in GetComponents<ISaveable>())
+                {
+                    string typeName = saveable.GetType().ToString();
+                    if (stateDictionary.TryGetValue(typeName, out object savedState))
+                    {
+                        saveable.LoadState(savedState);
+                    }
+                }
+            }
+
+            
         }
 
         void Reset()
@@ -106,13 +143,16 @@ namespace _Scripts._Game.General.SaveLoad{
             }
         }
 
-        public bool CanSave(ESaveType saveType)
+        public bool CanSave(ESaveTarget saveTarget, ESaveType saveType)
         {
-            foreach (ESaveType type in _excludedSaveTypes)
+            if (saveTarget == ESaveTarget.Saveable)
             {
-                if (saveType == type)
+                foreach (ESaveType type in _excludedSaveTypes)
                 {
-                    return false;
+                    if (saveType == type)
+                    {
+                        return false;
+                    }
                 }
             }
 

@@ -11,18 +11,49 @@ namespace _Scripts._Game.General.Managers{
     {
         private int _saveIndex = -1;        //what save file index
         private int _sceneSpawnIndex = -1;  //what scene to load first
+
+        public int SceneSpawnIndex
+        {
+            get
+            {
+                if (_sceneSpawnIndex == -1)
+                {
+                    _sceneSpawnIndex = AssetManager.Instance.DefaultNewSaveSceneIndex;
+                }
+                return _sceneSpawnIndex;
+            }
+            set => _sceneSpawnIndex = value;
+        }
         private EGameType _gameType;
 
-        public int SaveIndex { get => _saveIndex; }
+        public int SaveIndex
+        {
+            get
+            {
+                if (_saveIndex == -1)
+                {
+                    _saveIndex = 0;
+                }
+
+                return _saveIndex;
+            }
+        }
         public EGameType GameType { get => _gameType; }
+
+        public bool IsGameRunning
+        {
+            get => GameType == EGameType.InGame && PlayerEntity.Instance != null;
+        }
+
+        [Header("Loading states")] 
+        private AsyncOperation _playerSceneLoading;
 
         [Header("Component references")]
         private SaveableEntity _saveableEntity;
 
-        void Awake()
+        private void Awake()
         {
             _saveableEntity = GetComponent<SaveableEntity>();
-
         }
 
         void Start()
@@ -32,6 +63,17 @@ namespace _Scripts._Game.General.Managers{
             MainMenuCheck(SceneManager.GetActiveScene());
 
             PlayerSceneCheck();
+        }
+
+        void Update()
+        {
+            if (_playerSceneLoading != null)
+            {
+                if (_playerSceneLoading.isDone)
+                {
+                    _playerSceneLoading = null;
+                }
+            }
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
@@ -57,12 +99,8 @@ namespace _Scripts._Game.General.Managers{
 
         private void PlayerSceneCheck()
         {
-            bool shouldPlayerSceneExist = false;
-
-            if (_gameType == EGameType.InGame)
-            {
-                shouldPlayerSceneExist = true;
-            }
+            Debug.Log("Player scene check");
+            bool shouldPlayerSceneExist = _gameType == EGameType.InGame;
 
             bool doesPlayerSceneExist = PlayerEntity.Instance != null;
 
@@ -74,7 +112,10 @@ namespace _Scripts._Game.General.Managers{
             else if (!doesPlayerSceneExist && shouldPlayerSceneExist)
             {
                 Debug.Log("Loading player scene");
-                SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive);
+                if (_playerSceneLoading == null)
+                {
+                    _playerSceneLoading = SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive);
+                }
             }
         }
 
@@ -89,35 +130,47 @@ namespace _Scripts._Game.General.Managers{
             else
             {
                 //continue last save
-                saveIndex = 1;
+                saveIndex = SaveLoadSystem.Instance.LastSaveIndex;
             }
-
-
             _saveIndex = saveIndex;
+            Debug.Log("Save index is: " + _saveIndex);
 
+            LoadInGame();
+        }
+
+        public void LoadGame(int index = 0)
+        {
+            _saveIndex = index;
+
+            LoadInGame();
+        }
+
+        private void LoadInGame()
+        {
             // load scene index from save
-            SaveLoadSystem.Instance.OnEnableLoadState(_saveableEntity);
+            SaveLoadSystem.Instance.OnEnableLoadState(ESaveTarget.Saveable, _saveableEntity);
 
-            AssetManager.Instance.LoadSceneByIndex(_sceneSpawnIndex);
-
-            UIManager.Instance.ShowMainMenu(false);
+            AssetManager.Instance.LoadSceneByIndex(SceneSpawnIndex);
 
             // load playerscene
+            if (_playerSceneLoading == null)
+            {
+                _playerSceneLoading = SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive);
+            }
 
-            SceneManager.LoadSceneAsync("PlayerScene");
+            UIManager.Instance.ShowMainMenu(false);
         }
 
         public void SetSpawnIndex(int index)
         {
-            _sceneSpawnIndex = index;
-            Debug.Log("Saved scene index is: " + _sceneSpawnIndex);
+            SceneSpawnIndex = index;
+            Debug.Log("Saved scene index is: " + SceneSpawnIndex);
         }
 
         //ISaveable
         [System.Serializable]
         private struct SaveData
         {
-            public int currentSaveIndex; //what save file index
             public int sceneSpawnIndex;  //what scene to load first
         }
 
@@ -125,8 +178,7 @@ namespace _Scripts._Game.General.Managers{
         {
             return new SaveData()
             {
-                currentSaveIndex = _saveIndex < 0 ? 0 : _saveIndex,
-                sceneSpawnIndex = _sceneSpawnIndex < 0 ? 0 : _sceneSpawnIndex
+                sceneSpawnIndex = SceneSpawnIndex
             };
         }
 
@@ -134,9 +186,7 @@ namespace _Scripts._Game.General.Managers{
         {
             SaveData saveData = (SaveData)state;
 
-            _saveIndex = saveData.currentSaveIndex;
-            _sceneSpawnIndex = saveData.sceneSpawnIndex;
-            
+            SceneSpawnIndex = saveData.sceneSpawnIndex <= 0 ? AssetManager.Instance.DefaultNewSaveSceneIndex : saveData.sceneSpawnIndex;
         }
 
     }

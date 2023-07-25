@@ -114,7 +114,7 @@ namespace _Scripts._Game.General.Managers{
 
         private void Update()
         {
-            if (GameStateManager.Instance.GameType != EGameType.InGame)
+            if (!GameStateManager.Instance.IsGameRunning)
             {
                 return;
             }
