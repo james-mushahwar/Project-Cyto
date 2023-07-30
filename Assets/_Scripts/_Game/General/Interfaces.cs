@@ -299,6 +299,13 @@ namespace _Scripts._Game.General{
         COUNT
     }
 
+    [Serializable]
+    public enum ELoadSpecifier
+    {
+        PlayTime,
+        Location
+    }
+
     public interface ISaveable
     {
         object SaveState();

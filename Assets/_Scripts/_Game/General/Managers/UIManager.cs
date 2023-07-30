@@ -25,7 +25,6 @@ namespace _Scripts._Game.General.Managers
 
         #region State Machine
         private BaseUIState _currentState;
-        private PlayerMovementStateMachineFactory _states;
 
         public BaseUIState CurrentState { get => _currentState; set => _currentState = value; }
         #endregion
@@ -71,6 +70,13 @@ namespace _Scripts._Game.General.Managers
         private GameObject _mainMenuGO;
         [SerializeField]
         private GameObject _mainMenuFirstButton;
+        #endregion
+
+        #region Save files
+        [SerializeField]
+        private GameObject _saveFilesGO;
+        [SerializeField]
+        private GameObject _saveFilesFirstButton;
         #endregion
 
         #region Pause menu
@@ -175,6 +181,7 @@ namespace _Scripts._Game.General.Managers
             return anyActive;
         }
 
+        // main menu screens
         public void ShowMainMenu(bool show)
         {
             float targetOpactity = show ? 1.0f : 0.0f;
@@ -183,7 +190,14 @@ namespace _Scripts._Game.General.Managers
 
             EventSystem.current.SetSelectedGameObject(show ? _mainMenuFirstButton : null);
         }
+        public void ShowSaveFilesPage(bool show)
+        {
+            _saveFilesGO.SetActive(show);
 
+            EventSystem.current.SetSelectedGameObject(show ? _saveFilesFirstButton : null);
+        }
+
+        // pause menu screens
         public void ShowPauseMenu(bool show)
         {
             float targetOpactity = show ? 1.0f : 0.0f;

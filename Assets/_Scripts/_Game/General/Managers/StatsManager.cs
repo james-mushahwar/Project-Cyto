@@ -107,7 +107,7 @@ namespace _Scripts._Game.General.Managers{
         }
 
         [System.Serializable]
-        private struct SaveData
+        public struct SaveData
         {
             public int[] _completionStats;
         }
@@ -121,7 +121,7 @@ namespace _Scripts._Game.General.Managers{
 
             for (int i = 0; i < (int)EStatsType.COUNT; ++i)
             {
-                _completionStats[i] = this._completionStats[i];
+                _saveData._completionStats[i] = this._completionStats[i];
             }
 
             return _saveData;

@@ -51,6 +51,8 @@ namespace _Scripts._Game.General.SaveLoad{
 
         private int _lastSaveIndex = 0;
         public int LastSaveIndex { get => _lastSaveIndex; }
+
+        private bool[] _saveInSlotIsValid = new bool[3];
         #endregion
 
         private void Start()
@@ -130,6 +132,35 @@ namespace _Scripts._Game.General.SaveLoad{
             LoadState(ESaveTarget.GamePrefs, _gamePrefsDict);
         }
 
+        public object RetrieveLoadObject(ELoadSpecifier loadSpecifier, int saveIndex)
+        {
+            object savedObject = null;
+            if(loadSpecifier == ELoadSpecifier.PlayTime)
+            {
+                var state = LoadFile($"{Application.persistentDataPath}/{_savePaths[saveIndex].String}");
+                GameObject statmanagerGO = StatsManager.Instance.gameObject;
+                if (statmanagerGO)
+                {
+                    SaveableEntity saveableEntity = statmanagerGO.GetComponentInChildren<SaveableEntity>();
+                    if (saveableEntity)
+                    {
+                        if (state.TryGetValue(saveableEntity.Id, out object savedState))
+                        {
+                            Dictionary<string, object> saveDict = (Dictionary<string, object>)savedState;
+
+                            string typeName = StatsManager.Instance.GetType().ToString();
+                            if (saveDict.TryGetValue(typeName, out object save))
+                            {
+                                return save;
+                            }
+                        }
+                    }
+                }
+                
+            }
+            return savedObject;
+        }
+
         [ContextMenu("Delete All Saves")]
         void DeleteAllSaves()
         {
@@ -137,13 +168,20 @@ namespace _Scripts._Game.General.SaveLoad{
             Delete($"{Application.persistentDataPath}/{_savePaths[1].String}");
             Delete($"{Application.persistentDataPath}/{_savePaths[2].String}");
         }
+        void Delete(int index)
+        {
+            if (Delete($"{Application.persistentDataPath}/{_savePaths[index].String}"))
+            {
+                _saveInSlotIsValid[index] = false;
+            }
+        }
         [ContextMenu("Delete All GamePrefs")]
         void DeleteAllGamePrefs()
         {
             Delete($"{Application.persistentDataPath}/{GamePrefsPath}");
         }
 
-        void Delete(string path)
+        bool Delete(string path)
         {
             if (File.Exists(path))
             {
@@ -151,15 +189,18 @@ namespace _Scripts._Game.General.SaveLoad{
                 {
                     File.Delete(path);
                     Debug.Log("Deleted save file");
+
                 }
                 catch
                 {
                     Debug.LogWarning("Failed to delete $\"{ Application.persistentDataPath}/ save.txt\"");
+                    return false;
                 }
             }
         #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
-        #endif
+#endif
+            return true;
         }
 
         public BinaryFormatter GetBinaryFormatter()
@@ -217,9 +258,9 @@ namespace _Scripts._Game.General.SaveLoad{
         {
             foreach (var saveable in FindObjectsOfType<SaveableEntity>())
             {
-                if (state.TryGetValue(saveable.Id, out object savedSate))
+                if (state.TryGetValue(saveable.Id, out object savedState))
                 {
-                    saveable.LoadState(saveTarget, savedSate);
+                    saveable.LoadState(saveTarget, savedState);
                 }
             }
         }
@@ -234,9 +275,9 @@ namespace _Scripts._Game.General.SaveLoad{
         public void OnEnableLoadState(ESaveTarget saveTarget, SaveableEntity saveable)
         {
             var state = LoadFile(SavePath);
-            if (state.TryGetValue(saveable.Id, out object savedSate))
+            if (state.TryGetValue(saveable.Id, out object savedState))
             {
-                saveable.LoadState(saveTarget, savedSate);
+                saveable.LoadState(saveTarget, savedState);
             }
         }
 
@@ -245,19 +286,32 @@ namespace _Scripts._Game.General.SaveLoad{
         private struct PrefSaveData
         {
             public int lastSaveIndex;
+            public bool[] saveInSlotIsValid;
         }
         public object SavePrefs()
         {
-            return new PrefSaveData()
+            PrefSaveData _prefSaveData = new PrefSaveData()
             {
-                lastSaveIndex = _lastSaveIndex
+                lastSaveIndex = _lastSaveIndex,
+                saveInSlotIsValid = new bool[_saveInSlotIsValid.Length]
             };
+
+            for (int i = 0; i < _saveInSlotIsValid.Length; i++)
+            {
+                _prefSaveData.saveInSlotIsValid[0] = _saveInSlotIsValid[0];
+                _prefSaveData.saveInSlotIsValid[1] = _saveInSlotIsValid[1];
+                _prefSaveData.saveInSlotIsValid[2] = _saveInSlotIsValid[2];
+            }
+
+            return _prefSaveData;
         }
 
         public void LoadPrefs(object state)
         {
             PrefSaveData prefSaveData = (PrefSaveData)state;
             _lastSaveIndex = prefSaveData.lastSaveIndex;
+
+            _saveInSlotIsValid = prefSaveData.saveInSlotIsValid;
             Debug.Log("Loading last save index which is... " + _lastSaveIndex);
         }
     }
