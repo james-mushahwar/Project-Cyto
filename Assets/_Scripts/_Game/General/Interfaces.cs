@@ -217,6 +217,40 @@ namespace _Scripts._Game.General{
     //}
     #endregion
 
+    #region Stats
+
+    public enum EStatsType
+    {
+        // General
+        TimePlayed,
+
+        //World
+        FriendsFound,
+        HostilesFound,
+        AreasFound,
+
+        // Player actions
+        Bonds,
+        Possessions,
+        Bounces,
+        Phases,
+        Exposures,
+
+        COUNT
+    }
+    #endregion
+
+    #region Entities
+    public enum EEntity
+    {
+        Player,
+        BombDroid,
+        MushroomArcher,
+        DaggerMushroom,
+        COUNT
+    }
+    #endregion
+
     #region Logic Control
 
     public enum ELogicType

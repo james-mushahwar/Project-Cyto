@@ -51,9 +51,22 @@ namespace _Scripts._Game.General.Managers{
         [Header("Component references")]
         private SaveableEntity _saveableEntity;
 
+        [Header("Manager references")]
+        [SerializeField]
+        private GameObject _inGameManagerGroup;
+        private GameObject[] _inGameManagers;
+
         private void Awake()
         {
             _saveableEntity = GetComponent<SaveableEntity>();
+
+            _inGameManagers = new GameObject[_inGameManagerGroup.transform.childCount];
+            int i = 0;
+            foreach (Transform managerTransform in _inGameManagerGroup.transform)
+            {
+                _inGameManagers[i] = managerTransform.gameObject;
+                i++;
+            }
         }
 
         void Start()
@@ -114,7 +127,7 @@ namespace _Scripts._Game.General.Managers{
                 Debug.Log("Loading player scene");
                 if (_playerSceneLoading == null)
                 {
-                    _playerSceneLoading = SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive);
+                    //_playerSceneLoading = SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive);
                 }
             }
         }
@@ -147,6 +160,12 @@ namespace _Scripts._Game.General.Managers{
 
         private void LoadInGame()
         {
+            //save last opened save file index
+            SaveLoadSystem.Instance.LastSaveIndex = _saveIndex;
+
+            // in game managers enable
+            _inGameManagerGroup.SetActive(true);
+
             // load scene index from save
             SaveLoadSystem.Instance.OnEnableLoadState(ESaveTarget.Saveable, _saveableEntity);
 

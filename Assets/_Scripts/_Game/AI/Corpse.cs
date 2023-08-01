@@ -1,4 +1,5 @@
-﻿using _Scripts._Game.General.Managers;
+﻿using _Scripts._Game.General;
+using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

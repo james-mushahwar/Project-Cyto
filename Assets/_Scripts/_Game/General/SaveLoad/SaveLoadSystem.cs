@@ -50,7 +50,7 @@ namespace _Scripts._Game.General.SaveLoad{
         #region Game prefs
 
         private int _lastSaveIndex = 0;
-        public int LastSaveIndex { get => _lastSaveIndex; }
+        public int LastSaveIndex { get => _lastSaveIndex; set => _lastSaveIndex = value; }
 
         private bool[] _saveInSlotIsValid = new bool[3];
         #endregion
