@@ -106,6 +106,7 @@ namespace _Scripts._Game.General.Managers{
             SaveData saveData = (SaveData)state;
 
             this._completionStats = saveData._completionStats;
+            Debug.Log("Completion time is: " + _completionStats[(int)EStatsType.TimePlayed]);
         }
     }
     

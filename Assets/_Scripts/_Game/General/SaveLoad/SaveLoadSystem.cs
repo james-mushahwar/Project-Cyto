@@ -55,6 +55,11 @@ namespace _Scripts._Game.General.SaveLoad{
         private bool[] _saveInSlotIsValid = new bool[3];
         #endregion
 
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
+
         private void Start()
         {
         #if UNITY_EDITOR
@@ -132,6 +137,13 @@ namespace _Scripts._Game.General.SaveLoad{
             LoadState(ESaveTarget.GamePrefs, _gamePrefsDict);
         }
 
+        public void SaveGamePrefs()
+        {
+            _gamePrefsDict = LoadFile(GamePrefsPath);
+            SaveState(ESaveTarget.GamePrefs, _gamePrefsDict);
+            SaveFile(_gamePrefsDict, GamePrefsPath);
+        }
+
         public object RetrieveLoadObject(ELoadSpecifier loadSpecifier, int saveIndex)
         {
             object savedObject = null;
@@ -178,7 +190,7 @@ namespace _Scripts._Game.General.SaveLoad{
         [ContextMenu("Delete All GamePrefs")]
         void DeleteAllGamePrefs()
         {
-            Delete($"{Application.persistentDataPath}/{GamePrefsPath}");
+            Delete($"{GamePrefsPath}");
         }
 
         bool Delete(string path)
@@ -290,20 +302,22 @@ namespace _Scripts._Game.General.SaveLoad{
         }
         public object SavePrefs()
         {
-            PrefSaveData _prefSaveData = new PrefSaveData()
+            PrefSaveData prefSaveData = new PrefSaveData()
             {
                 lastSaveIndex = _lastSaveIndex,
                 saveInSlotIsValid = new bool[_saveInSlotIsValid.Length]
             };
+            Debug.Log("Saving last save index which is... " + prefSaveData.lastSaveIndex);
+
 
             for (int i = 0; i < _saveInSlotIsValid.Length; i++)
             {
-                _prefSaveData.saveInSlotIsValid[0] = _saveInSlotIsValid[0];
-                _prefSaveData.saveInSlotIsValid[1] = _saveInSlotIsValid[1];
-                _prefSaveData.saveInSlotIsValid[2] = _saveInSlotIsValid[2];
+                prefSaveData.saveInSlotIsValid[0] = _saveInSlotIsValid[0];
+                prefSaveData.saveInSlotIsValid[1] = _saveInSlotIsValid[1];
+                prefSaveData.saveInSlotIsValid[2] = _saveInSlotIsValid[2];
             }
 
-            return _prefSaveData;
+            return prefSaveData;
         }
 
         public void LoadPrefs(object state)

@@ -27,6 +27,9 @@ namespace _Scripts._Game.General.SaveLoad{
         [SerializeField]
         private bool _skipLoadOnFirstPlay = false;
 
+        private static bool _isQuitting = false;
+        public static bool IsQuitting { get => _isQuitting; set => _isQuitting = value; }
+
         //public ESaveType[] ExcludedSaveTypes { get => _excludedSaveTypes; }
 
         [ContextMenu("Generate id")]
@@ -70,6 +73,13 @@ namespace _Scripts._Game.General.SaveLoad{
             {
                 return;
             }
+
+            // if application quitting ignore
+            if (IsQuitting)
+            {
+                return;
+            }
+
             SaveLoadSystem.Instance?.OnDisableSaveState(ESaveTarget.Saveable, this);
         }
 

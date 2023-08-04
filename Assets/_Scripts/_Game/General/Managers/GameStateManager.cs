@@ -56,8 +56,13 @@ namespace _Scripts._Game.General.Managers{
         private GameObject _inGameManagerGroup;
         private GameObject[] _inGameManagers;
 
+        [Header("Saveable references")]
+        [SerializeField]
+        private SaveableEntity[] _startInGameSaveableEntityLoad;
+
         private void Awake()
         {
+            Application.quitting += OnQuit;
             _saveableEntity = GetComponent<SaveableEntity>();
 
             _inGameManagers = new GameObject[_inGameManagerGroup.transform.childCount];
@@ -87,6 +92,11 @@ namespace _Scripts._Game.General.Managers{
                     _playerSceneLoading = null;
                 }
             }
+        }
+
+        void OnQuit()
+        {
+            SaveableEntity.IsQuitting = true;
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
@@ -162,9 +172,16 @@ namespace _Scripts._Game.General.Managers{
         {
             //save last opened save file index
             SaveLoadSystem.Instance.LastSaveIndex = _saveIndex;
+            SaveLoadSystem.Instance.SaveGamePrefs();
 
             // in game managers enable
             _inGameManagerGroup.SetActive(true);
+
+            // run load for managers that load on start
+            foreach (SaveableEntity saveableEntity in _startInGameSaveableEntityLoad)
+            {
+                SaveLoadSystem.Instance.OnEnableLoadState(ESaveTarget.Saveable, saveableEntity);
+            }
 
             // load scene index from save
             SaveLoadSystem.Instance.OnEnableLoadState(ESaveTarget.Saveable, _saveableEntity);
