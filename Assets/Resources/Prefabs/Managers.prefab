@@ -1597,9 +1597,18 @@ MonoBehaviour:
   _useTickMaster: 0
   m_PoolCount: 30
   _audioPlaybackDict:
-    m_keys: 14000000
+    m_keys: 14000000000000000100000002000000030000000400000005000000060000000700000008000000
     m_values:
     - {fileID: 11400000, guid: 36be3e86408f8064a80acc19d825b3a0, type: 2}
+    - {fileID: 11400000, guid: aa3b823a161bd004fa334c275e3885cd, type: 2}
+    - {fileID: 11400000, guid: 6702c5c42363492418b8c716b539eb06, type: 2}
+    - {fileID: 11400000, guid: b04853fec3166544786282b91aa9b92c, type: 2}
+    - {fileID: 11400000, guid: 7f49500ee7a60194a90753476c3cf38e, type: 2}
+    - {fileID: 11400000, guid: 636b4f0348292d04d80e2f25d2824600, type: 2}
+    - {fileID: 11400000, guid: efd34c60deed285408767d6a4597b93c, type: 2}
+    - {fileID: 11400000, guid: 7cd83d99b86c93f4daa0981c99a61936, type: 2}
+    - {fileID: 11400000, guid: c9d8778a268f34d45bb4e2c8de24c1e3, type: 2}
+    - {fileID: 11400000, guid: e73f4f3f3149ede459bc5a0375ef3500, type: 2}
   _sfxMixerGroup: {fileID: 7588592271706278492, guid: 96b5b7a2d6dfd423984ebde6148cea78, type: 2}
   _tracks:
   - _source: {fileID: 7702300481871731506}
@@ -3225,6 +3234,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3724435421324921045}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.Managers.UIManager, Assembly-CSharp
+        m_MethodName: ShowSaveFilesPage
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3545486181472854096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,6 +3661,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3724435421324921045}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.Managers.UIManager, Assembly-CSharp
+        m_MethodName: ShowSaveFilesPage
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6537,6 +6570,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3724435421324921045}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.Managers.UIManager, Assembly-CSharp
+        m_MethodName: ShowSaveFilesPage
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
