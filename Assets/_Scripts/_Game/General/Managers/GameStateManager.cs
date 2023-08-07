@@ -203,6 +203,16 @@ namespace _Scripts._Game.General.Managers{
             Debug.Log("Saved scene index is: " + SceneSpawnIndex);
         }
 
+        public void QuitToMainMenu()
+        {
+            PauseManager.Instance.TogglePause();
+
+            SceneManager.LoadScene(0);
+            UIManager.Instance.ShowMainMenu(true);
+
+            _inGameManagerGroup.SetActive(false);
+        }
+
         //ISaveable
         [System.Serializable]
         private struct SaveData

@@ -153,15 +153,15 @@ namespace _Scripts._Game.General.Managers
                 }
 
                 //first you need the RectTransform component of your canvas
-                RectTransform CanvasRect = _promptCanvas.GetComponent<RectTransform>();
+                RectTransform canvasRect = _promptCanvas.GetComponent<RectTransform>();
 
-                Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(targetTransform.position);
-                Vector2 WorldObject_ScreenPosition = new Vector2(
-                    ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
-                    ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+                Vector2 viewportPosition = Camera.main.WorldToViewportPoint(targetTransform.position);
+                Vector2 worldObject_ScreenPosition = new Vector2(
+                    ((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f)),
+                    ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f)));
 
                 //now you can set the position of the ui element
-                promptTransform.anchoredPosition = WorldObject_ScreenPosition;
+                promptTransform.anchoredPosition = worldObject_ScreenPosition;
             }
         }
 

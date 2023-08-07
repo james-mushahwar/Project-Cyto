@@ -343,6 +343,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         _distToGround = _capsule.bounds.extents.y;
 
         PlayerInput playerInput = InputManager.Instance.PlayerInput;
+
         // set up player input callbacks
         playerInput.Player.Movement.started += OnMovementInput;
         playerInput.Player.Movement.canceled += OnMovementInput;
@@ -377,9 +378,37 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         PlayerEntity.Instance.MovementSM = this;
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
-        
+        PlayerInput playerInput = InputManager.Instance.PlayerInput;
+
+        // unassign player input callbacks
+        playerInput.Player.Movement.started -= OnMovementInput;
+        playerInput.Player.Movement.canceled -= OnMovementInput;
+        playerInput.Player.Movement.performed -= OnMovementInput;
+
+        playerInput.Player.Direction.started -= OnDirectionInput;
+        playerInput.Player.Direction.canceled -= OnDirectionInput;
+        playerInput.Player.Direction.performed -= OnDirectionInput;
+
+        playerInput.Player.Jump.started -= OnJumpInput;
+        playerInput.Player.Jump.canceled -= OnJumpInput;
+
+        playerInput.Player.Dash.started -= OnDashInput;
+        playerInput.Player.Dash.canceled -= OnDashInput;
+
+        playerInput.Player.Float.started -= OnFloatInput;
+        playerInput.Player.Float.canceled -= OnFloatInput;
+        playerInput.Player.Float.performed -= OnFloatInput;
+
+        playerInput.Player.Bounce.started -= OnBounceInput;
+        playerInput.Player.Bounce.canceled -= OnBounceInput;
+        playerInput.Player.Bounce.performed -= OnBounceInput;
+
+        playerInput.Player.Bond.started -= OnBondInput;
+        playerInput.Player.Bond.canceled -= OnBondInput;
+
+        playerInput.Player.Pause.performed -= OnPauseInput;
     }
 
     // Start is called before the first frame update
@@ -493,6 +522,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnPauseInput(InputAction.CallbackContext context)
     {
+        Debug.Log("Pause is performed!");
         PauseManager.Instance.TogglePause();
     }
 
