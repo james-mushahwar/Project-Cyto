@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.General.SaveLoad{
 
@@ -27,9 +28,7 @@ namespace _Scripts._Game.General.SaveLoad{
         [SerializeField]
         private bool _skipLoadOnFirstPlay = false;
 
-        private static bool _isQuitting = false;
-        public static bool IsQuitting { get => _isQuitting; set => _isQuitting = value; }
-
+        bool hasFinishedStartup = false;
         //public ESaveType[] ExcludedSaveTypes { get => _excludedSaveTypes; }
 
         [ContextMenu("Generate id")]
@@ -40,7 +39,24 @@ namespace _Scripts._Game.General.SaveLoad{
 
         public void Start()
         {
-        #if UNITY_EDITOR
+            hasFinishedStartup = true;
+            Load();
+
+        }
+
+        public void OnEnable()
+        {
+            if (!hasFinishedStartup)
+            {
+                return;
+            }
+
+            Load();
+        }
+
+        private void Load()
+        {
+            #if UNITY_EDITOR
             if (_editorIgnoreAllLoads)
             {
                 return;
@@ -50,7 +66,7 @@ namespace _Scripts._Game.General.SaveLoad{
             {
                 return;
             }
-        #endif
+            #endif
 
             // get loaded state from SaveLoad
             if (!_loadOnEnable)
@@ -75,7 +91,7 @@ namespace _Scripts._Game.General.SaveLoad{
             }
 
             // if application quitting ignore
-            if (IsQuitting)
+            if (GameStateManager.IsQuitting)
             {
                 return;
             }

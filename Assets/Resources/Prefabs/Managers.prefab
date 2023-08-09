@@ -5410,6 +5410,7 @@ Transform:
   - {fileID: 4724023295118380584}
   - {fileID: 5878734046008322548}
   - {fileID: 6021138698385502105}
+  - {fileID: 1017917644779513548}
   m_Father: {fileID: 1192473343919988200}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6094,6 +6095,70 @@ MonoBehaviour:
   _particleType: 1
   _degreesToUpwardDirection: 0
   _positionOffset: {x: 0, y: 0}
+--- !u!1 &7406405564673021360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1017917644779513548}
+  - component: {fileID: 2883725368444292773}
+  - component: {fileID: 5895541554142740040}
+  m_Layer: 0
+  m_Name: RespawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1017917644779513548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7406405564673021360}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7328801570921726163}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2883725368444292773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7406405564673021360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934b19b4c47d34fe3b32a2ecee74efee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5895541554142740040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7406405564673021360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 21dfdad3-2d3c-4fdc-b73e-e543c905d5ad
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 02000000
+  _saveOnDisable: 0
+  _loadOnEnable: 1
+  _skipLoadOnFirstPlay: 1
 --- !u!1 &7420227288195607804
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,6 +45,9 @@ namespace _Scripts._Game.General.Managers{
             get => GameType == EGameType.InGame && PlayerEntity.Instance != null;
         }
 
+        private static bool _isQuitting = false;
+        public static bool IsQuitting { get => _isQuitting; set => _isQuitting = value; }
+
         [Header("Loading states")] 
         private AsyncOperation _playerSceneLoading;
 
@@ -62,6 +65,7 @@ namespace _Scripts._Game.General.Managers{
 
         private void Awake()
         {
+            IsQuitting = false;
             Application.quitting += OnQuit;
             _saveableEntity = GetComponent<SaveableEntity>();
 
@@ -90,13 +94,15 @@ namespace _Scripts._Game.General.Managers{
                 if (_playerSceneLoading.isDone)
                 {
                     _playerSceneLoading = null;
+                    // move player to correct spawn location
+                    RespawnManager.Instance.RespawnObject(PlayerEntity.Instance.gameObject);
                 }
             }
         }
 
         void OnQuit()
         {
-            SaveableEntity.IsQuitting = true;
+            IsQuitting = true;
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
@@ -170,6 +176,7 @@ namespace _Scripts._Game.General.Managers{
 
         private void LoadInGame()
         {
+            IsQuitting = false;
             //save last opened save file index
             SaveLoadSystem.Instance.LastSaveIndex = _saveIndex;
             SaveLoadSystem.Instance.SaveGamePrefs();

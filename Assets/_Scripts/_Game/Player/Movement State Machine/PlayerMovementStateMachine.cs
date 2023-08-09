@@ -370,6 +370,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         playerInput.Player.Bond.started += OnBondInput;
         playerInput.Player.Bond.canceled += OnBondInput;
 
+
         playerInput.Player.Pause.performed += OnPauseInput;
 
         _states = new PlayerMovementStateMachineFactory(this);
@@ -380,6 +381,12 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnDestroy()
     {
+        // if application quitting ignore
+        if (GameStateManager.IsQuitting)
+        {
+            return;
+        }
+
         PlayerInput playerInput = InputManager.Instance.PlayerInput;
 
         // unassign player input callbacks

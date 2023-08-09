@@ -101,7 +101,8 @@ namespace _Scripts._Game.Player{
                 {
                     //respawn
                     VolumeManager.Instance.OnPlayerRespawned();
-                    transform.position = new Vector3(26.0f, 146.0f, 0.0f);
+                    //transform.position = new Vector3(26.0f, 146.0f, 0.0f);
+                    RespawnManager.Instance.RespawnObject(gameObject);
                     _playerRespawnReason._reaspawnReason = ERespawnReason.None;
                     _playerRespawnReason._isRespawning = false;
 

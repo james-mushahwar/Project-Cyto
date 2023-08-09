@@ -112,6 +112,11 @@ namespace _Scripts._Game.General.Interactable{
                 if (_interactableType == EInteractableType.SaveStation)
                 {
                     GameStateManager.Instance.SetSpawnIndex(gameObject.scene.buildIndex);
+                    SaveableEntity saveStationSE = gameObject.GetComponent<SaveableEntity>();
+                    if (saveStationSE != null)
+                    {
+                        RespawnManager.Instance.RespawnGOID = saveStationSE.Id;
+                    }
                 }
                 OnInteractStart.Invoke();
                 _onInteractStartGE.TriggerEvent();
