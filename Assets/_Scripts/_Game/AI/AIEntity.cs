@@ -145,7 +145,7 @@ namespace _Scripts._Game.AI{
 
         public void OnPossess()
         {
-            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_PossessStart, PlayerEntity.Instance.transform.position);
+            AudioSource pooledSource =AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_PossessStart, PlayerEntity.Instance.transform.position);
 
             // possess control of this AI
             _movementSM.OnPossess();
@@ -177,7 +177,7 @@ namespace _Scripts._Game.AI{
             bool bond = TargetManager.Instance.LockedBondableTarget != null;
 
             PlayerEntity.Instance.OnPossess(bond);
-            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
+            AudioSource pooledSource =AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
 
             if (MovementSM.Waypoints == null)
             {
@@ -314,7 +314,7 @@ namespace _Scripts._Game.AI{
             OnExposedEvent.Invoke();
             //play exposed vfx
             ParticleManager.Instance.TryPlayParticleSystem(EParticleType.Exposed, transform.position, 0.0f);
-            AudioSource pooledSource = ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(EAudioType.SFX_Exposed, transform.position);
+            AudioSource pooledSource = AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Exposed, transform.position);
         }
 
         public void OnUnexposed()

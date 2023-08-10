@@ -1,4 +1,4 @@
-using _Scripts._Game.General.Managers;
+﻿using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.Player;
@@ -85,7 +85,7 @@ public class DashingMovementState : BaseMovementState
 
         _ctx.Rb.AddForce(Vector2.right * _ctx.DashingForce * Mathf.Sign(_ctx.CurrentMovementInput.x));
 
-        AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAttached(EAudioType.SFX_Player_Dash, PlayerEntity.Instance.transform);
+        AudioSource pooledSource =AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Player_Dash, PlayerEntity.Instance.transform);
 
     }
 

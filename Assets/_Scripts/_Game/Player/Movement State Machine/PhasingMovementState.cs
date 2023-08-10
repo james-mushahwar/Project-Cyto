@@ -49,7 +49,7 @@ namespace _Scripts._Game.Player.MovementStateMachine{
             _ctx.PhasingExitDirection = inputDirection;
             _ctx.Capsule.isTrigger = false;
 
-            AudioSource pooledSource = (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
+            AudioSource pooledSource =AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondExit, PlayerEntity.Instance.transform.position);
 
             _ctx.transform.SetParent(null);
             PlayerEntity.Instance.SpriteAnimator.enabled = true;

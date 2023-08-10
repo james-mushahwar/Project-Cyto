@@ -90,7 +90,7 @@ namespace _Scripts._Game.General.Projectile.Player{
                             audioType = _comboIndex < 2 ? (_comboIndex < 1 ? EAudioType.SFX_BasicAttackImpactWithLiquid1 : EAudioType.SFX_BasicAttackImpactWithLiquid2) : EAudioType.SFX_BasicAttackImpactWithLiquid3;
                         }
                     }
-                    ((AudioManager)AudioManager.Instance).TryPlayAudioSourceAtLocation(audioType, transform.position);
+                    AudioManager.Instance.TryPlayAudioSourceAtLocation(audioType, transform.position);
 
                 }
                 #endregion

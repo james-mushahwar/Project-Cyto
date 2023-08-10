@@ -105,7 +105,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             if (_animator != null)
             {
                 Animate(_openingHash);
-                (AudioManager.Instance as AudioManager).TryPlayAudioSourceAtLocation(EAudioType.SFX_SpaceDoor_Open, transform.position);
+               AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_SpaceDoor_Open, transform.position);
             }
 
             LogicManager.Instance.OnOutputChanged(_logicEntity);

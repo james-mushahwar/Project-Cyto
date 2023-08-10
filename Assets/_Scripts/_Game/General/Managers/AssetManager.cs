@@ -73,6 +73,8 @@ namespace _Scripts._Game.General.Managers{
                 Debug.Log("Load scene index: " + addIndex);
                 SceneManager.LoadSceneAsync(addIndex, LoadSceneMode.Additive);
             }
+
+            SceneManager.LoadSceneAsync("SceneSwitcher", LoadSceneMode.Additive);
         }
     }
     

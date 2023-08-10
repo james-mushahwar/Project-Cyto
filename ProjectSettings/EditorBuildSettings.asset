@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/PlayerScene.unity
     guid: a3e946a6ca0204d82b1290b4c5ddcde1
   - enabled: 1
-    path: Assets/_Scenes/SceneSwitcher scene.unity
+    path: Assets/_Scenes/Additive Scenes/SceneSwitcher.unity
     guid: a9f769ae85780034d91543d44a68ec2d
   - enabled: 1
     path: Assets/_Scenes/Levels/Area1-1.unity

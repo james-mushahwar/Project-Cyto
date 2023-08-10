@@ -64,7 +64,7 @@ namespace _Scripts._Game.General.Managers {
         PAUSE,
     }
 
-    public class AudioManager : PoolComponentManager<AudioSource>
+    public class AudioManager : Singleton<AudioManager>
     {
         private static EAudioType[] _AudioTypes =
         {
@@ -91,6 +91,9 @@ namespace _Scripts._Game.General.Managers {
             EAudioType.SFX_SpaceDoor_Open,
         };
 
+        [SerializeField]
+        private AudioSourcePool _audioSourcePool;
+
         private Dictionary<EAudioType, string> _audioTypeLocationsDict = new Dictionary<EAudioType, string>();
 
         [SerializeField]
@@ -101,6 +104,8 @@ namespace _Scripts._Game.General.Managers {
         [Header("SFX")]
         [SerializeField]
         private AudioMixerGroup _sfxMixerGroup;
+
+        public AudioMixerGroup SFXMixerGroup { get => _sfxMixerGroup; }
 
         #region AudioTracks
         [SerializeField]
@@ -148,22 +153,6 @@ namespace _Scripts._Game.General.Managers {
         {
             base.Awake();
 
-            Log("PoolComponentManager<T> awake check");
-            for (int i = 0; i < m_PoolCount; ++i)
-            {
-                GameObject newGO = new GameObject(gameObject.name + i);
-                newGO.transform.parent = this.gameObject.transform;
-
-                AudioSource comp = newGO.AddComponent(typeof(AudioSource)) as AudioSource;
-                comp.outputAudioMixerGroup = _sfxMixerGroup;
-                m_Pool.Push(comp);
-            }
-
-            foreach (AudioSource aSource in m_Pool)
-            {
-                aSource.playOnAwake = false;
-            }
-
             for (int i = 0; i < (int)EAudioType.COUNT; ++i)
             {
                 _audioTypeLocationsDict.Add((EAudioType)i, Enum.GetName(typeof(EAudioType), (EAudioType)i));
@@ -174,14 +163,9 @@ namespace _Scripts._Game.General.Managers {
             GenerateAudioTable();
         }
 
-        protected override bool IsActive(AudioSource component)
-        {
-            return component.isPlaying;
-        }
-
         public AudioSource TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc)
         {
-            AudioSource pooledComp = GetPooledComponent();
+            AudioSource pooledComp = _audioSourcePool.GetAudioSource();
 
             if (pooledComp)
             {
@@ -194,7 +178,7 @@ namespace _Scripts._Game.General.Managers {
             }
             else
             {
-                Log("No more pooled audio components");
+                Log("No more pooled audio source components");
             }
 
             return pooledComp;
@@ -202,7 +186,7 @@ namespace _Scripts._Game.General.Managers {
 
         public AudioSource TryPlayAudioSourceAttached(EAudioType audioType, Transform attachTransform, Vector3 localPosition = default)
         {
-            AudioSource pooledComp = GetPooledComponent();
+            AudioSource pooledComp = _audioSourcePool.GetAudioSource();
 
             if (pooledComp)
             {
@@ -219,7 +203,7 @@ namespace _Scripts._Game.General.Managers {
             }
             else
             {
-                Log("No more pooled audio components");
+                Log("No more pooled audio source components");
             }
 
             return pooledComp;
