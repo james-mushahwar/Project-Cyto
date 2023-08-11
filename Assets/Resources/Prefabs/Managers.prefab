@@ -4885,6 +4885,7 @@ MonoBehaviour:
   _mainMenuFirstButton: {fileID: 7667038465280380531}
   _saveFilesGO: {fileID: 4939285948250693551}
   _saveFilesFirstButton: {fileID: 3530023432824405134}
+  _saveSlotsMenu: {fileID: 4862483351867099311}
   _pauseMenuGO: {fileID: 4626315535243034642}
   _pauseMenuFirstButton: {fileID: 7896846396921709698}
   _dialogueBoxGO: {fileID: 0}

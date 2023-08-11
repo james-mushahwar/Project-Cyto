@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using  _Scripts._Game.General.Managers;
 using _Scripts._Game.General;
 using TMPro;
+using System;
 
 namespace _Scripts._Game.UI.MainMenu{
     
@@ -28,7 +29,7 @@ namespace _Scripts._Game.UI.MainMenu{
             RefreshSaveSlotsView();
         }
 
-        private void RefreshSaveSlotsView()
+        public void RefreshSaveSlotsView()
         {
             for (int i = 0; i < _saveSlotButtons.Length; i++)
             {
@@ -59,6 +60,19 @@ namespace _Scripts._Game.UI.MainMenu{
                     _saveSlotButtonText[i].text = "Time played: " + timePlayed;
                 }
             }
+        }
+
+        public int GetSelectedSlotIndex(GameObject selectedGameobject)
+        {
+            for (int i = 0; i < _saveSlotButtons.Length; i++)
+            {
+                if (selectedGameobject == _saveSlotButtons[i].gameObject)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
     }
     
