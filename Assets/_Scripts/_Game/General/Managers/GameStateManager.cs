@@ -76,15 +76,15 @@ namespace _Scripts._Game.General.Managers{
                 _inGameManagers[i] = managerTransform.gameObject;
                 i++;
             }
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void Start()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
 
-            MainMenuCheck(SceneManager.GetActiveScene());
+            //MainMenuCheck(SceneManager.GetActiveScene());
 
-            PlayerSceneCheck();
+            //PlayerSceneCheck();
         }
 
         void Update()

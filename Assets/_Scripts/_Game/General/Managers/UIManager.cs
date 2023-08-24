@@ -88,6 +88,14 @@ namespace _Scripts._Game.General.Managers
 
         #region Pause menu
         [SerializeField]
+        private GameObject _optionsMenuGO;
+        [SerializeField]
+        private GameObject _optionsMenuFirstButton;
+        private Tweener _optionsMenuTweener;
+        #endregion
+
+        #region Pause menu
+        [SerializeField]
         private GameObject _pauseMenuGO;
         [SerializeField]
         private GameObject _pauseMenuFirstButton;
@@ -116,6 +124,7 @@ namespace _Scripts._Game.General.Managers
 
             // Gameobject dict
             _menuGameObjectDict.Add(UIInputState.MainMenu, _mainMenuGO);
+            _menuGameObjectDict.Add(UIInputState.SaveFiles, _saveFilesGO);
             _menuGameObjectDict.Add(UIInputState.PauseMenu, _pauseMenuGO);
 
             // assign bond inputs
@@ -234,6 +243,10 @@ namespace _Scripts._Game.General.Managers
         // main menu screens
         public void ShowMainMenu(bool show)
         {
+            if (_mainMenuGO.activeSelf == show)
+            {
+                return;
+            }
             float targetOpactity = show ? 1.0f : 0.0f;
 
             _mainMenuGO.SetActive(show);
@@ -244,16 +257,35 @@ namespace _Scripts._Game.General.Managers
         }
         public void ShowSaveFilesPage(bool show)
         {
+            if (_saveFilesGO.activeSelf == show)
+            {
+                return;
+            }
             _saveFilesGO.SetActive(show);
 
             UpdateInputStack(show, UIInputState.SaveFiles);
 
             EventSystem.current.SetSelectedGameObject(show ? _saveFilesFirstButton : null);
         }
+        public void ShowOptions(bool show)
+        {
+            if (_optionsMenuGO.activeSelf == show)
+            {
+                return;
+            }
+            _optionsMenuGO.SetActive(show);
 
+            UpdateInputStack(show, UIInputState.Options);
+
+            EventSystem.current.SetSelectedGameObject(show ? _optionsMenuFirstButton : null);
+        }
         // pause menu screens
         public void ShowPauseMenu(bool show)
         {
+            if (_pauseMenuGO.activeSelf == show)
+            {
+                return;
+            }
             float targetOpactity = show ? 1.0f : 0.0f;
 
             _pauseMenuGO.SetActive(show);
@@ -294,6 +326,7 @@ namespace _Scripts._Game.General.Managers
         {
             _isWestButtonPressed = context.ReadValueAsButton();
             _isWestInputValid = _isWestButtonPressed;
+            Debug.Log("West input is " + _isWestButtonPressed);
         }
         public void OnLeftBumperInput(InputAction.CallbackContext context)
         {
@@ -321,10 +354,12 @@ namespace _Scripts._Game.General.Managers
             if (input == EPlayerInput.SButton)
             {
                 _isSouthButtonPressed = false;
+                _isSouthInputValid = false;
             }
             else if (input == EPlayerInput.WButton)
             {
                 _isWestButtonPressed = false;
+                _isWestInputValid = false;
             }
         }
 
