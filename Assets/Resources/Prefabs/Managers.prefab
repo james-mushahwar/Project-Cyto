@@ -3147,6 +3147,7 @@ GameObject:
   - component: {fileID: 5183562499340510945}
   - component: {fileID: 2053859234748233421}
   - component: {fileID: 2572120434573719121}
+  - component: {fileID: 1552344485179185759}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3271,6 +3272,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1552344485179185759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3346981663748035758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d1d5c576c254376a52d9974324e2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localiseKey: new_game
 --- !u!1 &3461890376160662394
 GameObject:
   m_ObjectHideFlags: 0
@@ -4166,7 +4180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cdf692a11964cc098281a3edef01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelSceneAdditives: {fileID: 11400000, guid: 580b378b683dc4e039ebb9f6932758ac, type: 2}
+  _zones:
+  - {fileID: 11400000, guid: cfe1426883d614e5dab06ac4e0c0db29, type: 2}
+  _defaultNewSaveZoneName: 
   _defaultNewSaveSceneName: Area1-1
 --- !u!1 &4567710014493137354
 GameObject:
@@ -5494,6 +5510,7 @@ GameObject:
   - component: {fileID: 5848151105188157887}
   - component: {fileID: 220360188272347688}
   - component: {fileID: 8021051774975770083}
+  - component: {fileID: 2217120814846415656}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5618,6 +5635,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2217120814846415656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839586912430498614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d1d5c576c254376a52d9974324e2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localiseKey: new_game
 --- !u!1 &6059180804902826365
 GameObject:
   m_ObjectHideFlags: 0
@@ -8386,6 +8416,7 @@ GameObject:
   - component: {fileID: 3102389228996082793}
   - component: {fileID: 160371086721178874}
   - component: {fileID: 2071374413347408775}
+  - component: {fileID: 2814063084206444249}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -8510,6 +8541,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2814063084206444249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8907729612797937063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d1d5c576c254376a52d9974324e2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localiseKey: new_game
 --- !u!1 &8912560940880885095
 GameObject:
   m_ObjectHideFlags: 0

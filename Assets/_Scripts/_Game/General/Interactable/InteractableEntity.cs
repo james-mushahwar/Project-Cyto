@@ -111,7 +111,7 @@ namespace _Scripts._Game.General.Interactable{
             {
                 if (_interactableType == EInteractableType.SaveStation)
                 {
-                    GameStateManager.Instance.SetSpawnIndex(gameObject.scene.buildIndex);
+                    GameStateManager.Instance.SetAreaSpawnIndex(gameObject.scene.buildIndex);
                     SaveableEntity saveStationSE = gameObject.GetComponent<SaveableEntity>();
                     if (saveStationSE != null)
                     {

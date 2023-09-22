@@ -10,20 +10,25 @@ namespace _Scripts._Game.General.Managers{
     public class GameStateManager : Singleton<GameStateManager>, ISaveable
     {
         private int _saveIndex = -1;        //what save file index
-        private int _sceneSpawnIndex = -1;  //what scene to load first
+        private int _areaSpawnIndex = -1;  //what area to load first
 
-        public int SceneSpawnIndex
+        private int _zoneSpawnIndex = 0;
+
+        public int AreaSpawnIndex
         {
             get
             {
-                if (_sceneSpawnIndex == -1)
+                if (_areaSpawnIndex == -1)
                 {
-                    _sceneSpawnIndex = AssetManager.Instance.DefaultNewSaveSceneIndex;
+                    _areaSpawnIndex = AssetManager.Instance.DefaultNewSaveAreaIndex;
                 }
-                return _sceneSpawnIndex;
+                return _areaSpawnIndex;
             }
-            set => _sceneSpawnIndex = value;
+            set => _areaSpawnIndex = value;
         }
+
+        public int ZoneSpawnIndex { get => _zoneSpawnIndex; set => _zoneSpawnIndex = value; }
+
         private EGameType _gameType;
 
         public int SaveIndex
@@ -193,7 +198,9 @@ namespace _Scripts._Game.General.Managers{
             // load scene index from save
             SaveLoadSystem.Instance.OnEnableLoadState(ESaveTarget.Saveable, _saveableEntity);
 
-            AssetManager.Instance.LoadSceneByIndex(SceneSpawnIndex);
+            AssetManager.Instance.LoadZoneAreaByIndex(AreaSpawnIndex);
+
+            SceneManager.LoadSceneAsync("PersistantInGameScene", LoadSceneMode.Additive);
 
             // load playerscene
             if (_playerSceneLoading == null)
@@ -204,10 +211,10 @@ namespace _Scripts._Game.General.Managers{
             UIManager.Instance.ShowMainMenu(false);
         }
 
-        public void SetSpawnIndex(int index)
+        public void SetAreaSpawnIndex(int index)
         {
-            SceneSpawnIndex = index;
-            Debug.Log("Saved scene index is: " + SceneSpawnIndex);
+            AreaSpawnIndex = index;
+            Debug.Log("Saved scene index is: " + AreaSpawnIndex);
         }
 
         public void QuitToMainMenu()
@@ -224,14 +231,16 @@ namespace _Scripts._Game.General.Managers{
         [System.Serializable]
         private struct SaveData
         {
-            public int sceneSpawnIndex;  //what scene to load first
+            public int zoneSpawnIndex;  //what zone to load
+            public int areaSpawnIndex;  //what area to load in zone
         }
 
         public object SaveState()
         {
             return new SaveData()
             {
-                sceneSpawnIndex = SceneSpawnIndex
+                zoneSpawnIndex = _zoneSpawnIndex,
+                areaSpawnIndex = AreaSpawnIndex
             };
         }
 
@@ -239,7 +248,8 @@ namespace _Scripts._Game.General.Managers{
         {
             SaveData saveData = (SaveData)state;
 
-            SceneSpawnIndex = saveData.sceneSpawnIndex <= 0 ? AssetManager.Instance.DefaultNewSaveSceneIndex : saveData.sceneSpawnIndex;
+            _zoneSpawnIndex = saveData.zoneSpawnIndex;
+            AreaSpawnIndex = saveData.areaSpawnIndex <= 0 ? AssetManager.Instance.DefaultNewSaveAreaIndex : saveData.areaSpawnIndex;
         }
 
     }

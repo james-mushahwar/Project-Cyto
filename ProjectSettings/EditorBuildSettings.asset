@@ -12,19 +12,22 @@ EditorBuildSettings:
     path: Assets/_Scenes/PlayerScene.unity
     guid: a3e946a6ca0204d82b1290b4c5ddcde1
   - enabled: 1
-    path: Assets/_Scenes/Additive Scenes/SceneSwitcher.unity
-    guid: a9f769ae85780034d91543d44a68ec2d
+    path: Assets/_Scenes/PersistantInGameScene.unity
+    guid: 74103667a05e941b4b36433f3070b79b
   - enabled: 1
-    path: Assets/_Scenes/Levels/Area1-1.unity
+    path: Assets/_Scenes/Zones/Zone1.unity
+    guid: 771701603d1bd4cbbb0757ddf9795280
+  - enabled: 1
+    path: Assets/_Scenes/Areas/Area1-1.unity
     guid: fedf52344d5df4cf198a9ad34575e97b
   - enabled: 1
-    path: Assets/_Scenes/Levels/Area1-2.unity
+    path: Assets/_Scenes/Areas/Area1-2.unity
     guid: e95005787b6906c43ad617b05afd393a
   - enabled: 1
-    path: Assets/_Scenes/Levels/Area1-3.unity
+    path: Assets/_Scenes/Areas/Area1-3.unity
     guid: d60282ebfb551a94692ae266150e110a
   - enabled: 1
-    path: Assets/_Scenes/Levels/Area1-4.unity
+    path: Assets/_Scenes/Areas/Area1-4.unity
     guid: 149b7c21f76ca164c842fe710a1ade5f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1dc90654f5220354f8b06859e6810d7a, type: 2}
