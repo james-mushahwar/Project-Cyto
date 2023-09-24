@@ -42,7 +42,10 @@ namespace _Scripts._Game.General.Managers{
             if (_globalSouthButtonDown)
             {
                 //Debug.Log("Interact input");
-                InteractableManager.Instance.InteractInput();
+                if (GameStateManager.Instance.IsGameRunning)
+                {
+                    InteractableManager.Instance.InteractInput();
+                }
                 _globalSouthButtonDown = false;
             }
 
@@ -64,8 +67,9 @@ namespace _Scripts._Game.General.Managers{
 
         public void TryEnableActionMap(EInputSystem inputType)
         {
-            _playerInput.Disable();
-            _playerInput.Global.Enable();
+            TryDisableActionMap(EInputSystem.Menu);
+            TryDisableActionMap(EInputSystem.Player);
+            TryDisableActionMap(EInputSystem.BondedPlayer);
             switch (inputType)
             {
                 case EInputSystem.Menu:
@@ -80,6 +84,8 @@ namespace _Scripts._Game.General.Managers{
                 default:
                     break;
             }
+
+            _playerInput.Global.Enable();
         }
 
         // this method may not be needed since all action maps are disabled in TryEnableActionMap first

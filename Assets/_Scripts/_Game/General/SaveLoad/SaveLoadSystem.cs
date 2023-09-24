@@ -180,7 +180,7 @@ namespace _Scripts._Game.General.SaveLoad{
             Delete($"{Application.persistentDataPath}/{_savePaths[1].String}");
             Delete($"{Application.persistentDataPath}/{_savePaths[2].String}");
         }
-        void Delete(int index)
+        public void Delete(int index)
         {
             if (Delete($"{Application.persistentDataPath}/{_savePaths[index].String}"))
             {

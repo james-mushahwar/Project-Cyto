@@ -16,12 +16,28 @@ namespace _Scripts._Game.General.SceneLoading{
 
     [System.Serializable]
     [CreateAssetMenu(menuName = "Asset Manager/Scene")]
-    public class SceneAdditives : ScriptableObject
+    public class SceneInfo : ScriptableObject
     {
+        [SerializeField]
+        private SceneName _sceneName;
+
         [SerializeField]
         private SceneAdditivesDictionary _sceneAdditiveDict = new SceneAdditivesDictionary();
 
+        public SceneName SceneName { get => _sceneName; }
         public SceneAdditivesDictionary SceneAdditiveDict { get => _sceneAdditiveDict; }
     }
 
+    [System.Serializable]
+    public class FAreaInfo
+    {
+        [SerializeField]
+        private SceneName _areaName;
+
+        [SerializeField]
+        private SceneName[] _connectedAreas;
+
+        public SceneName AreaName { get => _areaName; }
+        public SceneName[] ConnectedAreas { get => _connectedAreas; }
+    }
 }

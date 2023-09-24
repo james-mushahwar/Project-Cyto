@@ -280,10 +280,10 @@ namespace _Scripts._Game.General{
         None,
         // everything in main menu
         MainMenu,
+        SaveFiles,
         // everything in pause menu
         PauseMenu,
         Options,
-        Save,
         //everything in inventory
         Inventory,
         //everything else

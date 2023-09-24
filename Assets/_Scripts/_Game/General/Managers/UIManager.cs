@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.AI;
+using _Scripts._Game.General.SaveLoad;
+using _Scripts._Game.UI.MainMenu;
 using _Scripts._Game.UI.UIStateMachine;
 using DG.Tweening;
 using UnityEngine;
@@ -19,6 +21,9 @@ namespace _Scripts._Game.General.Managers
         private Dictionary<EPlayerInput, Action<InputAction.CallbackContext>> _inputsDict = new Dictionary<EPlayerInput, Action<InputAction.CallbackContext>>();
 
         private Dictionary<UIInputState, GameObject> _menuGameObjectDict = new Dictionary<UIInputState, GameObject>();
+
+        private Stack<UIInputState> _currentInputStateStack = new Stack<UIInputState>();
+        private UIInputState CurrentInputState { get => _currentInputStateStack.Peek(); }
 
         public Dictionary<EPlayerInput, Action<InputAction.CallbackContext>> InputsDict { get => _inputsDict; }
         #endregion
@@ -77,6 +82,16 @@ namespace _Scripts._Game.General.Managers
         private GameObject _saveFilesGO;
         [SerializeField]
         private GameObject _saveFilesFirstButton;
+        [SerializeField]
+        private SaveSlotsMenu _saveSlotsMenu;
+        #endregion
+
+        #region Pause menu
+        [SerializeField]
+        private GameObject _optionsMenuGO;
+        [SerializeField]
+        private GameObject _optionsMenuFirstButton;
+        private Tweener _optionsMenuTweener;
         #endregion
 
         #region Pause menu
@@ -105,8 +120,11 @@ namespace _Scripts._Game.General.Managers
                 _promptWorldTransformDict.Add(inputType, transform);
             }
 
+            _currentInputStateStack.Push(UIInputState.None);
+
             // Gameobject dict
             _menuGameObjectDict.Add(UIInputState.MainMenu, _mainMenuGO);
+            _menuGameObjectDict.Add(UIInputState.SaveFiles, _saveFilesGO);
             _menuGameObjectDict.Add(UIInputState.PauseMenu, _pauseMenuGO);
 
             // assign bond inputs
@@ -131,12 +149,36 @@ namespace _Scripts._Game.General.Managers
                         playerInput.Menu.Enter.started += OnSouthButtonInput;
                         playerInput.Menu.Enter.canceled += OnSouthButtonInput;
                         break;
+                    case EPlayerInput.WButton:
+                        playerInput.Menu.Action.started += OnWestButtonInput;
+                        playerInput.Menu.Action.canceled += OnWestButtonInput;
+                        break;
                 }
             }
         }
 
         private void Update()
         {
+            //current input state
+            if (CurrentInputState == UIInputState.SaveFiles)
+            {
+                GameObject selectedGameobject = EventSystem.current.currentSelectedGameObject;
+
+                int slotIndex = _saveSlotsMenu.GetSelectedSlotIndex(selectedGameobject);
+                if (slotIndex != -1)
+                {
+                    if (_isWestButtonPressed)
+                    {
+                        // delete save index
+                        SaveLoadSystem.Instance.Delete(slotIndex);
+                        _saveSlotsMenu.RefreshSaveSlotsView();
+                        NullifyInput(EPlayerInput.WButton);
+                    }
+                }
+            }
+
+
+            //input prompts
             foreach (EPlayerInput inputType in _playerInputPromptDict.Keys)
             {
                 _playerInputPromptDict.TryGetValue(inputType, out RectTransform promptTransform);
@@ -181,29 +223,75 @@ namespace _Scripts._Game.General.Managers
             return anyActive;
         }
 
+        private void UpdateInputStack(bool add, UIInputState state)
+        {
+            if (add)
+            {
+                _currentInputStateStack.Push(state);
+            }
+            else
+            {
+                UIInputState lastState;
+                _currentInputStateStack.TryPeek(out lastState);
+                if (lastState != UIInputState.None)
+                {
+                    _currentInputStateStack.Pop();
+                }
+            }
+        }
+
         // main menu screens
         public void ShowMainMenu(bool show)
         {
+            if (_mainMenuGO.activeSelf == show)
+            {
+                return;
+            }
             float targetOpactity = show ? 1.0f : 0.0f;
 
             _mainMenuGO.SetActive(show);
+
+            UpdateInputStack(show, UIInputState.MainMenu);
 
             EventSystem.current.SetSelectedGameObject(show ? _mainMenuFirstButton : null);
         }
         public void ShowSaveFilesPage(bool show)
         {
+            if (_saveFilesGO.activeSelf == show)
+            {
+                return;
+            }
             _saveFilesGO.SetActive(show);
+
+            UpdateInputStack(show, UIInputState.SaveFiles);
 
             EventSystem.current.SetSelectedGameObject(show ? _saveFilesFirstButton : null);
         }
+        public void ShowOptions(bool show)
+        {
+            if (_optionsMenuGO.activeSelf == show)
+            {
+                return;
+            }
+            _optionsMenuGO.SetActive(show);
 
+            UpdateInputStack(show, UIInputState.Options);
+
+            EventSystem.current.SetSelectedGameObject(show ? _optionsMenuFirstButton : null);
+        }
         // pause menu screens
         public void ShowPauseMenu(bool show)
         {
+            if (_pauseMenuGO.activeSelf == show)
+            {
+                return;
+            }
             float targetOpactity = show ? 1.0f : 0.0f;
 
             _pauseMenuGO.SetActive(show);
             _pauseBackgroundGO.SetActive(show);
+
+            UpdateInputStack(show, UIInputState.PauseMenu);
 
             EventSystem.current.SetSelectedGameObject(show ? _pauseMenuFirstButton : null);
         }
@@ -238,6 +326,7 @@ namespace _Scripts._Game.General.Managers
         {
             _isWestButtonPressed = context.ReadValueAsButton();
             _isWestInputValid = _isWestButtonPressed;
+            Debug.Log("West input is " + _isWestButtonPressed);
         }
         public void OnLeftBumperInput(InputAction.CallbackContext context)
         {
@@ -265,6 +354,12 @@ namespace _Scripts._Game.General.Managers
             if (input == EPlayerInput.SButton)
             {
                 _isSouthButtonPressed = false;
+                _isSouthInputValid = false;
+            }
+            else if (input == EPlayerInput.WButton)
+            {
+                _isWestButtonPressed = false;
+                _isWestInputValid = false;
             }
         }
 
