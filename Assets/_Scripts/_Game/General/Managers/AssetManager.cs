@@ -14,6 +14,8 @@ namespace _Scripts._Game.General.Managers{
 
         private Dictionary<int, int[]> _levelIndexDict = new Dictionary<int, int[]>();
         private Dictionary<int, int[]>[] _zoneAreasDicts;
+        private Dictionary<string, int> _areaNameIndexDict = new Dictionary<string, int>();
+        private Dictionary<int, FAreaInfo> _buildIndexAreaInfoDict = new Dictionary<int, FAreaInfo>();
         //New save zone and area defaults
         [SerializeField]
         private int _defaultNewSaveZoneIndex = 0;
@@ -42,7 +44,9 @@ namespace _Scripts._Game.General.Managers{
             Debug.Log("STILL LOADING ASSETMANAGER");
 
             _zoneAreasDicts = new Dictionary<int, int[]>[_zones.Length];
+            Dictionary<int, int[]> levelIndexDict = new Dictionary<int, int[]>();
             int index = 0;
+
             foreach (ZoneScriptableObject zone in _zones)
             {
                 FAreaInfo[] areas = zone.AreaInfos;
@@ -52,7 +56,10 @@ namespace _Scripts._Game.General.Managers{
                     Debug.Log("Main scene index: " + mainSceneIndex);
                     int[] additiveIndices = new int[area.ConnectedAreas.Length];
 
-                    if (_levelIndexDict.ContainsKey(mainSceneIndex))
+                    _areaNameIndexDict.TryAdd(area.AreaName.Name, mainSceneIndex);
+                    _buildIndexAreaInfoDict.TryAdd(mainSceneIndex, area);
+
+                    if (levelIndexDict.ContainsKey(mainSceneIndex))
                     {
                         continue;
                     }
@@ -63,10 +70,10 @@ namespace _Scripts._Game.General.Managers{
                         Debug.Log("Add scene path: " + additiveIndices[i] + " - Assets/_Scenes/Areas/" + area.ConnectedAreas[i].Name + ".unity");
                     }
 
-                    _levelIndexDict.TryAdd(mainSceneIndex, additiveIndices);
+                    levelIndexDict.TryAdd(mainSceneIndex, additiveIndices);
                 }
 
-                _zoneAreasDicts[index] = _levelIndexDict;
+                _zoneAreasDicts[index] = levelIndexDict;
                 index++;
             }
             
@@ -76,9 +83,17 @@ namespace _Scripts._Game.General.Managers{
             _initialised = true;
         }
 
+        public int AreaNameToBuildIndex(string areaName)
+        {
+            int index = -1;
+            _areaNameIndexDict.TryGetValue(areaName, out index);
+            return index;
+        }
+
         public void LoadZoneAreaByIndex(int index, bool loadAdditives = true)
         {
-            if (!_levelIndexDict.ContainsKey(index))
+            Debug.Log("Current Zone index is: " + GameStateManager.Instance.CurrentZoneIndex);
+            if (!_zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex].ContainsKey(index))
             {
                 Debug.LogError("No index in SceneInfo: Index is " + index);
                 return;
@@ -88,7 +103,7 @@ namespace _Scripts._Game.General.Managers{
 
             SceneManager.LoadSceneAsync(_zones[GameStateManager.Instance.ZoneSpawnIndex].ZoneName, LoadSceneMode.Additive);
 
-            foreach (int addIndex in _levelIndexDict[index])
+            foreach (int addIndex in _zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex][index])
             {
                 Debug.Log("Load scene index: " + addIndex);
                 SceneManager.LoadSceneAsync(addIndex, LoadSceneMode.Additive);
@@ -100,6 +115,15 @@ namespace _Scripts._Game.General.Managers{
 
             // play correct audio track
             // set any post processing for scene
+        }
+
+        public void UpdateStateArea()
+        {
+            // audio
+            EAudioTrackTypes musicType = _buildIndexAreaInfoDict[GameStateManager.Instance.CurrentAreaIndex].AreaMusic;
+            EAudioTrackTypes ambienceType = _buildIndexAreaInfoDict[GameStateManager.Instance.CurrentAreaIndex].AreaAmbience;
+            AudioManager.Instance.PlayAudio(musicType, true, 0.5f);
+
         }
     }
     

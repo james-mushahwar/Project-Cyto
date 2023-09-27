@@ -19,18 +19,26 @@ MonoBehaviour:
     _connectedAreas:
     - name: Area1-2
     - name: Area1-3
+    _areaMusic: 0
+    _areaAmbience: 0
   - _areaName:
       name: Area1-2
     _connectedAreas:
     - name: Area1-1
     - name: Area1-3
+    _areaMusic: 0
+    _areaAmbience: 0
   - _areaName:
       name: Area1-3
     _connectedAreas:
     - name: Area1-2
     - name: Area1-4
+    _areaMusic: 1
+    _areaAmbience: 0
   - _areaName:
       name: Area1-4
     _connectedAreas:
     - name: Area1-2
     - name: Area1-3
+    _areaMusic: 1
+    _areaAmbience: 0

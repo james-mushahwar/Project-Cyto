@@ -11,8 +11,10 @@ namespace _Scripts._Game.General.Managers{
     {
         private int _saveIndex = -1;        //what save file index
         private int _areaSpawnIndex = -1;  //what area to load first
+        private int _currentAreaIndex = -1; // what area is the player in
 
         private int _zoneSpawnIndex = 0;
+        private int _currentZoneIndex = 0; // wate zone is the player in
 
         public int AreaSpawnIndex
         {
@@ -26,8 +28,10 @@ namespace _Scripts._Game.General.Managers{
             }
             set => _areaSpawnIndex = value;
         }
+        public int CurrentAreaIndex { get => _currentAreaIndex; }
 
         public int ZoneSpawnIndex { get => _zoneSpawnIndex; set => _zoneSpawnIndex = value; }
+        public int CurrentZoneIndex { get => _currentZoneIndex; }
 
         private EGameType _gameType;
 
@@ -67,6 +71,8 @@ namespace _Scripts._Game.General.Managers{
         [Header("Saveable references")]
         [SerializeField]
         private SaveableEntity[] _startInGameSaveableEntityLoad;
+
+        //Active Zone and area
 
         private void Awake()
         {
@@ -217,6 +223,17 @@ namespace _Scripts._Game.General.Managers{
             Debug.Log("Saved scene index is: " + AreaSpawnIndex);
         }
 
+        public void EnterZoneAndArea(int zoneIdex, int areaIndex)
+        {
+            if (areaIndex == _currentAreaIndex)
+            {
+                return;
+            }
+
+            _currentAreaIndex = areaIndex;
+            AssetManager.Instance.UpdateStateArea();
+        }
+
         public void QuitToMainMenu()
         {
             PauseManager.Instance.TogglePause();
@@ -249,7 +266,9 @@ namespace _Scripts._Game.General.Managers{
             SaveData saveData = (SaveData)state;
 
             _zoneSpawnIndex = saveData.zoneSpawnIndex;
+            _currentZoneIndex = _zoneSpawnIndex;
             AreaSpawnIndex = saveData.areaSpawnIndex <= 0 ? AssetManager.Instance.DefaultNewSaveAreaIndex : saveData.areaSpawnIndex;
+            _currentAreaIndex = AreaSpawnIndex;
         }
 
     }

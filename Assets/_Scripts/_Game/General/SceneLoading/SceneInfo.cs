@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -37,7 +38,14 @@ namespace _Scripts._Game.General.SceneLoading{
         [SerializeField]
         private SceneName[] _connectedAreas;
 
+        [SerializeField]
+        private EAudioTrackTypes _areaMusic;
+        [SerializeField]
+        private EAudioTrackTypes _areaAmbience;
+
         public SceneName AreaName { get => _areaName; }
         public SceneName[] ConnectedAreas { get => _connectedAreas; }
+        public EAudioTrackTypes AreaMusic { get => _areaMusic; }
+        public EAudioTrackTypes AreaAmbience { get => _areaAmbience; }
     }
 }
