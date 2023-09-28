@@ -28,7 +28,20 @@ namespace _Scripts._Game.General.Managers{
             }
             set => _areaSpawnIndex = value;
         }
-        public int CurrentAreaIndex { get => _currentAreaIndex; }
+        public int CurrentAreaIndex
+        {
+            
+            get
+            {
+                if (_currentAreaIndex == -1)
+                {
+                    _currentAreaIndex = AssetManager.Instance.DefaultNewSaveAreaIndex;
+                }
+                return _currentAreaIndex;
+            }
+            
+            set => _currentAreaIndex = value;
+        }
 
         public int ZoneSpawnIndex { get => _zoneSpawnIndex; set => _zoneSpawnIndex = value; }
         public int CurrentZoneIndex { get => _currentZoneIndex; }

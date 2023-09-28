@@ -115,6 +115,7 @@ namespace _Scripts._Game.General.Managers{
 
             // play correct audio track
             // set any post processing for scene
+            UpdateStateArea();
         }
 
         public void UpdateStateArea()
