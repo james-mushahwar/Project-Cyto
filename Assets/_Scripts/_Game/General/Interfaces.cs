@@ -288,6 +288,8 @@ namespace _Scripts._Game.General{
         Inventory,
         //everything else
         Vendor,
+        //loading screens
+        LoadingScreen,
         COUNT,
     }
 

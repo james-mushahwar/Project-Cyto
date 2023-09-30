@@ -137,6 +137,11 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         protected virtual void FixedUpdate()
         {
+            if (GameStateManager.Instance?.IsGameRunning == false)
+            {
+                return;
+            }
+
             if (!Entity.IsPossessed())
             {
                 if (Waypoints == null)

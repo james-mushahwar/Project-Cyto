@@ -90,32 +90,49 @@ namespace _Scripts._Game.General.Managers{
             return index;
         }
 
-        public void LoadZoneAreaByIndex(int index, bool loadAdditives = true)
+        public IEnumerator LoadZoneAreaByIndex(int index, bool loadAdditives = true)
         {
             Debug.Log("Current Zone index is: " + GameStateManager.Instance.CurrentZoneIndex);
             if (!_zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex].ContainsKey(index))
             {
                 Debug.LogError("No index in SceneInfo: Index is " + index);
-                return;
+                yield return false;
             }
 
-            SceneManager.LoadScene(index);
+            //SceneManager.LoadScene(index);
 
-            SceneManager.LoadSceneAsync(_zones[GameStateManager.Instance.ZoneSpawnIndex].ZoneName, LoadSceneMode.Additive);
+            AsyncOperation zoneSceneLoadSceneAsync = SceneManager.LoadSceneAsync(_zones[GameStateManager.Instance.ZoneSpawnIndex].ZoneName, LoadSceneMode.Additive);
+            while (!zoneSceneLoadSceneAsync.isDone)
+            {
+                yield return null;
+            }
+
+            AsyncOperation mainAreaLoadScenenAsync = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
+            while (!mainAreaLoadScenenAsync.isDone)
+            {
+                yield return null;
+            }
 
             foreach (int addIndex in _zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex][index])
             {
                 Debug.Log("Load scene index: " + addIndex);
-                SceneManager.LoadSceneAsync(addIndex, LoadSceneMode.Additive);
+                AsyncOperation areaSceneLoadSceneAsync = SceneManager.LoadSceneAsync(addIndex, LoadSceneMode.Additive);
+                while (!areaSceneLoadSceneAsync.isDone)
+                {
+                    yield return null;
+                }
             }
-
-
             // post main scene load
             // enable ai path
 
             // play correct audio track
             // set any post processing for scene
             UpdateStateArea();
+        }
+
+        private IEnumerator LoadZoneAreaByIndexEnumerator(int index, bool loadAddtives = true)
+        {
+            yield return null;
         }
 
         public void UpdateStateArea()

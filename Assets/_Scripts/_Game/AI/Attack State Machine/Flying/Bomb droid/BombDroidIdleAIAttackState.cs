@@ -31,7 +31,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
             if (_stateTimer >= _bdCtx.BombDropCooldown)
             {
-                GameObject playerGO = PlayerEntity.Instance.GetControlledGameObject();
+                GameObject playerGO = PlayerEntity.Instance?.GetControlledGameObject();
                 bool isAbovePlayer = playerGO.transform.position.y < _bdCtx.transform.position.y + _bdCtx.BombDropMinimumYDistance;
 
                 if (isAbovePlayer)

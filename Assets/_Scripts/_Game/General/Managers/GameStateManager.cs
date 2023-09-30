@@ -67,6 +67,8 @@ namespace _Scripts._Game.General.Managers{
             get => GameType == EGameType.InGame && PlayerEntity.Instance != null;
         }
 
+        private Coroutine _loadGameCoroutine;
+
         private static bool _isQuitting = false;
         public static bool IsQuitting { get => _isQuitting; set => _isQuitting = value; }
 
@@ -113,15 +115,7 @@ namespace _Scripts._Game.General.Managers{
 
         void Update()
         {
-            if (_playerSceneLoading != null)
-            {
-                if (_playerSceneLoading.isDone)
-                {
-                    _playerSceneLoading = null;
-                    // move player to correct spawn location
-                    RespawnManager.Instance.RespawnObject(PlayerEntity.Instance.gameObject);
-                }
-            }
+            
         }
 
         void OnQuit()
@@ -133,7 +127,7 @@ namespace _Scripts._Game.General.Managers{
         {
             MainMenuCheck(scene);
 
-            PlayerSceneCheck();
+            //PlayerSceneCheck();
         }
 
         private void MainMenuCheck(Scene scene)
@@ -174,6 +168,11 @@ namespace _Scripts._Game.General.Managers{
 
         public void StartGame(bool newGame = false)
         {
+            if (_loadGameCoroutine != null)
+            {
+                return;
+            }
+
             int saveIndex = -1;
             // new game
             if (newGame == true)
@@ -188,18 +187,36 @@ namespace _Scripts._Game.General.Managers{
             _saveIndex = saveIndex;
             Debug.Log("Save index is: " + _saveIndex);
 
-            LoadInGame();
+            _loadGameCoroutine = StartCoroutine(LoadGameEnumerator());
         }
 
         public void LoadGame(int index = 0)
         {
-            _saveIndex = index;
+            if (_loadGameCoroutine != null)
+            {
+                return;
+            }
 
-            LoadInGame();
+            _loadGameCoroutine = StartCoroutine(LoadGameEnumerator(index));
         }
 
-        private void LoadInGame()
+        public IEnumerator LoadGameEnumerator(int index = 0)
         {
+            _saveIndex = index;
+
+            IEnumerator _loadGameEnumerator = LoadInGame();
+            while (_loadGameEnumerator.MoveNext() != false)
+            {
+                yield return null;
+            }
+
+            _loadGameCoroutine = null;
+        }
+
+        private IEnumerator LoadInGame()
+        {
+            UIManager.Instance.ShowMainMenu(false);
+            UIManager.Instance.ShowLoadingScreen(true);
             IsQuitting = false;
             //save last opened save file index
             SaveLoadSystem.Instance.LastSaveIndex = _saveIndex;
@@ -217,17 +234,42 @@ namespace _Scripts._Game.General.Managers{
             // load scene index from save
             SaveLoadSystem.Instance.OnEnableLoadState(ESaveTarget.Saveable, _saveableEntity);
 
-            AssetManager.Instance.LoadZoneAreaByIndex(AreaSpawnIndex);
+            AsyncOperation persistantSceneAsync = SceneManager.LoadSceneAsync("PersistantInGameScene", LoadSceneMode.Additive);
+            while (!persistantSceneAsync.isDone)
+            {
+                yield return null;
+            }
 
-            SceneManager.LoadSceneAsync("PersistantInGameScene", LoadSceneMode.Additive);
+            IEnumerator _loadZoneAreaEnumerator = AssetManager.Instance.LoadZoneAreaByIndex(AreaSpawnIndex);
+            while (_loadZoneAreaEnumerator.MoveNext() != false)
+            {
+                yield return null;
+            }
 
             // load playerscene
             if (_playerSceneLoading == null)
             {
                 _playerSceneLoading = SceneManager.LoadSceneAsync("PlayerScene", LoadSceneMode.Additive);
+
+                if (_playerSceneLoading != null)
+                {
+                    while (!_playerSceneLoading.isDone)
+                    {
+                        yield return null;
+                    }
+                    _playerSceneLoading = null;
+                    // move player to correct spawn location
+                    RespawnManager.Instance.RespawnObject(PlayerEntity.Instance.gameObject);
+                }
             }
 
-            UIManager.Instance.ShowMainMenu(false);
+            AsyncOperation unloadMainMenuAsync = SceneManager.UnloadSceneAsync("Main_Menu");
+            while (!unloadMainMenuAsync.isDone)
+            {
+                yield return null;
+            }
+
+            UIManager.Instance.ShowLoadingScreen(false);
         }
 
         public void SetAreaSpawnIndex(int index)
@@ -249,12 +291,30 @@ namespace _Scripts._Game.General.Managers{
 
         public void QuitToMainMenu()
         {
+            AudioManager.Instance.StopAllAudioTracks();
+
             PauseManager.Instance.TogglePause();
 
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Main_Menu");
             UIManager.Instance.ShowMainMenu(true);
 
             _inGameManagerGroup.SetActive(false);
+        }
+
+        public IEnumerator LoadNewZoneAndArea(int zoneIndex, int areaBuildIndex)
+        {
+            UIManager.Instance.ShowMainMenu(false);
+            UIManager.Instance.ShowLoadingScreen(true);
+
+            IEnumerator _loadZoneAreaEnumerator = AssetManager.Instance.LoadZoneAreaByIndex(areaBuildIndex);
+            while (_loadZoneAreaEnumerator.MoveNext() != false)
+            {
+                yield return null;
+            }
+
+            // find correct spawn location
+
+            UIManager.Instance.ShowLoadingScreen(false);
         }
 
         //ISaveable

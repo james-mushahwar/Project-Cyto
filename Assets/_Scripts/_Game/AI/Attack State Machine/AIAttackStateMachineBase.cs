@@ -99,6 +99,14 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             _states = new AIAttackStateMachineFactory(this);
         }
 
+        protected virtual void FixedUpdate()
+        {
+            if (GameStateManager.Instance?.IsGameRunning == false)
+            {
+                return;
+            }
+        }
+
         public virtual void OnExposed()
         {
             Debug.Log("Overriding state Onexposed");

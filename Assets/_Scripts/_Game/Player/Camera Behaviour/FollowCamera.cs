@@ -25,7 +25,7 @@ public class FollowCamera : Singleton<FollowCamera>
 
     #region Follow Behaviour
     private PlayerMovementStateMachine _ctx;
-    private Transform _playerTransform;
+    private GameObject _playerControlledGO;
     private float _targetXOffset;
     private float _targetYOffset;
     private float _targetZOffset;
@@ -85,7 +85,7 @@ public class FollowCamera : Singleton<FollowCamera>
     private void Start()
     {
         _ctx = PlayerEntity.Instance.MovementSM;
-        _playerTransform = _ctx.gameObject.transform;
+        _playerControlledGO = _ctx.gameObject;
         _defaultZOffset = transform.position.z;
         _targetZOffset = _defaultZOffset;
         Vector3 topRightBounds = _camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, _defaultZOffset));
@@ -98,9 +98,11 @@ public class FollowCamera : Singleton<FollowCamera>
 
     private void FixedUpdate()
     {
+        _playerControlledGO = PlayerEntity.Instance?.GetControlledGameObject();
+
         Vector2 lerpSpeeds = GetLerpSpeed();
         Vector3 newOffset;
-        Vector3 desiredPosition;
+        Vector3 desiredPosition = transform.position;
         TargetOffsets();
 
         if (_cameraBounds != null)
@@ -117,7 +119,10 @@ public class FollowCamera : Singleton<FollowCamera>
             //_targetXOffset = _ctx.IsFacingRight == true ? _isFacingRightXOffset : -_isFacingRightXOffset;
             newOffset = new Vector3(_targetXOffset, _targetYOffset, _targetZOffset);
 
-            desiredPosition = _playerTransform.position + newOffset;
+            if (_playerControlledGO != null)
+            {
+                desiredPosition = _playerControlledGO.transform.position + newOffset;
+            }
         }
 
     #if UNITY_EDITOR

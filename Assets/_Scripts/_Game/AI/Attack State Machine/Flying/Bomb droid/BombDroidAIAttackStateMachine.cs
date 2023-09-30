@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.General;
 using UnityEngine;
+using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
     
@@ -65,6 +66,12 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         protected void FixedUpdate()
         {
+            base.FixedUpdate();
+            if (GameStateManager.Instance?.IsGameRunning == false)
+            {
+                return;
+            }
+
             if (!Entity.IsPossessed())
             {
                 CurrentState.ManagedStateTick();

@@ -27,7 +27,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
                 return true;
             }
 
-            GameObject target = PlayerEntity.Instance.GetControlledGameObject();
+            GameObject target = PlayerEntity.Instance?.GetControlledGameObject();
             
             Vector3 differenceToTarget = target.transform.position - _bdCtx.transform.position;
             float distance = differenceToTarget.sqrMagnitude;

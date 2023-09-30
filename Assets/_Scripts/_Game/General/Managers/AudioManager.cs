@@ -237,6 +237,19 @@ namespace _Scripts._Game.General.Managers {
         {
             AddJob(new AudioJob(EAudioAction.RESTART, type, fade, delay));
         }
+        public void StopAllAudioTracks(bool fade = false, float delay = 0.0f)
+        {
+            //Debug.Log("Stop all audio tracks");
+            foreach (AudioTrack track in _tracks)
+            {
+                foreach (AudioObject audio in track._audio)
+                {
+                    EAudioTrackTypes audioType = audio._type;
+                    AddJob(new AudioJob(EAudioAction.STOP, audioType, fade, delay));
+                }
+                
+            }
+        }
 
         private void GenerateAudioTable()
         {

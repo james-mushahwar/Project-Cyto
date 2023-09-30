@@ -107,6 +107,12 @@ namespace _Scripts._Game.General.Managers
         private GameObject _dialogueBoxGO;
         #endregion
 
+        #region Loading Screen
+        [SerializeField] 
+        private GameObject _loadingScreenGO;
+        #endregion
+
+
         public void Awake()
         {
             
@@ -294,6 +300,20 @@ namespace _Scripts._Game.General.Managers
             UpdateInputStack(show, UIInputState.PauseMenu);
 
             EventSystem.current.SetSelectedGameObject(show ? _pauseMenuFirstButton : null);
+        }
+
+        public void ShowLoadingScreen(bool show)
+        {
+            if (_loadingScreenGO.activeSelf == show)
+            {
+                return;
+            }
+
+            float targetOpactity = show ? 1.0f : 0.0f;
+
+            _loadingScreenGO.SetActive(show);
+
+            UpdateInputStack(show, UIInputState.LoadingScreen);
         }
 
         // Player Input 
