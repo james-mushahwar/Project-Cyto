@@ -17,6 +17,8 @@ public class FollowCamera : Singleton<FollowCamera>
     #region Camera constraints
     [SerializeField]
     private Camera _camera;
+    [SerializeField]
+    private AudioListener _audioListener;
     private BaseCameraBounds _cameraBounds;
     private float _defaultZOffset; // used to take the offset of the camera at the start
     private float _cameraWidth;
@@ -245,13 +247,13 @@ public class FollowCamera : Singleton<FollowCamera>
             //_targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
             _targetXOffset = 0.0f;
             //_cameraBounds
-            float CameraX = 0.0f;
-            float CameraY = 0.0f;
+            //float cameraX = 0.0f;
+            float cameraY = 0.0f;
 
             if (_cameraBounds.Directions[0] == true) // up
             {
-                CameraY = transform.position.y + _cameraHeight;
-                if (_cameraBounds.BoxCollider.bounds.extents.y <= CameraY)
+                cameraY = transform.position.y + _cameraHeight;
+                if (_cameraBounds.BoxCollider.bounds.extents.y <= cameraY)
                 {
                     _targetYOffset = _cameraBounds.BoxCollider.bounds.extents.y - _cameraHeight;
                 }
@@ -302,5 +304,10 @@ public class FollowCamera : Singleton<FollowCamera>
         {
             _targetZOffset = value;
         }).SetEase(easeType);
+    }
+
+    public void ActivateCamera(bool set)
+    {
+        _audioListener.enabled = set;
     }
 }

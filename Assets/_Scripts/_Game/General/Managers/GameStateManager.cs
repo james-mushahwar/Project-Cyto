@@ -89,7 +89,7 @@ namespace _Scripts._Game.General.Managers{
 
         //Active Zone and area
 
-        private void Awake()
+        protected override void Awake()
         {
             IsQuitting = false;
             Application.quitting += OnQuit;
@@ -270,6 +270,8 @@ namespace _Scripts._Game.General.Managers{
             }
 
             UIManager.Instance.ShowLoadingScreen(false);
+
+            FollowCamera.Instance.ActivateCamera(true);
         }
 
         public void SetAreaSpawnIndex(int index)

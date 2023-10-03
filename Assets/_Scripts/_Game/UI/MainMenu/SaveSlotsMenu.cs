@@ -47,7 +47,7 @@ namespace _Scripts._Game.UI.MainMenu{
                 }
                 else
                 {
-                    Debug.Log("No saveObj retrieved");
+                    //Debug.Log("No saveObj retrieved");
                     _saveSlotButtons[i].interactable = true;
                 }
 

@@ -10,7 +10,7 @@ namespace _Scripts._Game.General.Managers{
         {
             base.Awake();
 
-            Debug.Log("Audio source pool is created");
+            //Debug.Log("Audio source pool is created");
             for (int i = 0; i < m_PoolCount; ++i)
             {
                 GameObject newGO = new GameObject(gameObject.name + i);

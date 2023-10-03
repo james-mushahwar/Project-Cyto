@@ -34,14 +34,12 @@ namespace _Scripts._Game.General.Managers{
 
         private bool _initialised = false;
 
-        public void Awake()
+        protected override void Awake()
         {
-            Debug.Log("LOADING ASSETMANAGER");
             if (_initialised)
             {
                 return;
             }
-            Debug.Log("STILL LOADING ASSETMANAGER");
 
             _zoneAreasDicts = new Dictionary<int, int[]>[_zones.Length];
             Dictionary<int, int[]> levelIndexDict = new Dictionary<int, int[]>();
@@ -53,7 +51,7 @@ namespace _Scripts._Game.General.Managers{
                 foreach (FAreaInfo area in areas)
                 {
                     int mainSceneIndex = SceneUtility.GetBuildIndexByScenePath("Assets/_Scenes/Areas/" + area.AreaName.Name + ".unity");
-                    Debug.Log("Main scene index: " + mainSceneIndex);
+                    //Debug.Log("Main scene index: " + mainSceneIndex);
                     int[] additiveIndices = new int[area.ConnectedAreas.Length];
 
                     _areaNameIndexDict.TryAdd(area.AreaName.Name, mainSceneIndex);
@@ -67,7 +65,6 @@ namespace _Scripts._Game.General.Managers{
                     for (int i = 0; i < area.ConnectedAreas.Length; ++i)
                     {
                         additiveIndices[i] = SceneUtility.GetBuildIndexByScenePath("Assets/_Scenes/Areas/" + area.ConnectedAreas[i].Name + ".unity");
-                        Debug.Log("Add scene path: " + additiveIndices[i] + " - Assets/_Scenes/Areas/" + area.ConnectedAreas[i].Name + ".unity");
                     }
 
                     levelIndexDict.TryAdd(mainSceneIndex, additiveIndices);
@@ -92,7 +89,7 @@ namespace _Scripts._Game.General.Managers{
 
         public IEnumerator LoadZoneAreaByIndex(int index, bool loadAdditives = true)
         {
-            Debug.Log("Current Zone index is: " + GameStateManager.Instance.CurrentZoneIndex);
+            //Debug.Log("Current Zone index is: " + GameStateManager.Instance.CurrentZoneIndex);
             if (!_zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex].ContainsKey(index))
             {
                 Debug.LogError("No index in SceneInfo: Index is " + index);
@@ -115,7 +112,7 @@ namespace _Scripts._Game.General.Managers{
 
             foreach (int addIndex in _zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex][index])
             {
-                Debug.Log("Load scene index: " + addIndex);
+                //Debug.Log("Load scene index: " + addIndex);
                 AsyncOperation areaSceneLoadSceneAsync = SceneManager.LoadSceneAsync(addIndex, LoadSceneMode.Additive);
                 while (!areaSceneLoadSceneAsync.isDone)
                 {

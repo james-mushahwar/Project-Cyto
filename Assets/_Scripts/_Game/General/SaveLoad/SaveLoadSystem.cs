@@ -55,9 +55,9 @@ namespace _Scripts._Game.General.SaveLoad{
         private bool[] _saveInSlotIsValid = new bool[3];
         #endregion
 
-        private void Awake()
+        protected override void Awake()
         {
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
 
         private void Start()
@@ -307,7 +307,7 @@ namespace _Scripts._Game.General.SaveLoad{
                 lastSaveIndex = _lastSaveIndex,
                 saveInSlotIsValid = new bool[_saveInSlotIsValid.Length]
             };
-            Debug.Log("Saving last save index which is... " + prefSaveData.lastSaveIndex);
+            //Debug.Log("Saving last save index which is... " + prefSaveData.lastSaveIndex);
 
 
             for (int i = 0; i < _saveInSlotIsValid.Length; i++)
@@ -326,7 +326,7 @@ namespace _Scripts._Game.General.SaveLoad{
             _lastSaveIndex = prefSaveData.lastSaveIndex;
 
             _saveInSlotIsValid = prefSaveData.saveInSlotIsValid;
-            Debug.Log("Loading last save index which is... " + _lastSaveIndex);
+            //Debug.Log("Loading last save index which is... " + _lastSaveIndex);
         }
     }
 }

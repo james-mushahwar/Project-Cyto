@@ -29,7 +29,7 @@ namespace _Scripts._Game.General {
             }
             else
             {
-                Debug.LogWarning("Awaken " + name + " singleton");
+                //Debug.LogWarning("Awaken " + name + " singleton");
                 _instance = this as T;
             }
         }

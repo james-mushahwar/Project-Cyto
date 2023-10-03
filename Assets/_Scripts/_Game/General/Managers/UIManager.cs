@@ -113,7 +113,7 @@ namespace _Scripts._Game.General.Managers
         #endregion
 
 
-        public void Awake()
+        protected override void Awake()
         {
             
         }

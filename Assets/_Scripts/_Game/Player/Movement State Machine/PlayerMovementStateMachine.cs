@@ -529,7 +529,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnPauseInput(InputAction.CallbackContext context)
     {
-        Debug.Log("Pause is performed!");
+        //Debug.Log("Pause is performed!");
         PauseManager.Instance.TogglePause();
     }
 

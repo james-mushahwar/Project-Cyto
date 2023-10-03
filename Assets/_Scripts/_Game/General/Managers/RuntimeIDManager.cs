@@ -27,7 +27,7 @@ namespace _Scripts._Game.General.Managers{
         {
             if (!_spawnPointsDict.ContainsKey(spawnPoint.RuntimeID.Id) || _spawnPointsDict[spawnPoint.RuntimeID.Id] == null)
             {
-                Log("Registering spawnpoint: " + spawnPoint.RuntimeID.Id + ".");
+                //Log("Registering spawnpoint: " + spawnPoint.RuntimeID.Id + ".");
                 _spawnPointsDict.Add(spawnPoint.RuntimeID.Id, spawnPoint);
             }
         }
@@ -36,7 +36,7 @@ namespace _Scripts._Game.General.Managers{
         {
             if (_spawnPointsDict.ContainsKey(spawnPoint.RuntimeID.Id))
             {
-                Log("Unregistering spawnpoint: " + spawnPoint.RuntimeID.Id + ".");
+                //Log("Unregistering spawnpoint: " + spawnPoint.RuntimeID.Id + ".");
                 _spawnPointsDict.Remove(spawnPoint.RuntimeID.Id);
             }
         }
@@ -54,7 +54,7 @@ namespace _Scripts._Game.General.Managers{
         {
             if (!_waypointsDict.ContainsKey(waypoint.RuntimeID.Id) || _waypointsDict[waypoint.RuntimeID.Id] == null)
             {
-                Log("Unregistering waypoint: " + waypoint.RuntimeID.Id + ".");
+                //Log("Unregistering waypoint: " + waypoint.RuntimeID.Id + ".");
                 _waypointsDict.Add(waypoint.RuntimeID.Id, waypoint);
             }
         }
@@ -63,7 +63,7 @@ namespace _Scripts._Game.General.Managers{
         {
             if (_waypointsDict.ContainsKey(waypoint.RuntimeID.Id))
             {
-                Log("Unregistering waypoint: " + waypoint.RuntimeID.Id + ".");
+                //Log("Unregistering waypoint: " + waypoint.RuntimeID.Id + ".");
                 _waypointsDict.Remove(waypoint.RuntimeID.Id);
             }
         }
