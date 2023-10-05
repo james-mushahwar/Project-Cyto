@@ -7,6 +7,7 @@ using UnityEngine;
 using _Scripts._Game.Audio;
 using UnityEngine.SceneManagement;
 using _Scripts._Game.General.SceneLoading;
+using Assets._Scripts._Game.General.SceneLoading;
 
 // premade
 
@@ -41,6 +42,6 @@ public class PlayerInputPromptDictionary : SerializableDictionary<EPlayerInput, 
 public class AudioPlaybackDictionary : SerializableDictionary<EAudioType, ScriptableAudioPlayback> {}
 
 [Serializable]
-public class StringArrayStorage : SerializableDictionary.Storage<SceneName[]> { }
+public class StringArrayStorage : SerializableDictionary.Storage<SceneField[]> { }
 [Serializable]
-public class SceneAdditivesDictionary : SerializableDictionary<string, SceneName[], StringArrayStorage> {}
+public class SceneAdditivesDictionary : SerializableDictionary<string, SceneField[], StringArrayStorage> {}

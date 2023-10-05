@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.General.Managers;
+using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
 
 namespace _Scripts._Game.General.SceneLoading{
@@ -8,10 +9,10 @@ namespace _Scripts._Game.General.SceneLoading{
     public class Corridor : MonoBehaviour
     {
         [SerializeField]
-        private string _leftAreaName;
+        private SceneField _leftAreaName;
         private int _leftAreaBuildIndex;
         [SerializeField]
-        private string _rightAreaName;
+        private SceneField _rightAreaName;
         private int _rightAreaBuildIndex;
 
         public void Start()

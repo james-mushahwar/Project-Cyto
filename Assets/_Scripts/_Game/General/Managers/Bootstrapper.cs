@@ -11,7 +11,7 @@ namespace _Scripts._Game.General.Managers{
         {
             Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load("Prefabs/Managers")));
             Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load("Prefabs/Systems")));
-            Debug.LogWarning("Bootstrapper Execute");
+            //Debug.LogWarning("Bootstrapper Execute");
         }
     }
     

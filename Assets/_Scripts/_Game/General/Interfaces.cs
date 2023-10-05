@@ -200,6 +200,7 @@ namespace _Scripts._Game.General{
     {
         None,
         SaveStation,
+        Doorway,
         COUNT,
     }
 

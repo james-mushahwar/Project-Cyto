@@ -8,6 +8,7 @@ namespace _Scripts._Game.General.Managers{
 
     public class RespawnManager : Singleton<RespawnManager>, ISaveable
     {
+        #region Respawn
         private GameObject _respawnGO;
         private string _respawnGOID = "empty";
 
@@ -32,6 +33,37 @@ namespace _Scripts._Game.General.Managers{
             }
         }
         public string RespawnGOID { get => _respawnGOID; set => _respawnGOID = value; }
+        #endregion
+
+        #region Doorways And Corridors
+        private GameObject _doorwayGO;
+        private string _doorwayGOID = "empty";
+
+        public GameObject DoorWayGO
+        {
+            get
+            {
+                if (_doorwayGO == null)
+                {
+                    // try and find respawn gameobject
+                    foreach (var saveable in FindObjectsOfType<SaveableEntity>())
+                    {
+                        if (saveable.Id == _doorwayGOID)
+                        {
+                            _doorwayGO = saveable.gameObject;
+                            break;
+                        }
+                    }
+                }
+
+                return _doorwayGO;
+            }
+        }
+        public string DoorwayGOID { get => _doorwayGOID; set => _doorwayGOID = value; }
+        #endregion
+
+        #region Safe respawn
+        #endregion
 
         void OnDisable()
         {

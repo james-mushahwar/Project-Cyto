@@ -50,11 +50,11 @@ namespace _Scripts._Game.General.Managers{
                 FAreaInfo[] areas = zone.AreaInfos;
                 foreach (FAreaInfo area in areas)
                 {
-                    int mainSceneIndex = SceneUtility.GetBuildIndexByScenePath("Assets/_Scenes/Areas/" + area.AreaName.Name + ".unity");
+                    int mainSceneIndex = SceneUtility.GetBuildIndexByScenePath(area.AreaName.SceneName);
                     //Debug.Log("Main scene index: " + mainSceneIndex);
                     int[] additiveIndices = new int[area.ConnectedAreas.Length];
 
-                    _areaNameIndexDict.TryAdd(area.AreaName.Name, mainSceneIndex);
+                    _areaNameIndexDict.TryAdd(area.AreaName.SceneName, mainSceneIndex);
                     _buildIndexAreaInfoDict.TryAdd(mainSceneIndex, area);
 
                     if (levelIndexDict.ContainsKey(mainSceneIndex))
@@ -64,7 +64,7 @@ namespace _Scripts._Game.General.Managers{
 
                     for (int i = 0; i < area.ConnectedAreas.Length; ++i)
                     {
-                        additiveIndices[i] = SceneUtility.GetBuildIndexByScenePath("Assets/_Scenes/Areas/" + area.ConnectedAreas[i].Name + ".unity");
+                        additiveIndices[i] = SceneUtility.GetBuildIndexByScenePath(area.ConnectedAreas[i].SceneName);
                     }
 
                     levelIndexDict.TryAdd(mainSceneIndex, additiveIndices);
@@ -75,7 +75,7 @@ namespace _Scripts._Game.General.Managers{
             }
             
 
-            _defaultNewSaveAreaIndex = SceneUtility.GetBuildIndexByScenePath("Assets/_Scenes/Areas/" + _defaultNewSaveSceneName + ".unity");
+            _defaultNewSaveAreaIndex = SceneUtility.GetBuildIndexByScenePath(_defaultNewSaveSceneName);
 
             _initialised = true;
         }
@@ -98,7 +98,7 @@ namespace _Scripts._Game.General.Managers{
 
             //SceneManager.LoadScene(index);
 
-            AsyncOperation zoneSceneLoadSceneAsync = SceneManager.LoadSceneAsync(_zones[GameStateManager.Instance.ZoneSpawnIndex].ZoneName, LoadSceneMode.Additive);
+            AsyncOperation zoneSceneLoadSceneAsync = SceneManager.LoadSceneAsync(_zones[GameStateManager.Instance.ZoneSpawnIndex].ZoneScene, LoadSceneMode.Additive);
             while (!zoneSceneLoadSceneAsync.isDone)
             {
                 yield return null;
@@ -137,8 +137,8 @@ namespace _Scripts._Game.General.Managers{
             // audio
             EAudioTrackTypes musicType = _buildIndexAreaInfoDict[GameStateManager.Instance.CurrentAreaIndex].AreaMusic;
             EAudioTrackTypes ambienceType = _buildIndexAreaInfoDict[GameStateManager.Instance.CurrentAreaIndex].AreaAmbience;
-            AudioManager.Instance.PlayAudio(musicType, true, 0.5f);
-
+            AudioManager.Instance.StopAllAudioTracks(true);
+            AudioManager.Instance.PlayAudio(musicType, true, 2.0f);
         }
     }
     

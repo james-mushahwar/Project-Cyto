@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
 
 namespace _Scripts._Game.General.SceneLoading{
@@ -11,13 +12,13 @@ namespace _Scripts._Game.General.SceneLoading{
         //[SerializeField]
         //private int _zoneIndex;
         [SerializeField]
-        private string _zoneName;
+        private SceneField _zoneScene;
 
         [SerializeField]
         private FAreaInfo[] _areaInfos;
 
         //public int ZoneIndex { get => _zoneIndex; }
-        public string ZoneName { get => _zoneName; }
+        public SceneField ZoneScene { get => _zoneScene; }
 
         public FAreaInfo[] AreaInfos { get => _areaInfos; }
     }

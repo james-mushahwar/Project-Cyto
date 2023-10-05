@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ namespace _Scripts._Game.General.SceneLoading{
     public class SceneSwitcher : MonoBehaviour
     {
         [SerializeField]
-        private string[] _sceneAssets = new string[2];
+        private SceneField[] _sceneAssets = new SceneField[2];
         [SerializeField]
         private Collider2D[] _colliders = new Collider2D[2];
 

@@ -237,8 +237,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dd116c795ff44f887ab858e049c004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftAreaName: Area1-1
-  _rightAreaName: Area1-4
+  _leftAreaName:
+    _sceneAsset: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
+    _sceneName: Area1-1
+  _rightAreaName:
+    _sceneAsset: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
+    _sceneName: Area1-4
 --- !u!1001 &4198667497116117289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247,6 +251,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1018287976}
     m_Modifications:
+    - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
+      propertyPath: _sceneAssets.Array.data[0]._sceneName
+      value: Area1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
+      propertyPath: _sceneAssets.Array.data[1]._sceneName
+      value: Area1-4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
+      propertyPath: _sceneAssets.Array.data[0]._sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
+    - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
+      propertyPath: _sceneAssets.Array.data[1]._sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
     - target: {fileID: 3273431067193249683, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_Name
       value: SwitcherArea1-1To1-4

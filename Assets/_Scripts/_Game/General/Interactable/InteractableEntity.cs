@@ -14,6 +14,7 @@ namespace _Scripts._Game.General.Interactable{
     [RequireComponent(typeof(SaveableEntity)), RequireComponent(typeof(LogicEntity))]
     public class InteractableEntity : MonoBehaviour, IInteractable
     {
+        private SaveableEntity _saveStationSE;
         //IInteractable
         [SerializeField]
         private EInteractableStimuli _interactableStimuli;
@@ -63,6 +64,8 @@ namespace _Scripts._Game.General.Interactable{
             {
                 _interactRoot = transform;
             }
+
+            _saveStationSE = gameObject.GetComponent<SaveableEntity>();
         }
 
         private void OnEnable()
@@ -112,10 +115,9 @@ namespace _Scripts._Game.General.Interactable{
                 if (_interactableType == EInteractableType.SaveStation)
                 {
                     GameStateManager.Instance.SetAreaSpawnIndex(gameObject.scene.buildIndex);
-                    SaveableEntity saveStationSE = gameObject.GetComponent<SaveableEntity>();
-                    if (saveStationSE != null)
+                    if (_saveStationSE != null)
                     {
-                        RespawnManager.Instance.RespawnGOID = saveStationSE.Id;
+                        RespawnManager.Instance.RespawnGOID = _saveStationSE.Id;
                     }
                 }
                 OnInteractStart.Invoke();

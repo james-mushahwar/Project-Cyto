@@ -383,9 +383,20 @@ namespace _Scripts._Game.General.Managers {
 
                 while (timer <= duration)
                 {
-                    track._source.volume = Mathf.Lerp(initial, target, timer / duration);
-                    timer += Time.deltaTime;
-                    yield return null;
+                    AudioMixer sourceMixer = track._source.outputAudioMixerGroup.audioMixer;
+                    if (sourceMixer != null)
+                    {
+                        float alpha = Mathf.Lerp(initial, target, timer / duration);
+                        sourceMixer.SetFloat("Volume", MathF.Log10(alpha) * 20.0f);
+                        timer += Time.deltaTime;
+                        yield return null;
+                    }
+                    else
+                    {
+                        track._source.volume = Mathf.Lerp(initial, target, timer / duration);
+                        timer += Time.deltaTime;
+                        yield return null;
+                    }
                 }
             }
 
