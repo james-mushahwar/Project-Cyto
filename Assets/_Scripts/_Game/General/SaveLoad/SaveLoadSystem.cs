@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using _Scripts._Game.General.Managers;
+using Assets._Scripts._Game.General.SceneLoading;
 
 namespace _Scripts._Game.General.SaveLoad{
 
@@ -221,8 +222,10 @@ namespace _Scripts._Game.General.SaveLoad{
 
             SurrogateSelector surrogateSelector = new SurrogateSelector();
             Vector3SerializationSurrogate v3Surrogate = new Vector3SerializationSurrogate();
+            //SceneFieldSerializationSurrogate sceneFieldSurrogate = new SceneFieldSerializationSurrogate();
 
             surrogateSelector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), v3Surrogate);
+            //surrogateSelector.AddSurrogate(typeof(SceneField), new StreamingContext(StreamingContextStates.All), sceneFieldSurrogate);
 
             formatter.SurrogateSelector = surrogateSelector;
 

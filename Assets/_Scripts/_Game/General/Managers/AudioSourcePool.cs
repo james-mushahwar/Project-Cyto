@@ -10,7 +10,11 @@ namespace _Scripts._Game.General.Managers{
         {
             base.Awake();
 
-            //Debug.Log("Audio source pool is created");
+            CreateAudioSourcePool();
+        }
+
+        private void CreateAudioSourcePool()
+        {
             for (int i = 0; i < m_PoolCount; ++i)
             {
                 GameObject newGO = new GameObject(gameObject.name + i);
@@ -27,6 +31,20 @@ namespace _Scripts._Game.General.Managers{
                 aSource.playOnAwake = false;
             }
         }
+
+        public void CleanAudioSourcePool()
+        { 
+            foreach (AudioSource aSource in m_Pool.ToArray())
+            {
+                if (aSource != null)
+                {
+                    Destroy(aSource.gameObject);
+                }
+            }
+            m_Pool.Clear();
+            CreateAudioSourcePool();
+        }
+
         protected override bool IsActive(AudioSource component)
         {
              return component.isPlaying;

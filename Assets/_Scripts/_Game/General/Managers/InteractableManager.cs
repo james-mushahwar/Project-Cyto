@@ -99,6 +99,11 @@ namespace _Scripts._Game.General.Managers{
             {
                 return SaveLoadSystem.IsSaveOrLoadInProgress;
             }
+
+            if (interactable.InteractableType == EInteractableType.Doorway)
+            {
+                return GameStateManager.Instance.IsLoadInProgress;
+            }
             return true;
         }
 

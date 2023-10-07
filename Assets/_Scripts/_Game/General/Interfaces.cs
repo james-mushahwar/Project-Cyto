@@ -316,6 +316,14 @@ namespace _Scripts._Game.General{
         MainMenu,
         InGame,
     }
+
+    public enum ELoadType
+    {
+        NONE,
+        NewGame,
+        LoadSave,
+        LoadNewZone,
+    }
     #endregion
 
     #region Saving
@@ -355,6 +363,21 @@ namespace _Scripts._Game.General{
         object SavePrefs();
 
         void LoadPrefs(object state);
+    }
+    #endregion
+
+    #region Managers
+
+    public interface IManager
+    {
+        // before game starts loading
+        public void PreInGameLoad();
+        // just as game finishes loading
+        public void PostInGameLoad();
+        // before game starts loading
+        public void PreMainMenuLoad();
+        // just as game finishes loading
+        public void PostMainMenuLoad();
     }
     #endregion
 }

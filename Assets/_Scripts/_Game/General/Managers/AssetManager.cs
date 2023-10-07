@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.General.SceneLoading;
+using Assets._Scripts._Game.General.SceneLoading;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,28 +10,42 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace _Scripts._Game.General.Managers{
     public class AssetManager : Singleton<AssetManager>
     {
+        //Build scenes
+        [SerializeField] 
+        private SceneField[] _allBuildSceneFields;
+
         [SerializeField]
         private ZoneScriptableObject[] _zones;
 
-        private Dictionary<int, int[]> _levelIndexDict = new Dictionary<int, int[]>();
-        private Dictionary<int, int[]>[] _zoneAreasDicts;
-        private Dictionary<string, int> _areaNameIndexDict = new Dictionary<string, int>();
-        private Dictionary<int, FAreaInfo> _buildIndexAreaInfoDict = new Dictionary<int, FAreaInfo>();
+        private Dictionary<string, ZoneScriptableObject> _zoneNameZoneSODict;
+        //private Dictionary<int, int[]>[] _zoneAreasDicts;
+        //private Dictionary<string, int> _areaNameIndexDict = new Dictionary<string, int>();
+        private Dictionary<string, FAreaInfo> _areaNameAreaInfoDict = new Dictionary<string, FAreaInfo>();
+        private Dictionary<string, int> _allBuildScenesNameToIndex = new Dictionary<string, int>();
+        private Dictionary<int, SceneField> _allBuildIndexToSceneField = new Dictionary<int, SceneField>();
+        
+        
         //New save zone and area defaults
-        [SerializeField]
-        private int _defaultNewSaveZoneIndex = 0;
-        public int DefaultNewSaveZoneIndex
+        [SerializeField] 
+        private SceneField _defaultNewSaveZoneScene;
+        [SerializeField] 
+        private SceneField _defaultNewSaveAreaScene;
+        public SceneField DefaultNewSaveZoneScene
         {
-            get { return _defaultNewSaveZoneIndex; }
+            get { return _defaultNewSaveZoneScene; }
         }
 
-        [SerializeField] 
-        private string _defaultNewSaveSceneName;
+        public SceneField DefaultNewSaveAreaScene
+        {
+            get { return _defaultNewSaveAreaScene; }
+        }
+
         private int _defaultNewSaveAreaIndex;
         public int DefaultNewSaveAreaIndex
         {
             get { return _defaultNewSaveAreaIndex; }
         }
+
 
         private bool _initialised = false;
 
@@ -41,79 +56,85 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
-            _zoneAreasDicts = new Dictionary<int, int[]>[_zones.Length];
+            //int sceneCount = SceneManager.sceneCountInBuildSettings;
+            //string[] scenes = new string[sceneCount];
+
+            //for (int i = 0; i < sceneCount; i++)
+            //{
+            //    string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            //    scenes[i] = scenePath;
+            //    _allBuildScenesNameToIndex.TryAdd(scenePath, i);
+            //}
+
+            for (int i = 0; i < _allBuildSceneFields.Length; i++)
+            {
+                int sceneIndex = SceneUtility.GetBuildIndexByScenePath(_allBuildSceneFields[i]);
+                _allBuildIndexToSceneField.TryAdd(sceneIndex, _allBuildSceneFields[i]);
+                _allBuildScenesNameToIndex.TryAdd(_allBuildSceneFields[i], sceneIndex);
+            }
+
+            _zoneNameZoneSODict = new Dictionary<string, ZoneScriptableObject>();
             Dictionary<int, int[]> levelIndexDict = new Dictionary<int, int[]>();
-            int index = 0;
 
             foreach (ZoneScriptableObject zone in _zones)
             {
                 FAreaInfo[] areas = zone.AreaInfos;
                 foreach (FAreaInfo area in areas)
                 {
-                    int mainSceneIndex = SceneUtility.GetBuildIndexByScenePath(area.AreaName.SceneName);
-                    //Debug.Log("Main scene index: " + mainSceneIndex);
-                    int[] additiveIndices = new int[area.ConnectedAreas.Length];
-
-                    _areaNameIndexDict.TryAdd(area.AreaName.SceneName, mainSceneIndex);
-                    _buildIndexAreaInfoDict.TryAdd(mainSceneIndex, area);
-
-                    if (levelIndexDict.ContainsKey(mainSceneIndex))
-                    {
-                        continue;
-                    }
-
-                    for (int i = 0; i < area.ConnectedAreas.Length; ++i)
-                    {
-                        additiveIndices[i] = SceneUtility.GetBuildIndexByScenePath(area.ConnectedAreas[i].SceneName);
-                    }
-
-                    levelIndexDict.TryAdd(mainSceneIndex, additiveIndices);
+                    int mainSceneIndex = SceneUtility.GetBuildIndexByScenePath(area.AreaName);
+                    _areaNameAreaInfoDict.TryAdd(area.AreaName, area);
                 }
 
-                _zoneAreasDicts[index] = levelIndexDict;
-                index++;
+                _zoneNameZoneSODict.TryAdd(zone.ZoneScene, zone);
             }
             
 
-            _defaultNewSaveAreaIndex = SceneUtility.GetBuildIndexByScenePath(_defaultNewSaveSceneName);
+            _defaultNewSaveAreaIndex = SceneUtility.GetBuildIndexByScenePath(_defaultNewSaveAreaScene);
 
             _initialised = true;
         }
 
-        public int AreaNameToBuildIndex(string areaName)
+        public int SceneNameToBuildIndex(string sceneName)
         {
             int index = -1;
-            _areaNameIndexDict.TryGetValue(areaName, out index);
+            _allBuildScenesNameToIndex.TryGetValue(sceneName, out index);
             return index;
         }
 
-        public IEnumerator LoadZoneAreaByIndex(int index, bool loadAdditives = true)
+        public SceneField IndexToSceneField(int index)
+        {
+            SceneField sceneField = null;
+            _allBuildIndexToSceneField.TryGetValue(index, out sceneField);
+            return sceneField;
+        }
+
+        public IEnumerator LoadZoneAndArea(SceneField zoneScene, SceneField areaScene, bool loadAdditives = true)
         {
             //Debug.Log("Current Zone index is: " + GameStateManager.Instance.CurrentZoneIndex);
-            if (!_zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex].ContainsKey(index))
+            if (!_areaNameAreaInfoDict.ContainsKey(areaScene))
             {
-                Debug.LogError("No index in SceneInfo: Index is " + index);
+                Debug.LogError("No index in SceneInfo: Index is " + areaScene);
                 yield return false;
             }
 
             //SceneManager.LoadScene(index);
 
-            AsyncOperation zoneSceneLoadSceneAsync = SceneManager.LoadSceneAsync(_zones[GameStateManager.Instance.ZoneSpawnIndex].ZoneScene, LoadSceneMode.Additive);
+            AsyncOperation zoneSceneLoadSceneAsync = SceneManager.LoadSceneAsync((int)zoneScene, LoadSceneMode.Additive);
             while (!zoneSceneLoadSceneAsync.isDone)
             {
                 yield return null;
             }
 
-            AsyncOperation mainAreaLoadScenenAsync = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
+            AsyncOperation mainAreaLoadScenenAsync = SceneManager.LoadSceneAsync((int)areaScene, LoadSceneMode.Additive);
             while (!mainAreaLoadScenenAsync.isDone)
             {
                 yield return null;
             }
 
-            foreach (int addIndex in _zoneAreasDicts[GameStateManager.Instance.CurrentZoneIndex][index])
+            foreach (SceneField additiveScenes in _areaNameAreaInfoDict[areaScene].ConnectedAreas)
             {
                 //Debug.Log("Load scene index: " + addIndex);
-                AsyncOperation areaSceneLoadSceneAsync = SceneManager.LoadSceneAsync(addIndex, LoadSceneMode.Additive);
+                AsyncOperation areaSceneLoadSceneAsync = SceneManager.LoadSceneAsync((int)additiveScenes, LoadSceneMode.Additive);
                 while (!areaSceneLoadSceneAsync.isDone)
                 {
                     yield return null;
@@ -127,16 +148,11 @@ namespace _Scripts._Game.General.Managers{
             UpdateStateArea();
         }
 
-        private IEnumerator LoadZoneAreaByIndexEnumerator(int index, bool loadAddtives = true)
-        {
-            yield return null;
-        }
-
         public void UpdateStateArea()
         {
             // audio
-            EAudioTrackTypes musicType = _buildIndexAreaInfoDict[GameStateManager.Instance.CurrentAreaIndex].AreaMusic;
-            EAudioTrackTypes ambienceType = _buildIndexAreaInfoDict[GameStateManager.Instance.CurrentAreaIndex].AreaAmbience;
+            EAudioTrackTypes musicType = _areaNameAreaInfoDict[GameStateManager.Instance.CurrentAreaScene].AreaMusic;
+            EAudioTrackTypes ambienceType = _areaNameAreaInfoDict[GameStateManager.Instance.CurrentAreaScene].AreaAmbience;
             AudioManager.Instance.StopAllAudioTracks(true);
             AudioManager.Instance.PlayAudio(musicType, true, 2.0f);
         }

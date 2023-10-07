@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.Player;
+using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,41 +13,52 @@ namespace _Scripts._Game.General.Managers{
     public class GameStateManager : Singleton<GameStateManager>, ISaveable
     {
         private int _saveIndex = -1;        //what save file index
-        private int _areaSpawnIndex = -1;  //what area to load first
-        private int _currentAreaIndex = -1; // what area is the player in
-
-        private int _zoneSpawnIndex = 0;
-        private int _currentZoneIndex = 0; // wate zone is the player in
-
-        public int AreaSpawnIndex
+        private SceneField _zoneSpawnScene;
+        public SceneField ZoneSpawnScene
         {
             get
             {
-                if (_areaSpawnIndex == -1)
+                if (_zoneSpawnScene == null)
                 {
-                    _areaSpawnIndex = AssetManager.Instance.DefaultNewSaveAreaIndex;
+                    _zoneSpawnScene = AssetManager.Instance.DefaultNewSaveZoneScene;
                 }
-                return _areaSpawnIndex;
+                return _zoneSpawnScene;
             }
-            set => _areaSpawnIndex = value;
+            set => _zoneSpawnScene = value;
         }
-        public int CurrentAreaIndex
+        private SceneField _currentZoneScene;
+        public SceneField CurrentZoneScene
         {
-            
-            get
-            {
-                if (_currentAreaIndex == -1)
-                {
-                    _currentAreaIndex = AssetManager.Instance.DefaultNewSaveAreaIndex;
-                }
-                return _currentAreaIndex;
-            }
-            
-            set => _currentAreaIndex = value;
+            get { return _currentZoneScene; }
         }
 
-        public int ZoneSpawnIndex { get => _zoneSpawnIndex; set => _zoneSpawnIndex = value; }
-        public int CurrentZoneIndex { get => _currentZoneIndex; }
+        private SceneField _areaSpawnScene;
+        public SceneField AreaSpawnScene
+        {
+            get
+            {
+                if (_areaSpawnScene == null)
+                {
+                    _areaSpawnScene = AssetManager.Instance.DefaultNewSaveAreaScene;
+                }
+                return _areaSpawnScene;
+            }
+            set => _areaSpawnScene = value;
+        }
+
+        private SceneField _currentAreaScene;
+        public SceneField CurrentAreaScene
+        {
+            get
+            {
+                if (_currentAreaScene == null)
+                {
+                    _currentAreaScene = AssetManager.Instance.DefaultNewSaveAreaScene;
+                }
+                return _currentAreaScene;
+            }
+            set => _currentAreaScene = value;
+        }
 
         private EGameType _gameType;
 
@@ -68,6 +82,15 @@ namespace _Scripts._Game.General.Managers{
         }
 
         private Coroutine _loadGameCoroutine;
+        private Coroutine _loadNewZoneCoroutine;
+
+        public bool IsLoadInProgress
+        {
+            get { return _loadGameCoroutine != null || _loadNewZoneCoroutine != null; }
+        }
+
+        private ELoadType _loadType = ELoadType.NONE;
+        public ELoadType LoadType { get => _loadType; set => _loadType = value;  }
 
         private static bool _isQuitting = false;
         public static bool IsQuitting { get => _isQuitting; set => _isQuitting = value; }
@@ -87,10 +110,14 @@ namespace _Scripts._Game.General.Managers{
         [SerializeField]
         private SaveableEntity[] _startInGameSaveableEntityLoad;
 
-        //Active Zone and area
+        //Managers
+        private IManager[] _managers;
 
         protected override void Awake()
         {
+            //Managers
+            _managers = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IManager>().ToArray();
+
             IsQuitting = false;
             Application.quitting += OnQuit;
             _saveableEntity = GetComponent<SaveableEntity>();
@@ -184,6 +211,9 @@ namespace _Scripts._Game.General.Managers{
                 //continue last save
                 saveIndex = SaveLoadSystem.Instance.LastSaveIndex;
             }
+
+            _loadType = newGame ? ELoadType.NewGame : ELoadType.LoadSave;
+
             _saveIndex = saveIndex;
             Debug.Log("Save index is: " + _saveIndex);
 
@@ -211,10 +241,13 @@ namespace _Scripts._Game.General.Managers{
             }
 
             _loadGameCoroutine = null;
+            _loadType = ELoadType.NONE;
         }
 
         private IEnumerator LoadInGame()
         {
+            PreInGameLoad();
+
             UIManager.Instance.ShowMainMenu(false);
             UIManager.Instance.ShowLoadingScreen(true);
             IsQuitting = false;
@@ -240,7 +273,9 @@ namespace _Scripts._Game.General.Managers{
                 yield return null;
             }
 
-            IEnumerator _loadZoneAreaEnumerator = AssetManager.Instance.LoadZoneAreaByIndex(AreaSpawnIndex);
+            SceneField zoneScene = ZoneSpawnScene;
+            SceneField areaScene = AreaSpawnScene;
+            IEnumerator _loadZoneAreaEnumerator = AssetManager.Instance.LoadZoneAndArea(zoneScene, areaScene);
             while (_loadZoneAreaEnumerator.MoveNext() != false)
             {
                 yield return null;
@@ -272,27 +307,30 @@ namespace _Scripts._Game.General.Managers{
             UIManager.Instance.ShowLoadingScreen(false);
 
             FollowCamera.Instance.ActivateCamera(true);
+
+            PostInGameLoad();
         }
 
-        public void SetAreaSpawnIndex(int index)
+        public void SetAreaSpawnScene(int index)
         {
-            AreaSpawnIndex = index;
-            Debug.Log("Saved scene index is: " + AreaSpawnIndex);
+            _areaSpawnScene = AssetManager.Instance.IndexToSceneField(index);
+            Debug.Log("Saved scene index is: " + _areaSpawnScene);
         }
 
-        public void EnterZoneAndArea(int zoneIdex, int areaIndex)
+        public void EnterZoneAndArea(SceneField zoneScene, SceneField areaScene)
         {
-            if (areaIndex == _currentAreaIndex)
+            if (areaScene == CurrentAreaScene)
             {
                 return;
             }
 
-            _currentAreaIndex = areaIndex;
+            _currentAreaScene = areaScene;
             AssetManager.Instance.UpdateStateArea();
         }
 
         public void QuitToMainMenu()
         {
+            PreMainMenuLoad();
             AudioManager.Instance.StopAllAudioTracks();
 
             PauseManager.Instance.TogglePause();
@@ -300,23 +338,67 @@ namespace _Scripts._Game.General.Managers{
             SceneManager.LoadScene("Main_Menu");
             UIManager.Instance.ShowMainMenu(true);
 
+            PostMainMenuLoad();
             _inGameManagerGroup.SetActive(false);
         }
 
-        public IEnumerator LoadNewZoneAndArea(int zoneIndex, int areaBuildIndex)
+        public void TryNewZoneAndArea(SceneField zoneScene, SceneField areaScene)
         {
-            UIManager.Instance.ShowMainMenu(false);
+            if (_loadNewZoneCoroutine != null)
+            {
+                return;
+            }
+
+            _loadNewZoneCoroutine = StartCoroutine(LoadNewZoneAndArea(zoneScene, areaScene));
+        }
+
+        public IEnumerator LoadNewZoneAndArea(SceneField zoneScene, SceneField areaScene)
+        {
+            //show camera transition
+
+            // loading screen
             UIManager.Instance.ShowLoadingScreen(true);
 
-            IEnumerator _loadZoneAreaEnumerator = AssetManager.Instance.LoadZoneAreaByIndex(areaBuildIndex);
+            IEnumerator _loadZoneAreaEnumerator = AssetManager.Instance.LoadZoneAndArea(zoneScene, areaScene);
             while (_loadZoneAreaEnumerator.MoveNext() != false)
             {
                 yield return null;
             }
 
             // find correct spawn location
-
+            _currentZoneScene = zoneScene;
+            _currentAreaScene = areaScene;
             UIManager.Instance.ShowLoadingScreen(false);
+        }
+
+        // managers
+        private void PreInGameLoad()
+        {
+            for (int i = 0; i < _managers.Length; i++)
+            {
+                _managers[i].PreInGameLoad();
+            }
+        }
+        private void PostInGameLoad()
+        {
+            for (int i = 0; i < _managers.Length; i++)
+            {
+                _managers[i].PostInGameLoad();
+            }
+        }
+        private void PreMainMenuLoad()
+        {
+            for (int i = 0; i < _managers.Length; i++)
+            {
+                _managers[i].PreMainMenuLoad();
+            }
+        }
+        private void PostMainMenuLoad()
+        {
+            for (int i = 0; i < _managers.Length; i++)
+            {
+                _managers[i].PostMainMenuLoad();
+            }
         }
 
         //ISaveable
@@ -325,14 +407,17 @@ namespace _Scripts._Game.General.Managers{
         {
             public int zoneSpawnIndex;  //what zone to load
             public int areaSpawnIndex;  //what area to load in zone
+
         }
 
         public object SaveState()
         {
+            int zSpawnIndex = AssetManager.Instance.SceneNameToBuildIndex(ZoneSpawnScene);
+            int aSpawnIndex = AssetManager.Instance.SceneNameToBuildIndex(AreaSpawnScene);
             return new SaveData()
             {
-                zoneSpawnIndex = _zoneSpawnIndex,
-                areaSpawnIndex = AreaSpawnIndex
+                zoneSpawnIndex = zSpawnIndex,
+                areaSpawnIndex = aSpawnIndex,
             };
         }
 
@@ -340,10 +425,13 @@ namespace _Scripts._Game.General.Managers{
         {
             SaveData saveData = (SaveData)state;
 
-            _zoneSpawnIndex = saveData.zoneSpawnIndex;
-            _currentZoneIndex = _zoneSpawnIndex;
-            AreaSpawnIndex = saveData.areaSpawnIndex <= 0 ? AssetManager.Instance.DefaultNewSaveAreaIndex : saveData.areaSpawnIndex;
-            _currentAreaIndex = AreaSpawnIndex;
+            SceneField zSpawnField = AssetManager.Instance.IndexToSceneField(saveData.zoneSpawnIndex);
+            _zoneSpawnScene = zSpawnField == null ? AssetManager.Instance.DefaultNewSaveZoneScene : zSpawnField;
+            _currentZoneScene = ZoneSpawnScene;
+
+            SceneField aSpawnField = AssetManager.Instance.IndexToSceneField(saveData.areaSpawnIndex);
+            _areaSpawnScene = aSpawnField == null ? AssetManager.Instance.DefaultNewSaveAreaScene : aSpawnField;
+            _currentAreaScene = AreaSpawnScene;
         }
 
     }

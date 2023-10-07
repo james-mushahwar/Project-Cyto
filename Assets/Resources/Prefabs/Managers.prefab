@@ -4353,10 +4353,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cdf692a11964cc098281a3edef01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _allBuildSceneFields:
+  - _sceneAsset: {fileID: 102900000, guid: 7b0efb6352eb84f01b76b6d1c9c240a0, type: 3}
+    _sceneName: Main_Menu
+  - _sceneAsset: {fileID: 102900000, guid: a3e946a6ca0204d82b1290b4c5ddcde1, type: 3}
+    _sceneName: PlayerScene
+  - _sceneAsset: {fileID: 102900000, guid: 74103667a05e941b4b36433f3070b79b, type: 3}
+    _sceneName: PersistantInGameScene
+  - _sceneAsset: {fileID: 102900000, guid: 771701603d1bd4cbbb0757ddf9795280, type: 3}
+    _sceneName: Zone1
+  - _sceneAsset: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
+    _sceneName: Area1-1
+  - _sceneAsset: {fileID: 102900000, guid: e95005787b6906c43ad617b05afd393a, type: 3}
+    _sceneName: Area1-2
+  - _sceneAsset: {fileID: 102900000, guid: d60282ebfb551a94692ae266150e110a, type: 3}
+    _sceneName: Area1-3
+  - _sceneAsset: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
+    _sceneName: Area1-4
   _zones:
   - {fileID: 11400000, guid: cfe1426883d614e5dab06ac4e0c0db29, type: 2}
-  _defaultNewSaveZoneIndex: 0
-  _defaultNewSaveSceneName: Area1-1
+  _defaultNewSaveZoneScene:
+    _sceneAsset: {fileID: 102900000, guid: 771701603d1bd4cbbb0757ddf9795280, type: 3}
+    _sceneName: Zone1
+  _defaultNewSaveAreaScene:
+    _sceneAsset: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
+    _sceneName: Area1-1
 --- !u!1 &4567710014493137354
 GameObject:
   m_ObjectHideFlags: 0

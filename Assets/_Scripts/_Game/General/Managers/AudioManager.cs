@@ -64,7 +64,7 @@ namespace _Scripts._Game.General.Managers {
         PAUSE,
     }
 
-    public class AudioManager : Singleton<AudioManager>
+    public class AudioManager : Singleton<AudioManager>, IManager
     {
         private static EAudioType[] _AudioTypes =
         {
@@ -161,6 +161,26 @@ namespace _Scripts._Game.General.Managers {
             _audioTable = new Dictionary<EAudioTrackTypes, AudioTrack>();
             _jobTable = new Dictionary<EAudioTrackTypes, IEnumerator>();
             GenerateAudioTable();
+        }
+
+        public void PreInGameLoad()
+        {
+            
+        }
+
+        public void PostInGameLoad()
+        {
+            _audioSourcePool.CleanAudioSourcePool();
+        }
+
+        public void PreMainMenuLoad()
+        {
+            
+        }
+
+        public void PostMainMenuLoad()
+        {
+            _audioSourcePool.CleanAudioSourcePool();
         }
 
         public AudioSource TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc)

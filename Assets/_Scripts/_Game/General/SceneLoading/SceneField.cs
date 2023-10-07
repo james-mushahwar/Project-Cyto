@@ -1,5 +1,8 @@
 ﻿
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,7 +13,12 @@ namespace Assets._Scripts._Game.General.SceneLoading
     public class SceneField
     {
         [SerializeField]
-        private Object _sceneAsset;
+        public Object _sceneAsset;
+
+        public Object SceneAsset
+        {
+            get { return _sceneAsset; }
+        }
 
         [SerializeField]
         private string _sceneName = "";
@@ -23,6 +31,12 @@ namespace Assets._Scripts._Game.General.SceneLoading
         public static implicit operator string(SceneField sceneField)
         {
             return sceneField.SceneName;
+        }
+
+        // makes it work with the existing Unity methods (LoadLevel/LoadScene)
+        public static implicit operator int(SceneField sceneField)
+        {
+            return SceneUtility.GetBuildIndexByScenePath(sceneField);
         }
     }
 

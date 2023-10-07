@@ -65,7 +65,10 @@ namespace _Scripts._Game.General.Interactable{
                 _interactRoot = transform;
             }
 
-            _saveStationSE = gameObject.GetComponent<SaveableEntity>();
+            if (_interactableType == EInteractableType.SaveStation)
+            {
+                _saveStationSE = gameObject.GetComponent<SaveableEntity>();
+            }
         }
 
         private void OnEnable()
@@ -114,7 +117,7 @@ namespace _Scripts._Game.General.Interactable{
             {
                 if (_interactableType == EInteractableType.SaveStation)
                 {
-                    GameStateManager.Instance.SetAreaSpawnIndex(gameObject.scene.buildIndex);
+                    GameStateManager.Instance.SetAreaSpawnScene(gameObject.scene.buildIndex);
                     if (_saveStationSE != null)
                     {
                         RespawnManager.Instance.RespawnGOID = _saveStationSE.Id;

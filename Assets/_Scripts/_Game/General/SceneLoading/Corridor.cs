@@ -17,14 +17,14 @@ namespace _Scripts._Game.General.SceneLoading{
 
         public void Start()
         {
-            _leftAreaBuildIndex = AssetManager.Instance.AreaNameToBuildIndex(_leftAreaName);
-            _rightAreaBuildIndex = AssetManager.Instance.AreaNameToBuildIndex(_rightAreaName);
+            _leftAreaBuildIndex = AssetManager.Instance.SceneNameToBuildIndex(_leftAreaName);
+            _rightAreaBuildIndex = AssetManager.Instance.SceneNameToBuildIndex(_rightAreaName);
         }
 
         public void EnterArea(bool left)
         {
-            int areaIndex = left ? _leftAreaBuildIndex : _rightAreaBuildIndex;
-            GameStateManager.Instance.EnterZoneAndArea(-1, areaIndex);
+            SceneField areaScene = left ? _leftAreaName : _rightAreaName;
+            GameStateManager.Instance.EnterZoneAndArea(null, areaScene);
         }
     }
     
