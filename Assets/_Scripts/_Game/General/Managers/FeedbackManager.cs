@@ -45,7 +45,7 @@ namespace _Scripts._Game.General.Managers{
         public AnimationCurve _highFrequencyPattern; // from 0 to 1 scale
     }
 
-    public class FeedbackManager : Singleton<FeedbackManager>
+    public class FeedbackManager : Singleton<FeedbackManager>, IManager
     {
         #region General
         private Gamepad _gamepad;
@@ -240,7 +240,26 @@ namespace _Scripts._Game.General.Managers{
                 gamepad.SetMotorSpeeds(0.0f, 0.0f);
             }
         }
-      
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
+        }
     }
     
 }

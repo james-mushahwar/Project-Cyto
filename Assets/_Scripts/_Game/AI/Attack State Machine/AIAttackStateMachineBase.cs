@@ -383,7 +383,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
         public void LoadState(object state)
         {
-            throw new NotImplementedException();
+             
         }
     }
     

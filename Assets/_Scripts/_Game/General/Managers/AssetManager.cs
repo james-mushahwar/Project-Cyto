@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using static UnityEngine.EventSystems.EventTrigger;
 
 namespace _Scripts._Game.General.Managers{
-    public class AssetManager : Singleton<AssetManager>
+    public class AssetManager : Singleton<AssetManager>, IManager
     {
         //Build scenes
         [SerializeField] 
@@ -117,13 +117,26 @@ namespace _Scripts._Game.General.Managers{
                 yield return false;
             }
 
-            //SceneManager.LoadScene(index);
+            // zones
+            SceneField currentZone = GameStateManager.Instance.CurrentZoneScene;
 
             AsyncOperation zoneSceneLoadSceneAsync = SceneManager.LoadSceneAsync((int)zoneScene, LoadSceneMode.Additive);
             while (!zoneSceneLoadSceneAsync.isDone)
             {
                 yield return null;
             }
+
+            if (currentZone != null && currentZone != zoneScene)
+            {
+                AsyncOperation unloadZoneSceneAsync = SceneManager.UnloadSceneAsync((int)currentZone);
+                while (!unloadZoneSceneAsync.isDone)
+                {
+                    yield return null;
+                }
+            }
+
+            // areas
+            SceneField currentArea = GameStateManager.Instance.CurrentAreaScene;
 
             AsyncOperation mainAreaLoadScenenAsync = SceneManager.LoadSceneAsync((int)areaScene, LoadSceneMode.Additive);
             while (!mainAreaLoadScenenAsync.isDone)
@@ -138,6 +151,25 @@ namespace _Scripts._Game.General.Managers{
                 while (!areaSceneLoadSceneAsync.isDone)
                 {
                     yield return null;
+                }
+            }
+
+            if (currentArea != null && currentArea != areaScene)
+            {
+                AsyncOperation unloadAreaSceneAsync = SceneManager.UnloadSceneAsync((int)currentArea);
+                while (!unloadAreaSceneAsync.isDone)
+                {
+                    yield return null;
+                }
+
+                foreach (SceneField removeAreas in _areaNameAreaInfoDict[currentArea].ConnectedAreas)
+                {
+                    //Debug.Log("Load scene index: " + addIndex);
+                    AsyncOperation removeAreaSceneAsync = SceneManager.UnloadSceneAsync((int)removeAreas);
+                    while (!removeAreaSceneAsync.isDone)
+                    {
+                        yield return null;
+                    }
                 }
             }
             // post main scene load
@@ -155,6 +187,26 @@ namespace _Scripts._Game.General.Managers{
             EAudioTrackTypes ambienceType = _areaNameAreaInfoDict[GameStateManager.Instance.CurrentAreaScene].AreaAmbience;
             AudioManager.Instance.StopAllAudioTracks(true);
             AudioManager.Instance.PlayAudio(musicType, true, 2.0f);
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

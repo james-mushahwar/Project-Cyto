@@ -8,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class VolumeManager : Singleton<VolumeManager>
+    public class VolumeManager : Singleton<VolumeManager>, IManager
     {
         private Volume _globalVolume;
         private float _globalVolumeWeight;
@@ -252,6 +252,26 @@ namespace _Scripts._Game.General.Managers{
             {
                 param.value = value;
             }).SetEase(easeType);
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

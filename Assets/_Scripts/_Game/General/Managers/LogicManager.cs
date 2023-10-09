@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class LogicManager : Singleton<LogicManager>
+    public class LogicManager : Singleton<LogicManager>, IManager
     {
         public bool AreAllInputsValid(ILogicEntity logicEntity)
         {
@@ -40,6 +40,26 @@ namespace _Scripts._Game.General.Managers{
                     }
                 }
             }
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

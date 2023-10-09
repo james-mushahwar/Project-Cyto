@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class CorpseManager : Singleton<CorpseManager>
+    public class CorpseManager : Singleton<CorpseManager>, IManager
     {
         #region AI
         private CorpsePool _bombDroidCorpsePool;
@@ -91,6 +91,26 @@ namespace _Scripts._Game.General.Managers{
                 teleportCorpse.transform.position = position + pool.PositionOffset;
                 teleportCorpse.gameObject.SetActive(true);
             }
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
 

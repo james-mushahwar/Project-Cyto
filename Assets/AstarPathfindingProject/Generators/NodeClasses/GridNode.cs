@@ -338,24 +338,24 @@ namespace Pathfinding {
 		}
 #else
 		public override void AddConnection (GraphNode node, uint cost) {
-			throw new System.NotImplementedException();
+			 throw new System.NotImplementedException();
 		}
 
 		public override void ClearConnections (bool alsoReverse) {
-			throw new System.NotImplementedException();
+			 throw new System.NotImplementedException();
 		}
 
 		public override void GetConnections (GraphNodeDelegate del) {
-			throw new System.NotImplementedException();
+			 throw new System.NotImplementedException();
 		}
 
 		public override void Open (Path path, PathNode pathNode, PathHandler handler) {
-			throw new System.NotImplementedException();
+			 throw new System.NotImplementedException();
 		}
 
 		public override void RemoveConnection (GraphNode node) {
-			throw new System.NotImplementedException();
+			 throw new System.NotImplementedException();
 		}
 #endif
-	}
+    }
 }

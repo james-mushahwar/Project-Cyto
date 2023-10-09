@@ -29,5 +29,20 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Areas/Area1-4.unity
     guid: 149b7c21f76ca164c842fe710a1ade5f
+  - enabled: 1
+    path: Assets/_Scenes/Zones/Zone2.unity
+    guid: 8f12294cf7b2b5044a109fe9349e42d4
+  - enabled: 1
+    path: Assets/_Scenes/Areas/Area2-1.unity
+    guid: 87144452415595645abd1f7e85b99cac
+  - enabled: 1
+    path: Assets/_Scenes/Areas/Area2-2.unity
+    guid: e2452ed618cd60d42aba823e3ed871b8
+  - enabled: 1
+    path: Assets/_Scenes/Areas/Area2-3.unity
+    guid: 3639918c6539e4b499e78336209a022d
+  - enabled: 1
+    path: Assets/_Scenes/Areas/Area2-4.unity
+    guid: f5e41eabe20057344ba1257890ba3b2f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1dc90654f5220354f8b06859e6810d7a, type: 2}

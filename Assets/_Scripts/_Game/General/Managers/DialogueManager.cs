@@ -6,7 +6,7 @@ using _Scripts._Game.UI.Dialogue;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class DialogueManager : Singleton<DialogueManager>
+    public class DialogueManager : Singleton<DialogueManager>, IManager
     {
         private Dictionary<EDialogueType, GameObject> _textGameObjectDictionary = new Dictionary<EDialogueType, GameObject>();
         private Dictionary<EDialogueType, TMP_Text> _textBoxDictionary = new Dictionary<EDialogueType, TMP_Text>();
@@ -213,6 +213,26 @@ namespace _Scripts._Game.General.Managers{
         public void OnDialogueFinished()
         {
             Debug.Log("DIALOGUE TASK FIN");
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

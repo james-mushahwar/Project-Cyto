@@ -6,12 +6,13 @@ using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.Events;
+using _Scripts._Game.General.Identification;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace _Scripts._Game.General.Interactable{
 
-    [RequireComponent(typeof(SaveableEntity)), RequireComponent(typeof(LogicEntity))]
+    [RequireComponent(typeof(LogicEntity))]
     public class InteractableEntity : MonoBehaviour, IInteractable
     {
         private SaveableEntity _saveStationSE;

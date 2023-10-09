@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class AIManager : Singleton<AIManager>
+    public class AIManager : Singleton<AIManager>, IManager
     {
         [Header("Pools")]
         private Dictionary<EEntity, AIPool> _aiPoolDict = new Dictionary<EEntity, AIPool>();
@@ -43,6 +43,26 @@ namespace _Scripts._Game.General.Managers{
                 }
             }
             return null;
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

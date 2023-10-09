@@ -34,11 +34,11 @@ public class FixedCameraBounds : BaseCameraBounds
 
     public override float GetTargetXOffset()
     {
-        throw new System.NotImplementedException();
+        return 0.0f;
     }
 
     public override float GetTargetYOffset()
     {
-        throw new System.NotImplementedException();
+        return 0.0f;
     }
 }

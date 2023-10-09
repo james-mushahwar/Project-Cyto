@@ -15,7 +15,7 @@ namespace _Scripts._Game.General.Managers{
         COUNT
     }
 
-    public class ProjectileManager : Singleton<ProjectileManager>
+    public class ProjectileManager : Singleton<ProjectileManager>, IManager
     {
         #region Projectile properties
         [Header("Basic attack projectile")]
@@ -52,6 +52,26 @@ namespace _Scripts._Game.General.Managers{
         public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
         {
             _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition);
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
 

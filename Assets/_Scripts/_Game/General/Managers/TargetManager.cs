@@ -20,7 +20,7 @@ namespace _Scripts._Game.General.Managers{
         INVALID,
     }
 
-    public class TargetManager : Singleton<TargetManager> 
+    public class TargetManager : Singleton<TargetManager>, IManager
     {
         [System.Serializable]
         private struct TargetingParameters
@@ -444,6 +444,21 @@ namespace _Scripts._Game.General.Managers{
             return transform;
         }
 
+        public void PreInGameLoad()
+        {
+        }
+
+        public void PostInGameLoad()
+        {
+        }
+
+        public void PreMainMenuLoad()
+        {
+        }
+
+        public void PostMainMenuLoad()
+        {
+        }
     }
     
     

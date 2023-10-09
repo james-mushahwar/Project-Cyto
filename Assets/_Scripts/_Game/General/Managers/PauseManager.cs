@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class PauseManager : Singleton<PauseManager>
+    public class PauseManager : Singleton<PauseManager>, IManager
     {
         private bool _isPaused = false;
 
@@ -16,6 +16,26 @@ namespace _Scripts._Game.General.Managers{
             TimeManager.Instance.TryRequestPauseGame(_isPaused);
             UIManager.Instance.ShowPauseMenu(_isPaused);
             InputManager.Instance.TryEnableActionMap(_isPaused ? EInputSystem.Menu : EInputSystem.Player);
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
 }

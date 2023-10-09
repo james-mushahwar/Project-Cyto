@@ -19,8 +19,10 @@ namespace _Scripts._Game.General.Managers{
         public float MaxBondableHealth => _maxBondableHealth;
     }
 
-    public class StatsManager : Singleton<StatsManager>, ISaveable
+    public class StatsManager : Singleton<StatsManager>, ISaveable, IManager
     {
+        private SaveableEntity _saveableEntity;
+
         private float[] _completionStats = new float[(int)EStatsType.COUNT]; 
         //[SerializeField]
         //private FEntityStats[] _entityStats = new FEntityStats[(int)EEntity.COUNT];
@@ -31,7 +33,7 @@ namespace _Scripts._Game.General.Managers{
         // Start is called before the first frame update
         void Start()
         {
-            
+            _saveableEntity = GetComponentInChildren<SaveableEntity>();
         }
     
         // Update is called once per frame
@@ -107,6 +109,26 @@ namespace _Scripts._Game.General.Managers{
 
             this._completionStats = saveData._completionStats;
             Debug.Log("Completion time is: " + _completionStats[(int)EStatsType.TimePlayed]);
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+            SaveLoadSystem.Instance?.OnDisableSaveState(ESaveTarget.Saveable, _saveableEntity);
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

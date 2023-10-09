@@ -46,9 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a172b46ab21816c408c91630bb880dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savePaths: []
+  _savePaths:
+  - _string: save0.txt
+  - _string: save1.txt
+  - _string: save2.txt
   _gamePrefsPath:
-    _string: 
+    _string: gamePrefsSave.txt
 --- !u!114 &1047767014419703653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,12 +71,11 @@ MonoBehaviour:
       - m_Target: {fileID: 6194265455697307136}
         m_TargetAssemblyTypeName: _Scripts._Game.General.SaveLoad.SaveLoadSystem,
           Assembly-CSharp
-        m_MethodName: OnEnableLoadState
-        m_Mode: 2
+        m_MethodName: SaveManual
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: _Scripts._Game.General.SaveLoad.SaveableEntity,
-            Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -94,7 +96,7 @@ MonoBehaviour:
   id: cad79f06-0d1a-4f0c-b50f-bae96dcf8fba
   _editorIgnoreAllSaves: 0
   _editorIgnoreAllLoads: 0
-  _excludedSaveTypes: 
+  _excludedSaveTypes: 02000000
   _saveOnDisable: 0
   _loadOnEnable: 0
   _skipLoadOnFirstPlay: 0

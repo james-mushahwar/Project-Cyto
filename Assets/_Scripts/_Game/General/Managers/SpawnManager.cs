@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class SpawnManager : Singleton<SpawnManager>
+    public class SpawnManager : Singleton<SpawnManager>, IManager
     {
         #region General
         private Dictionary<int, List<string>> _sceneSpawnPointsDict = new Dictionary<int, List<string>>();
@@ -116,6 +116,26 @@ namespace _Scripts._Game.General.Managers{
             float timer = -1.0f;
             _spawnPointRespawnTimersDict.TryGetValue(spawnPoint.RuntimeID.Id, out timer);
             return timer <= 0.0f;
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

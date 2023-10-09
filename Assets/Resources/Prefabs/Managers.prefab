@@ -4370,8 +4370,19 @@ MonoBehaviour:
     _sceneName: Area1-3
   - _sceneAsset: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
     _sceneName: Area1-4
+  - _sceneAsset: {fileID: 102900000, guid: 8f12294cf7b2b5044a109fe9349e42d4, type: 3}
+    _sceneName: Zone2
+  - _sceneAsset: {fileID: 102900000, guid: 87144452415595645abd1f7e85b99cac, type: 3}
+    _sceneName: Area2-1
+  - _sceneAsset: {fileID: 102900000, guid: e2452ed618cd60d42aba823e3ed871b8, type: 3}
+    _sceneName: Area2-2
+  - _sceneAsset: {fileID: 102900000, guid: 3639918c6539e4b499e78336209a022d, type: 3}
+    _sceneName: Area2-3
+  - _sceneAsset: {fileID: 102900000, guid: f5e41eabe20057344ba1257890ba3b2f, type: 3}
+    _sceneName: Area2-4
   _zones:
   - {fileID: 11400000, guid: cfe1426883d614e5dab06ac4e0c0db29, type: 2}
+  - {fileID: 11400000, guid: 1637d1458f190d74597de979ff9f2f2a, type: 2}
   _defaultNewSaveZoneScene:
     _sceneAsset: {fileID: 102900000, guid: 771701603d1bd4cbbb0757ddf9795280, type: 3}
     _sceneName: Zone1

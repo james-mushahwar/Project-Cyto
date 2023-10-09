@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 
 namespace _Scripts._Game.General.Managers
 {
-    public class UIManager : Singleton<UIManager>
+    public class UIManager : Singleton<UIManager>, IManager
     {
         [Header("General")]
         #region General
@@ -403,6 +403,26 @@ namespace _Scripts._Game.General.Managers
 
                 _promptWorldTransformDict[inputType] = show ? attachTransform : this.transform;
             }
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

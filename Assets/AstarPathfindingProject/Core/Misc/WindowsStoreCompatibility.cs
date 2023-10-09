@@ -67,7 +67,7 @@ namespace Pathfinding.WindowsStore {
 				return this._task != null && !this._task.IsCompleted;
 			}
 			set {
-				throw new System.NotImplementedException();
+				 throw new System.NotImplementedException();
 			}
 		}
 

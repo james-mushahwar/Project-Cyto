@@ -14,27 +14,27 @@ namespace _Scripts._Game.Player.Bonding.Possessing{
 
         public override void OnBondStarted()
         {
-            throw new System.NotImplementedException();
+             
         }
 
         public override void OnBondStopped()
         {
-            throw new System.NotImplementedException();
+             
         }
 
         public override void OnBondCompleted()
         {
-            throw new System.NotImplementedException();
+             
         }
 
         public override bool IsBeingBondedWith()
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         public override bool CanBeBonded()
         {
-            throw new System.NotImplementedException();
+            return false;
         }
     }
     

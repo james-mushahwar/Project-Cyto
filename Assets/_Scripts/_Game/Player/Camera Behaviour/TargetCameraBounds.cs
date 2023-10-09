@@ -42,11 +42,11 @@ public class TargetCameraBounds : BaseCameraBounds
 
     public override float GetTargetXOffset()
     {
-        throw new System.NotImplementedException();
+         return _boxCollider.transform.position.x;
     }
 
     public override float GetTargetYOffset()
     {
-        throw new System.NotImplementedException();
+         return _boxCollider.transform.position.y;
     }
 }

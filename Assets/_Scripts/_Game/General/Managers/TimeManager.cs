@@ -12,7 +12,7 @@ namespace _Scripts._Game.General.Managers {
         Ultra
     }
 
-    public class TimeManager : Singleton<TimeManager>
+    public class TimeManager : Singleton<TimeManager>, IManager
     {
         #region Current State
         private ETimeImportance _timeImportance;
@@ -180,6 +180,26 @@ namespace _Scripts._Game.General.Managers {
             Debug.LogWarning("TimeManager: " + log);
         }
         #endregion
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
+        }
     }
 
 }

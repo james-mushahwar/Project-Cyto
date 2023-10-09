@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.Identification;
 using _Scripts._Game.General.SaveLoad;
+using _Scripts._Game.General.SceneLoading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace _Scripts._Game.General.Managers{
 
-    public class RespawnManager : Singleton<RespawnManager>, ISaveable
+    public class RespawnManager : Singleton<RespawnManager>, ISaveable, IManager
     {
         #region Respawn
         private GameObject _respawnGO;
@@ -46,11 +48,16 @@ namespace _Scripts._Game.General.Managers{
                 if (_doorwayGO == null)
                 {
                     // try and find respawn gameobject
-                    foreach (var saveable in FindObjectsOfType<SaveableEntity>())
+                    foreach (var doorway in FindObjectsOfType<Doorway>())
                     {
-                        if (saveable.Id == _doorwayGOID)
+                        RuntimeID runtimeID = doorway.GetComponentInChildren<RuntimeID>();
+                        if (runtimeID == null)
                         {
-                            _doorwayGO = saveable.gameObject;
+                            continue;
+                        }
+                        if (runtimeID.Id == _doorwayGOID)
+                        {
+                            _doorwayGO = runtimeID.gameObject;
                             break;
                         }
                     }
@@ -80,6 +87,15 @@ namespace _Scripts._Game.General.Managers{
             go.transform.position = RespawnGO.transform.position;
         }
 
+        public void EnterDoorway(GameObject go)
+        {
+            if (DoorWayGO == null)
+            {
+                return;
+            }
+            go.transform.position = DoorWayGO.transform.position;
+        }
+
         //ISaveable
         [System.Serializable]
         public struct SaveData
@@ -100,6 +116,26 @@ namespace _Scripts._Game.General.Managers{
             saveData.respawnGOID = _respawnGOID;
             Debug.Log("RespawnGOID is " + _respawnGOID);
             return saveData;
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     // this clasas is to keep track of all the ids in each scene and update them and their resective references during runtime
-    public class RuntimeIDManager : Singleton<RuntimeIDManager>
+    public class RuntimeIDManager : Singleton<RuntimeIDManager>, IManager
     {
         #region General
         private Dictionary<string, SpawnPoint> _spawnPointsDict;
@@ -87,5 +87,25 @@ namespace _Scripts._Game.General.Managers{
             Debug.LogWarning("RuntimeIdManager: " + log);
         }
         #endregion
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
+        }
     }
 }

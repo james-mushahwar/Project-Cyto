@@ -13,7 +13,7 @@ namespace _Scripts._Game.General.Managers{
         BondedPlayer,
     }
 
-    public class InputManager : Singleton<InputManager>
+    public class InputManager : Singleton<InputManager>, IManager
     {
         private PlayerInput _playerInput;
 
@@ -113,6 +113,26 @@ namespace _Scripts._Game.General.Managers{
             {
                 _globalSouthButtonDown = false;
             }
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
 }

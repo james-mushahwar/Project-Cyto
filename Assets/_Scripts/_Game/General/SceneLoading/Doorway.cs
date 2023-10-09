@@ -1,13 +1,16 @@
 ﻿using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.Identification;
 using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
 using UnityEngine.Events;
 using _Scripts._Game.Player;
+using _Scripts._Game.General.SaveLoad;
+using _Scripts._Game.Events;
 
 namespace _Scripts._Game.General.SceneLoading{
-    
+    [RequireComponent(typeof(RuntimeID))]
     public class Doorway : MonoBehaviour, IInteractable
     {
         [SerializeField]
@@ -16,26 +19,64 @@ namespace _Scripts._Game.General.SceneLoading{
         private SceneField _areaScene;
         private int _areaBuildIndex;
 
+        [SerializeField] 
+        private string _doorwayID;
+
         //IInteractable
-        public EInteractableStimuli InteractableStimuli { get; }
-        public EInteractableType InteractableType { get; }
-        public Transform InteractRoot { get; set; }
-        public bool IsInteractionLocked { get; set; }
-
+        [SerializeField]
+        private EInteractableStimuli _interactableStimuli;
+        [SerializeField]
+        private EInteractableType _interactableType;
+        [SerializeField]
+        private Transform _interactRoot;
+        private bool _isInteractableLocked;
+        [SerializeField]
         private RangeParams _rangeParams = new RangeParams(false);
-        public RangeParams RangeParams { get; }
+        private UnityEvent _onHighlight = new UnityEvent();
+        private UnityEvent _onUnhighlight = new UnityEvent();
+        [SerializeField]
+        private UnityEvent _onInteractStart = new UnityEvent();
+        [SerializeField]
+        private UnityEvent _onInteractEnd = new UnityEvent();
+        [SerializeField]
+        private GameEvent _onInteractStartGE;
+        [SerializeField]
+        private GameEvent _onInteractEndGE;
 
-        public UnityEvent OnHighlight { get; }
-        public UnityEvent OnUnhighlight { get; }
-        public UnityEvent OnInteractStart { get; }
-        public UnityEvent OnInteractEnd { get; }
+        public EInteractableStimuli InteractableStimuli { get => _interactableStimuli; }
+        public EInteractableType InteractableType { get => _interactableType; }
 
+        public Transform InteractRoot
+        {
+            get => _interactRoot;
+            set => _interactRoot = value;
+        }
 
+        public bool IsInteractionLocked
+        {
+            get => _isInteractableLocked;
+            set => _isInteractableLocked = value;
+        }
+        public RangeParams RangeParams { get => _rangeParams; }
+        public UnityEvent OnHighlight { get => _onHighlight; }
+        public UnityEvent OnUnhighlight { get => _onUnhighlight; }
+        public UnityEvent OnInteractStart { get => _onInteractStart; }
+        public UnityEvent OnInteractEnd { get => _onInteractEnd; }
 
         // Start is called before the first frame update
         void Start()
         {
             _areaBuildIndex = AssetManager.Instance.SceneNameToBuildIndex(_areaScene);
+        }
+
+        private void OnEnable()
+        {
+            InteractableManager.Instance?.AddInteractable(this);
+        }
+
+        private void OnDisable()
+        {
+            InteractableManager.Instance?.RemoveInteractable(this);
         }
 
         public bool IsInteractable()
@@ -70,7 +111,10 @@ namespace _Scripts._Game.General.SceneLoading{
                 return;
             }
 
-
+            // set doorway id
+            RespawnManager.Instance.DoorwayGOID = _doorwayID;
+            // load new zone and area
+            GameStateManager.Instance.TryNewZoneAndArea(_zoneScene, _areaScene);
         }
     }
     

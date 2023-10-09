@@ -13,7 +13,7 @@ namespace _Scripts._Game.General.Managers{
         COUNT
     }
 
-    public class ParticleManager : Singleton<ParticleManager>
+    public class ParticleManager : Singleton<ParticleManager>, IManager
     {
         #region Pools
         #region Player
@@ -91,6 +91,25 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
+        }
     }
     
 }

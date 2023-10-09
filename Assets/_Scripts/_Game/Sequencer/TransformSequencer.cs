@@ -8,22 +8,22 @@ namespace _Scripts._Game.Sequencer{
     {
         public override void Begin()
         {
-            throw new System.NotImplementedException();
+             
         }
 
         public override void Stop()
         {
-            throw new System.NotImplementedException();
+             
         }
 
         public override void Tick()
         {
-            throw new System.NotImplementedException();
+             
         }
 
         public override bool IsComplete()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
     

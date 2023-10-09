@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class InteractableManager : Singleton<InteractableManager>
+    public class InteractableManager : Singleton<InteractableManager>, IManager
     {
         private List<IInteractable> _activeInteractables = new List<IInteractable>();
         private IInteractable _closestInteractable;
@@ -120,6 +120,26 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
+        }
+
+        public void PreInGameLoad()
+        {
+             
+        }
+
+        public void PostInGameLoad()
+        {
+             
+        }
+
+        public void PreMainMenuLoad()
+        {
+             
+        }
+
+        public void PostMainMenuLoad()
+        {
+             
         }
     }
     

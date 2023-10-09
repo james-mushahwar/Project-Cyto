@@ -313,6 +313,7 @@ namespace _Scripts._Game.General.Managers{
 
         public void SetAreaSpawnScene(int index)
         {
+            _zoneSpawnScene = AssetManager.Instance.IndexToSceneField(CurrentZoneScene);
             _areaSpawnScene = AssetManager.Instance.IndexToSceneField(index);
             Debug.Log("Saved scene index is: " + _areaSpawnScene);
         }
@@ -368,6 +369,10 @@ namespace _Scripts._Game.General.Managers{
             // find correct spawn location
             _currentZoneScene = zoneScene;
             _currentAreaScene = areaScene;
+
+            // enter doorway
+            RespawnManager.Instance.EnterDoorway(PlayerEntity.Instance.gameObject);
+
             UIManager.Instance.ShowLoadingScreen(false);
         }
 
