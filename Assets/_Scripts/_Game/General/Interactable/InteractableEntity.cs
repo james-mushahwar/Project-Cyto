@@ -127,8 +127,6 @@ namespace _Scripts._Game.General.Interactable{
                 OnInteractStart.Invoke();
                 _onInteractStartGE.TriggerEvent();
             }
-            // TEMP FIX: this line is to stop the player from jumping
-            InputManager.Instance.TryEnableActionMap(EInputSystem.Menu);
 
             InteractableManager.Instance.ResolveInteraction(this);
         }

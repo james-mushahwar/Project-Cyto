@@ -271,6 +271,21 @@ namespace _Scripts._Game.Player{
                 _playerRespawnReason._respawnTimer = 1.0f;
             }
         }
+
+        public void FreezeAllMovement(bool set)
+        {
+            _movementSM.Rb.velocity = Vector2.zero;
+            if (set)
+            {
+                _movementSM.Rb.gravityScale = 0.0f;
+            }
+            _movementSM.Capsule.isTrigger = set;
+
+            if (!set)
+            {
+                _movementSM.OverrideState(MovementState.Grounded);
+            }
+        }
     }
     
 }

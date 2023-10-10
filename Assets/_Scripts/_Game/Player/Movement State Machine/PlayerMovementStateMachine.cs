@@ -441,6 +441,10 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void FixedUpdate()
     {
+        if (GameStateManager.Instance.IsLoadInProgress)
+        {
+            return;
+        }
         //timers
         TickTimers();
 

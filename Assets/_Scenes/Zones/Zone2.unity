@@ -369,7 +369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5283350667215594141, guid: 315be3f2f49aeb44489e653e0ded87bd, type: 3}
       propertyPath: _areaScene._sceneName
-      value: Area1-2
+      value: Area1-4
       objectReference: {fileID: 0}
     - target: {fileID: 5283350667215594141, guid: 315be3f2f49aeb44489e653e0ded87bd, type: 3}
       propertyPath: _zoneScene._sceneName
@@ -378,7 +378,7 @@ PrefabInstance:
     - target: {fileID: 5283350667215594141, guid: 315be3f2f49aeb44489e653e0ded87bd, type: 3}
       propertyPath: _areaScene._sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: e95005787b6906c43ad617b05afd393a, type: 3}
+      objectReference: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
     - target: {fileID: 5283350667215594141, guid: 315be3f2f49aeb44489e653e0ded87bd, type: 3}
       propertyPath: _zoneScene._sceneAsset
       value: 

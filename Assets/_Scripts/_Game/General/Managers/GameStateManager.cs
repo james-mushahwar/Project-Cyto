@@ -29,7 +29,14 @@ namespace _Scripts._Game.General.Managers{
         private SceneField _currentZoneScene;
         public SceneField CurrentZoneScene
         {
-            get { return _currentZoneScene; }
+            get
+            {
+                if (_currentZoneScene == null)
+                {
+                    _currentZoneScene = ZoneSpawnScene;
+                }
+                return _currentZoneScene;
+            }
         }
 
         private SceneField _areaSpawnScene;
@@ -293,6 +300,8 @@ namespace _Scripts._Game.General.Managers{
                         yield return null;
                     }
                     _playerSceneLoading = null;
+                    // lock player movement
+                    PlayerEntity.Instance.FreezeAllMovement(true);
                     // move player to correct spawn location
                     RespawnManager.Instance.RespawnObject(PlayerEntity.Instance.gameObject);
                 }
@@ -307,6 +316,9 @@ namespace _Scripts._Game.General.Managers{
             UIManager.Instance.ShowLoadingScreen(false);
 
             FollowCamera.Instance.ActivateCamera(true);
+
+            // unlock player movement
+            PlayerEntity.Instance.FreezeAllMovement(false);
 
             PostInGameLoad();
         }
@@ -355,6 +367,9 @@ namespace _Scripts._Game.General.Managers{
 
         public IEnumerator LoadNewZoneAndArea(SceneField zoneScene, SceneField areaScene)
         {
+            // lock player movement
+            PlayerEntity.Instance.FreezeAllMovement(true);
+
             //show camera transition
 
             // loading screen
@@ -373,7 +388,12 @@ namespace _Scripts._Game.General.Managers{
             // enter doorway
             RespawnManager.Instance.EnterDoorway(PlayerEntity.Instance.gameObject);
 
+            // unlock player movement
+            PlayerEntity.Instance.FreezeAllMovement(false);
+
             UIManager.Instance.ShowLoadingScreen(false);
+
+            _loadNewZoneCoroutine = null;
         }
 
         // managers

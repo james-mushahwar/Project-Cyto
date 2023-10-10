@@ -144,6 +144,10 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
 
         void Update()
         {
+            if (GameStateManager.Instance.IsLoadInProgress)
+            {
+                return;
+            }
             // timers
             TickTimers();
 
@@ -186,7 +190,11 @@ namespace _Scripts._Game.Player.AttackingStateMachine{
         void OnAimInput(InputAction.CallbackContext context)
         {
             Vector2 movementInput = context.ReadValue<Vector2>().normalized;
-            _currentAimInput = PlayerEntity.Instance.IsAlive() && movementInput.sqrMagnitude >= 0.4 ? movementInput : Vector2.zero;
+            _currentAimInput = Vector2.zero;
+            if (PlayerEntity.Instance)
+            {
+                _currentAimInput = PlayerEntity.Instance.IsAlive() && movementInput.sqrMagnitude >= 0.4 ? movementInput : Vector2.zero;
+            }
         }
 
         public void NullifyInput(AttackingState state)
