@@ -15,11 +15,6 @@ namespace Assets._Scripts._Game.General.SceneLoading
         [SerializeField]
         public Object _sceneAsset;
 
-        public Object SceneAsset
-        {
-            get { return _sceneAsset; }
-        }
-
         [SerializeField]
         private string _sceneName = "";
         public string SceneName

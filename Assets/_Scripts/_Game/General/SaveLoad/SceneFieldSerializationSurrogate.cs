@@ -11,7 +11,7 @@ namespace _Scripts._Game.General.SaveLoad{
         public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
         {
             SceneField sceneField = (SceneField)obj;
-            info.AddValue("_sceneAsset", sceneField.SceneAsset);
+            //info.AddValue("_sceneAsset", sceneField.SceneAsset);
             info.AddValue("_sceneName", sceneField.SceneName);
         }
 

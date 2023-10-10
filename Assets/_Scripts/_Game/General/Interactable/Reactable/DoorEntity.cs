@@ -13,7 +13,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
     {
         #region General
         private bool _isClosed = true;
-
+        private bool _hasAlreadyOpened = false;
         private ILogicEntity _logicEntity;
         #endregion
 
@@ -100,14 +100,14 @@ namespace _Scripts._Game.General.Interactable.Reactable{
 
         public void OnPower()
         {
-            _logicEntity.IsOutputLogicValid = true;
             _isClosed = false;
-            if (_animator != null)
-            {
+            if (_animator != null && _logicEntity.IsOutputLogicValid == false)
+            { 
                 Animate(_openingHash);
-               AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_SpaceDoor_Open, transform.position);
+                AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_SpaceDoor_Open, transform.position);
             }
 
+            _logicEntity.IsOutputLogicValid = true;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
         }
 
@@ -128,7 +128,6 @@ namespace _Scripts._Game.General.Interactable.Reactable{
         {
             _animator.enabled = false;
             _blockingCollider.enabled = false;
-
         }
 
         public void FinishedClosing()
@@ -148,13 +147,15 @@ namespace _Scripts._Game.General.Interactable.Reactable{
         private struct SaveData
         {
             public bool isClosed;
+            public bool hasAlreadyOpened;
         }
 
         public object SaveState()
         {
             return new SaveData()
             {
-                 isClosed = _isClosed
+                 isClosed = _isClosed,
+                 hasAlreadyOpened = _hasAlreadyOpened
             };
         }
 
@@ -163,7 +164,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             SaveData saveData = (SaveData)state;
 
             _isClosed = saveData.isClosed;
-
+            _hasAlreadyOpened = saveData.hasAlreadyOpened;
             Animate(_isClosed ? _closingHash : _openingHash);
         }
     }

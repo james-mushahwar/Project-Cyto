@@ -109,7 +109,6 @@ namespace _Scripts._Game.General.Interactable.Shootable{
 
         }
 
-        
         public void FinishedStartup()
         {
             Animate(_onIdle);
