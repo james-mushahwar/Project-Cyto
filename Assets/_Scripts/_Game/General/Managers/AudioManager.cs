@@ -165,22 +165,21 @@ namespace _Scripts._Game.General.Managers {
 
         public void PreInGameLoad()
         {
-            
+            _audioSourcePool.CleanAudioSourcePool();
         }
 
         public void PostInGameLoad()
         {
-            _audioSourcePool.CleanAudioSourcePool();
+            
         }
 
         public void PreMainMenuLoad()
         {
-            
+            _audioSourcePool.CleanAudioSourcePool();
         }
 
         public void PostMainMenuLoad()
         {
-            _audioSourcePool.CleanAudioSourcePool();
         }
 
         public AudioSource TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc)

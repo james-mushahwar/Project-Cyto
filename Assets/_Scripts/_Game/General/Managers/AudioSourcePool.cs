@@ -23,6 +23,7 @@ namespace _Scripts._Game.General.Managers{
                 AudioSource comp = newGO.AddComponent(typeof(AudioSource)) as AudioSource;
                 comp.volume = 1.0f;
                 //comp.outputAudioMixerGroup = AudioManager.Instance.SFXMixerGroup;
+                comp.gameObject.SetActive(false);
                 m_Pool.Push(comp);
             }
 
@@ -33,7 +34,25 @@ namespace _Scripts._Game.General.Managers{
         }
 
         public void CleanAudioSourcePool()
-        { 
+        {
+            CheckPools();
+            return;
+
+            // try recollecting all audio sources
+            foreach (AudioSource aSource in m_Pool.ToArray())
+            {
+                if (aSource != null)
+                {
+                    aSource.gameObject.transform.parent = gameObject.transform;
+                }
+                else
+                {
+                    Debug.LogWarning("Pooled audio source gone missing or destroyed!");
+                }
+            }
+
+            return;
+
             foreach (AudioSource aSource in m_Pool.ToArray())
             {
                 if (aSource != null)
