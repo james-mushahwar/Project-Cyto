@@ -45,7 +45,7 @@ MonoBehaviour:
     - _sceneAsset: {fileID: 102900000, guid: f5e41eabe20057344ba1257890ba3b2f, type: 3}
       _sceneName: Area2-4
     _areaMusic: 1
-    _areaAmbience: 0
+    _areaAmbience: 1
   - _areaName:
       _sceneAsset: {fileID: 102900000, guid: f5e41eabe20057344ba1257890ba3b2f, type: 3}
       _sceneName: Area2-4
@@ -55,4 +55,4 @@ MonoBehaviour:
     - _sceneAsset: {fileID: 102900000, guid: 3639918c6539e4b499e78336209a022d, type: 3}
       _sceneName: Area2-3
     _areaMusic: 1
-    _areaAmbience: 0
+    _areaAmbience: 1

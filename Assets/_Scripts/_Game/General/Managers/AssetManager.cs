@@ -177,14 +177,14 @@ namespace _Scripts._Game.General.Managers{
 
             // play correct audio track
             // set any post processing for scene
-            UpdateStateArea();
+            UpdateStateArea(areaScene);
         }
 
-        public void UpdateStateArea()
+        public void UpdateStateArea(SceneField areaScene)
         {
             // audio
-            EAudioTrackTypes musicType = _areaNameAreaInfoDict[GameStateManager.Instance.CurrentAreaScene].AreaMusic;
-            EAudioTrackTypes ambienceType = _areaNameAreaInfoDict[GameStateManager.Instance.CurrentAreaScene].AreaAmbience;
+            EAudioTrackTypes musicType = _areaNameAreaInfoDict[areaScene].AreaMusic;
+            EAudioTrackTypes ambienceType = _areaNameAreaInfoDict[areaScene].AreaAmbience;
             AudioManager.Instance.StopAllAudioTracks(true);
             AudioManager.Instance.PlayAudio(musicType, true, 2.0f);
         }

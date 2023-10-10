@@ -309,5 +309,12 @@ public class FollowCamera : Singleton<FollowCamera>
     public void ActivateCamera(bool set)
     {
         _audioListener.enabled = set;
+
+        if (set)
+        {
+            Transform controlledTransform = PlayerEntity.Instance.GetControlledGameObject().transform;
+            Vector3 newPosition = new Vector3(controlledTransform.position.x, controlledTransform.position.y, transform.position.z);
+            transform.position = newPosition;
+        }
     }
 }

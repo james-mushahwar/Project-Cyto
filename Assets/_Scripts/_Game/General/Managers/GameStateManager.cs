@@ -316,7 +316,6 @@ namespace _Scripts._Game.General.Managers{
             UIManager.Instance.ShowLoadingScreen(false);
 
             FollowCamera.Instance.ActivateCamera(true);
-
             // unlock player movement
             PlayerEntity.Instance.FreezeAllMovement(false);
 
@@ -338,7 +337,7 @@ namespace _Scripts._Game.General.Managers{
             }
 
             _currentAreaScene = areaScene;
-            AssetManager.Instance.UpdateStateArea();
+            AssetManager.Instance.UpdateStateArea(areaScene);
         }
 
         public void QuitToMainMenu()
@@ -390,6 +389,8 @@ namespace _Scripts._Game.General.Managers{
 
             // unlock player movement
             PlayerEntity.Instance.FreezeAllMovement(false);
+
+            FollowCamera.Instance.ActivateCamera(true);
 
             UIManager.Instance.ShowLoadingScreen(false);
 
