@@ -213,14 +213,14 @@ public class FollowCamera : Singleton<FollowCamera>
 
         // target direction
         Transform target = null;
-        if (TargetManager.Instance.DamageableTarget != null)
+        if (TargetManager.Instance?.DamageableTarget != null)
         {
             target = TargetManager.Instance.DamageableTarget.Transform;
         }
 
         if (target == null)
         {
-            if (TargetManager.Instance.BondableTarget != null)
+            if (TargetManager.Instance?.BondableTarget != null)
             {
                 target = TargetManager.Instance.BondableTarget.BondTargetTransform;
             }

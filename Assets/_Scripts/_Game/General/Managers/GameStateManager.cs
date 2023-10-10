@@ -366,6 +366,13 @@ namespace _Scripts._Game.General.Managers{
 
         public IEnumerator LoadNewZoneAndArea(SceneField zoneScene, SceneField areaScene)
         {
+            //unbond if bonded
+            if (PlayerEntity.Instance.Possessed != null)
+            {
+                PlayerEntity.Instance.Possessed.OnDispossess();
+                yield return TaskManager.Instance.WaitForSecondsPool.Get(1.0f);
+            }
+
             // lock player movement
             PlayerEntity.Instance.FreezeAllMovement(true);
 

@@ -33,6 +33,13 @@ namespace _Scripts._Game.Player{
         private RespawnReason _playerRespawnReason;
 
         public IPossessable Possessed { get => _possessed; }
+
+        private Transform _playerParentTransform;
+        public Transform PlayerParentTransform
+        {
+            get { return _playerParentTransform; }
+        }
+
         #endregion
 
         #region State Machines
@@ -81,6 +88,8 @@ namespace _Scripts._Game.Player{
         protected override void Awake()
         {
             base.Awake();
+
+            _playerParentTransform = transform.parent;
 
             FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
             _playerHealthStats = new PlayerHealthStats(playerEntityStats.MaxHealth, playerEntityStats.MaxHealth);
@@ -149,7 +158,7 @@ namespace _Scripts._Game.Player{
             _isPossessed = true;
             _possessed = null;
 
-            gameObject.transform.SetParent(null);
+            gameObject.transform.SetParent(PlayerParentTransform);
 
             _movementSM.Rb.isKinematic = false;
             _movementSM.enabled = true;
