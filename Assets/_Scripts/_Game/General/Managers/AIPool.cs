@@ -18,6 +18,7 @@ namespace _Scripts._Game.General.Managers{
             for (int i = 0; i < m_PoolCount; ++i)
             {
                 GameObject newGO = Instantiate(_entityPrefab.gameObject);
+                newGO.name = newGO.name + i;
                 newGO.transform.parent = this.gameObject.transform;
 
                 AIEntity comp = newGO.GetComponent(typeof(AIEntity)) as AIEntity;

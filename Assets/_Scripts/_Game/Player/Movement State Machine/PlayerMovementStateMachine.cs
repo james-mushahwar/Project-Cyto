@@ -381,6 +381,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     void OnDestroy()
     {
+        base.OnDestroy();
         // if application quitting ignore
         if (GameStateManager.IsQuitting)
         {

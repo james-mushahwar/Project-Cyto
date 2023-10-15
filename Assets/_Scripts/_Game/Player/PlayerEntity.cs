@@ -89,6 +89,8 @@ namespace _Scripts._Game.Player{
         {
             base.Awake();
 
+            //FreezeAllMovement(true);
+
             _playerParentTransform = transform.parent;
 
             FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
