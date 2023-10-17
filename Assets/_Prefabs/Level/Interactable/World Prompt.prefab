@@ -63,7 +63,7 @@ GameObject:
   m_Layer: 0
   m_Name: World Prompt
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 2800000, guid: f4e6ca70dd9734da1a812be882c6364e, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -81,7 +81,7 @@ Transform:
   m_Children:
   - {fileID: 809077173}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4598872028749082342
 MonoBehaviour:
@@ -98,6 +98,8 @@ MonoBehaviour:
   _scriptableDialogue: {fileID: 11400000, guid: efafb06b1e6d34f7aaecefcdf249a2bf, type: 2}
   _dialogueTypeOverride: 4
   _interactRoot: {fileID: 4598872028749082341}
+  _interactableStimuli: 0
+  _interactableType: 0
   _rangeParams:
     _maxSqDistance: 16
     _useDotProduct: 0
@@ -157,7 +159,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &7122126277396095190
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -174,4 +176,5 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

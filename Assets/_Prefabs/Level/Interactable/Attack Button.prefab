@@ -66,7 +66,7 @@ GameObject:
   m_Layer: 8
   m_Name: Attack Button
   m_TagString: Untagged
-  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 2800000, guid: db3dc7a02ac6d4e90bbe905a44ac265b, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 7aca51a7-c937-42b4-bd45-0a376d7d4955
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
   _saveOnDisable: 1
   _loadOnEnable: 1
   _skipLoadOnFirstPlay: 1
