@@ -216,7 +216,7 @@ namespace _Scripts._Game.General.Managers {
                 {
                     pooledComp.transform.parent = attachTransform;
                 }
-                pooledComp.gameObject.transform.position = localPosition;
+                pooledComp.gameObject.transform.localPosition = localPosition;
                 pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _audioTypeLocationsDict[audioType]);
                 pooledComp.Play();
             }
