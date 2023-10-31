@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Numerics;
 using _Scripts._Game.Audio;
+using _Scripts._Game.Audio.AudioConcurrency;
+using _Scripts._Game.Player;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.Audio;
+using Vector3 = UnityEngine.Vector3;
 
 namespace _Scripts._Game.General.Managers {
 
@@ -64,6 +69,48 @@ namespace _Scripts._Game.General.Managers {
         PAUSE,
     }
 
+    public enum EAudioPriority
+    {
+        None = 0,
+        Low = 1,
+        Medium = 2,
+        High = 3,
+    }
+
+    public enum EAudioConcurrencyRule
+    {
+        PreventNew,                         // don't play if > max concurrency
+        StopOldest,                         // stop oldest, then play new
+        StopFarthestThenPreventNew,         // stop farthest, if all same distance then preventnew
+        StopFarthestThenOldest,             // stop farthest, or oldest
+        //StopQuietest,                       // stop quietest to listener, then play new
+        //StopLowestPriority,                 // stop loewest priority, then play new
+        StopLowestPriorityThenOldest,       // stop loewest priority, if all same then stop oldest, then play new
+        StopLowestPriorityThenPreventNew    // stop lowest priority and play new, if all same priority preventnew
+    }
+
+    [Serializable]
+    public class AudioTypeConcurrency
+    {
+        [HideInInspector]
+        public EAudioType _audioType;
+        [SerializeField]
+        public int _maxConcurrentAudioType = 2; // maximum audio clips of one type played at once
+        [SerializeField]
+        public EAudioConcurrencyRule _maxAudioTypeConcurrencyRule = EAudioConcurrencyRule.StopOldest; // rule when max concurrent audio type is exceeded
+        [SerializeField]
+        public EAudioPriority _priority = EAudioPriority.Low;
+    }
+
+    [Serializable]
+    public class AudioConcurrency
+    {
+        [SerializeField] 
+        public AudioTypeConcurrency _audioTypeConcurrency;
+        [SerializeField] 
+        public AudioConcurrencyGroupSO _audioConcurrencyGroup;
+    }
+
     public class AudioManager : Singleton<AudioManager>, IManager
     {
         private static EAudioType[] _AudioTypes =
@@ -106,6 +153,21 @@ namespace _Scripts._Game.General.Managers {
         private AudioMixerGroup _sfxMixerGroup;
 
         public AudioMixerGroup SFXMixerGroup { get => _sfxMixerGroup; }
+
+        [Header("Audio Concurrency")] 
+        [SerializeField]
+        private AudioConcurrencyDictionary _audioConcurrencyDictionary = new AudioConcurrencyDictionary();
+
+        private Dictionary<EAudioType, List<AudioSource>> _playingAudioTypeAudioSourcesDict = new Dictionary<EAudioType, List<AudioSource>>();
+
+        private Dictionary<AudioConcurrencyGroupSO, List<AudioSource>> _playingConcurrencyGroupedAudioSourcesDict = new Dictionary<AudioConcurrencyGroupSO, List<AudioSource>>();
+
+        private Dictionary<AudioSource, AudioConcurrency> _playingAudioSourceConcurrencyTypeDict = new Dictionary<AudioSource, AudioConcurrency>();
+        
+        public Dictionary<AudioSource, AudioConcurrency> PlayingAudioSourceConcurrencyTypeDict
+        {
+            get { return _playingAudioSourceConcurrencyTypeDict; }
+        }
 
         #region AudioTracks
         [SerializeField]
@@ -155,12 +217,26 @@ namespace _Scripts._Game.General.Managers {
 
             for (int i = 0; i < (int)EAudioType.COUNT; ++i)
             {
-                _audioTypeLocationsDict.Add((EAudioType)i, Enum.GetName(typeof(EAudioType), (EAudioType)i));
+                EAudioType audioType = (EAudioType)i;
+                _audioTypeLocationsDict.Add(audioType, Enum.GetName(typeof(EAudioType), audioType));
+
+                List<AudioSource> sources = new List<AudioSource>();
+                _playingAudioTypeAudioSourcesDict.Add(audioType, sources);
+
+                bool found = _audioConcurrencyDictionary.TryGetValue(audioType,out AudioConcurrency concurrency);
+                if (found)
+                {
+                    concurrency._audioTypeConcurrency._audioType = audioType;
+                    List<AudioSource> groupSources = new List<AudioSource>();
+                    _playingConcurrencyGroupedAudioSourcesDict.TryAdd(concurrency._audioConcurrencyGroup, groupSources);
+                }
             }
 
             _audioTable = new Dictionary<EAudioTrackTypes, AudioTrack>();
             _jobTable = new Dictionary<EAudioTrackTypes, IEnumerator>();
             GenerateAudioTable();
+
+
         }
 
         public void PreInGameLoad()
@@ -182,12 +258,51 @@ namespace _Scripts._Game.General.Managers {
         {
         }
 
+        public void RegisterPooledAudioSource(AudioSource audioSource)
+        {
+            // concurrency
+            AudioConcurrency concurrency = null;
+
+            bool added = _playingAudioSourceConcurrencyTypeDict.TryAdd(audioSource, concurrency);
+            if (!added)
+            {
+                _playingAudioSourceConcurrencyTypeDict[audioSource] = concurrency;
+            }
+        }
+
+        public void CleanConcurrency(AudioSource audioSource)
+        {
+            // remove audio source from active playing dictionary lists.
+            if (audioSource)
+            {
+                bool found = _playingAudioSourceConcurrencyTypeDict.TryGetValue(audioSource, out AudioConcurrency concurrency);
+
+                if (found && concurrency != null)
+                {
+                    List<AudioSource> groupAudioSources;
+                    _playingConcurrencyGroupedAudioSourcesDict.TryGetValue(concurrency._audioConcurrencyGroup, out groupAudioSources);
+                    List<AudioSource> audioTypeAudioSources;
+                    _playingAudioTypeAudioSourcesDict.TryGetValue(concurrency._audioTypeConcurrency._audioType, out audioTypeAudioSources);
+
+                    groupAudioSources.Remove(audioSource);
+                    audioTypeAudioSources.Remove(audioSource);
+                }
+            }
+        }
+
         public AudioSource TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc)
         {
             AudioSource pooledComp = _audioSourcePool.GetAudioSource();
 
             if (pooledComp)
             {
+                // check concurrency rules
+                bool canPlay = ResolveAudioConcurrency(audioType, pooledComp);
+                if (!canPlay)
+                {
+                    return null;
+                }
+
                 // audio playback
                 AdjustAudioPlayback(audioType, pooledComp);
 
@@ -209,6 +324,13 @@ namespace _Scripts._Game.General.Managers {
 
             if (pooledComp)
             {
+                // check concurrency rules
+                bool canPlay = ResolveAudioConcurrency(audioType, pooledComp);
+                if (!canPlay)
+                {
+                    return null;
+                }
+
                 // audio playback
                 AdjustAudioPlayback(audioType, pooledComp);
 
@@ -216,6 +338,7 @@ namespace _Scripts._Game.General.Managers {
                 {
                     pooledComp.transform.parent = attachTransform;
                 }
+
                 pooledComp.gameObject.transform.localPosition = localPosition;
                 pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _audioTypeLocationsDict[audioType]);
                 pooledComp.Play();
@@ -226,6 +349,281 @@ namespace _Scripts._Game.General.Managers {
             }
 
             return pooledComp;
+        }
+
+        private bool ResolveAudioConcurrency(EAudioType audioType, AudioSource audioSource)
+        {
+            bool play = true;
+            AudioConcurrency concurrency = null;
+            if (_audioConcurrencyDictionary.TryGetValue(audioType, out concurrency))
+            {
+                bool groupPassed = true;
+                bool audioTypePassed = true;
+
+                // check if concurrency group rule is needed
+                int concGroupLimit = concurrency._audioConcurrencyGroup.GetMaxConcurrentAudioGroup();
+                int activeGroupASCount = 0;
+                _playingConcurrencyGroupedAudioSourcesDict.TryGetValue(concurrency._audioConcurrencyGroup, out List<AudioSource> groupAS);
+                bool useGroupRule = false;
+                if (groupAS != null)
+                {
+                    activeGroupASCount = groupAS.Count;
+                }
+
+                useGroupRule = activeGroupASCount >= concGroupLimit;
+
+                groupPassed = !useGroupRule;
+
+                //check if individual audio type is at a limit
+                int concAudioTypeLimit = concurrency._audioTypeConcurrency._maxConcurrentAudioType;
+                int activeAudioTypeASCount = 0;
+                _playingAudioTypeAudioSourcesDict.TryGetValue(audioType, out List<AudioSource> typeAS);
+                bool useAudioTypeRule = false;
+                if (typeAS != null)
+                {
+                    activeAudioTypeASCount = typeAS.Count;
+                }
+
+
+                useAudioTypeRule = activeAudioTypeASCount >= concGroupLimit;
+
+                audioTypePassed = !useAudioTypeRule;
+
+                if (!audioTypePassed)
+                {
+                    // resolve audio type first if possible
+                    bool audioTypeResolved = false;
+
+                    audioTypeResolved = ResolveConcurrencyRule(audioType, concurrency, false);
+
+                    audioTypePassed = audioTypeResolved;
+                }
+
+                if (!groupPassed && audioTypePassed)
+                {
+                    bool groupResolved = false;
+
+                    groupResolved = ResolveConcurrencyRule(audioType, concurrency, true);
+
+                    groupPassed = groupResolved;
+                }
+
+                play = groupPassed && audioTypePassed;
+
+                if (play && audioSource != null)
+                {
+                    bool added = _playingAudioSourceConcurrencyTypeDict.TryAdd(audioSource, concurrency);
+                    if (!added)
+                    {
+                        _playingAudioSourceConcurrencyTypeDict[audioSource] = concurrency;
+                    }
+                   
+                    List<AudioSource> playingTypeSources = null;
+                    _playingAudioTypeAudioSourcesDict.TryGetValue(audioType, out playingTypeSources);
+                    if (playingTypeSources != null)
+                    {
+                        _playingAudioTypeAudioSourcesDict[audioType].Add(audioSource);
+                    }
+
+                    List<AudioSource> playingGroupSources = null;
+                    _playingConcurrencyGroupedAudioSourcesDict.TryGetValue(concurrency._audioConcurrencyGroup, out playingGroupSources);
+                    if (playingGroupSources != null)
+                    {
+                        _playingConcurrencyGroupedAudioSourcesDict[concurrency._audioConcurrencyGroup].Add(audioSource);
+                    }
+                }
+
+                if (!play)
+                {
+                    LogWarning("Failed audio concurrency rule : GroupPassed = " + (groupPassed ? "Yes" : "No") + " and TypePassed = " + (audioTypePassed ? "Yes" : "No"));
+                }
+            }
+
+            return play;
+        }
+
+        private bool ResolveConcurrencyRule(EAudioType audioType, AudioConcurrency concurrency, bool isGroup)
+        {
+            bool playNew = false;
+
+            EAudioConcurrencyRule rule = isGroup ? concurrency._audioConcurrencyGroup.GetAudioConcurrencyRule() : concurrency._audioTypeConcurrency._maxAudioTypeConcurrencyRule;
+            List<AudioSource> audioSources;
+            AudioSource audioSourceToStop = null;
+
+            if (isGroup)
+            {
+                _playingConcurrencyGroupedAudioSourcesDict.TryGetValue(concurrency._audioConcurrencyGroup, out audioSources);
+            }
+            else
+            {
+                _playingAudioTypeAudioSourcesDict.TryGetValue(audioType, out audioSources);
+            }
+
+            if (rule == EAudioConcurrencyRule.PreventNew)
+            {
+                playNew = false;
+            }
+            else if (rule == EAudioConcurrencyRule.StopOldest)
+            {
+                CheckOldest();
+
+                playNew = true;
+            }
+            else if (rule == EAudioConcurrencyRule.StopFarthestThenPreventNew)
+            {
+                bool allEquidistant = CheckFurthestAudioSource();
+
+                playNew = !allEquidistant;
+            }
+            else if (rule == EAudioConcurrencyRule.StopFarthestThenOldest)
+            {
+                bool allEquidistant = CheckFurthestAudioSource();
+
+                if (audioSourceToStop == null)
+                {
+                    CheckOldest();
+                }
+
+                playNew = true;
+            }
+            //else if (rule == EAudioConcurrencyRule.StopQuietest)
+            //{
+
+            //}
+            else if (rule == EAudioConcurrencyRule.StopLowestPriorityThenOldest)
+            {
+                bool stoppedLowestPriority = CheckLowestPriority();
+
+                if (!stoppedLowestPriority)
+                {
+                    CheckOldest();
+                }
+
+                playNew = true;
+            }
+            else if (rule == EAudioConcurrencyRule.StopLowestPriorityThenPreventNew)
+            {
+                bool stoppedLowestPriority = CheckLowestPriority();
+
+                playNew = false;
+            }
+
+            if (audioSourceToStop != null && playNew && isGroup)
+            {
+                audioSourceToStop.Stop();
+
+                CleanConcurrency(audioSourceToStop);
+            }
+
+            return playNew;
+
+            // local functions
+            bool CheckFurthestAudioSource()
+            {
+                float furthestAudioSourceSqDist = 0.0f;
+                float firstAudioSourceSqDist = -1.0f;
+                bool allEquidistant = true;
+
+                Transform audioListenerTransform;
+                if (FollowCamera.Instance.GetAudioListener())
+                {
+                    audioListenerTransform = PlayerEntity.Instance.GetControlledGameObject().transform;
+                }
+                else
+                {
+                    audioListenerTransform = FollowCamera.Instance.GetAudioListener().transform;
+                }
+
+                Vector3 listenerLocation = audioListenerTransform.position;
+
+                for (int i = 0; i < audioSources.Count; i++)
+                {
+                    AudioSource audioSource = audioSources[i];
+                    Vector3 audioSourceLocation = audioSource.transform.position;
+
+                    Vector3 diff = listenerLocation - audioSourceLocation;
+                    float sqDiff = diff.sqrMagnitude;
+
+                    if (firstAudioSourceSqDist < -1.0f)
+                    {
+                        firstAudioSourceSqDist = sqDiff;
+                    }
+                    else if (allEquidistant)
+                    {
+                        float absDistance = MathF.Abs(firstAudioSourceSqDist - sqDiff);
+                        if (absDistance > 0.0f)
+                        {
+                            allEquidistant = false;
+                        }
+                    }
+
+                    if (sqDiff > furthestAudioSourceSqDist)
+                    {
+                        furthestAudioSourceSqDist = diff.sqrMagnitude;
+                        audioSourceToStop = audioSource;
+                    }
+                }
+
+                return allEquidistant;
+            }
+
+            void CheckOldest()
+            {
+                float longestPlayTime = 0.0f;
+
+                for (int i = 0; i < audioSources.Count; i++)
+                {
+                    AudioSource audioSource = audioSources[i];
+                    if (audioSource.time > longestPlayTime)
+                    {
+                        longestPlayTime = audioSource.time;
+                        audioSourceToStop = audioSource;
+                    }
+                }
+            }
+
+            bool CheckLowestPriority()
+            {
+                bool stoppedLowestPriority = false;
+                EAudioPriority firstAudioSourcePriority = EAudioPriority.None;
+                EAudioPriority lowestPriority = EAudioPriority.High;
+
+                // do nothing if not group
+                if (isGroup)
+                {
+                    bool allEqualPriority = true;
+                    for (int i = 0; i < audioSources.Count; i++)
+                    {
+                        AudioSource audioSource = audioSources[i];
+                        AudioConcurrency audioConcurrency;
+                        _playingAudioSourceConcurrencyTypeDict.TryGetValue(audioSource, out audioConcurrency);
+
+                        if (audioConcurrency != null)
+                        {
+                            AudioTypeConcurrency audioTypeConcurrency = audioConcurrency._audioTypeConcurrency;
+                            if (firstAudioSourcePriority == EAudioPriority.None)
+                            {
+                                firstAudioSourcePriority = audioTypeConcurrency._priority;
+                            }
+                            else if (allEqualPriority)
+                            {
+                                if (firstAudioSourcePriority != audioTypeConcurrency._priority)
+                                {
+                                    allEqualPriority = false;
+                                }
+                            }
+
+                            if (audioTypeConcurrency._priority < lowestPriority)
+                            {
+                                lowestPriority = audioTypeConcurrency._priority;
+                                audioSourceToStop = audioSource;
+                            }
+                        }
+                    }
+                }
+
+                return stoppedLowestPriority;
+            }
         }
 
         private void AdjustAudioPlayback(EAudioType audioType, AudioSource audioSource)
@@ -258,7 +656,6 @@ namespace _Scripts._Game.General.Managers {
         }
         public void StopAllAudioTracks(bool fade = false, float delay = 0.0f)
         {
-            //Debug.Log("Stop all audio tracks");
             foreach (AudioTrack track in _tracks)
             {
                 foreach (AudioObject audio in track._audio)

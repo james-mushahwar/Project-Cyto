@@ -317,4 +317,9 @@ public class FollowCamera : Singleton<FollowCamera>
             transform.position = newPosition;
         }
     }
+
+    public AudioListener GetAudioListener()
+    {
+        return _audioListener;
+    }
 }

@@ -40,6 +40,10 @@ public class EEntityFEntityStatsDictionary : SerializableDictionary<EEntity, FEn
 public class PlayerInputPromptDictionary : SerializableDictionary<EPlayerInput, RectTransform> {}
 [Serializable]
 public class AudioPlaybackDictionary : SerializableDictionary<EAudioType, ScriptableAudioPlayback> {}
+[Serializable]
+public class EntityIconDictionary : SerializableDictionary<EEntity, Sprite> { }
+[Serializable]
+public class AudioConcurrencyDictionary : SerializableDictionary<EAudioType, AudioConcurrency> {}
 
 [Serializable]
 public class StringArrayStorage : SerializableDictionary.Storage<SceneField[]> { }

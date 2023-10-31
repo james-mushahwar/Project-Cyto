@@ -112,6 +112,12 @@ namespace _Scripts._Game.General.Managers{
         {
             return _useTickMaster;
         }
+
+        public int GetPoolCount()
+        {
+            return m_PoolCount;
+        }
+        
     }
 
     public class UniqueTickGroup

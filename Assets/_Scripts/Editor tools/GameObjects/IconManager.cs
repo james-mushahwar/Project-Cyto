@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection;
+using _Scripts._Game.General;
 using UnityEditor;
 using UnityEngine;
+using static _Scripts.Editortools.GameObjects.IconManager;
 using static UnityEngine.Rendering.VolumeComponent;
 
 namespace _Scripts.Editortools.GameObjects
@@ -65,7 +67,7 @@ namespace _Scripts.Editortools.GameObjects
             SetIcon(gObj, largeIcons[(int)icon].image as Texture2D);
         }
 
-        private static void SetIcon(GameObject gObj, Texture2D texture)
+        public static void SetIcon(GameObject gObj, Texture2D texture)
         {
             var ty = typeof(EditorGUIUtility);
             EditorGUIUtility.SetIconForObject(gObj, texture);

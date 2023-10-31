@@ -25,6 +25,8 @@ namespace _Scripts._Game.General.Managers{
                 //comp.outputAudioMixerGroup = AudioManager.Instance.SFXMixerGroup;
                 comp.gameObject.SetActive(false);
                 m_Pool.Push(comp);
+
+                AudioManager.Instance.RegisterPooledAudioSource(comp);
             }
 
             foreach (AudioSource aSource in m_Pool)
@@ -66,7 +68,14 @@ namespace _Scripts._Game.General.Managers{
 
         protected override bool IsActive(AudioSource component)
         {
-             return component.isPlaying;
+            bool isPlaying = component.isPlaying;
+
+            if (!isPlaying)
+            {
+                AudioManager.Instance.CleanConcurrency(component);
+            }
+
+            return isPlaying;
         }
 
         public AudioSource GetAudioSource()

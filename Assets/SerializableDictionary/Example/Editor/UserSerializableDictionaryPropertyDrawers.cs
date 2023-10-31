@@ -9,6 +9,8 @@ using UnityEditor;
 [CustomPropertyDrawer(typeof(EEntityFEntityStatsDictionary))]
 [CustomPropertyDrawer(typeof(PlayerInputPromptDictionary))]
 [CustomPropertyDrawer(typeof(AudioPlaybackDictionary))]
+[CustomPropertyDrawer(typeof(AudioConcurrencyDictionary))]
+[CustomPropertyDrawer(typeof(EntityIconDictionary))]
 [CustomPropertyDrawer(typeof(SceneAdditivesDictionary))]
 public class AnySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer {}
 

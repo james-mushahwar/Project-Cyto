@@ -42,6 +42,12 @@ namespace _Scripts._Game.General.Spawning.AI{
         private RuntimeID _runtimeID;
 
         public RuntimeID RuntimeID { get => _runtimeID; }
+
+        public EEntity Entity
+        {
+            get { return _entity; }
+        }
+
         #endregion
 
         private void Awake()
@@ -65,7 +71,7 @@ namespace _Scripts._Game.General.Spawning.AI{
                     AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
                     if (entity == null)
                     {
-                        AIEntity aiEntity = AIManager.Instance.TrySpawnAI(_entity, transform.position, RuntimeID.Id, _waypointsID);
+                        AIEntity aiEntity = AIManager.Instance.TrySpawnAI(Entity, transform.position, RuntimeID.Id, _waypointsID);
                         if (aiEntity != null)
                         {
                             _isEntitySpawned = true;
@@ -103,7 +109,7 @@ namespace _Scripts._Game.General.Spawning.AI{
                 return;
             }
 
-            AIEntity aiEntity = AIManager.Instance.TrySpawnAI(_entity, transform.position, RuntimeID.Id, _waypointsID);
+            AIEntity aiEntity = AIManager.Instance.TrySpawnAI(Entity, transform.position, RuntimeID.Id, _waypointsID);
             if (aiEntity != null)
             {
                 _isEntitySpawned = true;

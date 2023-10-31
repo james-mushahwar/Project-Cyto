@@ -1791,6 +1791,114 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c9d8778a268f34d45bb4e2c8de24c1e3, type: 2}
     - {fileID: 11400000, guid: e73f4f3f3149ede459bc5a0375ef3500, type: 2}
   _sfxMixerGroup: {fileID: 7588592271706278492, guid: 96b5b7a2d6dfd423984ebde6148cea78, type: 2}
+  _audioConcurrencyDictionary:
+    m_keys: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
+    m_values:
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 3
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 67ad686a6a4c4c444974f6fe40c09a21, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 67ad686a6a4c4c444974f6fe40c09a21, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 2
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 67ad686a6a4c4c444974f6fe40c09a21, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 67ad686a6a4c4c444974f6fe40c09a21, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 1
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 67ad686a6a4c4c444974f6fe40c09a21, type: 2}
+    - _audioTypeConcurrency:
+        _maxConcurrentAudioType: 2
+        _maxAudioTypeConcurrencyRule: 1
+        _priority: 1
+      _audioConcurrencyGroup: {fileID: 11400000, guid: 11164e7174ab8344787e17f9549a7f09, type: 2}
   _tracks:
   - _source: {fileID: 7702300481871731506}
     _audio:
