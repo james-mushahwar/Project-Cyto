@@ -61,7 +61,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
                 pooledComp.gameObject.SetActive(true);
 
                 pooledComp.ComboIndex = comboIndex;
-                EAudioType audioType = comboIndex < 2 ? (comboIndex < 1 ? EAudioType.SFX_BasicAttack1 : EAudioType.SFX_BasicAttack2) : EAudioType.SFX_BasicAttack3;
+                EAudioType audioType = comboIndex < 2 ? (comboIndex < 1 ? EAudioType.SFX_Player_BasicAttack1 : EAudioType.SFX_Player_BasicAttack2) : EAudioType.SFX_Player_BasicAttack3;
                 AudioManager.Instance.TryPlayAudioSourceAtLocation(audioType, transform.position);
                 return true;
             }

@@ -370,6 +370,11 @@ namespace _Scripts._Game.General{
 
     public interface IManager
     {
+        // managed tick
+        public void ManagedTick()
+        {
+
+        }
         // before game starts loading
         public void PreInGameLoad();
         // just as game finishes loading

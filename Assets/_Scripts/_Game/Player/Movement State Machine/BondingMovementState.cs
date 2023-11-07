@@ -44,7 +44,7 @@ namespace _Scripts._Game.Player.MovementStateMachine {
             _ctx.Rb.gravityScale = 0.0f;
             _ctx.Capsule.isTrigger = true;
 
-            AudioSource pooledSource = AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondStart, PlayerEntity.Instance.transform.position);
+            AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_BondStart, PlayerEntity.Instance.transform.position);
 
         }
 

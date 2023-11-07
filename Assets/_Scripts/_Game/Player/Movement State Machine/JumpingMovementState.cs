@@ -64,7 +64,7 @@ public class JumpingMovementState : BaseMovementState
         _ctx.JumpCounter++;
         _ctx.NullifyInput(MovementState.Jumping);
 
-        AudioSource pooledSource =AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_Jump, _ctx.transform.position);
+        AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_Jump, _ctx.transform.position);
     }
 
     public override void ExitState()

@@ -149,7 +149,11 @@ namespace _Scripts._Game.General.Managers{
 
         void Update()
         {
-            
+            for (int i = 0; i < _managers.Length; i++)
+            {
+                IManager manager = _managers[i];
+                manager.ManagedTick();
+            }
         }
 
         void OnQuit()

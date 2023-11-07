@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.General.Managers;
+using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,8 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         {
             _stateTimer = 0.0f;
             _hasDroppedBomb = false;
+
+            AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Enemy_BombDroid_ChargeBombAttack, _ctx.transform);
         }
 
         public override void ExitState()

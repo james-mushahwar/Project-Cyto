@@ -16,28 +16,35 @@ namespace _Scripts._Game.General.Managers {
     public enum EAudioType
     {
         //SFX
-        SFX_BasicAttack1,
-        SFX_BasicAttack2,
-        SFX_BasicAttack3,
-        SFX_BasicAttack4,
-        SFX_BasicAttackImpact1,
-        SFX_BasicAttackImpact2,
-        SFX_BasicAttackImpact3,
-        SFX_BasicAttackImpact4,
-        SFX_BasicAttackImpact5,
-        SFX_BasicAttackImpactWithLiquid1,
-        SFX_BasicAttackImpactWithLiquid2,
-        SFX_BasicAttackImpactWithLiquid3,
-        SFX_BasicAttackImpactWithLiquid4,
-        SFX_BasicAttackImpactWithLiquid5,
-        SFX_Exposed,
-        SFX_Player_BondStart,
-        SFX_Player_BondExit,
-        SFX_Player_PossessStart,
-        SFX_Player_Jump,
-        SFX_Player_Dash,
-        SFX_SpaceDoor_Open,
-        // 
+        //player code = 1000
+        SFX_Player_BasicAttack1                            = 1001,
+        SFX_Player_BasicAttack2                            = 1002,
+        SFX_Player_BasicAttack3                            = 1003,
+        SFX_Player_BasicAttack4                            = 1004,
+        SFX_Player_BasicAttackImpact1                      = 1005,
+        SFX_Player_BasicAttackImpact2                      = 1006,
+        SFX_Player_BasicAttackImpact3                      = 1007,
+        SFX_Player_BasicAttackImpact4                      = 1008,
+        SFX_Player_BasicAttackImpact5                      = 1009,
+        SFX_Player_BasicAttackImpactWithLiquid1            = 1010,
+        SFX_Player_BasicAttackImpactWithLiquid2            = 1011,
+        SFX_Player_BasicAttackImpactWithLiquid3            = 1012,
+        SFX_Player_BasicAttackImpactWithLiquid4            = 1013,
+        SFX_Player_BasicAttackImpactWithLiquid5            = 1014,
+        SFX_Player_Exposed                                 = 1015,
+        SFX_Player_BondStart                        = 1016,
+        SFX_Player_BondExit                         = 1017,
+        SFX_Player_PossessStart                     = 1018,
+        SFX_Player_Jump                             = 1029,
+        SFX_Player_Dash                             = 1020,
+                                                   
+        // enemies code = 2000                              
+        SFX_Enemy_BombDroid_ChargeBombAttack        = 2001,
+
+        //environment = 3000                          
+        SFX_SpaceDoor_Open                          = 3001,
+
+        
         COUNT
     }
 
@@ -111,30 +118,80 @@ namespace _Scripts._Game.General.Managers {
         public AudioConcurrencyGroupSO _audioConcurrencyGroup;
     }
 
+    [Serializable]
+    public class AudioHandler
+    {
+        [HideInInspector]
+        public bool _active;                                 // is handle active with or without an audiosource
+        [HideInInspector]
+        public bool _release;                                // is this handle marked to be released = release Ausiosource and mark active = false
+        [HideInInspector]
+        public AudioSource _audioSource;
+
+        private GameObject _owner;
+        [SerializeField]
+        private AudioHandleParameters _handleParametersSO;    // what parameters does this audiohandle share?
+        private bool _loops;                                  // does this handle loop
+
+        public AudioHandleParameters HandleParameters
+        {
+            get { return _handleParametersSO; }
+        }
+
+        public bool Loops
+        {
+            get { return _loops; }
+        }
+
+        public GameObject Owner
+        {
+            get { return _owner; }
+            set { _owner = value; }
+        }
+
+        public AudioHandler(bool loops, GameObject owner)
+        {
+            _loops = loops;
+            _owner = owner;
+        }
+    }
+
+    [Serializable]
+    [CreateAssetMenu(menuName = "Audio/Audio Handles/Range Group")]
+    public class AudioHandleParameters : ScriptableObject
+    {
+        public float _startDistance;
+        public float _stopDistance;
+    }
+
     public class AudioManager : Singleton<AudioManager>, IManager
     {
         private static EAudioType[] _AudioTypes =
         {
-            EAudioType.SFX_BasicAttack1,
-            EAudioType.SFX_BasicAttack2,
-            EAudioType.SFX_BasicAttack3,
-            EAudioType.SFX_BasicAttack4,
-            EAudioType.SFX_BasicAttackImpact1,
-            EAudioType.SFX_BasicAttackImpact2,
-            EAudioType.SFX_BasicAttackImpact3,
-            EAudioType.SFX_BasicAttackImpact4,
-            EAudioType.SFX_BasicAttackImpact5,
-            EAudioType.SFX_BasicAttackImpactWithLiquid1,
-            EAudioType.SFX_BasicAttackImpactWithLiquid2,
-            EAudioType.SFX_BasicAttackImpactWithLiquid3,
-            EAudioType.SFX_BasicAttackImpactWithLiquid4,
-            EAudioType.SFX_BasicAttackImpactWithLiquid5,
-            EAudioType.SFX_Exposed,
+            //player
+            EAudioType.SFX_Player_BasicAttack1,
+            EAudioType.SFX_Player_BasicAttack2,
+            EAudioType.SFX_Player_BasicAttack3,
+            EAudioType.SFX_Player_BasicAttack4,
+            EAudioType.SFX_Player_BasicAttackImpact1,
+            EAudioType.SFX_Player_BasicAttackImpact2,
+            EAudioType.SFX_Player_BasicAttackImpact3,
+            EAudioType.SFX_Player_BasicAttackImpact4,
+            EAudioType.SFX_Player_BasicAttackImpact5,
+            EAudioType.SFX_Player_BasicAttackImpactWithLiquid1,
+            EAudioType.SFX_Player_BasicAttackImpactWithLiquid2,
+            EAudioType.SFX_Player_BasicAttackImpactWithLiquid3,
+            EAudioType.SFX_Player_BasicAttackImpactWithLiquid4,
+            EAudioType.SFX_Player_BasicAttackImpactWithLiquid5,
+            EAudioType.SFX_Player_Exposed,
             EAudioType.SFX_Player_BondStart,
             EAudioType.SFX_Player_BondExit,
             EAudioType.SFX_Player_PossessStart,
             EAudioType.SFX_Player_Jump,
             EAudioType.SFX_Player_Dash,
+            //enemy
+            EAudioType.SFX_Enemy_BombDroid_ChargeBombAttack,
+            //environment
             EAudioType.SFX_SpaceDoor_Open,
         };
 
@@ -168,6 +225,11 @@ namespace _Scripts._Game.General.Managers {
         {
             get { return _playingAudioSourceConcurrencyTypeDict; }
         }
+
+        [Header("Audio Handlers")] 
+        private HashSet<AudioHandler> _activeAudioHandlers;
+            //private Dictionary<AudioSource, AudioHandler> _audioSourceHandleDictionary = new Dictionary<AudioSource, AudioHandler>();
+        //private Dictionary<AudioSource, AudioHandler> _allocatedAudioSourceHandlesDict = new Dictionary<AudioSource, AudioHandler>();
 
         #region AudioTracks
         [SerializeField]
@@ -236,7 +298,24 @@ namespace _Scripts._Game.General.Managers {
             _jobTable = new Dictionary<EAudioTrackTypes, IEnumerator>();
             GenerateAudioTable();
 
+            
+        }
 
+        public void ManagedTick()
+        {
+            // check handles
+            foreach(AudioHandler audioHandler in _activeAudioHandlers)
+            {
+                if (audioHandler == null)
+                {
+                    _activeAudioHandlers.Remove(audioHandler);
+                }
+
+                if (audioHandler._release == false)
+                {
+
+                }
+            }
         }
 
         public void PreInGameLoad()
@@ -268,6 +347,15 @@ namespace _Scripts._Game.General.Managers {
             {
                 _playingAudioSourceConcurrencyTypeDict[audioSource] = concurrency;
             }
+
+            // audio handler
+            //AudioHandler handler = new AudioHandler();
+
+            //added = _audioSourceHandleDictionary.TryAdd(audioSource, handler);
+            //if (!added)
+            //{
+            //    _audioSourceHandleDictionary[audioSource] = handler;
+            //}
         }
 
         public void CleanConcurrency(AudioSource audioSource)
@@ -290,9 +378,11 @@ namespace _Scripts._Game.General.Managers {
             }
         }
 
-        public AudioSource TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc)
+        public AudioHandler TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc, AudioHandler audioHandler = null)
         {
             AudioSource pooledComp = _audioSourcePool.GetAudioSource();
+
+            //AudioHandler audioHandler = null;
 
             if (pooledComp)
             {
@@ -301,6 +391,14 @@ namespace _Scripts._Game.General.Managers {
                 if (!canPlay)
                 {
                     return null;
+                }
+
+                if (RequestActivateHandle(audioHandler))
+                {
+                    audioHandler._active = true;
+                    audioHandler._audioSource = pooledComp;
+                    audioHandler._release = false;
+                    _activeAudioHandlers.Add(audioHandler);
                 }
 
                 // audio playback
@@ -315,12 +413,14 @@ namespace _Scripts._Game.General.Managers {
                 LogWarning("No more pooled audio source components");
             }
 
-            return pooledComp;
+            return audioHandler;
         }
 
-        public AudioSource TryPlayAudioSourceAttached(EAudioType audioType, Transform attachTransform, Vector3 localPosition = default)
+        public AudioHandler TryPlayAudioSourceAttached(EAudioType audioType, Transform attachTransform, AudioHandler audioHandler = null, Vector3 localPosition = default)
         {
             AudioSource pooledComp = _audioSourcePool.GetAudioSource();
+
+            //AudioHandler audioHandler = null;
 
             if (pooledComp)
             {
@@ -330,6 +430,15 @@ namespace _Scripts._Game.General.Managers {
                 {
                     return null;
                 }
+
+                if (RequestActivateHandle(audioHandler))
+                {
+                    audioHandler._active = true;
+                    audioHandler._audioSource = pooledComp;
+                    audioHandler._release = false;
+                    _activeAudioHandlers.Add(audioHandler);
+                }
+
 
                 // audio playback
                 AdjustAudioPlayback(audioType, pooledComp);
@@ -348,7 +457,46 @@ namespace _Scripts._Game.General.Managers {
                 LogWarning("No more pooled audio source components");
             }
 
-            return pooledComp;
+            return audioHandler;
+        }
+
+        private bool RequestActivateHandle(AudioHandler audioHandler)
+        {
+            if (audioHandler == null)
+            {
+                return false;
+            }
+
+            if (audioHandler._active)
+            {
+                // audiohandler is already in use
+                return false;
+            }
+
+            if (_activeAudioHandlers.Contains(audioHandler))
+            {
+                // audiohandler already in active use
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool RequestReleaseHandle(AudioHandler audioHandler)
+        {
+            if (audioHandler == null)
+            {
+                return false;
+            }
+
+            if (!_activeAudioHandlers.Contains(audioHandler))
+            {
+                return false;
+            }
+
+            audioHandler._release = true;
+
+            return true;
         }
 
         private bool ResolveAudioConcurrency(EAudioType audioType, AudioSource audioSource)

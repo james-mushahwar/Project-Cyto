@@ -85,7 +85,7 @@ public class DashingMovementState : BaseMovementState
 
         _ctx.Rb.AddForce(Vector2.right * _ctx.DashingForce * Mathf.Sign(_ctx.CurrentMovementInput.x));
 
-        AudioSource pooledSource = AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Player_Dash, PlayerEntity.Instance.transform);
+        AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Player_Dash, PlayerEntity.Instance.transform);
 
     }
 

@@ -82,12 +82,12 @@ namespace _Scripts._Game.General.Projectile.Player{
                     ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BasicAttack, transform.position, vfxRotation);
                     _damageableTarget.TakeDamage(EDamageType.Player_BasicAttack, EEntityType.Player, transform.position);
 
-                    EAudioType audioType = _comboIndex < 2 ? (_comboIndex < 1 ? EAudioType.SFX_BasicAttackImpact1 : EAudioType.SFX_BasicAttackImpact2) : EAudioType.SFX_BasicAttackImpact3;
+                    EAudioType audioType = _comboIndex < 2 ? (_comboIndex < 1 ? EAudioType.SFX_Player_BasicAttackImpact1 : EAudioType.SFX_Player_BasicAttackImpact2) : EAudioType.SFX_Player_BasicAttackImpact3;
                     if (_damageableTarget.Exposable != null)
                     {
                         if (_damageableTarget.Exposable.IsExposed())
                         {
-                            audioType = _comboIndex < 2 ? (_comboIndex < 1 ? EAudioType.SFX_BasicAttackImpactWithLiquid1 : EAudioType.SFX_BasicAttackImpactWithLiquid2) : EAudioType.SFX_BasicAttackImpactWithLiquid3;
+                            audioType = _comboIndex < 2 ? (_comboIndex < 1 ? EAudioType.SFX_Player_BasicAttackImpactWithLiquid1 : EAudioType.SFX_Player_BasicAttackImpactWithLiquid2) : EAudioType.SFX_Player_BasicAttackImpactWithLiquid3;
                         }
                     }
                     AudioManager.Instance.TryPlayAudioSourceAtLocation(audioType, transform.position);
