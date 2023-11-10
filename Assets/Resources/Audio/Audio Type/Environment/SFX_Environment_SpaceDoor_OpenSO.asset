@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 420e3ca81265b774f8ceec2131090e48, type: 3}
-  m_Name: SFX_SpaceDoor_OpenSO
+  m_Name: SFX_Environment_SpaceDoor_OpenSO
   m_EditorClassIdentifier: 
   _audioType: 3001
   _audioConcurrency:

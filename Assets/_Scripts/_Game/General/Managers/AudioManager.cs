@@ -292,10 +292,10 @@ namespace _Scripts._Game.General.Managers {
                 }
             }
 
-            _audioSFXPaths[0] = "Audio/SFX/General";
-            _audioSFXPaths[1] = "Audio/SFX/Player";
-            _audioSFXPaths[2] = "Audio/SFX/Enemy";
-            _audioSFXPaths[3] = "Audio/SFX/Environment";
+            _audioSFXPaths[0] = "Audio/SFX/General/";
+            _audioSFXPaths[1] = "Audio/SFX/Player/";
+            _audioSFXPaths[2] = "Audio/SFX/Enemy/";
+            _audioSFXPaths[3] = "Audio/SFX/Environment/";
             _audioSFXPaths[4] = "";
             _audioSFXPaths[5] = "";
             _audioSFXPaths[6] = "";

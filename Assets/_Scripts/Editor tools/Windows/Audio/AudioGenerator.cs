@@ -10,6 +10,7 @@ using UnityEditor;
 using System;
 using System.Linq;
 using Editor.Windows.AI;
+using UnityEditor.VersionControl;
 
 namespace _Scripts.Editortools.Windows.Audio{
     
@@ -73,15 +74,18 @@ namespace _Scripts.Editortools.Windows.Audio{
                         {
                             audioTypes.Remove(audioTypeSO.AudioType);
 
-                            if (audioTypeSO.name != Enum.GetName(typeof(EAudioType), audioTypeSO.AudioType))
+                            string fileName = Enum.GetName(typeof(EAudioType), audioTypeSO.AudioType) + "SO";
+                            if (audioTypeSO.name != fileName)
                             {
-                                Debug.Log("Renaming file");
-                                audioTypeSO.name = Enum.GetName(typeof(EAudioType), audioTypeSO.AudioType) + "SO.asset";
+                                Debug.LogWarning("Found a name mismatched file and audiotype: " + audioTypeSO.name);
+                                //audioTypeSO.name = fileName;
                             }
                         }
                     }
                 }
             }
+
+            AssetDatabase.Refresh();
             //return;
 
             // generate remaining audio type scriptable objects
