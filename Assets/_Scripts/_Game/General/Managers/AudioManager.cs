@@ -45,7 +45,7 @@ namespace _Scripts._Game.General.Managers {
         SFX_Enemy_BombDroid_ChargeBombAttack               = 2001,
 
         //environment = 3000                          
-        SFX_SpaceDoor_Open                                 = 3001,
+        SFX_Environment_SpaceDoor_Open                                 = 3001,
         COUNT
     }
 
@@ -167,39 +167,41 @@ namespace _Scripts._Game.General.Managers {
 
     public class AudioManager : Singleton<AudioManager>, IManager
     {
-        private static EAudioType[] _AudioTypes =
-        {
-            //player
-            EAudioType.SFX_Player_BasicAttack1,
-            EAudioType.SFX_Player_BasicAttack2,
-            EAudioType.SFX_Player_BasicAttack3,
-            EAudioType.SFX_Player_BasicAttack4,
-            EAudioType.SFX_Player_BasicAttackImpact1,
-            EAudioType.SFX_Player_BasicAttackImpact2,
-            EAudioType.SFX_Player_BasicAttackImpact3,
-            EAudioType.SFX_Player_BasicAttackImpact4,
-            EAudioType.SFX_Player_BasicAttackImpact5,
-            EAudioType.SFX_Player_BasicAttackImpactWithLiquid1,
-            EAudioType.SFX_Player_BasicAttackImpactWithLiquid2,
-            EAudioType.SFX_Player_BasicAttackImpactWithLiquid3,
-            EAudioType.SFX_Player_BasicAttackImpactWithLiquid4,
-            EAudioType.SFX_Player_BasicAttackImpactWithLiquid5,
-            EAudioType.SFX_Player_Exposed,
-            EAudioType.SFX_Player_BondStart,
-            EAudioType.SFX_Player_BondExit,
-            EAudioType.SFX_Player_PossessStart,
-            EAudioType.SFX_Player_Jump,
-            EAudioType.SFX_Player_Dash,
-            //enemy
-            EAudioType.SFX_Enemy_BombDroid_ChargeBombAttack,
-            //environment
-            EAudioType.SFX_SpaceDoor_Open,
-        };
+        //private static EAudioType[] _AudioTypes =
+        //{
+        //    //player
+        //    EAudioType.SFX_Player_BasicAttack1,
+        //    EAudioType.SFX_Player_BasicAttack2,
+        //    EAudioType.SFX_Player_BasicAttack3,
+        //    EAudioType.SFX_Player_BasicAttack4,
+        //    EAudioType.SFX_Player_BasicAttackImpact1,
+        //    EAudioType.SFX_Player_BasicAttackImpact2,
+        //    EAudioType.SFX_Player_BasicAttackImpact3,
+        //    EAudioType.SFX_Player_BasicAttackImpact4,
+        //    EAudioType.SFX_Player_BasicAttackImpact5,
+        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid1,
+        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid2,
+        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid3,
+        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid4,
+        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid5,
+        //    EAudioType.SFX_Player_Exposed,
+        //    EAudioType.SFX_Player_BondStart,
+        //    EAudioType.SFX_Player_BondExit,
+        //    EAudioType.SFX_Player_PossessStart,
+        //    EAudioType.SFX_Player_Jump,
+        //    EAudioType.SFX_Player_Dash,
+        //    //enemy
+        //    EAudioType.SFX_Enemy_BombDroid_ChargeBombAttack,
+        //    //environment
+        //    EAudioType.SFX_Environment_SpaceDoor_Open,
+        //};
 
         [SerializeField]
         private AudioSourcePool _audioSourcePool;
 
         private Dictionary<EAudioType, string> _audioTypeLocationsDict = new Dictionary<EAudioType, string>();
+
+        private string[] _audioSFXPaths = new string[10];
 
         //[SerializeField]
         //private AudioPlaybackDictionary _audioPlaybackDict = new AudioPlaybackDictionary();
@@ -289,6 +291,18 @@ namespace _Scripts._Game.General.Managers {
                     audioTypes.Add((EAudioType)i);
                 }
             }
+
+            _audioSFXPaths[0] = "Audio/SFX/General";
+            _audioSFXPaths[1] = "Audio/SFX/Player";
+            _audioSFXPaths[2] = "Audio/SFX/Enemy";
+            _audioSFXPaths[3] = "Audio/SFX/Environment";
+            _audioSFXPaths[4] = "";
+            _audioSFXPaths[5] = "";
+            _audioSFXPaths[6] = "";
+            _audioSFXPaths[7] = "";
+            _audioSFXPaths[8] = "";
+            _audioSFXPaths[9] = "";
+
 
             UnityEngine.Object[] audioTypeSOAssets = Resources.LoadAll("Audio/Audio Type/");
 
@@ -441,7 +455,8 @@ namespace _Scripts._Game.General.Managers {
                 AdjustAudioPlayback(audioType, pooledComp);
 
                 pooledComp.gameObject.transform.position = worldLoc;
-                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _audioTypeLocationsDict[audioType]);
+                string path = _audioSFXPaths[(int)audioType / 1000];
+                pooledComp.clip = Resources.Load(path + _audioTypeLocationsDict[audioType]) as AudioClip;
                 pooledComp.Play();
             }
             else
@@ -485,7 +500,8 @@ namespace _Scripts._Game.General.Managers {
                 }
 
                 pooledComp.gameObject.transform.localPosition = localPosition;
-                pooledComp.clip = (AudioClip)Resources.Load("Audio/SFX/" + _audioTypeLocationsDict[audioType]);
+                string path = _audioSFXPaths[(int)audioType / 1000];
+                pooledComp.clip = Resources.Load(path + _audioTypeLocationsDict[audioType]) as AudioClip;
                 pooledComp.Play();
             }
             else

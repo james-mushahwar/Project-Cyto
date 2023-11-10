@@ -72,6 +72,12 @@ namespace _Scripts.Editortools.Windows.Audio{
                         if (audioTypes.Contains(audioTypeSO.AudioType))
                         {
                             audioTypes.Remove(audioTypeSO.AudioType);
+
+                            if (audioTypeSO.name != Enum.GetName(typeof(EAudioType), audioTypeSO.AudioType))
+                            {
+                                Debug.Log("Renaming file");
+                                audioTypeSO.name = Enum.GetName(typeof(EAudioType), audioTypeSO.AudioType) + "SO.asset";
+                            }
                         }
                     }
                 }
