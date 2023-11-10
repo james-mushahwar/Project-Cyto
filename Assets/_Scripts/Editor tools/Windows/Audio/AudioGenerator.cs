@@ -55,11 +55,11 @@ namespace _Scripts.Editortools.Windows.Audio{
                 }
             }
 
-
             // remove types that already exist
-            UnityEngine.Object[] scripts = Resources.LoadAll(_audioTypePlayerPath);
-            scripts.Append<>(Resources.LoadAll(_audioTypeEnemyPath));
-            scripts.Append<>(Resources.LoadAll(_audioTypeEnvironmentPath));
+            UnityEngine.Object[] scripts = Resources.LoadAll("Audio/Audio Type/");
+            //foreach (var o in Resources.LoadAll(_audioTypeEnemyPath)) scripts.Append<UnityEngine.Object>(o);
+            //foreach (var o in Resources.LoadAll(_audioTypeEnvironmentPath)) scripts.Append<UnityEngine.Object>(o);
+
 
             foreach (UnityEngine.Object script in scripts)
             {
@@ -68,7 +68,7 @@ namespace _Scripts.Editortools.Windows.Audio{
                     AudioTypeScriptableObject audioTypeSO = (AudioTypeScriptableObject)script;
                     if (audioTypeSO)
                     {
-                        Debug.Log("Found audioTypeSO: " + audioTypeSO.name);
+                        //Debug.Log("Found audioTypeSO: " + audioTypeSO.name);
                         if (audioTypes.Contains(audioTypeSO.AudioType))
                         {
                             audioTypes.Remove(audioTypeSO.AudioType);
@@ -76,6 +76,7 @@ namespace _Scripts.Editortools.Windows.Audio{
                     }
                 }
             }
+            //return;
 
             // generate remaining audio type scriptable objects
             for (int i = 0; i < audioTypes.Count; i++)

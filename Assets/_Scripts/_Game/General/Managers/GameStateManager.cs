@@ -152,7 +152,7 @@ namespace _Scripts._Game.General.Managers{
             for (int i = 0; i < _managers.Length; i++)
             {
                 IManager manager = _managers[i];
-                manager.ManagedTick();
+                //manager.ManagedTick();
             }
         }
 

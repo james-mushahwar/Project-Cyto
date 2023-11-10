@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420e3ca81265b774f8ceec2131090e48, type: 3}
   m_Name: SFX_Player_JumpSO
   m_EditorClassIdentifier: 
-  _audioType: 1029
+  _audioType: 1019
   _audioConcurrency:
     _audioTypeConcurrency:
       _audioType: 0

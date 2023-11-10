@@ -21,6 +21,16 @@ namespace _Scripts._Game.Audio{
             get { return _audioType; }
             set { _audioType = value; }
         }
+
+        public General.Managers.AudioConcurrency Concurrency
+        {
+            get { return _audioConcurrency; }
+        }
+
+        public ScriptableAudioPlayback AudioPlayback
+        {
+            get { return _audioPlayback; }
+        }
     }
     
 }

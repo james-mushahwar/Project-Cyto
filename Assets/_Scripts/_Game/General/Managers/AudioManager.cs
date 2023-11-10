@@ -16,7 +16,9 @@ namespace _Scripts._Game.General.Managers {
     public enum EAudioType
     {
         //SFX
+
         //general code = 0000
+
         //player code = 1000
         SFX_Player_BasicAttack1                            = 1001,
         SFX_Player_BasicAttack2                            ,
@@ -40,10 +42,10 @@ namespace _Scripts._Game.General.Managers {
         SFX_Player_Dash                                    ,
                                                    
         // enemies code = 2000                              
-        SFX_Enemy_BombDroid_ChargeBombAttack        = 2001,
+        SFX_Enemy_BombDroid_ChargeBombAttack               = 2001,
 
         //environment = 3000                          
-        SFX_SpaceDoor_Open                          = 3001,
+        SFX_SpaceDoor_Open                                 = 3001,
         COUNT
     }
 
@@ -199,8 +201,8 @@ namespace _Scripts._Game.General.Managers {
 
         private Dictionary<EAudioType, string> _audioTypeLocationsDict = new Dictionary<EAudioType, string>();
 
-        [SerializeField]
-        private AudioPlaybackDictionary _audioPlaybackDict = new AudioPlaybackDictionary();
+        //[SerializeField]
+        //private AudioPlaybackDictionary _audioPlaybackDict = new AudioPlaybackDictionary();
 
         private AudioClip[] _audioClips = new AudioClip[(int) EAudioType.COUNT];
 
@@ -211,8 +213,9 @@ namespace _Scripts._Game.General.Managers {
         public AudioMixerGroup SFXMixerGroup { get => _sfxMixerGroup; }
 
         [Header("Audio Concurrency")] 
-        [SerializeField]
-        private AudioConcurrencyDictionary _audioConcurrencyDictionary = new AudioConcurrencyDictionary();
+        //[SerializeField]
+        //private AudioConcurrencyDictionary _audioConcurrencyDictionary = new AudioConcurrencyDictionary();
+        private Dictionary<EAudioType, AudioTypeScriptableObject> _audioTypeSODict = new Dictionary<EAudioType, AudioTypeScriptableObject>();
 
         private Dictionary<EAudioType, List<AudioSource>> _playingAudioTypeAudioSourcesDict = new Dictionary<EAudioType, List<AudioSource>>();
 
@@ -276,17 +279,53 @@ namespace _Scripts._Game.General.Managers {
         {
             base.Awake();
 
-            for (int i = 0; i < (int)EAudioType.COUNT; ++i)
+            // audio types
+            List<EAudioType> audioTypes = new List<EAudioType>();
+
+            for (int i = 0; i < (int)EAudioType.COUNT; i++)
             {
-                EAudioType audioType = (EAudioType)i;
+                if (Enum.IsDefined(typeof(EAudioType), i))
+                {
+                    audioTypes.Add((EAudioType)i);
+                }
+            }
+
+            UnityEngine.Object[] audioTypeSOAssets = Resources.LoadAll("Audio/Audio Type/");
+
+            for (int i = 0; i < audioTypes.Count; ++i)
+            {
+                EAudioType audioType = audioTypes[i];
                 _audioTypeLocationsDict.Add(audioType, Enum.GetName(typeof(EAudioType), audioType));
+
+                foreach (UnityEngine.Object script in audioTypeSOAssets)
+                {
+                    if (script.GetType() == typeof(AudioTypeScriptableObject))
+                    {
+                        AudioTypeScriptableObject audioTypeSO = (AudioTypeScriptableObject)script;
+                        if (audioTypeSO)
+                        {
+                            if (audioTypeSO.AudioType == audioType)
+                            {
+                                _audioTypeSODict.Add(audioType, audioTypeSO);
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
 
                 List<AudioSource> sources = new List<AudioSource>();
                 _playingAudioTypeAudioSourcesDict.Add(audioType, sources);
 
-                bool found = _audioConcurrencyDictionary.TryGetValue(audioType,out AudioConcurrency concurrency);
+                AudioTypeScriptableObject _audioTypeSO = null;
+                bool found = _audioTypeSODict.TryGetValue(audioType, out _audioTypeSO);
                 if (found)
                 {
+                    AudioConcurrency concurrency = _audioTypeSO.Concurrency;
+
                     concurrency._audioTypeConcurrency._audioType = audioType;
                     List<AudioSource> groupSources = new List<AudioSource>();
                     _playingConcurrencyGroupedAudioSourcesDict.TryAdd(concurrency._audioConcurrencyGroup, groupSources);
@@ -296,8 +335,6 @@ namespace _Scripts._Game.General.Managers {
             _audioTable = new Dictionary<EAudioTrackTypes, AudioTrack>();
             _jobTable = new Dictionary<EAudioTrackTypes, IEnumerator>();
             GenerateAudioTable();
-
-            
         }
 
         public void ManagedTick()
@@ -501,9 +538,12 @@ namespace _Scripts._Game.General.Managers {
         private bool ResolveAudioConcurrency(EAudioType audioType, AudioSource audioSource)
         {
             bool play = true;
-            AudioConcurrency concurrency = null;
-            if (_audioConcurrencyDictionary.TryGetValue(audioType, out concurrency))
+            AudioTypeScriptableObject _audioTypeSO = null;
+
+            if (_audioTypeSODict.TryGetValue(audioType, out _audioTypeSO))
             {
+                AudioConcurrency concurrency = _audioTypeSO.Concurrency;
+
                 bool groupPassed = true;
                 bool audioTypePassed = true;
 
@@ -775,17 +815,23 @@ namespace _Scripts._Game.General.Managers {
 
         private void AdjustAudioPlayback(EAudioType audioType, AudioSource audioSource)
         {
+            AudioTypeScriptableObject audioTypeSO = null;
             ScriptableAudioPlayback audioPlayback = null;
 
-            _audioPlaybackDict.TryGetValue(audioType, out audioPlayback);
+            _audioTypeSODict.TryGetValue(audioType, out audioTypeSO);
 
-            if (audioPlayback != null)
+            if (audioTypeSO)
             {
-                audioSource.volume = audioPlayback.Volume;
-            }
-            else
-            {
-                audioSource.volume = 1.0f;
+                audioPlayback = audioTypeSO.AudioPlayback;
+
+                if (audioPlayback != null)
+                {
+                    audioSource.volume = audioPlayback.Volume;
+                }
+                else
+                {
+                    audioSource.volume = 1.0f;
+                }
             }
         }
 
