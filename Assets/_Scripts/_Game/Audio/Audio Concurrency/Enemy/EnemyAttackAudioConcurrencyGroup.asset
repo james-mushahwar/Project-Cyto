@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8226a90399f99c947ba2b794997ef2b5, type: 3}
   m_Name: EnemyAttackAudioConcurrencyGroup
   m_EditorClassIdentifier: 
-  _maxConcurrentAudioGroup: 4
+  _maxConcurrentAudioGroup: 8
   _audioConcurrencyRule: 4

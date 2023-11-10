@@ -43,8 +43,6 @@ namespace _Scripts._Game.General.Managers {
 
         //environment = 3000                          
         SFX_SpaceDoor_Open                          = 3001,
-
-        
         COUNT
     }
 

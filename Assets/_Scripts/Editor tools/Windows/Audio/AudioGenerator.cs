@@ -8,20 +8,31 @@ using Pathfinding;
 
 using UnityEditor;
 using System;
+using Editor.Windows.AI;
 
 namespace _Scripts.Editortools.Windows.Audio{
     
     public class AudioGenerator : EditorWindow
     {
         #region General
-        private const string _audioTypeRootPath = "Assets/_Scripts/_Game/Audio/Audio Type/";
+        private const string _audioTypeRootPath = "Assets/Resources/Audio/Audio Type/";
+        private const string _audioTypePlayerPath = "Assets/Resources/Audio/Audio Type/Player";
+        private const string _audioTypeEnemyPath = "Assets/Resources/Audio/Audio Type/Enemy";
+        private const string _audioTypeEnvironmentPath = "Assets/Resources/Audio/Audio Type/Environment";
 
         private Vector2 _scrollPos = Vector2.zero;
         #endregion
 
+        [MenuItem("Window/Audio Generator")]
+        public static void ShowWindow()
+        {
+            GetWindow<AudioGenerator>("Audio Generator");
+        }
+
         private void OnGUI()
         {
-            if (GUILayout.Button("Generate scripts!"))
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+            if (GUILayout.Button("Generate Audio type scripts!"))
             {
                 Generate();
             }
@@ -70,6 +81,24 @@ namespace _Scripts.Editortools.Windows.Audio{
                 newAudioTypeSO.name = Enum.GetName(typeof(EAudioType), newAudioType);
 
                 newAudioTypeSO.AudioType = newAudioType;
+
+                string path = _audioTypePlayerPath;
+                if ((int)newAudioType >= 2000 && (int)newAudioType < 3000)
+                {
+                    // enemy
+                    path = _audioTypeEnemyPath;
+                }
+                else if ((int)newAudioType >= 3000 && (int)newAudioType < 4000)
+                {
+                    // environment
+                    path = _audioTypeEnvironmentPath;
+                }
+
+                path = path + "/" + Enum.GetName(typeof(EAudioType), newAudioType) + "SO.asset";
+
+                AssetDatabase.CreateAsset(newAudioTypeSO, path);
+
+                Debug.Log("Created AudioTypeSO script: " + path);
             }
         }
     }

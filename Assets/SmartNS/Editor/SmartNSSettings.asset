@@ -18,5 +18,5 @@ MonoBehaviour:
   m_IndentUsingSpaces: 1
   m_NumberOfSpaces: 4
   m_UpdateNamespacesWhenMovingScripts: 1
-  m_DirectoryIgnoreList: 
+  m_DirectoryIgnoreList: Assets/Resources/Audio
   m_EnableDebugLogging: 0

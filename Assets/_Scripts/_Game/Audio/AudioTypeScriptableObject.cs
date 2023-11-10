@@ -9,7 +9,7 @@ namespace _Scripts._Game.Audio{
     [CreateAssetMenu(menuName = "Audio/Audio Type")]
     public class AudioTypeScriptableObject : ScriptableObject
     {
-        [SerializeField] 
+        [SerializeField, HideInInspector]
         private EAudioType _audioType;
         [SerializeField] 
         private General.Managers.AudioConcurrency _audioConcurrency;
