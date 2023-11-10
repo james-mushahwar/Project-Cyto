@@ -8,6 +8,7 @@ using Pathfinding;
 
 using UnityEditor;
 using System;
+using System.Linq;
 using Editor.Windows.AI;
 
 namespace _Scripts.Editortools.Windows.Audio{
@@ -48,12 +49,17 @@ namespace _Scripts.Editortools.Windows.Audio{
             
             for (int i = 0; i < (int)EAudioType.COUNT; i++)
             {
-                audioTypes.Add((EAudioType)i);
+                if (Enum.IsDefined(typeof(EAudioType), i))
+                {
+                    audioTypes.Add((EAudioType)i);
+                }
             }
 
 
             // remove types that already exist
-            UnityEngine.Object[] scripts = Resources.LoadAll(_audioTypeRootPath);
+            UnityEngine.Object[] scripts = Resources.LoadAll(_audioTypePlayerPath);
+            scripts.Append<>(Resources.LoadAll(_audioTypeEnemyPath));
+            scripts.Append<>(Resources.LoadAll(_audioTypeEnvironmentPath));
 
             foreach (UnityEngine.Object script in scripts)
             {
@@ -68,7 +74,6 @@ namespace _Scripts.Editortools.Windows.Audio{
                             audioTypes.Remove(audioTypeSO.AudioType);
                         }
                     }
-                    
                 }
             }
 
