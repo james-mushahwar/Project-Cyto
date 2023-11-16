@@ -69,13 +69,28 @@ namespace _Scripts._Game.General.Managers{
         protected override bool IsActive(AudioSource component)
         {
             bool isPlaying = component.isPlaying;
+            bool isHandled = false;
 
             if (!isPlaying)
+            {
+                // check looping handle
+                isHandled = AudioManager.Instance.AudioSourceIsHandled(component);
+
+            }
+
+            if (!isHandled && !isPlaying)
             {
                 AudioManager.Instance.CleanConcurrency(component);
             }
 
-            return isPlaying;
+            bool isActive = isPlaying || isHandled;
+
+            if (!isActive)
+            {
+
+            }
+
+            return isActive;
         }
 
         public AudioSource GetAudioSource()

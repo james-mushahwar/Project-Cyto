@@ -149,10 +149,13 @@ namespace _Scripts._Game.General.Managers{
 
         void Update()
         {
-            for (int i = 0; i < _managers.Length; i++)
+            if (IsGameRunning)
             {
-                IManager manager = _managers[i];
-                //manager.ManagedTick();
+                for (int i = 0; i < _managers.Length; i++)
+                {
+                    IManager manager = _managers[i];
+                    manager.ManagedTick();
+                }
             }
         }
 

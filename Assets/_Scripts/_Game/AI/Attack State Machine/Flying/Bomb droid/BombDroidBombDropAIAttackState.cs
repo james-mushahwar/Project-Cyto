@@ -29,6 +29,8 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         {
             _stateTimer = 0.0f;
             _hasDroppedBomb = false;
+            AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Enemy_BombDroid_ChargeBombAttack, _ctx.transform);
+
         }
 
         public override void ExitState()
@@ -48,11 +50,16 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
             {
                 if (_stateTimer >= _bdCtx.BombDropBuildUpDuration && !_hasDroppedBomb)
                 {
-                    // drop bomb
-                    _hasDroppedBomb = true;
-                    ProjectileManager.Instance.TryBombDroidBombDropProjectile(General.EEntityType.Enemy, _ctx.transform.position);
+                    DropBomb();
                 }
             }
+        }
+
+        private void DropBomb()
+        {
+            // drop bomb
+            _hasDroppedBomb = true;
+            ProjectileManager.Instance.TryBombDroidBombDropProjectile(General.EEntityType.Enemy, _ctx.transform.position);
         }
     }
     

@@ -47,8 +47,9 @@ namespace _Scripts._Game.General.Projectile.Pools{
             return component.IsActive() && (component.Collided == false || component.ExplodeElapsed == false);
         }
 
-        public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
+        public bool TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
         {
+            bool found = false;
             BombDroidBombDropProjectile pooledComp = GetPooledComponent();
 
             if (pooledComp)
@@ -56,12 +57,14 @@ namespace _Scripts._Game.General.Projectile.Pools{
                 pooledComp.InstigatorType = instigator;
                 pooledComp.transform.position = startPosition;
                 pooledComp.gameObject.SetActive(true);
+                found = true;
             }
             else
             {
                 Debug.Log("No more bomb drop projectiles");
             }
-            //return pooledComp;
+
+            return found;
         }
 
     }

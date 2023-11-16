@@ -51,7 +51,11 @@ namespace _Scripts._Game.General.Managers{
 
         public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
         {
-            _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition);
+            bool found = _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition);
+            if (found)
+            {
+                AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_BombDroid_BombDropAttack, startPosition);
+            }
         }
 
         public void PreInGameLoad()

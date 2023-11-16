@@ -46,7 +46,8 @@ namespace _Scripts._Game.General.Managers{
                 if (!IsActive(current.Value))
                 {
                     current.Value.gameObject.SetActive(false);
-                    current.Value.gameObject.transform.parent = transform;
+                    current.Value.transform.parent = transform;
+                    current.Value.transform.localPosition = Vector3.zero;
                     m_Pool.Push(current.Value);
                     m_Inuse.Remove(current);
                     m_NodePool.Push(current);

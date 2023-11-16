@@ -190,10 +190,13 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             if (LayerMask.NameToLayer("Ground") == collidedGO.layer)
             {
                 _collided = true;
-                ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, collision.ClosestPoint(transform.position), 0.0f);
+                Vector2 closestCollisionPoint = collision.ClosestPoint(transform.position);
+                ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, closestCollisionPoint, 0.0f);
+                AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Environment_BombDroidBomb_Explosion, closestCollisionPoint);
                 _spriteRenderer.enabled = false;
                 ProjectileLifetimeTimer = ProjectileLifetime - _explosionTimeDuration;
             }
+
         }
 
     }

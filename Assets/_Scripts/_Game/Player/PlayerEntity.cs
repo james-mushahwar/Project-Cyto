@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.Events;
 using _Scripts._Game.General.Settings;
+using Pathfinding.Examples;
 using UnityEngine;
 
 namespace _Scripts._Game.Player{
@@ -248,6 +249,8 @@ namespace _Scripts._Game.Player{
                     }
                 }
             }
+
+            AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_TakeDamage, FollowCamera.Instance.GetAudioListener().transform.position);
 
             FeedbackManager.Instance.TryFeedbackPattern(_playerRespawnReason._isRespawning ? EFeedbackPattern.Game_TakeDamageHeavy : EFeedbackPattern.Game_TakeDamageLight);
             if (_playerRespawnReason._isRespawning)
