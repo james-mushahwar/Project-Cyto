@@ -35,6 +35,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             if (distance <= _bdCtx.ChaseDetectionSqRange)
             {
                 SwitchStates(_factory.GetState(AIMovementState.Chase));
+                AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_SmallEnemy_DetectedPlayer, _bdCtx.transform.position);
                 return true;
             }
 

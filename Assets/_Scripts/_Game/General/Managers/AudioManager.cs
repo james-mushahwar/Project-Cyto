@@ -50,6 +50,8 @@ namespace _Scripts._Game.General.Managers {
         SFX_Enemy_BombDroid_BombDropAttack                 = 2000,
         SFX_Enemy_BombDroid_ChargeBombAttack               ,
         SFX_Enemy_SmallEnemy_Alerted                       ,
+        SFX_Enemy_SmallEnemy_DetectedPlayer                ,
+        SFX_Enemy_SmallEnemy_LostPlayer                    ,
 
         //environment = 3000                          
         SFX_Environment_BombDroidBomb_Explosion            = 3000,
