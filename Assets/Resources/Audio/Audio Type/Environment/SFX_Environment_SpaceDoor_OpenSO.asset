@@ -15,7 +15,7 @@ MonoBehaviour:
   _audioType: 3001
   _audioConcurrency:
     _audioTypeConcurrency:
-      _audioType: 0
+      _audioType: 3001
       _maxConcurrentAudioType: 1
       _maxAudioTypeConcurrencyRule: 1
       _priority: 1

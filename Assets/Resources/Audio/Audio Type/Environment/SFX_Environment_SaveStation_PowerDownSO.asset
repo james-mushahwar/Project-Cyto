@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 420e3ca81265b774f8ceec2131090e48, type: 3}
-  m_Name: SFX_Player_ExposedSO
+  m_Name: SFX_Environment_SaveStation_PowerDownSO
   m_EditorClassIdentifier: 
-  _audioType: 1015
+  _audioType: 3004
   _audioConcurrency:
     _audioTypeConcurrency:
-      _audioType: 1015
+      _audioType: 3004
       _maxConcurrentAudioType: 2
-      _maxAudioTypeConcurrencyRule: 3
-      _priority: 2
-    _audioConcurrencyGroup: {fileID: 11400000, guid: 00ae2f9601aaecd4693569c5e3aef77c, type: 2}
-  _audioPlayback: {fileID: 11400000, guid: aa3b823a161bd004fa334c275e3885cd, type: 2}
+      _maxAudioTypeConcurrencyRule: 1
+      _priority: 1
+    _audioConcurrencyGroup: {fileID: 11400000, guid: 11164e7174ab8344787e17f9549a7f09, type: 2}
+  _audioPlayback: {fileID: 0}

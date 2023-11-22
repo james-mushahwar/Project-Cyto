@@ -58,10 +58,7 @@ namespace _Scripts.Editortools.Windows.Audio{
 
             // remove types that already exist
             UnityEngine.Object[] scripts = Resources.LoadAll("Audio/Audio Type/");
-            //foreach (var o in Resources.LoadAll(_audioTypeEnemyPath)) scripts.Append<UnityEngine.Object>(o);
-            //foreach (var o in Resources.LoadAll(_audioTypeEnvironmentPath)) scripts.Append<UnityEngine.Object>(o);
-
-
+            
             foreach (UnityEngine.Object script in scripts)
             {
                 if (script.GetType() == typeof(AudioTypeScriptableObject))

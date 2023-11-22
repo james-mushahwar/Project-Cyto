@@ -9,9 +9,17 @@ namespace _Scripts._Game.Audio{
         [SerializeField] 
         private float _volume;
 
+        [SerializeField] 
+        private Vector2 _pitchRange = Vector2.one;
+
         public float Volume
         {
             get { return _volume; }
+        }
+
+        public Vector2 PitchRange
+        {
+            get { return _pitchRange; }
         }
     }
     

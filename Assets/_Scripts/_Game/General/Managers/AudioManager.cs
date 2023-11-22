@@ -1,17 +1,16 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Numerics;
+using System.Collections;
 using _Scripts._Game.Audio;
 using _Scripts._Game.Audio.AudioConcurrency;
 using _Scripts._Game.Player;
 using Pathfinding.Examples;
-using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.Audio;
-using Vector2 = System.Numerics.Vector2;
-using Vector3 = UnityEngine.Vector3;
+using Random = System.Random;
 
 namespace _Scripts._Game.General.Managers {
 
@@ -43,14 +42,23 @@ namespace _Scripts._Game.General.Managers {
         SFX_Player_PossessStart                            ,
         SFX_Player_Jump                                    ,
         SFX_Player_Dash                                    ,
+        SFX_Player_Landed                                  ,
+        SFX_Player_Death                                   ,
+        SFX_Player_Respawn                                 ,
                                                    
         // enemies code = 2000                              
         SFX_Enemy_BombDroid_BombDropAttack                 = 2000,
         SFX_Enemy_BombDroid_ChargeBombAttack               ,
+        SFX_Enemy_SmallEnemy_Alerted                       ,
 
         //environment = 3000                          
         SFX_Environment_BombDroidBomb_Explosion            = 3000,
         SFX_Environment_SpaceDoor_Open                     ,
+        SFX_Environment_SpaceDoor_Close                    ,
+        SFX_Environment_SaveStation_PowerUp                ,
+        SFX_Environment_SaveStation_PowerDown              ,
+        SFX_Environment_SaveStation_Save                   ,
+
         COUNT
     }
 
@@ -367,9 +375,24 @@ namespace _Scripts._Game.General.Managers {
                 {
                     AudioConcurrency concurrency = _audioTypeSO.Concurrency;
 
-                    concurrency._audioTypeConcurrency._audioType = audioType;
-                    List<AudioSource> groupSources = new List<AudioSource>();
-                    _playingConcurrencyGroupedAudioSourcesDict.TryAdd(concurrency._audioConcurrencyGroup, groupSources);
+                    if (concurrency != null)
+                    {
+                        concurrency._audioTypeConcurrency._audioType = audioType;
+                        List<AudioSource> groupSources = new List<AudioSource>();
+                        if (concurrency._audioConcurrencyGroup != null)
+                        {
+                            _playingConcurrencyGroupedAudioSourcesDict.TryAdd(concurrency._audioConcurrencyGroup, groupSources);
+                        }
+                        else
+                        {
+                            LogWarning("Audio concurrency group in audio type: " + audioType + " is null");
+
+                        }
+                    }
+                    else
+                    {
+                        LogWarning("Concurrency in audio type: " + audioType + " is null");
+                    }
                 }
             }
 
@@ -964,10 +987,15 @@ namespace _Scripts._Game.General.Managers {
                 if (audioPlayback != null)
                 {
                     audioSource.volume = audioPlayback.Volume;
+
+                    var pitchRange = audioPlayback.PitchRange;
+                    float pitch = UnityEngine.Random.Range(pitchRange.x, pitchRange.y);
+                    audioSource.pitch = pitch;
                 }
                 else
                 {
                     audioSource.volume = 1.0f;
+                    audioSource.pitch = 1.0f;
                 }
             }
         }

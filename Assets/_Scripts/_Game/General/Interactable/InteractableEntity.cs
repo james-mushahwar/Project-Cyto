@@ -123,6 +123,8 @@ namespace _Scripts._Game.General.Interactable{
                     {
                         RespawnManager.Instance.RespawnGOID = _saveStationSE.Id;
                     }
+
+                    AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Environment_SaveStation_Save, gameObject.transform.position);
                 }
                 OnInteractStart.Invoke();
                 _onInteractStartGE.TriggerEvent();

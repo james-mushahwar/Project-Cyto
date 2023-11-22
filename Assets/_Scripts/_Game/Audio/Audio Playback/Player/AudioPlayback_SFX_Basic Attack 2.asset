@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8dd056e845f74183bcdb708fa1af7, type: 3}
-  m_Name: AudioPlayback_SFX_Basic Attack 3
+  m_Name: AudioPlayback_SFX_Basic Attack 2
   m_EditorClassIdentifier: 
   _volume: 0.25
+  _pitchRange: {x: 0.9, y: 1.1}
