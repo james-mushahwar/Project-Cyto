@@ -56,6 +56,10 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             Transform waypoint = _bdCtx.Waypoints.GetWaypoint(Random.Range(0, 4));
             _bdCtx.Seeker.StartPath(_bdCtx.Rb.position, waypoint.position);
             _bdCtx.DestinationSetter.target = waypoint;
+
+            //audio movement
+            AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Enemy_BombDroid_Movement, _bdCtx.transform,
+                _bdCtx.BombDroidMovementAudioHandler, _bdCtx.BombDroidMovementAudioHandler._position);
         }
 
         public override void ExitState()

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 using _Scripts._Game.Audio;
 using _Scripts._Game.Audio.AudioConcurrency;
+using _Scripts._Game.Audio.AudioHandle;
 using _Scripts._Game.Player;
 using Pathfinding.Examples;
 using Unity.VisualScripting;
@@ -19,6 +20,14 @@ namespace _Scripts._Game.General.Managers {
         //SFX
 
         //general code = 0000
+        // small enemies
+        SFX_Enemy_SmallEnemy_DetectedPlayer                = 0000,
+        SFX_Enemy_SmallEnemy_LostPlayer                    ,
+        SFX_Enemy_SmallEnemy_Alerted                       ,
+        
+        // medium enemies
+
+        // large enemies
 
         //player code = 1000
         SFX_Player_TakeDamage                              = 1000,
@@ -46,12 +55,10 @@ namespace _Scripts._Game.General.Managers {
         SFX_Player_Death                                   ,
         SFX_Player_Respawn                                 ,
                                                    
-        // enemies code = 2000                              
+        // specific enemies code = 2000                              
         SFX_Enemy_BombDroid_BombDropAttack                 = 2000,
         SFX_Enemy_BombDroid_ChargeBombAttack               ,
-        SFX_Enemy_SmallEnemy_Alerted                       ,
-        SFX_Enemy_SmallEnemy_DetectedPlayer                ,
-        SFX_Enemy_SmallEnemy_LostPlayer                    ,
+        SFX_Enemy_BombDroid_Movement                       ,
 
         //environment = 3000                          
         SFX_Environment_BombDroidBomb_Explosion            = 3000,
@@ -157,6 +164,7 @@ namespace _Scripts._Game.General.Managers {
         private GameObject _owner;
         [SerializeField]
         private AudioHandleParameters _handleParametersSO;    // what parameters does this audiohandle share?
+        [SerializeField]
         private bool _loops;                                  // does this handle loop
 
         private static bool DefaultIsActive()
@@ -180,30 +188,14 @@ namespace _Scripts._Game.General.Managers {
             set { _owner = value; }
         }
 
-        public AudioHandler(bool loops, GameObject owner)
+        public void Init(EAudioType audioType, AudioSource source, bool attach, Vector3 position)
         {
-            _loops = loops;
-            _owner = owner;
-        }
-    }
-
-    [Serializable]
-    [CreateAssetMenu(menuName = "Audio/Audio Handles/Range Group")]
-    public class AudioHandleParameters : ScriptableObject
-    {
-        public float _startDistance;
-        public float _stopDistance;
-
-        public bool ShouldStart(Vector3 audioLocation2D, Vector3 audioListener2D)
-        {
-            Vector3 difference = audioListener2D - audioLocation2D;
-            return (difference.sqrMagnitude) < (_startDistance * _startDistance);
-        }
-
-        public bool ShouldStop(Vector3 audioLocation2D, Vector3 audioListener2D)
-        {
-            Vector3 difference = audioListener2D - audioLocation2D;
-            return (difference.sqrMagnitude) >= (_stopDistance * _stopDistance);
+            _audioType = audioType;
+            _active = true;
+            _audioSource = source;
+            _release = false;
+            _attachAudioSource = attach;
+            _position = position;
         }
     }
 
@@ -269,7 +261,9 @@ namespace _Scripts._Game.General.Managers {
 
         [Header("Audio Handlers")] 
         private HashSet<AudioHandler> _activeAudioHandlers = new HashSet<AudioHandler>();
-            //private Dictionary<AudioSource, AudioHandler> _audioSourceHandleDictionary = new Dictionary<AudioSource, AudioHandler>();
+
+        private List<AudioHandler> _audioHandlersToBeRemoved = new List<AudioHandler>();
+        //private Dictionary<AudioSource, AudioHandler> _audioSourceHandleDictionary = new Dictionary<AudioSource, AudioHandler>();
         //private Dictionary<AudioSource, AudioHandler> _allocatedAudioSourceHandlesDict = new Dictionary<AudioSource, AudioHandler>();
 
         #region AudioTracks
@@ -465,7 +459,7 @@ namespace _Scripts._Game.General.Managers {
                                 {
                                     if (audioHandler._audioSource.isPlaying == false)
                                     {
-                                        FindAndPlayAudioClip(audioHandler._audioType, audioHandler._audioSource);
+                                          FindAndPlayAudioClip(audioHandler._audioType, audioHandler._audioSource);
                                     }
                                 }
                             }
@@ -496,10 +490,19 @@ namespace _Scripts._Game.General.Managers {
                         audioHandler._audioSource.Stop();
                     }
                     audioHandler._audioSource = null;
-                    _activeAudioHandlers.Remove(audioHandler);
+                    _audioHandlersToBeRemoved.Remove(audioHandler);
                     audioHandler._release = false;
                 }
             }
+
+            if (_audioHandlersToBeRemoved.Count > 0)
+            {
+                foreach (AudioHandler audioHandler in _audioHandlersToBeRemoved)
+                {
+                    _activeAudioHandlers.Remove(audioHandler);
+                }
+            }
+            _audioHandlersToBeRemoved.Clear();
         }
 
         public void PreInGameLoad()
@@ -576,11 +579,7 @@ namespace _Scripts._Game.General.Managers {
 
             if (RequestActivateHandle(audioHandler))
             {
-                audioHandler._active = true;
-                audioHandler._audioSource = pooledComp;
-                audioHandler._release = false;
-                audioHandler._attachAudioSource = false;
-                audioHandler._position = worldLoc;
+                audioHandler.Init(audioType, pooledComp, true, worldLoc);
                 _activeAudioHandlers.Add(audioHandler);
             }
 
@@ -615,11 +614,7 @@ namespace _Scripts._Game.General.Managers {
 
             if (RequestActivateHandle(audioHandler))
             {
-                audioHandler._active = true;
-                audioHandler._audioSource = pooledComp;
-                audioHandler._release = false;
-                audioHandler._attachAudioSource = true;
-                audioHandler._position = localPosition;
+                audioHandler.Init(audioType, pooledComp, true, localPosition);
                 _activeAudioHandlers.Add(audioHandler);
             }
 

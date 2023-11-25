@@ -16,7 +16,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         private float _patrolSpeed;
         [SerializeField]
         private Vector2 _patrolWaitTimeRange;
-
         public Vector2 PatrolWaitTimeRange { get => _patrolWaitTimeRange; }
 
         [Header("Chase Properties")]
@@ -43,8 +42,23 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         public float FlyingMaximumVerticalVelocity { get => _flyingMaximumVerticalVelocity; }
         public float FlyingMaximumHorizontalVelocity { get => _flyingMaximumHorizontalVelocity; }
         public float FlyingMovementDirectionThrust { get => _flyingMovementDirectionThrust; }
-
         #endregion
+
+        #region Audio
+        [SerializeField] 
+        private AudioHandler _bombDroidMovementAudioHandler;
+
+        public AudioHandler BombDroidMovementAudioHandler
+        {
+            get { return _bombDroidMovementAudioHandler; }
+        }
+        #endregion
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _bombDroidMovementAudioHandler.Owner = gameObject;
+        }
 
         // ISaveable
         [System.Serializable]

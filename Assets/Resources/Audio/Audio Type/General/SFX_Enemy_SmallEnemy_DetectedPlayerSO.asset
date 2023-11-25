@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420e3ca81265b774f8ceec2131090e48, type: 3}
   m_Name: SFX_Enemy_SmallEnemy_DetectedPlayerSO
   m_EditorClassIdentifier: 
-  _audioType: 2003
+  _audioType: 0
   _audioConcurrency:
     _audioTypeConcurrency:
       _audioType: 0
       _maxConcurrentAudioType: 2
-      _maxAudioTypeConcurrencyRule: 0
+      _maxAudioTypeConcurrencyRule: 1
       _priority: 2
     _audioConcurrencyGroup: {fileID: 11400000, guid: 754ce2d21395188439000562100c25e3, type: 2}
   _audioPlayback: {fileID: 0}

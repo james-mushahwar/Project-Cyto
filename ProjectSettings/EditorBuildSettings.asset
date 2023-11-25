@@ -44,5 +44,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Areas/Area2-4.unity
     guid: f5e41eabe20057344ba1257890ba3b2f
+  - enabled: 1
+    path: Assets/_Scenes/Test/EnemyArena/EnemyArena_Area.unity
+    guid: b01ddd18217e30a47bd4b17bfedc75b8
+  - enabled: 1
+    path: Assets/_Scenes/Test/EnemyArena/EnemyArena_Zone.unity
+    guid: 7b465a8f680a62c45a000bd839be9d09
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1dc90654f5220354f8b06859e6810d7a, type: 2}

@@ -51,6 +51,8 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             _bdCtx.Seeker.enabled = false;
             _bdCtx.DestinationSetter.enabled = false;
             _bdCtx.AIPath.enabled = false;
+
+            AudioManager.Instance.RequestReleaseHandle(_bdCtx.BombDroidMovementAudioHandler);
         }
 
         public override void ExitState()

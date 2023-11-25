@@ -139,14 +139,6 @@ namespace _Scripts._Game.General.Managers{
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        void Start()
-        {
-
-            //MainMenuCheck(SceneManager.GetActiveScene());
-
-            //PlayerSceneCheck();
-        }
-
         void Update()
         {
             if (IsGameRunning)
@@ -167,8 +159,6 @@ namespace _Scripts._Game.General.Managers{
         void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
             MainMenuCheck(scene);
-
-            //PlayerSceneCheck();
         }
 
         private void MainMenuCheck(Scene scene)

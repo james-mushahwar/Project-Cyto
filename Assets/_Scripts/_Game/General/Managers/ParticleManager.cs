@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,59 @@ namespace _Scripts._Game.General.Managers{
         TargetHighlight,
         BombDroidBombDrop,
         COUNT
+    }
+
+    [Serializable]
+    public class ParticleHandler
+    {
+        public delegate bool IsHandleActiveDelegate();
+        [HideInInspector]
+        public IsHandleActiveDelegate IsActiveMethod = DefaultIsActive;
+
+        // positioning 
+        public bool _attach;
+        public Vector3 _position;
+
+        [HideInInspector]
+        public EParticleType _type;
+        [HideInInspector]
+        public bool _active;                                 // is handle active with or without an particlesystem
+        [HideInInspector]
+        public bool _release;                                // is this handle marked to be released = release particlesystem and mark active = false
+        [HideInInspector]
+        public ParticleSystem _particleSystem;
+
+        private GameObject _owner;
+        //[SerializeField]
+        //private AudioHandleParameters _handleParametersSO;    // what parameters does this audiohandle share?
+        private bool _loops;                                  // does this handle loop
+
+        private static bool DefaultIsActive()
+        {
+            return true;
+        }
+
+        //public AudioHandleParameters HandleParameters
+        //{
+        //    get { return _handleParametersSO; }
+        //}
+
+        public bool Loops
+        {
+            get { return _loops; }
+        }
+
+        public GameObject Owner
+        {
+            get { return _owner; }
+            set { _owner = value; }
+        }
+
+        public ParticleHandler(bool loops, GameObject owner)
+        {
+            _loops = loops;
+            _owner = owner;
+        }
     }
 
     public class ParticleManager : Singleton<ParticleManager>, IManager

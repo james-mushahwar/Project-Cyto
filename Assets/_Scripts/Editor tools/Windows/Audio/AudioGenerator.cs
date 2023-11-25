@@ -18,6 +18,7 @@ namespace _Scripts.Editortools.Windows.Audio{
     {
         #region General
         private const string _audioTypeRootPath = "Assets/Resources/Audio/Audio Type/";
+        private const string _audioTypeGeneralPath = "Assets/Resources/Audio/Audio Type/General";
         private const string _audioTypePlayerPath = "Assets/Resources/Audio/Audio Type/Player";
         private const string _audioTypeEnemyPath = "Assets/Resources/Audio/Audio Type/Enemy";
         private const string _audioTypeEnvironmentPath = "Assets/Resources/Audio/Audio Type/Environment";
@@ -95,8 +96,12 @@ namespace _Scripts.Editortools.Windows.Audio{
 
                 newAudioTypeSO.AudioType = newAudioType;
 
-                string path = _audioTypePlayerPath;
-                if ((int)newAudioType >= 2000 && (int)newAudioType < 3000)
+                string path = _audioTypeGeneralPath;
+                if ((int)newAudioType >= 1000 && (int)newAudioType < 2000)
+                {
+                    path = _audioTypePlayerPath;
+                }
+                else if ((int)newAudioType >= 2000 && (int)newAudioType < 3000)
                 {
                     // enemy
                     path = _audioTypeEnemyPath;
