@@ -58,6 +58,14 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         {
             base.Awake();
             _bombDroidMovementAudioHandler.Owner = gameObject;
+            _bombDroidMovementAudioHandler.IsActiveMethod = ShouldMovementAudioBeActive;
+        }
+
+        //audio handler
+        bool ShouldMovementAudioBeActive()
+        {
+            AIMovementState currentState = _states.GetMovementStateEnum(CurrentState);
+            return gameObject.activeSelf && currentState != AIMovementState.Idle;
         }
 
         // ISaveable

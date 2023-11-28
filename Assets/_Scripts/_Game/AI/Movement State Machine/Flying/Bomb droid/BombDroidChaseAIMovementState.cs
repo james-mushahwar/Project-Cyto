@@ -56,6 +56,8 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
                 _bdCtx.Seeker.StartPath(_bdCtx.Rb.position, _targetTransform.position);
                 _bdCtx.DestinationSetter.target = _targetTransform;
             }
+
+            AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_SmallEnemy_DetectedPlayer, _bdCtx.transform.position);
         }
 
         public override void ExitState()

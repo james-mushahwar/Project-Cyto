@@ -151,6 +151,15 @@ namespace _Scripts._Game.General.Managers {
         // positioning 
         public bool _attachAudioSource;
         public Vector3 _position;
+
+        //playback
+        private float _volumeAlpha;
+        private float _pitchAlpha;
+
+        [SerializeField, Range(0.0f, 1.0f)] 
+        private float _defaultVolumeAlpha = 0.0f; 
+        [SerializeField, Range(0.0f, 1.0f)] 
+        private float _defaultPitchAlpha = 0.0f;
  
         [HideInInspector] 
         public EAudioType _audioType;
@@ -166,10 +175,18 @@ namespace _Scripts._Game.General.Managers {
         private AudioHandleParameters _handleParametersSO;    // what parameters does this audiohandle share?
         [SerializeField]
         private bool _loops;                                  // does this handle loop
+        [SerializeField] 
+        private bool _canReplayCurrentlyPlayingSource;        // when audio source is tried to be played and this handle's audiosource is already playing should we play?
 
         private static bool DefaultIsActive()
         {
             return true;
+        }
+
+        public GameObject Owner
+        {
+            get { return _owner; }
+            set { _owner = value; }
         }
 
         public AudioHandleParameters HandleParameters
@@ -182,10 +199,21 @@ namespace _Scripts._Game.General.Managers {
             get { return _loops; }
         }
 
-        public GameObject Owner
+        public bool CanReplayCurrentlyPlayingSource
         {
-            get { return _owner; }
-            set { _owner = value; }
+            get { return _canReplayCurrentlyPlayingSource; }
+        }
+
+        public float VolumeAlpha
+        {
+            get { return _volumeAlpha; }
+            set { _volumeAlpha = value; }
+        }
+
+        public float PitchAlpha
+        {
+            get { return _pitchAlpha; }
+            set { _pitchAlpha = value; }
         }
 
         public void Init(EAudioType audioType, AudioSource source, bool attach, Vector3 position)
@@ -196,39 +224,19 @@ namespace _Scripts._Game.General.Managers {
             _release = false;
             _attachAudioSource = attach;
             _position = position;
+
+            //reset
+            _volumeAlpha = _defaultVolumeAlpha;
+            _pitchAlpha = _defaultPitchAlpha;
         }
     }
 
     public class AudioManager : Singleton<AudioManager>, IManager
     {
-        //private static EAudioType[] _AudioTypes =
-        //{
-        //    //player
-        //    EAudioType.SFX_Player_BasicAttack1,
-        //    EAudioType.SFX_Player_BasicAttack2,
-        //    EAudioType.SFX_Player_BasicAttack3,
-        //    EAudioType.SFX_Player_BasicAttack4,
-        //    EAudioType.SFX_Player_BasicAttackImpact1,
-        //    EAudioType.SFX_Player_BasicAttackImpact2,
-        //    EAudioType.SFX_Player_BasicAttackImpact3,
-        //    EAudioType.SFX_Player_BasicAttackImpact4,
-        //    EAudioType.SFX_Player_BasicAttackImpact5,
-        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid1,
-        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid2,
-        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid3,
-        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid4,
-        //    EAudioType.SFX_Player_BasicAttackImpactWithLiquid5,
-        //    EAudioType.SFX_Player_Exposed,
-        //    EAudioType.SFX_Player_BondStart,
-        //    EAudioType.SFX_Player_BondExit,
-        //    EAudioType.SFX_Player_PossessStart,
-        //    EAudioType.SFX_Player_Jump,
-        //    EAudioType.SFX_Player_Dash,
-        //    //enemy
-        //    EAudioType.SFX_Enemy_BombDroid_ChargeBombAttack,
-        //    //environment
-        //    EAudioType.SFX_Environment_SpaceDoor_Open,
-        //};
+        #region Defaults
+        public const float DefaultVolume = 1.0f;
+        public const float DefaultPitch = 1.0f;
+        #endregion
 
         [SerializeField]
         private AudioSourcePool _audioSourcePool;
@@ -459,7 +467,7 @@ namespace _Scripts._Game.General.Managers {
                                 {
                                     if (audioHandler._audioSource.isPlaying == false)
                                     {
-                                          FindAndPlayAudioClip(audioHandler._audioType, audioHandler._audioSource);
+                                        FindAndPlayAudioClip(audioHandler._audioType, audioHandler._audioSource);
                                     }
                                 }
                             }
@@ -573,34 +581,48 @@ namespace _Scripts._Game.General.Managers {
 
         public AudioHandler TryPlayAudioSourceAtLocation(EAudioType audioType, Vector3 worldLoc, AudioHandler audioHandler = null)
         {
-            AudioSource pooledComp = _audioSourcePool.GetAudioSource();
+            AudioSource audioSource = _audioSourcePool.GetAudioSource();
 
             //AudioHandler audioHandler = null;
+            bool allowPlay = true;
 
             if (RequestActivateHandle(audioHandler))
             {
-                audioHandler.Init(audioType, pooledComp, true, worldLoc);
+                audioHandler.Init(audioType, audioSource, true, worldLoc);
                 _activeAudioHandlers.Add(audioHandler);
             }
+            else
+            {
+                if (audioHandler != null)
+                {
+                    allowPlay = audioHandler.CanReplayCurrentlyPlayingSource && audioHandler._audioSource != null;
+                    if (allowPlay)
+                    {
+                        Log("Play handle AS instead!");
+                        audioSource = audioHandler._audioSource;
+                    }
+                }
+            }
 
-            if (pooledComp)
+            if (audioSource && allowPlay)
             {
                 // check concurrency rules
-                bool canPlay = ResolveAudioConcurrency(audioType, pooledComp);
+                bool canPlay = ResolveAudioConcurrency(audioType, audioSource);
                 if (!canPlay)
                 {
                     return null;
                 }
 
-                // audio playback
-                AdjustAudioPlayback(audioType, pooledComp);
+                audioSource.gameObject.transform.position = worldLoc;
 
-                pooledComp.gameObject.transform.position = worldLoc;
-                FindAndPlayAudioClip(audioType, pooledComp);
+                FindAndPlayAudioClip(audioType, audioSource);
             }
             else
             {
-                LogWarning("No more pooled audio source components");
+                if (audioSource == null)
+                {
+                    LogWarning("No more pooled audio source components");
+                }
             }
 
             return audioHandler;
@@ -608,39 +630,52 @@ namespace _Scripts._Game.General.Managers {
 
         public AudioHandler TryPlayAudioSourceAttached(EAudioType audioType, Transform attachTransform, AudioHandler audioHandler = null, Vector3 localPosition = default)
         {
-            AudioSource pooledComp = _audioSourcePool.GetAudioSource();
+            AudioSource audioSource = _audioSourcePool.GetAudioSource();
 
             //AudioHandler audioHandler = null;
+            bool allowPlay = true;
 
             if (RequestActivateHandle(audioHandler))
             {
-                audioHandler.Init(audioType, pooledComp, true, localPosition);
+                audioHandler.Init(audioType, audioSource, true, localPosition);
                 _activeAudioHandlers.Add(audioHandler);
             }
+            else
+            {
+                if (audioHandler != null)
+                {
+                    allowPlay = audioHandler.CanReplayCurrentlyPlayingSource && audioHandler._audioSource != null;
+                    if (allowPlay)
+                    {
+                        Log("Play handle AS instead!");
+                        audioSource = audioHandler._audioSource;
+                    }
+                }
+            }
 
-            if (pooledComp)
+            if (audioSource && allowPlay)
             {
                 // check concurrency rules
-                bool canPlay = ResolveAudioConcurrency(audioType, pooledComp);
+                bool canPlay = ResolveAudioConcurrency(audioType, audioSource);
                 if (!canPlay)
                 {
                     return null;
                 }
 
-                // audio playback
-                AdjustAudioPlayback(audioType, pooledComp);
-
                 if (attachTransform != null)
                 {
-                    pooledComp.transform.parent = attachTransform;
+                    audioSource.transform.parent = attachTransform;
                 }
-
-                pooledComp.gameObject.transform.localPosition = localPosition;
-                FindAndPlayAudioClip(audioType, pooledComp);
+                audioSource.gameObject.transform.localPosition = localPosition;
+                
+                FindAndPlayAudioClip(audioType, audioSource);
             }
             else
             {
-                LogWarning("No more pooled audio source components");
+                if (audioSource == null)
+                {
+                    LogWarning("No more pooled audio source components");
+                }
             }
 
             return audioHandler;
@@ -650,7 +685,17 @@ namespace _Scripts._Game.General.Managers {
         {
             string path = _audioSFXPaths[(int)audioType / 1000];
             pooledComp.clip = Resources.Load(path + _audioTypeLocationsDict[audioType]) as AudioClip;
-            pooledComp.Play();
+
+            if (pooledComp.clip != null)
+            {
+                // audio playback
+                AdjustAudioPlayback(audioType, pooledComp);
+                pooledComp.Play();
+            }
+            else
+            {
+                LogWarning("No audio clip found to play for type: " + audioType);
+            }
         }
 
         private bool RequestActivateHandle(AudioHandler audioHandler)
@@ -675,7 +720,7 @@ namespace _Scripts._Game.General.Managers {
             return true;
         }
 
-        public bool RequestReleaseHandle(AudioHandler audioHandler)
+        private bool RequestReleaseHandle(AudioHandler audioHandler)
         {
             if (audioHandler == null)
             {
@@ -970,12 +1015,15 @@ namespace _Scripts._Game.General.Managers {
             }
         }
 
-        private void AdjustAudioPlayback(EAudioType audioType, AudioSource audioSource)
+        private void AdjustAudioPlayback(EAudioType audioType, AudioSource audioSource, AudioHandler audioHandler = null)
         {
             AudioTypeScriptableObject audioTypeSO = null;
             ScriptableAudioPlayback audioPlayback = null;
 
             _audioTypeSODict.TryGetValue(audioType, out audioTypeSO);
+
+            float volume = DefaultVolume;
+            float pitch = DefaultPitch;
 
             if (audioTypeSO)
             {
@@ -983,18 +1031,36 @@ namespace _Scripts._Game.General.Managers {
 
                 if (audioPlayback != null)
                 {
-                    audioSource.volume = audioPlayback.Volume;
+                    if (audioHandler != null)
+                    {
+                        volume = Mathf.Lerp(audioPlayback.VolumeRange.x, audioPlayback.VolumeRange.y,
+                            audioHandler.VolumeAlpha);
+                        pitch = Mathf.Lerp(audioPlayback.PitchRange.x, audioPlayback.PitchRange.y,
+                            audioHandler.PitchAlpha);
+                    }
+                    else
+                    {
+                        Vector2 volumeRange = audioPlayback.VolumeRange;
+                        volume = UnityEngine.Random.Range(volumeRange.x, volumeRange.y);
 
-                    var pitchRange = audioPlayback.PitchRange;
-                    float pitch = UnityEngine.Random.Range(pitchRange.x, pitchRange.y);
-                    audioSource.pitch = pitch;
+                        Vector2 pitchRange = audioPlayback.PitchRange;
+                        pitch = UnityEngine.Random.Range(pitchRange.x, pitchRange.y);
+                    }
+                    
                 }
                 else
                 {
-                    audioSource.volume = 1.0f;
-                    audioSource.pitch = 1.0f;
+                    if (audioHandler != null)
+                    {
+                        volume = volume * audioHandler.VolumeAlpha;
+                        pitch = pitch * audioHandler.PitchAlpha;
+                    }
+                    
                 }
             }
+
+            audioSource.volume = volume;
+            audioSource.pitch = pitch;
         }
 
         public void PlayAudio(EAudioTrackTypes type, bool fade = false, float delay = 0.0f)

@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: EnemyArenaZoneSO
   m_EditorClassIdentifier: 
   _zoneScene:
-    _sceneAsset: {fileID: 0}
-    _sceneName: 
-  _areaInfos: []
+    _sceneAsset: {fileID: 102900000, guid: 7b465a8f680a62c45a000bd839be9d09, type: 3}
+    _sceneName: EnemyArena_Zone
+  _areaInfos:
+  - _areaName:
+      _sceneAsset: {fileID: 102900000, guid: b01ddd18217e30a47bd4b17bfedc75b8, type: 3}
+      _sceneName: EnemyArena_Area
+    _connectedAreas: []
+    _areaMusic: 0
+    _areaAmbience: 0

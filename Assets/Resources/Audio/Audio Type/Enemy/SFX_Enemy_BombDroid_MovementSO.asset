@@ -15,9 +15,9 @@ MonoBehaviour:
   _audioType: 2002
   _audioConcurrency:
     _audioTypeConcurrency:
-      _audioType: 0
+      _audioType: 2002
       _maxConcurrentAudioType: 2
       _maxAudioTypeConcurrencyRule: 2
       _priority: 1
     _audioConcurrencyGroup: {fileID: 11400000, guid: 8cb14fd076a8eea4d817d8e7c8721231, type: 2}
-  _audioPlayback: {fileID: 0}
+  _audioPlayback: {fileID: 11400000, guid: 613694679cf234943aec88c9793f51d5, type: 2}
