@@ -13,8 +13,11 @@ namespace _Scripts._Game.Audio{
         private EAudioType _audioType;
         [SerializeField] 
         private General.Managers.AudioConcurrency _audioConcurrency;
-        [SerializeField] 
-        private ScriptableAudioPlayback _audioPlayback;
+
+        [SerializeField]
+        private AudioPlayback _audioPlayback;
+        //[SerializeField] 
+        //private ScriptableAudioPlayback _audioPlayback;
 
         public EAudioType AudioType
         {
@@ -27,7 +30,7 @@ namespace _Scripts._Game.Audio{
             get { return _audioConcurrency; }
         }
 
-        public ScriptableAudioPlayback AudioPlayback
+        public AudioPlayback AudioPlayback
         {
             get { return _audioPlayback; }
         }

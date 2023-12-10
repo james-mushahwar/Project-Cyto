@@ -142,6 +142,24 @@ namespace _Scripts._Game.General.Managers {
     }
 
     [Serializable]
+    public class AudioPlayback
+    {
+        [SerializeField] 
+        private Vector2 _volumeRange = Vector2.one;
+        public Vector2 VolumeRange
+        {
+            get { return _volumeRange; }
+        }
+
+        [SerializeField] 
+        private Vector2 _pitchRange = Vector2.one;
+        public Vector2 PitchRange
+        {
+            get { return _pitchRange; }
+        }
+    }
+
+    [Serializable]
     public class AudioHandler
     {
         public delegate bool IsHandleActiveDelegate();
@@ -1018,7 +1036,7 @@ namespace _Scripts._Game.General.Managers {
         private void AdjustAudioPlayback(EAudioType audioType, AudioSource audioSource, AudioHandler audioHandler = null)
         {
             AudioTypeScriptableObject audioTypeSO = null;
-            ScriptableAudioPlayback audioPlayback = null;
+            AudioPlayback audioPlayback = null;
 
             _audioTypeSODict.TryGetValue(audioType, out audioTypeSO);
 
