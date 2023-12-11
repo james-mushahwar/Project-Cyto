@@ -20,4 +20,6 @@ MonoBehaviour:
       _maxAudioTypeConcurrencyRule: 2
       _priority: 1
     _audioConcurrencyGroup: {fileID: 11400000, guid: 8cb14fd076a8eea4d817d8e7c8721231, type: 2}
-  _audioPlayback: {fileID: 11400000, guid: 613694679cf234943aec88c9793f51d5, type: 2}
+  _audioPlayback:
+    _volumeRange: {x: 0.5, y: 0.5}
+    _pitchRange: {x: 1, y: 1}

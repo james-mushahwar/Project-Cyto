@@ -145,14 +145,14 @@ namespace _Scripts._Game.General.Managers {
     public class AudioPlayback
     {
         [SerializeField] 
-        private Vector2 _volumeRange = Vector2.one;
+        private Vector2 _volumeRange = new Vector2(0.5f, 0.5f); // AS volume limits are 0 to 1, default is 1
         public Vector2 VolumeRange
         {
             get { return _volumeRange; }
         }
 
         [SerializeField] 
-        private Vector2 _pitchRange = Vector2.one;
+        private Vector2 _pitchRange = Vector2.one; // AS pitch limits are -3 to 3, default is 1
         public Vector2 PitchRange
         {
             get { return _pitchRange; }
@@ -1068,6 +1068,7 @@ namespace _Scripts._Game.General.Managers {
                 }
                 else
                 {
+                    LogWarning("Audio playback for " + audioTypeSO + " not found");
                     if (audioHandler != null)
                     {
                         volume = volume * audioHandler.VolumeAlpha;
