@@ -78,6 +78,11 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         private AIEntity _entity;
 
         public AIEntity Entity { get => _entity; }
+
+        public T GetStateMachine<T>() where T : AIAttackStateMachineBase
+        {
+            return this as T;
+        }
         #endregion
 
         #region General

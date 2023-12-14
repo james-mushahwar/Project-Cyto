@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using _Scripts._Game.AI.Entity.Flying;
 using Pathfinding;
 using UnityEngine;
 
@@ -9,12 +10,14 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     public class BombDroidPatrolAIMovementState : BaseAIMovementState
     {
         private BombDroidAIMovementStateMachine _bdCtx;
+        private BombDroidAIEntity _bdEntity;
 
         private float _waitTimer;
 
         public BombDroidPatrolAIMovementState(AIMovementStateMachineBase ctx, AIMovementStateMachineFactory factory) : base(ctx, factory)
         {
-            _bdCtx = ctx as BombDroidAIMovementStateMachine;
+            _bdCtx = ctx.GetStateMachine<BombDroidAIMovementStateMachine>();
+            _bdEntity = ctx.Entity as BombDroidAIEntity;
             UsesAIPathfinding = true;
         }
 
@@ -57,8 +60,9 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             _bdCtx.DestinationSetter.target = waypoint;
 
             //audio movement
+            _bdEntity.BombDroidMovementAudioHandler.VolumeAlpha = 0.5f;
             AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Enemy_BombDroid_Movement, _bdCtx.transform, 
-                _bdCtx.BombDroidMovementAudioHandler, _bdCtx.BombDroidMovementAudioHandler._position);
+                _bdEntity.BombDroidMovementAudioHandler, _bdEntity.BombDroidMovementAudioHandler._position);
         }
 
         public override void ExitState()

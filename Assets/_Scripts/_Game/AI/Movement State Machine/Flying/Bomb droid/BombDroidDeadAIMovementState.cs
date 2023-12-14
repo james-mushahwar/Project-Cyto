@@ -8,7 +8,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid {
         private BombDroidAIMovementStateMachine _bdCtx;
         public BombDroidDeadAIMovementState(AIMovementStateMachineBase ctx, AIMovementStateMachineFactory factory) : base(ctx, factory)
         {
-            _bdCtx = ctx as BombDroidAIMovementStateMachine;
+            _bdCtx = ctx.GetStateMachine<BombDroidAIMovementStateMachine>();
         }
     
         public override bool CheckSwitchStates()

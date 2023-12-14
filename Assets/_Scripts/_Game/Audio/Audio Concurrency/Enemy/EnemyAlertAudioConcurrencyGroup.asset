@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyAlertAudioConcurrencyGroup
   m_EditorClassIdentifier: 
   _maxConcurrentAudioGroup: 2
-  _audioConcurrencyRule: 4
+  _audioConcurrencyRule: 1

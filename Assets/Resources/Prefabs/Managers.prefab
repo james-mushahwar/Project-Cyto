@@ -5376,7 +5376,7 @@ GameObject:
   - component: {fileID: 5673655428558447821}
   - component: {fileID: 6623607062454557569}
   m_Layer: 0
-  m_Name: BomdDroidPool
+  m_Name: BombDroidPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5411,7 +5411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useTickMaster: 0
   m_PoolCount: 8
-  _entityPrefab: {fileID: 2639065142676816087, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}
+  _entityPrefab: {fileID: 7466883618828923414, guid: aa40cf8823d37f64ebc09e4e985db0ce, type: 3}
 --- !u!1 &5203442509778003867
 GameObject:
   m_ObjectHideFlags: 0

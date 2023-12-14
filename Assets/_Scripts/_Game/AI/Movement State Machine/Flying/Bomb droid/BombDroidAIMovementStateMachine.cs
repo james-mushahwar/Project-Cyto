@@ -44,28 +44,23 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         public float FlyingMovementDirectionThrust { get => _flyingMovementDirectionThrust; }
         #endregion
 
-        #region Audio
-        [SerializeField] 
-        private AudioHandler _bombDroidMovementAudioHandler;
-
-        public AudioHandler BombDroidMovementAudioHandler
-        {
-            get { return _bombDroidMovementAudioHandler; }
-        }
-        #endregion
-
         protected override void Awake()
         {
             base.Awake();
-            _bombDroidMovementAudioHandler.Owner = gameObject;
-            _bombDroidMovementAudioHandler.IsActiveMethod = ShouldMovementAudioBeActive;
+
+            if (Entity)
+            {
+                //BombdroidAIEntity bdEntity = bdEntity as BombDroidAIEntity;
+                // if (bdEntity)
+                // {
+                    
+                // }
+            }
         }
 
-        //audio handler
-        bool ShouldMovementAudioBeActive()
+        protected override void FixedUpdate()
         {
-            AIMovementState currentState = _states.GetMovementStateEnum(CurrentState);
-            return gameObject.activeSelf && currentState != AIMovementState.Idle;
+            base.FixedUpdate();    
         }
 
         // ISaveable

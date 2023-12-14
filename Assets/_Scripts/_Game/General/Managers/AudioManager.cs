@@ -442,7 +442,6 @@ namespace _Scripts._Game.General.Managers {
                 audioListenerTransform = Camera.main.transform;
             }
             
-
             Vector3 listenerLocation = audioListenerTransform.position;
             
             // check handles
@@ -518,6 +517,13 @@ namespace _Scripts._Game.General.Managers {
                     audioHandler._audioSource = null;
                     _audioHandlersToBeRemoved.Remove(audioHandler);
                     audioHandler._release = false;
+                }
+                else
+                {
+                    if (audioHandler._audioSource != null)
+                    {
+                        AdjustAudioPlayback(audioHandler._audioType, audioHandler._audioSource, audioHandler);
+                    }
                 }
             }
 

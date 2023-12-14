@@ -25,6 +25,8 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         protected AIMovementStateMachineFactory _states;
 
+        public AIMovementStateMachineFactory States { get => _states; }
+
         #endregion
 
         #region AI Components
@@ -110,6 +112,11 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         private AIEntity _entity;
 
         public AIEntity Entity { get => _entity; }
+
+        public T GetStateMachine<T>() where T : AIMovementStateMachineBase
+        {
+            return this as T;
+        }
         #endregion
 
         protected virtual void Awake()

@@ -12,7 +12,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public BombDroidIdleAIBondedAttackState(AIAttackStateMachineBase ctx, AIAttackStateMachineFactory factory) : base(ctx, factory)
         {
-            _bdCtx = ctx as BombDroidAIAttackStateMachine;
+            _bdCtx = ctx.GetStateMachine<BombDroidAIAttackStateMachine>();
         }
 
         public override bool CheckSwitchStates()

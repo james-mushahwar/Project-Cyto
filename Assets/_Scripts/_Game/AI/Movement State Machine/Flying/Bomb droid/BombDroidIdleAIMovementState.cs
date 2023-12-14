@@ -1,17 +1,20 @@
-﻿using _Scripts._Game.General.Managers;
-using System.Collections;
-using System.Collections.Generic;
+﻿using _Scripts._Game.General;
+using _Scripts._Game.General.Managers;
+using _Scripts._Game.Player;
 using UnityEngine;
+ using _Scripts._Game.AI.Entity.Flying;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     
     public class BombDroidIdleAIMovementState : BaseAIMovementState
     {
         private BombDroidAIMovementStateMachine _bdCtx;
+        private BombDroidAIEntity _bdEntity;
 
         public BombDroidIdleAIMovementState(AIMovementStateMachineBase ctx, AIMovementStateMachineFactory factory) : base(ctx, factory)
         {
-            _bdCtx = ctx as BombDroidAIMovementStateMachine;
+            _bdCtx = ctx.GetStateMachine<BombDroidAIMovementStateMachine>();
+            _bdEntity = ctx.Entity as BombDroidAIEntity;
             UsesAIPathfinding = true;
         }
 
@@ -52,7 +55,9 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             _bdCtx.DestinationSetter.enabled = false;
             _bdCtx.AIPath.enabled = false;
 
-            //AudioManager.Instance.RequestReleaseHandle(_bdCtx.BombDroidMovementAudioHandler);
+            _bdEntity.BombDroidMovementAudioHandler.VolumeAlpha = 0.0f;
+            AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Enemy_BombDroid_Movement, _bdCtx.transform, 
+                _bdEntity.BombDroidMovementAudioHandler, _bdEntity.BombDroidMovementAudioHandler._position);
         }
 
         public override void ExitState()

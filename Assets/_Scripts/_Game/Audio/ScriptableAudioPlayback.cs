@@ -7,14 +7,8 @@ namespace _Scripts._Game.Audio{
     public class ScriptableAudioPlayback : ScriptableObject
     {
         [SerializeField] 
-        private float _volume;
-        [SerializeField] 
         private Vector2 _volumeRange = Vector2.one;
 
-        // public float Volume
-        // {
-        //     get { return _volume; }
-        // }
         public Vector2 VolumeRange
         {
             get { return _volumeRange; }

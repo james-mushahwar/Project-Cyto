@@ -20,11 +20,15 @@ namespace _Scripts._Game.AI{
     public class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup, IExposable
     {
         [Header("Entity")]
-        [SerializeField]
-        private EEntity _entity;
+        protected EEntity _entity;
         private bool _isPossessed;
 
         public EEntity Entity { get => _entity; }
+
+        public T GetEntity<T>() where T : AIEntity
+        {
+            return this as T;
+        }
 
         private string _spawnPointID = "";
         private SpawnPoint _spawnPoint;
@@ -59,9 +63,9 @@ namespace _Scripts._Game.AI{
         #endregion
 
         #region State Machines
-        private AIMovementStateMachineBase _movementSM;
-        private AIAttackStateMachineBase _attackSM;
-        private SpriteAnimator _spriteAnimator;
+        protected AIMovementStateMachineBase _movementSM;
+        protected AIAttackStateMachineBase _attackSM;
+        protected SpriteAnimator _spriteAnimator;
 
         public AIMovementStateMachineBase MovementSM { get => _movementSM; set => _movementSM = value; }
         public AIAttackStateMachineBase AttackSM { get => _attackSM; set => _attackSM = value; }
@@ -115,11 +119,16 @@ namespace _Scripts._Game.AI{
         public UnityEvent OnStartBondEvent => _onStartBondEvent;
 
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             FEntityStats entityStats = StatsManager.Instance.GetEntityStat(_entity);
             _enemyHealthStats         = new EnemyHealthStats(entityStats.MaxHealth, entityStats.MaxHealth, EHealthStatType.EnemyHealth);
             _enemyBondableHealthStats = new EnemyHealthStats(entityStats.MaxBondableHealth, entityStats.MaxBondableHealth, EHealthStatType.BondableHealth);
+        }
+
+        protected virtual void FixedUpdate()
+        {
+
         }
 
         public bool CanBeBonded()

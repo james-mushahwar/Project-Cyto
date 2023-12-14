@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8527710219603585275}
-  - component: {fileID: 2639065142676816087}
+  - component: {fileID: 7466883618828923414}
   - component: {fileID: 6152986643205584587}
   - component: {fileID: 4454979531169731600}
   - component: {fileID: 8527710219603585274}
@@ -196,7 +196,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2639065142676816087
+--- !u!114 &7466883618828923414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,20 +205,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8527710219603585278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba0ab3890a744b1409705bbfdbafa410, type: 3}
+  m_Script: {fileID: 11500000, guid: d6f8fad43b2489c43bb4b9ee5e96966f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entity: 1
   _onHitEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6152986643205584587}
         m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
         m_MethodName: PlayFeedback
-        m_Mode: 0
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 8527710219603585278}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -302,6 +301,18 @@ MonoBehaviour:
   _onStartBondEvent:
     m_PersistentCalls:
       m_Calls: []
+  _bombDroidMovementAudioHandler:
+    _attachAudioSource: 1
+    _position: {x: 0, y: 0, z: 0}
+    _defaultVolumeAlpha: 0
+    _defaultPitchAlpha: 0
+    _audioType: 0
+    _active: 0
+    _release: 0
+    _audioSource: {fileID: 0}
+    _handleParametersSO: {fileID: 11400000, guid: e7f42f79d837bce4695e2b9956f8e822, type: 2}
+    _loops: 1
+    _canReplayCurrentlyPlayingSource: 0
 --- !u!114 &6152986643205584587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,15 +406,6 @@ MonoBehaviour:
   _flyingMaximumHorizontalVelocity: 8
   _flyingMaximumVerticalVelocity: 8
   _flyingMovementDirectionThrust: 20
-  _bombDroidMovementAudioHandler:
-    _attachAudioSource: 1
-    _position: {x: 0, y: 0, z: 0}
-    _audioType: 0
-    _active: 0
-    _release: 0
-    _audioSource: {fileID: 0}
-    _handleParametersSO: {fileID: 11400000, guid: e7f42f79d837bce4695e2b9956f8e822, type: 2}
-    _loops: 1
 --- !u!114 &8527710219603585276
 MonoBehaviour:
   m_ObjectHideFlags: 0

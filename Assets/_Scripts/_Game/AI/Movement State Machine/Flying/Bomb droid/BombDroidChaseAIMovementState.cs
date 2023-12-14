@@ -14,7 +14,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
         public BombDroidChaseAIMovementState(AIMovementStateMachineBase ctx, AIMovementStateMachineFactory factory) : base(ctx, factory)
         {
-            _bdCtx = ctx as BombDroidAIMovementStateMachine;
+            _bdCtx = ctx.GetStateMachine<BombDroidAIMovementStateMachine>();
             UsesAIPathfinding = true;
         }
 
