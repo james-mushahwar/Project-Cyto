@@ -47,15 +47,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         protected override void Awake()
         {
             base.Awake();
-
-            if (Entity)
-            {
-                //BombdroidAIEntity bdEntity = bdEntity as BombDroidAIEntity;
-                // if (bdEntity)
-                // {
-                    
-                // }
-            }
         }
 
         protected override void FixedUpdate()

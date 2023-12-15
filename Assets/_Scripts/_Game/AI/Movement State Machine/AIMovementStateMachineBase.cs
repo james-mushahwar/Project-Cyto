@@ -171,9 +171,17 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             }
         }
         
+        public void Spawn()
+        {
+            OverrideState(AIMovementState.Idle);
+        }
+
         private void OverrideState(AIMovementState state)
         {
-            CurrentState.ExitState();
+            if (CurrentState != null)
+            {
+                CurrentState.ExitState();
+            }
             CurrentState = _states.GetState(state);
             CurrentState.EnterState();
         }

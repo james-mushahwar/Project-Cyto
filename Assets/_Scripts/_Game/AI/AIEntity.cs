@@ -196,6 +196,10 @@ namespace _Scripts._Game.AI{
 
         public void Spawn()
         {
+            //reset states
+            _movementSM.Spawn();
+            _attackSM.Spawn();
+
             _enemyHealthStats.RestoreHitPoints();
             _enemyBondableHealthStats.RestoreHitPoints();
             gameObject.SetActive(true);

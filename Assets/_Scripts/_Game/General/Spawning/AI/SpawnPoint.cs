@@ -60,8 +60,9 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void FixedUpdate()
         {
+            // check level is running
             // timer has elapsed and need to respawn
-            if (_entitySpawned == false || _entitySpawned == null)
+            if (_isEntitySpawned == false || _entitySpawned == null)
             {
                 bool respawnEntity = SpawnManager.Instance.TryHasRespawnTimerElapsed(this);
                 if (respawnEntity)
@@ -71,13 +72,7 @@ namespace _Scripts._Game.General.Spawning.AI{
                     AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
                     if (entity == null)
                     {
-                        AIEntity aiEntity = AIManager.Instance.TrySpawnAI(Entity, transform.position, RuntimeID.Id, _waypointsID);
-                        if (aiEntity != null)
-                        {
-                            _isEntitySpawned = true;
-                            _entitySpawned = aiEntity;
-                            SpawnManager.Instance.RegisterSpawnPointEntity(this, _entitySpawned);
-                        }
+                        Spawn();
                     }
                     else
                     {
@@ -100,7 +95,7 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 _isEntitySpawned = true;
                 _entitySpawned = entity;
-                Debug.LogWarning("Entity already exists - no need to spawn another");
+                //Debug.LogWarning("Entity already exists - no need to spawn another");
                 return;
             }
 
@@ -109,13 +104,7 @@ namespace _Scripts._Game.General.Spawning.AI{
                 return;
             }
 
-            AIEntity aiEntity = AIManager.Instance.TrySpawnAI(Entity, transform.position, RuntimeID.Id, _waypointsID);
-            if (aiEntity != null)
-            {
-                _isEntitySpawned = true;
-                _entitySpawned = aiEntity;
-                SpawnManager.Instance.RegisterSpawnPointEntity(this, _entitySpawned);
-            }
+            //Spawn();
         }
 
         private void OnDisable()
@@ -133,6 +122,17 @@ namespace _Scripts._Game.General.Spawning.AI{
             }
 
             RuntimeIDManager.Instance?.UnregisterRuntimeSpawnPoint(this);
+        }
+
+        private void Spawn()
+        {
+            AIEntity aiEntity = AIManager.Instance.TrySpawnAI(Entity, transform.position, RuntimeID.Id, _waypointsID);
+            if (aiEntity != null)
+            {
+                _isEntitySpawned = true;
+                _entitySpawned = aiEntity;
+                SpawnManager.Instance.RegisterSpawnPointEntity(this, _entitySpawned);
+            }
         }
 
         public void OnSpawnKilled()

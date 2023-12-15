@@ -123,9 +123,17 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             OverrideState(AIAttackState.Idle);
         }
 
+        public void Spawn()
+        {
+            OverrideState(AIAttackState.Idle);
+        }
+
         private void OverrideState(AIAttackState state)
         {
-            CurrentState.ExitState();
+            if (CurrentState != null)
+            {
+                CurrentState.ExitState();
+            }
             CurrentState = _states.GetState(state);
             CurrentState.EnterState();
         }
