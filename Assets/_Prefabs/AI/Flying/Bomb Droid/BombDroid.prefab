@@ -374,6 +374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnDefaultAttackState: 1
+  _spawnDefaultBondedAttackState: 1
   _bombDropCooldown: 2
   _bombDropMinimumYDistance: 5
   _bombDropMaximumXLimit: 1.5
@@ -395,6 +397,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794e2373d43d58341bf6b6fa3d8879d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnDefaultMovementState: 2
+  _spawnDefaultBondedMovementState: 3
   _groundedLayer:
     serializedVersion: 2
     m_Bits: 0

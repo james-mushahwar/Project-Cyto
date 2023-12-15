@@ -29,6 +29,12 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
         #endregion
 
+        #region States
+
+        [SerializeField] private AIMovementState _spawnDefaultMovementState = AIMovementState.Sleep;
+        [SerializeField] private AIBondedMovementState _spawnDefaultBondedMovementState = AIBondedMovementState.Grounded;
+        #endregion
+
         #region AI Components
         private Rigidbody2D _rb;
         private Collider2D _collider;
@@ -133,11 +139,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
             //Inputs for all AI
             BondInputsDict.Add(PossessInput.NButton, OnNorthButtonInput);
-        }
 
-        // Start is called before the first frame update
-        protected virtual void Start()
-        {
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<Collider2D>();
         }
@@ -173,17 +175,21 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         
         public void Spawn()
         {
-            OverrideState(AIMovementState.Idle);
+            OverrideState(_spawnDefaultMovementState);
+            OverrideState(_spawnDefaultBondedMovementState);
         }
 
         private void OverrideState(AIMovementState state)
         {
-            if (CurrentState != null)
-            {
-                CurrentState.ExitState();
-            }
+            CurrentState?.ExitState();
             CurrentState = _states.GetState(state);
-            CurrentState.EnterState();
+            CurrentState?.EnterState();
+        }
+        private void OverrideState(AIBondedMovementState state)
+        {
+            CurrentBondedState?.ExitState();
+            CurrentBondedState = _states.GetState(state);
+            CurrentBondedState?.EnterState();
         }
 
         public virtual void OnExposed()

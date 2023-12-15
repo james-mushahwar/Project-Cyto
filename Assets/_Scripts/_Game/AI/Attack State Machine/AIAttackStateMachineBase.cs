@@ -26,6 +26,13 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         public AIAttackStateMachineFactory States { get => _states; }
         #endregion
 
+        #region States
+        [SerializeField] 
+        private AIAttackState _spawnDefaultAttackState = AIAttackState.Idle;
+        [SerializeField] 
+        private AIAttackState _spawnDefaultBondedAttackState = AIAttackState.Idle;
+        #endregion
+
         #region Bond Inputs
         private static Vector2 _currentMovementInput = Vector2.zero;
         private static Vector2 _currentDirectionInput = Vector2.zero;
@@ -125,17 +132,21 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
         public void Spawn()
         {
-            OverrideState(AIAttackState.Idle);
+            OverrideState(_spawnDefaultAttackState);
+            OverrideBondedState(_spawnDefaultBondedAttackState);
         }
 
         private void OverrideState(AIAttackState state)
         {
-            if (CurrentState != null)
-            {
-                CurrentState.ExitState();
-            }
+            CurrentState?.ExitState();
             CurrentState = _states.GetState(state);
-            CurrentState.EnterState();
+            CurrentState?.EnterState();
+        }
+        private void OverrideBondedState(AIAttackState state)
+        {
+            CurrentBondedState?.ExitState();
+            CurrentBondedState = _states.GetBondedState(state);
+            CurrentBondedState?.EnterState();
         }
 
         // IPossessControllable

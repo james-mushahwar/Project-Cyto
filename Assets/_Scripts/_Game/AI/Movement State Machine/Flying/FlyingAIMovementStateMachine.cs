@@ -23,21 +23,14 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
         {
             base.Awake();
 
-            CurrentState = _states.GetState(AIMovementState.Idle);
-            CurrentBondedState = _states.GetState(AIBondedMovementState.Flying);
+            //CurrentState = _states.GetState(AIMovementState.Idle);
+            //CurrentBondedState = _states.GetState(AIBondedMovementState.Flying);
 
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
-        }
-
-        protected override void Start()
-        {
-            base.Start();
 
             _seeker = GetComponent<Seeker>();
             _destinationSetter = GetComponent<AIDestinationSetter>();
             _aiPath = GetComponent<AIPath>();
-
-            CurrentState.EnterState();
         }
 
         // knockback reaction and reset

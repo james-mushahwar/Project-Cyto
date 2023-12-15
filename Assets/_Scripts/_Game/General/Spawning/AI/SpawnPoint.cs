@@ -61,6 +61,10 @@ namespace _Scripts._Game.General.Spawning.AI{
         private void FixedUpdate()
         {
             // check level is running
+            if (GameStateManager.Instance.IsGameRunning == false)
+            {
+                return;
+            }
             // timer has elapsed and need to respawn
             if (_isEntitySpawned == false || _entitySpawned == null)
             {

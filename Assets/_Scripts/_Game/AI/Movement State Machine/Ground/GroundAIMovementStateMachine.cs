@@ -26,18 +26,12 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground
             CurrentBondedState = _states.GetState(AIBondedMovementState.Grounded);
 
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
-        }
-
-        protected override void Start()
-        {
-            base.Start();
 
             _seeker = GetComponent<Seeker>();
             _destinationSetter = GetComponent<AIDestinationSetter>();
             _aiPath = GetComponent<AIPath>();
-
-            CurrentState.EnterState();
         }
+
     }
 
 }

@@ -173,7 +173,7 @@ namespace _Scripts._Game.Player{
                 _movementSM.OverrideState(MovementState.Phasing);
             }
 
-            //TargetManager.Instance.LockedBondableTarget = null;
+            TargetManager.Instance.LockedBondableTarget = null;
         }
 
         public void OnDispossess()
