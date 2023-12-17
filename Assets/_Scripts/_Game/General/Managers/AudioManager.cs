@@ -515,7 +515,7 @@ namespace _Scripts._Game.General.Managers {
                         audioHandler._audioSource.Stop();
                     }
                     audioHandler._audioSource = null;
-                    _audioHandlersToBeRemoved.Remove(audioHandler);
+                    _audioHandlersToBeRemoved.Add(audioHandler);
                     audioHandler._release = false;
                 }
                 else

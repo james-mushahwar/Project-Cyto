@@ -6472,7 +6472,7 @@ MonoBehaviour:
       _maxHealth: 3
       _maxBondableHealth: 1
     - _entity: 1
-      _maxHealth: 12
+      _maxHealth: 3
       _maxBondableHealth: 1
 --- !u!114 &2537314774157710579
 MonoBehaviour:
