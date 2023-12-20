@@ -34,6 +34,13 @@ namespace Editor.Windows.AI{
             "DaggerMushroom",   // Dagger Mushroom
         };
 
+        string[] _entityStatePaths = new string[(int)AIType.COUNT]
+        {
+            "Assets/_Scripts/_Game/AI/Entity/Flying/Bomb droid",        // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Entity/Ground/Mushroom Archer",   // Mushroom Archer
+            "Assets/_Scripts/_Game/AI/Entity/Ground/Dagger Mushroom",   // Dagger Mushroom
+        };
+
         string[] _movementStatePaths = new string[(int)AIType.COUNT]
         {
             "Assets/_Scripts/_Game/AI/Movement State Machine/Flying/Bomb droid",        // Bomb Droid
@@ -81,9 +88,12 @@ namespace Editor.Windows.AI{
         #endregion
 
         #region Attack
+        // attack
         bool _idleAttackState = false;
         string[] _attackStates = new string[3];
         bool _attackGroupEnabled = true;
+        // bonded attack
+        bool _bondedIdleAttackState = false;
         string[] _bondedAttackStates = new string[3];
         bool _bondedAttackGroupEnabled = true;
         #endregion
@@ -160,6 +170,14 @@ namespace Editor.Windows.AI{
             _attackStates[2] = EditorGUILayout.TextField("Attack 3", _attackStates[2]);
             EditorGUILayout.EndToggleGroup();
 
+            GUILayout.Label("Bonded Attack States", EditorStyles.boldLabel);
+            _bondedAttackGroupEnabled = EditorGUILayout.BeginToggleGroup("Bonded Attack States", _bondedAttackGroupEnabled);
+            _bondedIdleAttackState = EditorGUILayout.Toggle("Idle", _bondedIdleAttackState);
+            _bondedAttackStates[0] = EditorGUILayout.TextField("Attack 1", _bondedAttackStates[0]);
+            _bondedAttackStates[1] = EditorGUILayout.TextField("Attack 2", _bondedAttackStates[1]);
+            _bondedAttackStates[2] = EditorGUILayout.TextField("Attack 3", _bondedAttackStates[2]);
+            EditorGUILayout.EndToggleGroup();
+
             GUILayout.Space(20);
             #endregion
 
@@ -199,6 +217,12 @@ namespace Editor.Windows.AI{
             // make all dirctories first
             for (int i = 0; i < (int)AIType.COUNT; i++)
             {
+                if (_entityStatePaths[i] != "" && !Directory.Exists(_entityStatePaths[i]))
+                {
+                    Debug.Log("Created Entity Directory: " + _entityStatePaths[i]);
+                    Directory.CreateDirectory(_entityStatePaths[i]);
+                }
+
                 if (_movementStatePaths[i] != "" && !Directory.Exists(_movementStatePaths[i]))
                 {
                     Debug.Log("Created Movement Directory: " + _movementStatePaths[i]);
@@ -243,14 +267,20 @@ namespace Editor.Windows.AI{
 
             for (int i = index; i < lastIndex; i++)
             {
+                #region Entities
+                string stateType = "AIEntity.cs.txt";
+                string stateBaseType = "AIEntity";
+
+                Debug.Log("/////////// Generate AI entity ///////////");
+                CreateNewCSScript(i, _entityStatePaths[i], stateType, "", stateBaseType);
+                #endregion
+
                 #region State Machines
 
                 Debug.Log("/////////// Generate State machines ///////////");
-                string stateType = "";
-                string stateBaseType = "";
 
                 //movement state machine
-                stateType = _movementStatePaths[i].Contains("Flying") ? "FlyingAIMovementStateMachine.cs.txt" : "GroundAIMovementStateMachine.cs.txt";
+                stateType = IsFlyingEntity(i) ? "FlyingAIMovementStateMachine.cs.txt" : "GroundAIMovementStateMachine.cs.txt";
                 stateBaseType = "AIMovementStateMachine";
                 CreateNewCSScript(i, _movementStatePaths[i], stateType, "", stateBaseType);
 
@@ -354,6 +384,29 @@ namespace Editor.Windows.AI{
                         _attackStates[2] = "";
                     }
                 }
+
+                if (_bondedAttackGroupEnabled)
+                {
+                    string scriptType = "AIBondedAttackState.cs.txt";
+                    string scriptBaseType = "AIBondedAttackState";
+
+                    CreateNewCSScript(i, _attackStatePaths[i], scriptType, "Idle", scriptBaseType);
+                    if (_bondedAttackStates[0] != "")
+                    {
+                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _bondedAttackStates[0], scriptBaseType);
+                        _bondedAttackStates[0] = "";
+                    }
+                    if (_bondedAttackStates[1] != "")
+                    {
+                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _bondedAttackStates[1], scriptBaseType);
+                        _bondedAttackStates[1] = "";
+                    }
+                    if (_bondedAttackStates[2] != "")
+                    {
+                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _bondedAttackStates[2], scriptBaseType);
+                        _bondedAttackStates[2] = "";
+                    }
+                }
                 #endregion
 
 
@@ -447,8 +500,8 @@ namespace Editor.Windows.AI{
                     if (!System.IO.File.Exists(localPath))
                     {
                         //localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
-
-                        GameObject aiTemplateGO = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/_Prefabs/AI/AITemplate.prefab", typeof(GameObject));
+                        string prefabPath = IsFlyingEntity(i) ? "Assets/_Prefabs/AI/FlyingAITemplate.prefab" : "Assets/_Prefabs/AI/GroundAITemplate.prefab";
+                        GameObject aiTemplateGO = (GameObject)AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject));
                         GameObject newGO = GameObject.Instantiate(aiTemplateGO);
                         newGO.name = _namePrefixes[i];
 
@@ -504,6 +557,11 @@ namespace Editor.Windows.AI{
                 {
                     Debug.Log("Not generating duplicate file: " + pathName + "/" + newGenScriptName);
                 }
+            }
+
+            bool IsFlyingEntity(int i)
+            {
+                return _movementStatePaths[i].Contains("Flying");
             }
         }
     }

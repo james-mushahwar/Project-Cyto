@@ -3,9 +3,9 @@ using _Scripts._Game.AI.AttackStateMachine;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Ground.MushroomArcher{
     
-    public class MushroomArcherAIAttackState : BaseAIAttackState
+    public class MushroomArcherChargeFireAIAttackState : BaseAIAttackState
     {
-        public MushroomArcherAIAttackState(AIAttackStateMachineBase ctx, AIAttackStateMachineFactory factory) : base(ctx, factory)
+        public MushroomArcherChargeFireAIAttackState(AIAttackStateMachineBase ctx, AIAttackStateMachineFactory factory) : base(ctx, factory)
         {
     
         }

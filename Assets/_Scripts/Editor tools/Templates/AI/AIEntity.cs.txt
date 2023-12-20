@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : AIEntity
+{
+   public #SCRIPTNAME#()
+   {
+        //_entity = EEntity.COUNT;
+   }
+
+   protected override void Awake()
+   {
+        base.Awake();
+   }
+
+   protected override void FixedUpdate()
+   {
+        base.FixedUpdate();
+   }
+}
+
+
