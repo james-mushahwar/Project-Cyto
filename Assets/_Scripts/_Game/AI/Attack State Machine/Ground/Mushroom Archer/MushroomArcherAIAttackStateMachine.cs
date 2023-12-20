@@ -7,11 +7,11 @@ namespace _Scripts._Game.AI.AttackStateMachine.Ground.MushroomArcher{
     
     public class MushroomArcherAIAttackStateMachine : AIAttackStateMachineBase
     {
-        #region #TBD# Attack Stats
+        #region Mushroom Archer Attack Stats
     
         #endregion
     
-        #region #TBD#Bonded Attack Stats
+        #region Mushroom Archer Bonded Attack Stats
     
         #endregion
     

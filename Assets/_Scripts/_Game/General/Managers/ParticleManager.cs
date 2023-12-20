@@ -44,11 +44,6 @@ namespace _Scripts._Game.General.Managers{
             return true;
         }
 
-        //public AudioHandleParameters HandleParameters
-        //{
-        //    get { return _handleParametersSO; }
-        //}
-
         public bool Loops
         {
             get { return _loops; }

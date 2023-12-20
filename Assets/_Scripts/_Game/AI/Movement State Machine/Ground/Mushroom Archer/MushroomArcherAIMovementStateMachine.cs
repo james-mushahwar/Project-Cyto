@@ -6,14 +6,40 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
     
     public class MushroomArcherAIMovementStateMachine : GroundAIMovementStateMachine
     {
-        #region #TBD# Stats
-    
+        #region Mushroom Archer Stats
+        [Header("Patrol Properties")]
+        [SerializeField]
+        private float _patrolSpeed;
+        [SerializeField]
+        private Vector2 _patrolWaitTimeRange;
+        public Vector2 PatrolWaitTimeRange { get => _patrolWaitTimeRange; }
+
+        [Header("Chase Properties")]
+        [SerializeField]
+        private float _chaseDetectionSqRange;
+        [SerializeField]
+        private float _chaseLostDetectionSqRange;
+        [SerializeField]
+        private float _chaseSpeed;
+
+        public float ChaseDetectionSqRange { get => _chaseDetectionSqRange; }
+        public float ChaseLostDetectionSqRange { get => _chaseLostDetectionSqRange; }
         #endregion
-        
-        #region Bonded #TBD# Stats
-    
+
+        #region Bonded Mushroom Archer Stats
+
         #endregion
-    
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
+        }
+
         // ISaveable
         [System.Serializable]
         private struct SaveData

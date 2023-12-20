@@ -12,6 +12,16 @@ public class #SCRIPTNAME# : GroundAIMovementStateMachine
 
     #endregion
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();    
+    }
+
     // ISaveable
     [System.Serializable]
     private struct SaveData

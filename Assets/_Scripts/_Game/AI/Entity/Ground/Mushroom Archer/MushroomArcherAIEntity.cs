@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General;
+using System.Collections;
 using System.Collections.Generic;
-using _Scripts._Game.General;
 using UnityEngine;
 
-namespace _Scripts._Game.AI.Enity.Ground.MushroomArcher{
+namespace _Scripts._Game.AI.Entity.Ground.MushroomArcher{
     
     public class MushroomArcherAIEntity : AIEntity
     {

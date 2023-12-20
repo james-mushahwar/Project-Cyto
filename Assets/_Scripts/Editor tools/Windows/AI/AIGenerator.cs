@@ -500,7 +500,7 @@ namespace Editor.Windows.AI{
                     if (!System.IO.File.Exists(localPath))
                     {
                         //localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
-                        string prefabPath = IsFlyingEntity(i) ? "Assets/_Prefabs/AI/FlyingAITemplate.prefab" : "Assets/_Prefabs/AI/GroundAITemplate.prefab";
+                        string prefabPath = IsFlyingEntity(i) ? "Assets/_Prefabs/AI/AITemplate.prefab" : "Assets/_Prefabs/AI/AITemplate.prefab";
                         GameObject aiTemplateGO = (GameObject)AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject));
                         GameObject newGO = GameObject.Instantiate(aiTemplateGO);
                         newGO.name = _namePrefixes[i];
