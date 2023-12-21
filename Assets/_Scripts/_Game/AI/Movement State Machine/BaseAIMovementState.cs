@@ -7,12 +7,12 @@
 
         protected float _stateTimer = 0.0f;
 
-        private bool _usesAIPathfinding = false;
-        public bool UsesAIPathfinding
-        {
-            get => _usesAIPathfinding;
-            set => _usesAIPathfinding = value;
-        }
+        //private bool _usesAIPathfinding = false;
+        //public bool UsesAIPathfinding
+        //{
+        //    get => _usesAIPathfinding;
+        //    set => _usesAIPathfinding = value;
+        //}
 
         public BaseAIMovementState(AIMovementStateMachineBase ctx, AIMovementStateMachineFactory factory)
         {

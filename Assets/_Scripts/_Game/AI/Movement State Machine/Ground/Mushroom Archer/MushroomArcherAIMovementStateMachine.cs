@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.General;
 using UnityEngine;
 using _Scripts._Game.AI.MovementStateMachine;
+using _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
     
@@ -33,11 +34,26 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
         protected override void Awake()
         {
             base.Awake();
+
+            States.AddState(AIMovementState.Idle, new MushroomArcherIdleAIMovementState(this, States));
+            States.AddState(AIMovementState.Patrol, new MushroomArcherPatrolAIMovementState(this, States));
+            States.AddState(AIMovementState.Chase, new MushroomArcherChaseAIMovementState(this, States));
+            States.AddState(AIMovementState.Attack, new AttackAIMovementState(this, States));
+            
+            States.AddState(AIBondedMovementState.Grounded, new MushroomArcherGroundedAIBondedMovementState(this, States));
+            States.AddState(AIBondedMovementState.Falling, new MushroomArcherFallingAIBondedMovementState(this, States));
+            States.AddState(AIBondedMovementState.Jumping, new MushroomArcherJumpingAIBondedMovementState(this, States));
+            States.AddState(AIBondedMovementState.Attacking, new MushroomArcherAttackingAIBondedMovementState(this, States));
         }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+        }
+
+        public override bool DoesStateUseAIPathFinding(AIMovementState state)
+        {
+            throw new System.NotImplementedException();
         }
 
         // ISaveable
@@ -46,7 +62,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
         {
     
         }
-    
+
         public override object SaveState()
         {
             return new SaveData();

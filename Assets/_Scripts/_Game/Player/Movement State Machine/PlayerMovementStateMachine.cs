@@ -58,6 +58,11 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
 
     public BaseMovementState CurrentState { get => _currentState; set => _currentState = value; }
 
+    public MovementState CurrentStateEnum
+    {
+        get => _states.GetMovementStateEnum(_currentState);
+    }
+
     private MovementState _queuedMovementState = MovementState.NONE;
     #endregion
 
@@ -452,7 +457,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
         //tick inputs
         TickInputs();
 
-        MovementState stateType = _states.GetMovementStateEnum(CurrentState);
+        MovementState stateType = CurrentStateEnum;
 
         _isGrounded = IsGroundedCheck();
         ClosestColliderToDirectionCheck();
@@ -631,7 +636,7 @@ public class PlayerMovementStateMachine : Singleton<PlayerMovementStateMachine>,
     {
         return new SaveData()
         {
-            MoveState = _states.GetMovementStateEnum(_currentState),
+            MoveState = CurrentStateEnum,
             Location = this.gameObject.transform.position,
             Velocity = this._rb.velocity
         };

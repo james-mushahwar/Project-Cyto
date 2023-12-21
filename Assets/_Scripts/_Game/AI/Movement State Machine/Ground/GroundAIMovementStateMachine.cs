@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Scripts._Game.AI.MovementStateMachine.Ground
 {
 
-    public class GroundAIMovementStateMachine : AIMovementStateMachineBase
+    public abstract class GroundAIMovementStateMachine : AIMovementStateMachineBase
     {
         #region Components
         private Seeker _seeker;

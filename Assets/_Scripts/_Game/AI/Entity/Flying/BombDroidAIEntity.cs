@@ -49,8 +49,8 @@ namespace _Scripts._Game.AI.Entity.Flying{
        private bool ShouldMovementAudioBeActive()
        {
             bool active = false;
-            AIMovementState movementState = _movementSM.States.GetMovementStateEnum(_movementSM.CurrentState);
-            AIBondedMovementState bondedMovementState = _movementSM.States.GetMovementStateEnum(_movementSM.CurrentBondedState);
+            AIMovementState movementState = _movementSM.CurrentStateEnum;
+            AIBondedMovementState bondedMovementState = _movementSM.CurrentBondedStateEnum;
 
             if (!IsPossessed())
             {
@@ -72,8 +72,8 @@ namespace _Scripts._Game.AI.Entity.Flying{
        private void UpdateAudio()
        {
             bool updateMovementAudio = false; 
-            AIMovementState movementState = _movementSM.States.GetMovementStateEnum(_movementSM.CurrentState);
-            AIBondedMovementState bondedMovementState = _movementSM.States.GetMovementStateEnum(_movementSM.CurrentBondedState);
+            AIMovementState movementState = _movementSM.CurrentStateEnum;
+            AIBondedMovementState bondedMovementState = _movementSM.CurrentBondedStateEnum;
             
             // update audio handles
             if (_bombDroidMovementAudioHandler._active)

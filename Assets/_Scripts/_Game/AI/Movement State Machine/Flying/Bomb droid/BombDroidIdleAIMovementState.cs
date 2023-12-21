@@ -15,7 +15,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         {
             _bdCtx = ctx.GetStateMachine<BombDroidAIMovementStateMachine>();
             _bdEntity = ctx.Entity as BombDroidAIEntity;
-            UsesAIPathfinding = true;
+            //UsesAIPathfinding = true;
         }
 
         public override bool CheckSwitchStates()

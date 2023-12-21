@@ -11,7 +11,7 @@ using _Scripts._Game.General;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
-    public class AIMovementStateMachineBase : MonoBehaviour, ISaveable, IPossessControllable
+    public abstract class AIMovementStateMachineBase : MonoBehaviour, ISaveable, IPossessControllable
     {
         #region State Machine
         //Movement
@@ -22,6 +22,16 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public BaseAIMovementState CurrentState { get => _currentState; set => _currentState = value; }
         public BaseAIMovementState PreviousState { get => _previousState; set => _previousState = value; }
         public BaseAIBondedMovementState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
+
+        public AIMovementState CurrentStateEnum
+        {
+            get => States.GetMovementStateEnum(_currentState);
+        }
+
+        public AIBondedMovementState CurrentBondedStateEnum
+        {
+            get => States.GetMovementStateEnum(_currentBondedState);
+        }
 
         protected AIMovementStateMachineFactory _states;
 
@@ -158,7 +168,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
                     Entity.Despawn();
                 }
                 // if attacking we disable all movement
-                if (_states.GetMovementStateEnum(CurrentState) != AIMovementState.Attack)
+                if (CurrentStateEnum != AIMovementState.Attack)
                 {
                     if (Entity.AttackSM.States.GetAttackStateEnum(Entity.AttackSM.CurrentState) > AIAttackState.Idle)
                     {
@@ -201,6 +211,9 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         {
             OverrideState(AIMovementState.Idle);
         }
+
+        //abstract classes
+        public abstract bool DoesStateUseAIPathFinding(AIMovementState state);
 
         // ISaveable
         [System.Serializable]

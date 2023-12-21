@@ -2,6 +2,7 @@
 using _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher;
 using UnityEngine;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
@@ -37,17 +38,30 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         {
             _moveStateMachine = sm;
 
-            BombDroidAIMovementStateMachine bombDroid = _moveStateMachine as BombDroidAIMovementStateMachine;
+            //BombDroidAIMovementStateMachine bombDroid = _moveStateMachine as BombDroidAIMovementStateMachine;
 
-            if (bombDroid)
-            {
-                _stateDict.Add(AIMovementState.Idle,    new BombDroidIdleAIMovementState(sm, this));
-                _stateDict.Add(AIMovementState.Patrol,  new BombDroidPatrolAIMovementState(sm, this));
-                _stateDict.Add(AIMovementState.Chase,   new BombDroidChaseAIMovementState(sm, this));
-                _stateDict.Add(AIMovementState.Attack,  new AttackAIMovementState(sm, this));
+            //if (bombDroid)
+            //{
+            //    _stateDict.Add(AIMovementState.Idle,    new BombDroidIdleAIMovementState(sm, this));
+            //    _stateDict.Add(AIMovementState.Patrol,  new BombDroidPatrolAIMovementState(sm, this));
+            //    _stateDict.Add(AIMovementState.Chase,   new BombDroidChaseAIMovementState(sm, this));
+            //    _stateDict.Add(AIMovementState.Attack,  new AttackAIMovementState(sm, this));
 
-                _bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
-            }
+            //    _bondedStateDict.Add(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(sm, this));
+            //}
+
+            //MushroomArcherAIMovementStateMachine mushroomArcher = _moveStateMachine as MushroomArcherAIMovementStateMachine;
+
+        }
+
+        public void AddState(AIMovementState state, BaseAIMovementState movementState)
+        {
+            _stateDict.Add(state, movementState);
+        }
+
+        public void AddState(AIBondedMovementState state, BaseAIBondedMovementState bondedMovementState)
+        {
+            _bondedStateDict.Add(state, bondedMovementState);
         }
 
         public BaseAIMovementState GetState(AIMovementState state)

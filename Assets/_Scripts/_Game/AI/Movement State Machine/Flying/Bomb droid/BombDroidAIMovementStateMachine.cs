@@ -47,11 +47,22 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
         protected override void Awake()
         {
             base.Awake();
+
+            States.AddState(AIMovementState.Idle, new BombDroidIdleAIMovementState(this, States));
+            States.AddState(AIMovementState.Patrol, new BombDroidPatrolAIMovementState(this, States));
+            States.AddState(AIMovementState.Chase, new BombDroidChaseAIMovementState(this, States));
+            States.AddState(AIMovementState.Attack, new AttackAIMovementState(this, States));
+            States.AddState(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(this, States));
         }
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();    
+        }
+
+        public override bool DoesStateUseAIPathFinding(AIMovementState state)
+        {
+            return state == AIMovementState.Idle || state == AIMovementState.Patrol || state == AIMovementState.Chase;
         }
 
         // ISaveable

@@ -22,6 +22,11 @@ public class #SCRIPTNAME# : FlyingAIMovementStateMachine
         base.FixedUpdate();    
     }
 
+    public override bool DoesStateUseAIPathFinding(AIMovementState state)
+    {
+        throw new NotImplementedException();
+    }
+
     // ISaveable
     [System.Serializable]
     private struct SaveData

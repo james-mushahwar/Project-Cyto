@@ -158,11 +158,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bcab2197f3e9946a77d0a93cb9399d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDefaultMovementState: 0
+  _spawnDefaultMovementState: 2
   _spawnDefaultBondedMovementState: 0
   _groundedLayer:
     serializedVersion: 2
     m_Bits: 64
+  _patrolSpeed: 1
+  _patrolWaitTimeRange: {x: 2, y: 4}
+  _chaseDetectionSqRange: 225
+  _chaseLostDetectionSqRange: 450
+  _chaseSpeed: 2.5
 --- !u!114 &4144264785417236638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +202,7 @@ MonoBehaviour:
   _beginKnockbackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1577495386591698952}
         m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.Flying.FlyingAIMovementStateMachine,
           Assembly-CSharp
         m_MethodName: 

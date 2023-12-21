@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Flying{
     
-    public class FlyingAIMovementStateMachine : AIMovementStateMachineBase
+    public abstract class FlyingAIMovementStateMachine : AIMovementStateMachineBase
     {
         #region Components
         private Seeker _seeker;
@@ -36,7 +36,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
         // knockback reaction and reset
         public void StartKnockbackEffect()
         {
-            if (CurrentState.UsesAIPathfinding)
+            if (DoesStateUseAIPathFinding(CurrentStateEnum))
             {
                 Seeker.enabled = false;
                 DestinationSetter.enabled = false;
@@ -46,7 +46,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
 
         public void EndKnockbackEffect()
         {
-            if (CurrentState.UsesAIPathfinding && !Entity.IsExposed())
+            if (DoesStateUseAIPathFinding(CurrentStateEnum) && !Entity.IsExposed())
             {
                 Seeker.enabled = true;
                 DestinationSetter.enabled = true;
