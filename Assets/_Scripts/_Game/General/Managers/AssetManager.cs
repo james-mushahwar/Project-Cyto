@@ -47,6 +47,7 @@ namespace _Scripts._Game.General.Managers{
         }
 
 
+
         private bool _initialised = false;
 
         protected override void Awake()
@@ -88,7 +89,6 @@ namespace _Scripts._Game.General.Managers{
                 _zoneNameZoneSODict.TryAdd(zone.ZoneScene, zone);
             }
             
-
             _defaultNewSaveAreaIndex = SceneUtility.GetBuildIndexByScenePath(_defaultNewSaveAreaScene);
 
             _initialised = true;

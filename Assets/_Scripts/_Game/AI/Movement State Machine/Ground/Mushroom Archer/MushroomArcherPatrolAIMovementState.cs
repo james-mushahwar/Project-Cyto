@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using _Scripts._Game.AI.MovementStateMachine;
+using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
     
@@ -12,6 +13,13 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
     
         public override bool CheckSwitchStates()
         {
+            // debug settings
+            if (DebugManager.Instance.DebugSettings.AIFreezeMovement)
+            {
+                SwitchStates(_factory.GetState(AIMovementState.Idle));
+                return true;
+            }
+
             return false;
         }
     
