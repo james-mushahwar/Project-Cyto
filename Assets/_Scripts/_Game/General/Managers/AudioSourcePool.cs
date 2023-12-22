@@ -22,7 +22,8 @@ namespace _Scripts._Game.General.Managers{
 
                 AudioSource comp = newGO.AddComponent(typeof(AudioSource)) as AudioSource;
                 comp.volume = 1.0f;
-                //comp.outputAudioMixerGroup = AudioManager.Instance.SFXMixerGroup;
+                comp.maxDistance = 35.0f;
+                comp.outputAudioMixerGroup = AudioManager.Instance.SFXMixerGroup;
                 comp.gameObject.SetActive(false);
                 m_Pool.Push(comp);
 

@@ -189,6 +189,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5581101032112713365, guid: 11ecbb44b37fa3f4d91e43e64532a41a, type: 3}
   m_PrefabInstance: {fileID: 442559956}
   m_PrefabAsset: {fileID: 0}
+--- !u!81 &442559958 stripped
+AudioListener:
+  m_CorrespondingSourceObject: {fileID: 2780311871247822993, guid: 11ecbb44b37fa3f4d91e43e64532a41a, type: 3}
+  m_PrefabInstance: {fileID: 442559956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &458254688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -241,11 +246,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6544084828829350067, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
+      propertyPath: _audioListener
+      value: 
+      objectReference: {fileID: 442559958}
     - target: {fileID: 6544084828829350068, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
       propertyPath: m_Name
       value: Camera Holder
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6544084828957508066, guid: 3622fb44f2ec8dd4b99f004f2f6b5f6f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
