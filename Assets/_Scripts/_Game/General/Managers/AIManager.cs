@@ -11,6 +11,8 @@ namespace _Scripts._Game.General.Managers{
         [Header("Pools")]
         private Dictionary<EEntity, AIPool> _aiPoolDict = new Dictionary<EEntity, AIPool>();
 
+        private List<AIEntity> _activeAIEntities = new List<AIEntity>();
+
         public void AssignAIPool(EEntity entity, AIPool pool)
         {
             AIPool aiPool = null;
@@ -35,6 +37,12 @@ namespace _Scripts._Game.General.Managers{
                     aiEntity.SpawnPointID = spawnPointID;
                     aiEntity.MovementSM.WaypointsID = waypointID;
                     aiEntity.Spawn();
+
+                    if (!_activeAIEntities.Contains(aiEntity))
+                    {
+                        _activeAIEntities.Add(aiEntity);
+                    }
+
                     return aiEntity;
                 }
                 else
@@ -45,9 +53,25 @@ namespace _Scripts._Game.General.Managers{
             return null;
         }
 
+        public void UnassignSpawnedEntity(AIEntity aiEntity)
+        {
+            if (_activeAIEntities.Contains(aiEntity))
+            {
+                _activeAIEntities.Remove(aiEntity);
+            }
+        }
+
+        public void ManagedTick()
+        {
+            foreach (AIEntity aiEntity in _activeAIEntities)
+            {
+                aiEntity.Tick();
+            }
+        }
+
         public void PreInGameLoad()
         {
-             
+            _activeAIEntities = new List<AIEntity>();
         }
 
         public void PostInGameLoad()

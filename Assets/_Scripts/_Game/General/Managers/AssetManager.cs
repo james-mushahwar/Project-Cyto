@@ -117,6 +117,8 @@ namespace _Scripts._Game.General.Managers{
                 yield return false;
             }
 
+            PreNewZoneLoad();
+
             // zones
             SceneField currentZone = GameStateManager.Instance.CurrentZoneScene;
 
@@ -172,12 +174,35 @@ namespace _Scripts._Game.General.Managers{
                     }
                 }
             }
+
+            LightingManager.Instance.FindGlobalLight();
             // post main scene load
             // enable ai path
 
             // play correct audio track
             // set any post processing for scene
             UpdateStateArea(areaScene);
+        }
+
+        private void PreNewZoneLoad()
+        {
+            // destroy objects before new zone
+            List<Object> objectsToBeDestroyed = new List<Object>();
+
+            // destroy old pathfinding singleton
+            Object pathfinding = FindObjectOfType(typeof(AstarPath));
+            if (pathfinding)
+            {
+                objectsToBeDestroyed.Add(pathfinding);
+            }
+
+            // old global light
+            LightingManager.Instance.DisableGlobalLight();
+
+            foreach (Object obj in objectsToBeDestroyed)
+            {
+                Destroy(obj);
+            }
         }
 
         public void UpdateStateArea(SceneField areaScene)

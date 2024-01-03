@@ -384,5 +384,13 @@ namespace _Scripts._Game.General{
         // just as game finishes loading
         public void PostMainMenuLoad();
     }
+
+    public interface IManagedPool
+    {
+        public void ManagedTick()
+        {
+
+        }
+    }
     #endregion
 }

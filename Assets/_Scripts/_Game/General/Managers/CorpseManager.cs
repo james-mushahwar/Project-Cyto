@@ -12,9 +12,28 @@ namespace _Scripts._Game.General.Managers{
         private TeleportCorpsePool _bombDroidTeleportCorpsePool;
         #endregion
 
+        private List<IManagedPool> _activeCorpsePools = new List<IManagedPool>();
+        private List<Corpse> _activeCorpses = new List<Corpse>();
+
         protected override void Awake()
         {
             base.Awake();
+
+            _activeCorpsePools = new List<IManagedPool>();
+            _activeCorpses = new List<Corpse>();
+        }
+
+        public void ManagedTick()
+        {
+            foreach (IManagedPool corpsePool in _activeCorpsePools)
+            {
+                corpsePool.ManagedTick();
+            }
+
+            foreach (Corpse corpse in _activeCorpses)
+            {
+                corpse.Tick();
+            }
         }
 
         public void AssignCorpsePool(EEntity entity, CorpsePool pool)
@@ -24,6 +43,7 @@ namespace _Scripts._Game.General.Managers{
                 if (_bombDroidCorpsePool == null)
                 {
                     _bombDroidCorpsePool = pool;
+                    _activeCorpsePools.Add(pool);
                 }
             }
             else
@@ -52,6 +72,7 @@ namespace _Scripts._Game.General.Managers{
             {
                 corpse.transform.position = position + pool.PositionOffset;
                 corpse.gameObject.SetActive(true);
+                _activeCorpses.Add(corpse);
             }
         }
 
@@ -62,6 +83,7 @@ namespace _Scripts._Game.General.Managers{
                 if (_bombDroidTeleportCorpsePool == null)
                 {
                     _bombDroidTeleportCorpsePool = pool;
+                    _activeCorpsePools.Add(pool);
                 }
             }
             else
@@ -90,6 +112,15 @@ namespace _Scripts._Game.General.Managers{
             {
                 teleportCorpse.transform.position = position + pool.PositionOffset;
                 teleportCorpse.gameObject.SetActive(true);
+                _activeCorpses.Add(teleportCorpse);
+            }
+        }
+
+        public void UnassignCorpse(Corpse corpse)
+        {
+            if (_activeCorpses.Contains(corpse))
+            {
+                _activeCorpses.Remove(corpse);
             }
         }
 

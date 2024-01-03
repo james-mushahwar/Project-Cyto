@@ -123,6 +123,7 @@ namespace _Scripts._Game.General.Managers{
         protected override void Awake()
         {
             //Managers
+
             _managers = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IManager>().ToArray();
 
             IsQuitting = false;

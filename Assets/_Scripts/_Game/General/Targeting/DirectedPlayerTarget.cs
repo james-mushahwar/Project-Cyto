@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.Player;
 
-namespace _Scripts._Game.General.Targeting{
-    
-    public class AbovePlayerTarget : MonoBehaviour, ITarget
+namespace _Scripts._Game.General.Targeting
+{
+    public class DirectedPlayerTarget : MonoBehaviour, ITarget
     {
         [SerializeField]
         private ETargetType _targetType;
@@ -34,9 +35,10 @@ namespace _Scripts._Game.General.Targeting{
 
         public void ManagedTargetTick()
         {
-            PlayerMovementStateMachine playerMovementStateMachine = PlayerMovementStateMachine.Instance;
+            //PlayerMovementStateMachine playerMovementStateMachine = PlayerMovementStateMachine.Instance;
+            GameObject playerTarget = PlayerEntity.Instance?.GetControlledGameObject();
 
-            Vector3 playerPosition = playerMovementStateMachine.gameObject.transform.position;
+            Vector3 playerPosition = playerTarget.gameObject.transform.position;
             Vector3 newPosition = playerPosition + (Vector3)(_raycastDirection * _raycastDistance);
 
             RaycastHit2D hit = Physics2D.Raycast(playerPosition, _raycastDirection, _raycastDistance, _groundedLayer);
@@ -48,5 +50,5 @@ namespace _Scripts._Game.General.Targeting{
             _centralTransform.position = newPosition;
         }
     }
-    
+
 }

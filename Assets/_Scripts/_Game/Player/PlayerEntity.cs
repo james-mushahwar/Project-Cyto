@@ -129,6 +129,8 @@ namespace _Scripts._Game.Player{
             {
                 _isInvulnerableTimer -= Time.deltaTime;
             }
+
+            _spriteAnimator.Tick();
         }
 
         public GameObject GetControlledGameObject()

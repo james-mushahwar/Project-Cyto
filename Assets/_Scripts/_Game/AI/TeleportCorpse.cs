@@ -26,7 +26,7 @@ namespace _Scripts._Game.AI{
             _fadeMaterial.SetFloat("_Fade", 1.0f);
         }
 
-        private void FixedUpdate()
+        public override void Tick()
         {
             CorpseLifetimeTimer += Time.deltaTime;
             float alpha = Mathf.Clamp((CorpseLifetime - CorpseLifetimeTimer) / CorpseLifetime, 0.0f, 1.0f);

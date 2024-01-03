@@ -111,7 +111,7 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             _states = new AIAttackStateMachineFactory(this);
         }
 
-        protected virtual void FixedUpdate()
+        public virtual void Tick()
         {
             if (GameStateManager.Instance?.IsGameRunning == false)
             {

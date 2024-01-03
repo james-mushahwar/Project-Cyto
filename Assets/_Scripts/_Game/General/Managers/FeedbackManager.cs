@@ -79,7 +79,7 @@ namespace _Scripts._Game.General.Managers{
             _feedbackPattern = _noneFeedbackPattern;
         }
 
-        private void FixedUpdate()
+        public void ManagedTick()
         {
             _gamepad = Gamepad.current;
 

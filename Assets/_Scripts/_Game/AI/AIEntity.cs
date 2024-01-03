@@ -126,9 +126,11 @@ namespace _Scripts._Game.AI{
             _enemyBondableHealthStats = new EnemyHealthStats(entityStats.MaxBondableHealth, entityStats.MaxBondableHealth, EHealthStatType.BondableHealth);
         }
 
-        protected virtual void FixedUpdate()
+        public virtual void Tick()
         {
-
+            _movementSM.Tick();
+            _attackSM.Tick();
+            _spriteAnimator.Tick();
         }
 
         public bool CanBeBonded()

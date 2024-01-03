@@ -15,7 +15,7 @@ namespace _Scripts._Game.AI.Corpses.Flying{
             Rb.velocity = new Vector2(0, 0);
         }
 
-        private void FixedUpdate()
+        public override void Tick()
         {
             CorpseLifetimeTimer += Time.deltaTime;
             if (CorpseLifetimeTimer >= CorpseLifetime && !_isStationary)

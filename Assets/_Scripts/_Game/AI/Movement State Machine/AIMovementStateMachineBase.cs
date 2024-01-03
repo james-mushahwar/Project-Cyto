@@ -154,7 +154,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _collider = GetComponent<Collider2D>();
         }
 
-        protected virtual void FixedUpdate()
+        public virtual void Tick()
         {
             if (GameStateManager.Instance?.IsGameRunning == false)
             {

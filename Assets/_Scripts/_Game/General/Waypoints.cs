@@ -41,8 +41,9 @@ namespace _Scripts._Game.General{
             }
         }
 
-        public Transform GetWaypoint(int index)
+        public Transform GetWaypoint()
         {
+            int index = Random.Range(0, _waypointTransforms.Length);
             if (index >= _waypointTransforms.Length || index < 0)
             {
                 return _waypointTransforms[0];

@@ -31,7 +31,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Ground.MushroomArcher{
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
         }
     
-        protected override void FixedUpdate()
+        public override void Tick()
         {
             if (!Entity.IsPossessed())
             {

@@ -163,7 +163,7 @@ namespace _Scripts._Game.General.Managers
             }
         }
 
-        private void Update()
+        public void ManagedTick()
         {
             //current input state
             if (CurrentInputState == UIInputState.SaveFiles)

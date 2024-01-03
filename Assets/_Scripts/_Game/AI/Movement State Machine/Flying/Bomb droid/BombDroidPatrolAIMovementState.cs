@@ -51,7 +51,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             
             _bdCtx.AIPath.autoRepath.mode = AutoRepathPolicy.Mode.Never;
 
-            Transform waypoint = _bdCtx.Waypoints.GetWaypoint(Random.Range(0, 4));
+            Transform waypoint = _bdCtx.Waypoints!.GetWaypoint();
             _bdCtx.Seeker.StartPath(_bdCtx.Rb.position, waypoint.position);
             _bdCtx.DestinationSetter.target = waypoint;
 
@@ -79,14 +79,13 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
 
             if (CheckSwitchStates() == false)
             {
-                // do nothing :) 
                 if (_bdCtx.AIPath.reachedEndOfPath)
                 {
                     _waitTimer -= Time.deltaTime;
                     if (_waitTimer <= 0.0f)
                     {
                         // set new random waypoint as target
-                        Transform waypoint = _bdCtx.Waypoints.GetWaypoint(Random.Range(0, 4));
+                        Transform waypoint = _bdCtx.Waypoints!.GetWaypoint();
                         _bdCtx.Seeker.StartPath(_bdCtx.Rb.position, waypoint.position);
                         _bdCtx.DestinationSetter.target = waypoint;
                         // new wait time for next time

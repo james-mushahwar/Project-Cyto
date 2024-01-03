@@ -33,13 +33,30 @@ namespace _Scripts._Game.General.Managers{
             CorpseManager.Instance.AssignTeleportCorpsePool(_entity, this);
         }
 
-        protected override void FixedUpdate()
+        public override void ManagedTick()
         {
-            base.FixedUpdate();
-            if (m_lastCheckFrame != Time.frameCount)
+            base.ManagedTick();
+        }
+
+        protected override void CheckPools()
+        {
+            LinkedListNode<TeleportCorpse> node = m_Inuse.First;
+            while (node != null)
             {
-                m_lastCheckFrame = Time.frameCount;
-                CheckPools();
+                LinkedListNode<TeleportCorpse> current = node;
+                node = node.Next;
+
+                if (!IsActive(current.Value))
+                {
+                    current.Value.gameObject.SetActive(false);
+                    current.Value.transform.parent = transform;
+                    current.Value.transform.localPosition = Vector3.zero;
+                    m_Pool.Push(current.Value);
+                    m_Inuse.Remove(current);
+                    m_NodePool.Push(current);
+
+                    CorpseManager.Instance.UnassignCorpse(current.Value);
+                }
             }
         }
 

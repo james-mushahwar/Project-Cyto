@@ -21,7 +21,7 @@ namespace _Scripts._Game.Animation.Character.Player {
             PlayerEntity.Instance.SpriteAnimator = this;
         }
 
-        protected override void FixedUpdate()
+        public override void Tick()
         {
             //base.FixedUpdate();
         }

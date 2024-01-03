@@ -55,9 +55,9 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             States.AddState(AIBondedMovementState.Flying, new BombDroidFlyingAIBondedMovementState(this, States));
         }
 
-        protected override void FixedUpdate()
+        public override void Tick()
         {
-            base.FixedUpdate();    
+            base.Tick();    
         }
 
         public override bool DoesStateUseAIPathFinding(AIMovementState state)

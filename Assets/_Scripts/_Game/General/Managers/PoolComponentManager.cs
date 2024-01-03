@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public abstract class PoolComponentManager<T> : Singleton<PoolComponentManager<T>>, ITickMaster where T : Component
+    public abstract class PoolComponentManager<T> : Singleton<PoolComponentManager<T>>, IManagedPool, ITickMaster where T : Component
     {
         [Header("Tick Master")]
         [SerializeField]
@@ -18,8 +18,8 @@ namespace _Scripts._Game.General.Managers{
         protected int m_PoolCount;
 
         protected readonly Stack<T> m_Pool = new Stack<T>();
-        private readonly LinkedList<T> m_Inuse = new LinkedList<T>();
-        private readonly Stack<LinkedListNode<T>> m_NodePool = new Stack<LinkedListNode<T>>();
+        protected readonly LinkedList<T> m_Inuse = new LinkedList<T>();
+        protected readonly Stack<LinkedListNode<T>> m_NodePool = new Stack<LinkedListNode<T>>();
 
         protected override void Awake()
         {
@@ -27,15 +27,7 @@ namespace _Scripts._Game.General.Managers{
             _tickID = 0;
         }
 
-        protected virtual void FixedUpdate()
-        {
-            if (_useTickMaster)
-            {
-                _tickID = (short)((++_tickID) % m_PoolCount);
-            }
-        }
-
-        protected void CheckPools()
+        protected virtual void CheckPools()
         {
             LinkedListNode<T> node = m_Inuse.First;
             while (node != null)
@@ -118,7 +110,36 @@ namespace _Scripts._Game.General.Managers{
         {
             return m_PoolCount;
         }
-        
+
+        //IManager
+        public virtual void ManagedTick()
+        {
+            if (_useTickMaster)
+            {
+                _tickID = (short)((++_tickID) % m_PoolCount);
+            }
+            if (m_lastCheckFrame != Time.frameCount)
+            {
+                m_lastCheckFrame = Time.frameCount;
+                CheckPools();
+            }
+        }
+        public virtual void PreInGameLoad()
+        {
+            
+        }
+        public virtual void PostInGameLoad()
+        {
+            
+        }
+        public virtual void PreMainMenuLoad()
+        {
+            
+        }
+        public virtual void PostMainMenuLoad()
+        {
+            
+        }
     }
 
     public class UniqueTickGroup

@@ -15,6 +15,9 @@ namespace _Scripts._Game.General.Managers{
     public enum ETargetType
     {
         AbovePlayer,
+        RightPlayer,
+        LeftPlayer,
+        BelowPlayer,
         Bondable,
         Damageable,
         INVALID,
@@ -112,7 +115,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        private void Update()
+        public void ManagedTick()
         {
             if (!GameStateManager.Instance.IsGameRunning)
             {

@@ -37,7 +37,7 @@ namespace _Scripts._Game.General.Managers{
         }
     
         // Update is called once per frame
-        void Update()
+        public void ManagedTick()
         {
             if (GameStateManager.Instance.IsGameRunning && !PauseManager.Instance.IsPaused)
             {

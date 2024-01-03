@@ -24,7 +24,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        private void FixedUpdate()
+        public void ManagedTick()
         {
             if (!GameStateManager.Instance.IsGameRunning)
             {

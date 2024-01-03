@@ -98,7 +98,7 @@ namespace _Scripts._Game.Animation{
             _renderer.enabled = false;
         }
 
-        protected virtual void FixedUpdate()
+        public virtual void Tick()
         {
             SpriteDirection();
             MaterialUpdate();

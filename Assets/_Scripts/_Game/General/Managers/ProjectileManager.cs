@@ -31,17 +31,32 @@ namespace _Scripts._Game.General.Managers{
         #region Pools
         private BasicAttackPoolComponentManager _basicAttackProjectilePool;
         private BombDroidBombDropPoolComponentManager _bdBombDropProjectilePool;
+
+        private List<IManagedPool> _managedProjectilePools;
         #endregion
 
         protected override void Awake()
         {
             base.Awake();
+
+            _managedProjectilePools = new List<IManagedPool>();
+        }
+
+        public void ManagedTick()
+        {
+            foreach (IManagedPool projectilePool in _managedProjectilePools)
+            {
+                projectilePool.ManagedTick();
+            }
         }
 
         protected void Start()
         {
             _basicAttackProjectilePool = GetComponentInChildren<BasicAttackPoolComponentManager>();
             _bdBombDropProjectilePool = GetComponentInChildren<BombDroidBombDropPoolComponentManager>();
+
+            _managedProjectilePools.Add(_basicAttackProjectilePool);
+            _managedProjectilePools.Add(_bdBombDropProjectilePool);
         }
 
         public bool TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex)

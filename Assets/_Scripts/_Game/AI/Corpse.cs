@@ -32,6 +32,11 @@ namespace _Scripts._Game.AI{
             _renderer = GetComponent<SpriteRenderer>();
         }
 
+        public virtual void Tick()
+        {
+
+        }
+
         public abstract bool IsActive();
     }
     

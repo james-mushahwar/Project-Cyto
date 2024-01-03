@@ -38,9 +38,9 @@ namespace _Scripts._Game.AI.Entity.Flying{
             _bombDroidMovementAudioHandler.IsActiveMethod = ShouldMovementAudioBeActive;
        }
 
-       protected override void FixedUpdate()
+       public override void Tick()
        {
-            base.FixedUpdate();
+            base.Tick();
 
             UpdateAudio();
        }

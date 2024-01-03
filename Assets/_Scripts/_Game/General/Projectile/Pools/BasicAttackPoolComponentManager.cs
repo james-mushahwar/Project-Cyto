@@ -32,14 +32,9 @@ namespace _Scripts._Game.General.Projectile.Pools{
             }
         }
 
-        protected override void FixedUpdate()
+        public override void ManagedTick()
         {
-            base.FixedUpdate();
-            if (m_lastCheckFrame != Time.frameCount)
-            {
-                m_lastCheckFrame = Time.frameCount;
-                CheckPools();
-            }
+            base.ManagedTick();
         }
 
         protected override bool IsActive(BasicAttackProjectile component)

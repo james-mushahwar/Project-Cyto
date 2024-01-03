@@ -70,9 +70,9 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
             BondInputsDict.Add(PossessInput.WButton, OnWestButtonInput);
         }
 
-        protected override void FixedUpdate()
+        public override void Tick()
         {
-            base.FixedUpdate();
+            base.Tick();
             if (GameStateManager.Instance?.IsGameRunning == false)
             {
                 return;

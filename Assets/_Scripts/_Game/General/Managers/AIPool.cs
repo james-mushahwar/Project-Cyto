@@ -31,6 +31,33 @@ namespace _Scripts._Game.General.Managers{
             AIManager.Instance.AssignAIPool(_entityPrefab.Entity, this);
         }
 
+        public override void ManagedTick()
+        {
+            base.ManagedTick();
+        }
+
+        protected override void CheckPools()
+        {
+            LinkedListNode<AIEntity> node = m_Inuse.First;
+            while (node != null)
+            {
+                LinkedListNode<AIEntity> current = node;
+                node = node.Next;
+
+                if (!IsActive(current.Value))
+                {
+                    current.Value.gameObject.SetActive(false);
+                    current.Value.transform.parent = transform;
+                    current.Value.transform.localPosition = Vector3.zero;
+                    m_Pool.Push(current.Value);
+                    m_Inuse.Remove(current);
+                    m_NodePool.Push(current);
+
+                    AIManager.Instance.UnassignSpawnedEntity(current.Value);
+                }
+            }
+        }
+
         protected override bool IsActive(AIEntity entity)
         {
             return entity.IsAlive() && entity.gameObject.activeSelf;

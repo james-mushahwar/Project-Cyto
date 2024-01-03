@@ -28,7 +28,7 @@ namespace _Scripts._Game.General.Managers {
             _fixedDeltaTime = Time.fixedDeltaTime;
         }
 
-        private void FixedUpdate()
+        public void ManagedTick()
         {
             if (PauseManager.Instance.IsPaused)
             {

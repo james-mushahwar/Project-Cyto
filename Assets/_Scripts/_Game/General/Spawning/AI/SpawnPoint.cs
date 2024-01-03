@@ -58,7 +58,7 @@ namespace _Scripts._Game.General.Spawning.AI{
             SpawnManager.Instance.AssignSpawnPoint(gameObject.scene.buildIndex, this);
         }
 
-        private void FixedUpdate()
+        public void Tick()
         {
             // check level is running
             if (GameStateManager.Instance.IsGameRunning == false)
@@ -121,6 +121,8 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 return;
             }
+
+            SpawnManager.Instance?.UnassignSpawnPoint(gameObject.scene.buildIndex, this);
 
             if (_isEntitySpawned && _entitySpawned != null)
             {

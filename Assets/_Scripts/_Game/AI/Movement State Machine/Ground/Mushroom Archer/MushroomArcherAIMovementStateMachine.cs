@@ -46,9 +46,9 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
             States.AddState(AIBondedMovementState.Attacking, new MushroomArcherAttackingAIBondedMovementState(this, States));
         }
 
-        protected override void FixedUpdate()
+        public override void Tick()
         {
-            base.FixedUpdate();
+            base.Tick();
         }
 
         public override bool DoesStateUseAIPathFinding(AIMovementState state)

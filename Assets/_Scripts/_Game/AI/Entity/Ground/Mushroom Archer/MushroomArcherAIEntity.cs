@@ -17,9 +17,9 @@ namespace _Scripts._Game.AI.Entity.Ground.MushroomArcher{
             base.Awake();
        }
     
-       protected override void FixedUpdate()
+       public override void Tick()
        {
-            base.FixedUpdate();
+            base.Tick();
        }
     }
     

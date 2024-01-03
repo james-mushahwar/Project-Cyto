@@ -8,6 +8,7 @@ TagManager:
   - UI_CharacterOverview
   - UI_World
   - UI_CharacterWorld
+  - GlobalLight
   layers:
   - Default
   - TransparentFX

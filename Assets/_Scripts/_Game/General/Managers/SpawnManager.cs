@@ -16,16 +16,30 @@ namespace _Scripts._Game.General.Managers{
         private Dictionary<string, float> _spawnPointRespawnTimersDict = new Dictionary<string, float>();
         //private List<string> _removeIDTimers = new List<string>();
 
+        private List<SpawnPoint> _activeSpawnPoints = new List<SpawnPoint>();
+
         #endregion
 
         protected override void Awake()
         {
             base.Awake();
 
+            _activeSpawnPoints = new List<SpawnPoint>();
+
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
 
-        private void FixedUpdate()
+        public void ManagedTick()
+        {
+            foreach (SpawnPoint spawnPoint in _activeSpawnPoints)
+            {
+                spawnPoint.Tick();
+            }
+
+            UpdateRespawnTimers();
+        }
+
+        private void UpdateRespawnTimers()
         {
             //update respawn timers;
             for (int i = _spawnPointRespawnTimersDict.Count - 1; i >= 0; i--)
@@ -69,6 +83,19 @@ namespace _Scripts._Game.General.Managers{
                 _sceneSpawnPointsDict.Add(sceneIndex, spawnPointIDs = new List<string>());
                 _sceneSpawnPointsDict[sceneIndex].Add(spawnPoint.RuntimeID.Id);
                 _spawnPointEntityDict.TryAdd(spawnPoint.RuntimeID.Id, null);
+            }
+
+            if (!_activeSpawnPoints.Contains(spawnPoint))
+            {
+                _activeSpawnPoints.Add(spawnPoint);
+            }
+        }
+
+        public void UnassignSpawnPoint(int sceneIndex, SpawnPoint spawnPoint)
+        {
+            if (_activeSpawnPoints.Contains(spawnPoint))
+            {
+                _activeSpawnPoints.Remove(spawnPoint);
             }
         }
 
@@ -120,7 +147,7 @@ namespace _Scripts._Game.General.Managers{
 
         public void PreInGameLoad()
         {
-             
+            _activeSpawnPoints = new List<SpawnPoint>();
         }
 
         public void PostInGameLoad()
