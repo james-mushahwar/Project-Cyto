@@ -11,11 +11,18 @@ namespace _Scripts._Game.General.Managers{
         [Header("Pools")]
         private Dictionary<EEntity, AIPool> _aiPoolDict = new Dictionary<EEntity, AIPool>();
 
+        private List<AIPool> _activeAIPools = new List<AIPool>();
         private List<AIEntity> _activeAIEntities = new List<AIEntity>();
 
         public void AssignAIPool(EEntity entity, AIPool pool)
         {
             AIPool aiPool = null;
+
+            if (!_activeAIPools.Contains(pool))
+            {
+                _activeAIPools.Add(pool);
+            }
+
             if (_aiPoolDict.TryGetValue(entity, out aiPool) == true)
             {
                 Debug.LogWarning("AI Manager: Trying to add pool that already exists");
@@ -23,6 +30,14 @@ namespace _Scripts._Game.General.Managers{
             }
 
             _aiPoolDict[entity] = pool;
+        }
+
+        public void UnasignAIPool(AIPool pool)
+        {
+            if (_activeAIPools.Contains(pool))
+            {
+                _activeAIPools.Remove(pool);
+            }
         }
 
         public AIEntity TrySpawnAI(EEntity entity, Vector2 spawnLocation, string spawnPointID, string waypointID)
@@ -63,6 +78,11 @@ namespace _Scripts._Game.General.Managers{
 
         public void ManagedTick()
         {
+            foreach (AIPool pool in _activeAIPools)
+            {
+                pool.ManagedTick();
+            }
+
             foreach (AIEntity aiEntity in _activeAIEntities)
             {
                 aiEntity.Tick();

@@ -31,6 +31,11 @@ namespace _Scripts._Game.General.Managers{
             AIManager.Instance.AssignAIPool(_entityPrefab.Entity, this);
         }
 
+        private void OnDisable()
+        {
+            AIManager.Instance.UnasignAIPool(this);
+        }
+
         public override void ManagedTick()
         {
             base.ManagedTick();
