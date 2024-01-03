@@ -4,6 +4,7 @@ using _Scripts._Game.Player;
 using _Scripts._Game.AI.Entity.Flying;
 using Pathfinding;
 using UnityEngine;
+using _Scripts.CautionaryTalesScripts;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     
@@ -30,11 +31,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
             }
 
             GameObject target = PlayerEntity.Instance?.GetControlledGameObject();
-            
-            Vector3 differenceToTarget = target.transform.position - _bdCtx.transform.position;
-            float distance = differenceToTarget.sqrMagnitude;
-
-            if (distance <= _bdCtx.ChaseDetectionSqRange)
+            if (CTGlobal.IsInSqDistanceRange(target, _bdCtx.gameObject, _bdCtx.ChaseDetectionSqRange))
             {
                 SwitchStates(_factory.GetState(AIMovementState.Chase));
                 return true;

@@ -1,5 +1,6 @@
 ﻿using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using _Scripts.CautionaryTalesScripts;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,12 +28,8 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
                 return true;
             }
 
-            GameObject target = PlayerEntity.Instance.GetControlledGameObject();
-
-            Vector3 differenceToTarget = target.transform.position - _bdCtx.transform.position;
-            float distance = differenceToTarget.sqrMagnitude;
-
-            if (distance > _bdCtx.ChaseLostDetectionSqRange)
+            GameObject target = PlayerEntity.Instance?.GetControlledGameObject();
+            if (!CTGlobal.IsInSqDistanceRange(target, _bdCtx.gameObject, _bdCtx.ChaseLostDetectionSqRange))
             {
                 SwitchStates(_factory.GetState(AIMovementState.Patrol));
                 AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_SmallEnemy_LostPlayer, _bdCtx.transform.position);

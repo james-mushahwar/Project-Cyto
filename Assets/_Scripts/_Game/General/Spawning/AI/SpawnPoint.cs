@@ -91,7 +91,10 @@ namespace _Scripts._Game.General.Spawning.AI{
         {
             if (_waypointsID == "")
             {
-                _waypointsID = _waypoints.RuntimeID.Id;
+                if (_waypoints)
+                {
+                   _waypointsID = _waypoints.RuntimeID.Id;
+                }
             }
 
             AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
@@ -113,6 +116,12 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void OnDisable()
         {
+            // if application quitting ignore
+            if (GameStateManager.IsQuitting)
+            {
+                return;
+            }
+
             if (_isEntitySpawned && _entitySpawned != null)
             {
                 if (!_entitySpawned.IsPossessed())

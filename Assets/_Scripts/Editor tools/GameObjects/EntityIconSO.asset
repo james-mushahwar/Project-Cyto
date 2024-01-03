@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: EntityIconSO
   m_EditorClassIdentifier: 
   _entityIconDictDictionary:
-    m_keys: 01000000
+    m_keys: 010000000200000003000000
     m_values:
+    - {fileID: 726335870, guid: 91b16c3dcb0878e46b9c061aa465c519, type: 3}
+    - {fileID: 726335870, guid: 91b16c3dcb0878e46b9c061aa465c519, type: 3}
     - {fileID: 726335870, guid: 91b16c3dcb0878e46b9c061aa465c519, type: 3}

@@ -27,16 +27,26 @@ namespace _Scripts._Game.AI.AttackStateMachine{
             _attackStateMachine = sm;
             _stateDict.Add(AIAttackState.NOTHING, new BaseAINothingAttackState(sm, this));
 
-            BombDroidAIAttackStateMachine bombDroid = _attackStateMachine as BombDroidAIAttackStateMachine;
+            //BombDroidAIAttackStateMachine bombDroid = _attackStateMachine as BombDroidAIAttackStateMachine;
 
-            if (bombDroid)
-            {
-                _stateDict.Add(AIAttackState.Idle, new BombDroidIdleAIAttackState(sm, this));
-                _stateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIAttackState(sm, this));
+            //if (bombDroid)
+            //{
+            //    _stateDict.Add(AIAttackState.Idle, new BombDroidIdleAIAttackState(sm, this));
+            //    _stateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIAttackState(sm, this));
    
-                _bondedStateDict.Add(AIAttackState.Idle, new BombDroidIdleAIBondedAttackState(sm, this));
-                _bondedStateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIBondedAttackState(sm, this));
-            }
+            //    _bondedStateDict.Add(AIAttackState.Idle, new BombDroidIdleAIBondedAttackState(sm, this));
+            //    _bondedStateDict.Add(AIAttackState.Attack1, new BombDroidBombDropAIBondedAttackState(sm, this));
+            //}
+        }
+
+        public void AddState(AIAttackState state, BaseAIAttackState attackState)
+        {
+            _stateDict.Add(state, attackState);
+        }
+
+        public void AddState(AIAttackState state, BaseAIBondedAttackState bondedAttackState)
+        {
+            _bondedStateDict.Add(state, bondedAttackState);
         }
 
         public BaseAIAttackState GetState(AIAttackState state)

@@ -59,6 +59,12 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
             //CurrentState = _states.GetState(AIAttackState.Idle);
             //CurrentBondedState = _states.GetBondedState(AIAttackState.Idle);
+            // ai attacks
+            States.AddState(AIAttackState.Idle, new BombDroidIdleAIAttackState(this, States));
+            States.AddState(AIAttackState.Attack1, new BombDroidBombDropAIAttackState(this, States));
+            //bonded attacks
+            States.AddState(AIAttackState.Idle, new BombDroidIdleAIBondedAttackState(this, States));
+            States.AddState(AIAttackState.Attack1, new BombDroidBombDropAIBondedAttackState(this, States));
 
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
             BondInputsDict.Add(PossessInput.WButton, OnWestButtonInput);

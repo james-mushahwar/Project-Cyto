@@ -32,7 +32,7 @@ namespace _Scripts.Editortools.GameObjects{
                 if (sp != null)
                 {
                     Sprite sprite = _entityIconSO.GetIcon(sp.Entity);
-                    if (sprite)
+                    if (sprite || true)
                     {
                         //IconManager.SetIcon(gameObject, sprite.texture);
                         IconManager.Icon icon = IconManager.Icon.DiamondBlue;
@@ -40,6 +40,9 @@ namespace _Scripts.Editortools.GameObjects{
                         {
                             case EEntity.BombDroid:
                                 icon = IconManager.Icon.DiamondOrange;
+                                break;
+                            case EEntity.MushroomArcher:
+                                icon = IconManager.Icon.DiamondBlue;
                                 break;
                             default:
                                 icon = IconManager.Icon.DiamondGray;

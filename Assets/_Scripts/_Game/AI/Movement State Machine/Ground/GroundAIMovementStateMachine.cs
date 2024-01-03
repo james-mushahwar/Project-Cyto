@@ -22,9 +22,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground
         {
             base.Awake();
 
-            CurrentState = _states.GetState(AIMovementState.Idle);
-            CurrentBondedState = _states.GetState(AIBondedMovementState.Grounded);
-
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
 
             _seeker = GetComponent<Seeker>();

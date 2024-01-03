@@ -2,6 +2,7 @@
 using _Scripts._Game.AI.Bonding;
 using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.General;
+using _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Ground.MushroomArcher{
     
@@ -18,9 +19,15 @@ namespace _Scripts._Game.AI.AttackStateMachine.Ground.MushroomArcher{
         protected override void Awake()
         {
             base.Awake();
-    
-            CurrentState = _states.GetState(AIAttackState.Idle);
-    
+
+            States.AddState(AIAttackState.Idle, new MushroomArcherIdleAIAttackState(this, States));
+            States.AddState(AIAttackState.Attack1, new MushroomArcherGhostFireAIAttackState(this, States));
+            States.AddState(AIAttackState.Attack2, new MushroomArcherChargeFireAIAttackState(this, States));
+
+            States.AddState(AIAttackState.Idle, new MushroomArcherIdleAIBondedAttackState(this, States));
+            States.AddState(AIAttackState.Attack1, new MushroomArcherGhostFireAIBondedAttackState(this, States));
+            States.AddState(AIAttackState.Attack2, new MushroomArcherChargeFireAIBondedAttackState(this, States));
+
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
         }
     
