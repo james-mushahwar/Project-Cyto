@@ -78,6 +78,11 @@ namespace _Scripts._Game.General.Managers{
 
         public void ManagedTick()
         {
+            if (GameStateManager.Instance.IsLoadInProgress || !GameStateManager.Instance.IsGameRunning)
+            {
+                return;
+            }
+
             foreach (AIPool pool in _activeAIPools)
             {
                 pool.ManagedTick();
