@@ -58,8 +58,6 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
             //    _maCtx.DestinationSetter.target = _targetTransform;
             //}
 
-            _maCtx.DestinationSetter.target = _targetTransform;
-
             AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_SmallEnemy_DetectedPlayer, _maCtx.transform.position);
         }
     
@@ -79,7 +77,27 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
     
             if (CheckSwitchStates() == false)
             {
-                
+                if (_maCtx.AIPath.reachedEndOfPath)
+                {
+                    // move if not level with player target
+                    GameObject target = PlayerEntity.Instance?.GetControlledGameObject();
+                    float tolerance = _maCtx.Collider.bounds.extents.y * 0.5f;
+
+                    bool isAlignedWithPlayer = CTGlobal.IsHorizontallyAligned(_maCtx.gameObject, target,
+                        tolerance);
+
+                    if (!isAlignedWithPlayer)
+                    {
+                        bool isRightOfTarget = CTGlobal.IsARightToB(_maCtx.gameObject, target);
+
+                        _targetTransform = TargetManager.Instance?.GetTargetTypeTransform(isRightOfTarget ? ETargetType.RightPlayer : ETargetType.LeftPlayer);
+                        if (_targetTransform != null)
+                        {
+                            _maCtx.Seeker.StartPath(_maCtx.Rb.position, _targetTransform.position);
+                            _maCtx.DestinationSetter.target = _targetTransform;
+                        }
+                    }
+                }
             }
         }
         

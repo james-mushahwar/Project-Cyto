@@ -75,6 +75,15 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         public string WaypointsID { get => _waypointsID; set => _waypointsID = value; }
         #endregion
 
+        #region General
+        private bool _defaultIsTrigger = false;
+
+        public bool DefaultIsTrigger
+        {
+            get { return _defaultIsTrigger; }
+        }
+        #endregion
+
         #region Bond Inputs
         private static Vector2 _currentMovementInput = Vector2.zero;
         private static Vector2 _currentDirectionInput = Vector2.zero;
@@ -152,6 +161,8 @@ namespace _Scripts._Game.AI.MovementStateMachine{
 
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<Collider2D>();
+
+            _defaultIsTrigger = _collider.isTrigger;
         }
 
         public virtual void Tick()

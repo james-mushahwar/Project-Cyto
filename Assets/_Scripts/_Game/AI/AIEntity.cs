@@ -17,7 +17,7 @@ using EZCameraShake;
 
 namespace _Scripts._Game.AI{
 
-    public class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup, IExposable
+    public abstract class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup, IExposable
     {
         [Header("Entity")]
         protected EEntity _entity;
@@ -115,9 +115,7 @@ namespace _Scripts._Game.AI{
         [SerializeField]
         [HideInInspector]
         private UnityEvent _onStartBondEvent;
-
         public UnityEvent OnStartBondEvent => _onStartBondEvent;
-
 
         protected virtual void Awake()
         {
@@ -179,7 +177,7 @@ namespace _Scripts._Game.AI{
             _movementSM.OnDispossess();
             _movementSM.CurrentBondedState.ExitState();
             _movementSM.CurrentState.EnterState();
-            _movementSM.Collider.isTrigger = true;
+            _movementSM.Collider.isTrigger = _movementSM.DefaultIsTrigger;
 
             _attackSM.OnDispossess();
             //InputManager.Instance.TryDisableActionMap(EInputSystem.BondedPlayer);

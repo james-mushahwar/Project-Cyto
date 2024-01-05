@@ -8,9 +8,12 @@ namespace _Scripts._Game.General.Managers{
     public class CorpseManager : Singleton<CorpseManager>, IManager
     {
         #region AI
-        private CorpsePool _bombDroidCorpsePool;
-        private TeleportCorpsePool _bombDroidTeleportCorpsePool;
+        //private CorpsePool _bombDroidCorpsePool;
+        //private TeleportCorpsePool _bombDroidTeleportCorpsePool;
         #endregion
+
+        private Dictionary<EEntity, CorpsePool> _corpsePoolDict = new Dictionary<EEntity, CorpsePool>();
+        private Dictionary<EEntity, TeleportCorpsePool> _teleportCorpsePoolDict = new Dictionary<EEntity, TeleportCorpsePool>();
 
         private List<IManagedPool> _activeCorpsePools = new List<IManagedPool>();
         private List<Corpse> _activeCorpses = new List<Corpse>();
@@ -38,30 +41,20 @@ namespace _Scripts._Game.General.Managers{
 
         public void AssignCorpsePool(EEntity entity, CorpsePool pool)
         {
-            if (entity == EEntity.BombDroid)
+            if (!_corpsePoolDict.ContainsKey(entity))
             {
-                if (_bombDroidCorpsePool == null)
-                {
-                    _bombDroidCorpsePool = pool;
-                    _activeCorpsePools.Add(pool);
-                }
-            }
-            else
-            {
-
+                _corpsePoolDict.TryAdd(entity, pool);
+                _activeCorpsePools.Add(pool);
             }
         }
 
         private CorpsePool GetCorpsePool(EEntity entity)
         {
-            if (entity == EEntity.BombDroid)
-            {
-                return _bombDroidCorpsePool;
-            }
-            else
-            {
-                return null;
-            }
+            CorpsePool pool = null;
+
+            _corpsePoolDict.TryGetValue(entity, out pool);
+
+            return pool;
         }
 
         public void TrySpawnCorpse(EEntity entity, Vector2 position)
@@ -78,30 +71,20 @@ namespace _Scripts._Game.General.Managers{
 
         public void AssignTeleportCorpsePool(EEntity entity, TeleportCorpsePool pool)
         {
-            if (entity == EEntity.BombDroid)
+            if (!_teleportCorpsePoolDict.ContainsKey(entity))
             {
-                if (_bombDroidTeleportCorpsePool == null)
-                {
-                    _bombDroidTeleportCorpsePool = pool;
-                    _activeCorpsePools.Add(pool);
-                }
-            }
-            else
-            {
-
+                _teleportCorpsePoolDict.TryAdd(entity, pool);
+                _activeCorpsePools.Add(pool);
             }
         }
 
         private TeleportCorpsePool GetTeleportCorpsePool(EEntity entity)
         {
-            if (entity == EEntity.BombDroid)
-            {
-                return _bombDroidTeleportCorpsePool;
-            }
-            else
-            {
-                return null;
-            }
+            TeleportCorpsePool pool = null;
+
+            _teleportCorpsePoolDict.TryGetValue(entity, out pool);
+
+            return pool;
         }
 
         public void TrySpawnTeleportCorpse(EEntity entity, Vector2 position)
