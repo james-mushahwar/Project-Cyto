@@ -489,7 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundedLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   _distanceToGroundThreshold: 0.05
   _groundedGravityScale: 1.6
   _groundedHorizontalVelocity: 12

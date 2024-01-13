@@ -6,28 +6,6 @@ using UnityEngine;
 
 namespace _Scripts._Game.General{
     
-    public enum EHealthStatType
-    {
-        Player,
-        EnemyHealth,
-        BondableHealth
-    }
-
-    public enum EEntityType
-    {
-        Player, 
-        Ally,
-        Enemy,
-        BondedEnemy
-    }
-
-    public enum EDamageType
-    {
-        Player_BasicAttack,
-        BombDroid_BombDrop_DirectHit,
-        BombDroid_BombDrop_Explosion,
-    }
-
     public abstract class HealthStats
     {
         private EHealthStatType _statType;

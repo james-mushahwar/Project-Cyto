@@ -462,6 +462,12 @@ namespace _Scripts._Game.General.Managers{
         public void PostMainMenuLoad()
         {
         }
+
+        // statics
+        public static LayerMask GetDamageableLayerMask(EEntity entity)
+        {
+            return 0;
+        }
     }
     
     

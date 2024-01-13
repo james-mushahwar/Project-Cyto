@@ -71,7 +71,7 @@ namespace _Scripts._Game.AI.Entity.Flying{
 
        private void UpdateAudio()
        {
-            bool updateMovementAudio = false; 
+            //bool updateMovementAudio = false; 
             AIMovementState movementState = _movementSM.CurrentStateEnum;
             AIBondedMovementState bondedMovementState = _movementSM.CurrentBondedStateEnum;
             

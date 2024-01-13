@@ -9,6 +9,7 @@ TagManager:
   - UI_World
   - UI_CharacterWorld
   - GlobalLight
+  - Save Station
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player
   - Bondable
   - Projectile
-  - 
+  - Destructable
   - 
   - 
   - 

@@ -11,9 +11,31 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace _Scripts._Game.General{
-    
+
     // GAMEPLAY //////////////////////////////////////
     #region Combat
+    public enum EHealthStatType
+    {
+        Player,
+        EnemyHealth,
+        BondableHealth
+    }
+
+    public enum EEntityType
+    {
+        Player,
+        Ally,
+        Enemy,
+        BondedEnemy
+    }
+
+    public enum EDamageType
+    {
+        Player_BasicAttack,
+        BombDroid_BombDrop_DirectHit,
+        BombDroid_BombDrop_Explosion,
+    }
+
     public interface IDamageable
     {
         IExposable Exposable { get; }

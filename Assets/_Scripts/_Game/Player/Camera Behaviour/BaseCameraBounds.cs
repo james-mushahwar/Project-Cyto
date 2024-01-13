@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Pathfinding.Examples;
 using UnityEngine;
 
 [Serializable]
@@ -24,8 +25,6 @@ public abstract class BaseCameraBounds : MonoBehaviour
     private float _lerpYSpeed = 5.0f;
 
     protected BoxCollider2D _boxCollider;
-
-    protected FollowCamera _followCamera;
 
     public bool[] Directions { get => _directions; }
     public float LerpXSpeed { get => _lerpXSpeed; set => _lerpXSpeed = value; }

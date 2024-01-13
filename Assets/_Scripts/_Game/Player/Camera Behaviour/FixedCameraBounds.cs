@@ -11,7 +11,7 @@ public class FixedCameraBounds : BaseCameraBounds
 
         if (player != null)
         {
-            _followCamera.SetNewCameraBounds(this);
+            FollowCamera.Instance.SetNewCameraBounds(this);
         }    
     }
 
@@ -21,15 +21,14 @@ public class FixedCameraBounds : BaseCameraBounds
 
         if (player != null)
         {
-            _followCamera.SetNewCameraBounds(null);
+            FollowCamera.Instance.SetNewCameraBounds(null);
         }
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _boxCollider = GetComponent<BoxCollider2D>();
-        _followCamera = FindObjectOfType<FollowCamera>();
     }
 
     public override float GetTargetXOffset()

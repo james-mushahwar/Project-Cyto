@@ -1363,6 +1363,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b070add8-3268-4588-8a36-ddb509bf9f8d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""WestButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""53799b4e-aacd-4530-a628-e627f4f844cb"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",

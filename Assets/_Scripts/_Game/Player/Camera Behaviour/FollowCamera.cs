@@ -244,18 +244,23 @@ public class FollowCamera : Singleton<FollowCamera>
     {
         if (_cameraBounds is TargetCameraBounds)
         {
-            //_targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
-            _targetXOffset = 0.0f;
-            //_cameraBounds
-            //float cameraX = 0.0f;
-            float cameraY = 0.0f;
-
-            if (_cameraBounds.Directions[0] == true) // up
+            _targetXOffset = _cameraBounds.gameObject.transform.position.x;
+            _targetYOffset = _cameraBounds.gameObject.transform.position.y;
+            if (false)
             {
-                cameraY = transform.position.y + _cameraHeight;
-                if (_cameraBounds.BoxCollider.bounds.extents.y <= cameraY)
+                //_targetXOffset = _ctx.IsFacingRight == true ? 1.0f : -1.0f;
+                _targetXOffset = 0.0f;
+                //_cameraBounds
+                //float cameraX = 0.0f;
+                float cameraY = 0.0f;
+
+                if (_cameraBounds.Directions[0] == true) // up
                 {
-                    _targetYOffset = _cameraBounds.BoxCollider.bounds.extents.y - _cameraHeight;
+                    cameraY = transform.position.y + _cameraHeight;
+                    if (_cameraBounds.BoxCollider.bounds.extents.y <= cameraY)
+                    {
+                        _targetYOffset = _cameraBounds.BoxCollider.bounds.extents.y - _cameraHeight;
+                    }
                 }
             }
         }

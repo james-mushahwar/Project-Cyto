@@ -38,6 +38,8 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
         [SerializeField]
         private LayerMask _aiLayerMask;
         [SerializeField]
+        private LayerMask _destructableLayerMask;
+        [SerializeField]
         private LayerMask _playerLayerMask;
 
         [Header("Explosion")]
@@ -155,6 +157,8 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 return;
             }
 
+            bool hitFloor = false;
+
             if (_instigatorType == EEntityType.Enemy)
             {
                 if ((_playerLayerMask.value & (1 << collidedGO.layer)) > 0)
@@ -166,7 +170,23 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             }
             else if (_instigatorType == EEntityType.BondedEnemy)
             {
-                if ((_aiLayerMask.value & (1 << collidedGO.layer)) > 0)
+                if ((_destructableLayerMask.value & (1 << collidedGO.layer)) > 0)
+                {
+                    IDamageable destructable = collidedGO.GetComponent<IDamageable>();
+                    if (destructable != null)
+                    {
+                        _collided = true;
+                        _explodeElapsed = true;
+                        hitFloor = true;
+
+                        IDamageable damageable = collidedGO.GetComponent<IDamageable>();
+                        if (damageable != null)
+                        {
+                            damageable.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.BondedEnemy, transform.position);
+                        }
+                    }
+                }
+                else if ((_aiLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
                     IPossessable possessable = collidedGO.GetComponent<IPossessable>();
 
@@ -189,7 +209,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
 
             Vector2 closestCollisionPoint = collision.ClosestPoint(transform.position);
 
-            if (LayerMask.NameToLayer("Ground") == collidedGO.layer)
+            if (hitFloor || LayerMask.NameToLayer("Ground") == collidedGO.layer)
             {
                 _collided = true;
                 ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, closestCollisionPoint, 0.0f);

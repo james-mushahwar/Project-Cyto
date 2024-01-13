@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Scripts._Game.General.Identification;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.General.SceneLoading;
+using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,16 +19,33 @@ namespace _Scripts._Game.General.Managers{
         {
             get
             {
+                GameObject saveStation = null;
                 if (_respawnGO == null)
                 {
                     // try and find respawn gameobject
                     foreach (var saveable in FindObjectsOfType<SaveableEntity>())
                     {
+                        if (saveable.gameObject.tag == "Save Station")
+                        {
+                            SceneField areaSpawnField = AssetManager.Instance.IndexToSceneField(saveable.gameObject.scene.buildIndex);
+                            if (areaSpawnField.SceneName == GameStateManager.Instance.AreaSpawnScene.SceneName)
+                            {
+                                saveStation = saveable.gameObject;
+                            }
+                        }
                         if (saveable.Id == _respawnGOID)
                         {
                             _respawnGO = saveable.gameObject;
                             break;
                         }
+                    }
+                }
+
+                if (_respawnGO == null)
+                {
+                    if (saveStation != null)
+                    {
+                        _respawnGO = saveStation;
                     }
                 }
 

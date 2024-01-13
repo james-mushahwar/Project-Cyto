@@ -51,6 +51,8 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
 
             _maCtx.AIPath.autoRepath.mode = AutoRepathPolicy.Mode.Dynamic; // this should auto update path 
 
+            _maCtx.Seeker.CancelCurrentPathRequest();
+
             //_targetTransform = TargetManager.Instance.GetTargetTypeTransform(ETargetType.AbovePlayer);
             //if (_targetTransform != null)
             //{
@@ -77,7 +79,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Ground.MushroomArcher{
     
             if (CheckSwitchStates() == false)
             {
-                if (_maCtx.AIPath.reachedEndOfPath)
+                if (_maCtx.AIPath.reachedEndOfPath && false)
                 {
                     // move if not level with player target
                     GameObject target = PlayerEntity.Instance?.GetControlledGameObject();
