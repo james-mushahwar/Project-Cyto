@@ -11,7 +11,7 @@ public class TargetCameraBounds : BaseCameraBounds
 
         if (player != null)
         {
-            FollowCamera.Instance.SetNewCameraBounds(this);
+            FollowCamera.Instance?.SetNewCameraBounds(this);
         }
     }
 
@@ -21,7 +21,7 @@ public class TargetCameraBounds : BaseCameraBounds
 
         if (player != null)
         {
-            FollowCamera.Instance.SetNewCameraBounds(null);
+            FollowCamera.Instance?.ClearCameraBounds(this);
         }
     }
 

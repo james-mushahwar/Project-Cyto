@@ -269,12 +269,22 @@ public class FollowCamera : Singleton<FollowCamera>
 
     public void SetNewCameraBounds(BaseCameraBounds bounds)
     {
-        if (_cameraBounds == bounds)
+        if (_cameraBounds == bounds || bounds == null)
         {
             return;
         }
 
         _cameraBounds = bounds;
+    }
+
+    public void ClearCameraBounds(BaseCameraBounds bounds)
+    {
+        if (_cameraBounds != bounds)
+        {
+            return;
+        }
+
+        _cameraBounds = null;
     }
 
     public void OnAttack()
