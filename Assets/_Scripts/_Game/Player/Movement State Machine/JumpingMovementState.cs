@@ -86,8 +86,8 @@ public class JumpingMovementState : BaseMovementState
             if (_stateTimer >= _ctx.JumpInputForceDelay)
             {
                 float forceTimer = _stateTimer / _ctx.JumpInputDuration;
-                float forceAlpha = Mathf.Lerp(_ctx.JumpForce, _ctx.JumpForce / 2.0f, forceTimer);
-                _ctx.Rb.AddForce(Vector2.up * forceAlpha, ForceMode2D.Force);
+                float forceAlpha = Mathf.Lerp(_ctx.JumpForce, _ctx.JumpForce * 0.5f, forceTimer);
+                _ctx.Rb.AddForce(Vector2.up * forceAlpha * Time.deltaTime, ForceMode2D.Force);
             }
 
             #region Movement
@@ -97,7 +97,7 @@ public class JumpingMovementState : BaseMovementState
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.FallingAcceleration : _ctx.FallingDeceleration;
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.FallingVelocityPower) * Mathf.Sign(speedDif);
 
-            _ctx.Rb.AddForce(movement * Vector2.right);
+            _ctx.Rb.AddForce(movement * Vector2.right * Time.deltaTime);
 
             #endregion
         }

@@ -493,8 +493,8 @@ MonoBehaviour:
   _distanceToGroundThreshold: 0.05
   _groundedGravityScale: 1.6
   _groundedHorizontalVelocity: 12
-  _groundedAcceleration: 9
-  _groundedDeceleration: 9
+  _groundedAcceleration: 270
+  _groundedDeceleration: 270
   _groundedVelocityPower: 1.2
   _jumpForce: 15
   _jumpingGravityScale: 1.55
@@ -509,8 +509,8 @@ MonoBehaviour:
   _fallingEnterClampedYVelocity: 0
   _fallingMaximumDownwardsVelocity: -50
   _fallingHorizontalVelocity: 10
-  _fallingAcceleration: 8
-  _fallingDeceleration: 8
+  _fallingAcceleration: 240
+  _fallingDeceleration: 240
   _fallingVelocityPower: 0.9
   _postPhaseFallingGravityScale: 2
   _postPhaseFallingGravityCurve:
@@ -626,8 +626,8 @@ MonoBehaviour:
   _floatingHorizontalVelocity: 11
   _floatingMaximumDownwardsVelocity: -5
   _floatingInputForceDelay: 0.25
-  _floatingHorizontalAcceleration: 5
-  _floatingHorizontalDeceleration: 3
+  _floatingHorizontalAcceleration: 150
+  _floatingHorizontalDeceleration: 90
   _bouncingUpwardGravityScale: 2.2
   _bouncingDownwardGravityScale: 6
   _bouncingMaximumHorizontalVelocity: 15
@@ -637,8 +637,8 @@ MonoBehaviour:
   _bouncingDefaultImpactDownwardsVelocity: -20
   _bouncingInputForceDelay: 0.1
   _bouncingMinMaxUpwardsBounceForce: {x: 16, y: 30}
-  _bouncingHorizontalAcceleration: 7
-  _bouncingHorizontalDeceleration: 6
+  _bouncingHorizontalAcceleration: 210
+  _bouncingHorizontalDeceleration: 180
   _bouncingNoInputHorizontalDeceleration: 1
   _bouncingVelocityPower: 1
   _bouncingPowerMultiplier: {x: 1, y: 1.1, z: 1.25}

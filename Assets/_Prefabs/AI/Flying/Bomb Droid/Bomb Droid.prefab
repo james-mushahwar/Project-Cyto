@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 8527710219603585277}
   - component: {fileID: 8527710219603585273}
   m_Layer: 8
-  m_Name: BombDroid
+  m_Name: Bomb Droid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
   _chaseSpeed: 3
   _flyingMaximumHorizontalVelocity: 8
   _flyingMaximumVerticalVelocity: 8
-  _flyingMovementDirectionThrust: 20
+  _flyingMovementDirectionThrust: 2000
 --- !u!114 &8527710219603585276
 MonoBehaviour:
   m_ObjectHideFlags: 0

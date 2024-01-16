@@ -118,7 +118,7 @@ public class FallingMovementState : BaseMovementState
 
                 _ctx.Rb.velocity = newVelocity;
                 Vector2 horizontalInput = new Vector2(_ctx.CurrentMovementInput.x, 0.0f);
-                _ctx.Rb.AddForce(horizontalInput * _ctx.PostPhaseInputForceCurve.Evaluate(bondTimeElapsed) * _ctx.PostPhaseInputMagnitude);
+                _ctx.Rb.AddForce(horizontalInput * _ctx.PostPhaseInputForceCurve.Evaluate(bondTimeElapsed) * _ctx.PostPhaseInputMagnitude * Time.deltaTime);
             }
             else
             {
@@ -140,7 +140,7 @@ public class FallingMovementState : BaseMovementState
                 float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.FallingAcceleration : _ctx.FallingDeceleration;
                 float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.FallingVelocityPower) * Mathf.Sign(speedDif);
 
-                _ctx.Rb.AddForce(movement * Vector2.right);
+                _ctx.Rb.AddForce(movement * Vector2.right * Time.deltaTime);
 
                 #endregion
 

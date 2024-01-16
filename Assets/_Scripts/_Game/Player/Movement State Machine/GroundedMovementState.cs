@@ -82,7 +82,7 @@ public class GroundedMovementState : BaseMovementState
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.GroundedAcceleration : _ctx.GroundedDeceleration;
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.GroundedVelocityPower) * Mathf.Sign(speedDif);
 
-            _ctx.Rb.AddForce(movement * Vector2.right);
+            _ctx.Rb.AddForce(movement * Vector2.right * Time.deltaTime);
 
             #endregion
         }

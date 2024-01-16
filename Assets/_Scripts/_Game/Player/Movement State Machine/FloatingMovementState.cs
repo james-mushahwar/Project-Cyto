@@ -1,6 +1,7 @@
 using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class FloatingMovementState : BaseMovementState
@@ -109,7 +110,7 @@ public class FloatingMovementState : BaseMovementState
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _ctx.FloatingHorizontalAcceleration : _ctx.FloatingHorizontalDeceleration;
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, _ctx.FallingVelocityPower) * Mathf.Sign(speedDif);
 
-            _ctx.Rb.AddForce(movement * Vector2.right);
+            _ctx.Rb.AddForce(movement * Vector2.right * Time.deltaTime);
             float rbYVelocity = Mathf.Clamp(_ctx.Rb.velocity.y, _ctx.FloatingMaximumDownwardsVelocity, Mathf.Infinity );
             _ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, rbYVelocity);
 

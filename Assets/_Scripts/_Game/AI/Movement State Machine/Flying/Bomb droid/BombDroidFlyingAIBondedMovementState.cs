@@ -51,7 +51,8 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
                 //float rbYVelocity = Mathf.Clamp(_ctx.Rb.velocity.y, _bdCtx.FlyingMaximumDownwardsVelocity, Mathf.Infinity);
                 //_ctx.Rb.velocity = new Vector2(_ctx.Rb.velocity.x, rbYVelocity);
 
-                _ctx.Rb.AddForce(_ctx.CurrentMovementInput.normalized * _bdCtx.FlyingMovementDirectionThrust);
+                Vector3 thrust = _ctx.CurrentMovementInput.normalized * _bdCtx.FlyingMovementDirectionThrust * Time.deltaTime;
+                _ctx.Rb.AddForce(thrust);
 
                 float rbXVelocity = Mathf.Clamp(_ctx.Rb.velocity.x, -_bdCtx.FlyingMaximumHorizontalVelocity, _bdCtx.FlyingMaximumHorizontalVelocity);
                 float rbYVelocity = Mathf.Clamp(_ctx.Rb.velocity.y, -_bdCtx.FlyingMaximumVerticalVelocity, _bdCtx.FlyingMaximumVerticalVelocity);
