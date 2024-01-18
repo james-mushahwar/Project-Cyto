@@ -1,6 +1,7 @@
 ﻿using _Scripts._Game.General.SaveLoad;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts._Game.General.Managers;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,21 +11,53 @@ namespace _Scripts._Game.General.LogicController{
     public class LogicEntity : MonoBehaviour, ILogicEntity, ISaveable
     {
         //IlogicEntity
+        [Header("Input logic")]
         [SerializeField]
-        private ELogicType _logicType;
+        private ELogicType _inputLogicType;
+        [SerializeField]
+        private ELogicConditionType _inputConditionType;
         private bool _isInputLogicValid;
-        private bool _isOutputLogicValid;
         [SerializeField]
         private List<LogicEntity> _inputs;
+        private UnityEvent _onInputChanged = new UnityEvent();
+
+        [Space]
+
+        [Header("Output logic")]
+        [SerializeField]
+        private ELogicType _outputLogicType;
+
+        [HeaderAttribute("Separate Output")]
+        [SerializeField]
+        private bool _useSeparateOutputLogic = true;
+        [SerializeField]
+        private bool _isOutputLogicValid;
+
+        [Space]
         [SerializeField]
         private List<LogicEntity> _outputs;
-        private UnityEvent _onInputChanged = new UnityEvent();
         private UnityEvent _onOutputChanged = new UnityEvent();
 
-        public ELogicType LogicType
+        public ELogicType InputLogicType
         {
-            get { return _logicType; }
+            get { return _inputLogicType; }
         }
+
+        public ELogicConditionType InputConditionType
+        {
+            get { return _inputConditionType; }
+        }
+
+        public ELogicType OutputLogicType
+        {
+            get { return _outputLogicType; }
+        }
+
+        public bool UseSeparateOutputLogic
+        {
+            get { return _useSeparateOutputLogic; }
+        }
+
         public bool IsInputLogicValid
         {
             get { return _isInputLogicValid; }
@@ -32,8 +65,24 @@ namespace _Scripts._Game.General.LogicController{
         }
         public bool IsOutputLogicValid
         {
-            get { return _isOutputLogicValid; }
-            set { _isOutputLogicValid = value; }
+            get
+            {
+                if (_useSeparateOutputLogic)
+                {
+                    return _isOutputLogicValid;
+                }
+                else
+                {
+                    return LogicManager.Instance.AreAllInputsValid(this);
+                }
+            }
+            set
+            {
+                if (_useSeparateOutputLogic)
+                {
+                    _isOutputLogicValid = value;
+                }
+            }
         }
 
         public UnityEvent OnInputChanged
@@ -79,8 +128,8 @@ namespace _Scripts._Game.General.LogicController{
         {
             return new SaveData()
             {
-                isInputLogicValid = _isInputLogicValid,
-                isOutputLogicValid = _isOutputLogicValid
+                isInputLogicValid = IsInputLogicValid,
+                isOutputLogicValid = IsOutputLogicValid
             };
         }
 

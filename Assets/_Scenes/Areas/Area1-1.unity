@@ -921,6 +921,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 229699583}
     m_Modifications:
     - target: {fileID: 5816247375677860416, guid: 344b33d3fe9d6d245853a7b0bf39a75e, type: 3}
+      propertyPath: _outputs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 344b33d3fe9d6d245853a7b0bf39a75e, type: 3}
       propertyPath: _outputs.Array.data[0]
       value: 
       objectReference: {fileID: 4883842374005815975}
@@ -1272,6 +1276,10 @@ PrefabInstance:
     - target: {fileID: 6382330855593001112, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_Name
       value: ShutterDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382330855593001116, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
+      propertyPath: _inputs.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001116, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: _inputs.Array.data[0]

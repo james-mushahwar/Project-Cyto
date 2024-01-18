@@ -278,18 +278,31 @@ namespace _Scripts._Game.General{
 
     public enum ELogicType
     {
-        Constant, // once on it stays on regardless of inputs before
-        Dependent, // dependent on all inputs being true
-        Timed, // once on it stays on for a limited time until switching off
+        Constant = 0, // once on it stays on regardless of inputs before
+        Dependent = 1, // dependent on all inputs being true
+        Timed = 2, // once on it stays on for a limited time until switching off
+        //Toggle = 3, // doesn't matter what input is but will flip validity if any input changes
+    }
+
+    public enum ELogicConditionType // what inputs does it take to make this input valid
+    {
+        All = 0,  // all inputs must be on to be valid (AND)
+        Any = 1,  // at least 1 input must be on to be valid (OR)
+        None = 2, // all inputs are off to be valid (NOT)
     }
 
     public interface ILogicEntity
     {
-        public ELogicType LogicType { get; }
+        public ELogicType InputLogicType { get; }
+        public ELogicConditionType InputConditionType { get; }
         public bool IsInputLogicValid { get; set; } // are all inputs leading to this true?
-        public bool IsOutputLogicValid { get; set; } // is this output true?
         UnityEvent OnInputChanged { get; }
+
+        public ELogicType OutputLogicType { get; }
+        public bool UseSeparateOutputLogic { get; } // true use IsOutputLogicValid, false check all inputs are valid
+        public bool IsOutputLogicValid { get; set; } // is this output true?
         UnityEvent OnOutputChanged { get; }
+
         public List<LogicEntity> Inputs { get; }
         public List<LogicEntity> Outputs { get; }
     }

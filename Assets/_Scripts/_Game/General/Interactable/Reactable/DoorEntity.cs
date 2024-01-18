@@ -100,12 +100,12 @@ namespace _Scripts._Game.General.Interactable.Reactable{
 
         public void OnPower()
         {
-            _isClosed = false;
-            if (_animator != null && _logicEntity.IsOutputLogicValid == false)
+            if (_animator != null && _isClosed)
             { 
                 Animate(_openingHash);
                 AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Environment_SpaceDoor_Open, transform.position);
             }
+            _isClosed = false;
 
             _logicEntity.IsOutputLogicValid = true;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
@@ -113,14 +113,14 @@ namespace _Scripts._Game.General.Interactable.Reactable{
 
         public void OnLosePower()
         {
-            _logicEntity.IsOutputLogicValid = false;
-            _isClosed = true;
-            if (_animator != null)
+            if (_animator != null && !_isClosed)
             {
                 Animate(_closingHash);
             }
-
+            _isClosed = true;
             _blockingCollider.enabled = false;
+
+            _logicEntity.IsOutputLogicValid = false;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
         }
 

@@ -136,7 +136,7 @@ namespace _Scripts._Game.General.Interactable.Shootable{
             }
             else
             {
-                if (_logicEntity.LogicType != ELogicType.Constant)
+                if (_logicEntity.InputLogicType == ELogicType.Constant)
                 {
                     OnUnexposed();
                 }

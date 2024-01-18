@@ -9,20 +9,58 @@ namespace _Scripts._Game.General.Managers{
     {
         public bool AreAllInputsValid(ILogicEntity logicEntity)
         {
-            foreach (LogicEntity input in logicEntity.Inputs)
-            {
-                if (!input.IsOutputLogicValid)
-                {
-                    return false;
-                }
+            bool inputIsValid = true;
 
-                if (!AreAllInputsValid(input))
+            // constant 
+            if (logicEntity.InputLogicType == ELogicType.Constant)
+            {
+                if (logicEntity.IsInputLogicValid == true)
                 {
-                    return false;
+                    return inputIsValid;
                 }
             }
 
-            return true;
+            if (logicEntity.InputConditionType == ELogicConditionType.All)
+            {
+                foreach (LogicEntity input in logicEntity.Inputs)
+                {
+                    if (!input.IsOutputLogicValid)
+                    {
+                        inputIsValid = false;
+                        break;
+                    }
+                    
+                    //if (!AreAllInputsValid(input))
+                    //{
+                    //    return false;
+                    //}
+                }
+            }
+            else if (logicEntity.InputConditionType == ELogicConditionType.Any)
+            {
+                inputIsValid = false;
+                foreach (LogicEntity input in logicEntity.Inputs)
+                {
+                    if (input.IsOutputLogicValid)
+                    {
+                        inputIsValid = true;
+                        break;
+                    }
+                }
+            }
+            else if (logicEntity.InputConditionType == ELogicConditionType.None)
+            {
+                foreach (LogicEntity input in logicEntity.Inputs)
+                {
+                    if (input.IsOutputLogicValid)
+                    {
+                        inputIsValid = false;
+                        break;
+                    }
+                }
+            }
+
+            return inputIsValid;
         }
 
         public void OnOutputChanged(ILogicEntity logicEntity)
@@ -30,7 +68,7 @@ namespace _Scripts._Game.General.Managers{
             bool newOutput = logicEntity.IsOutputLogicValid;
             foreach (LogicEntity output in logicEntity.Outputs)
             {
-                if (newOutput)
+                if (newOutput && !output.UseSeparateOutputLogic)
                 {
                     if (AreAllInputsValid(output) != output.IsInputLogicValid)
                     {

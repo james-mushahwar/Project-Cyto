@@ -49,9 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logicType: 0
-  _inputs:
-  - {fileID: 0}
+  _inputLogicType: 0
+  _inputConditionType: 0
+  _inputs: []
+  _outputLogicType: 0
+  _useSeparateOutputLogic: 0
   _outputs: []
 --- !u!114 &6382330855593001118
 MonoBehaviour:
