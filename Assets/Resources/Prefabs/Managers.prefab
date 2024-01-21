@@ -4822,11 +4822,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1637d1458f190d74597de979ff9f2f2a, type: 2}
   - {fileID: 11400000, guid: bfede5c647f5535429cccab6d1a085e3, type: 2}
   _defaultNewSaveZoneScene:
-    _sceneAsset: {fileID: 102900000, guid: 771701603d1bd4cbbb0757ddf9795280, type: 3}
-    _sceneName: Zone1
+    _sceneAsset: {fileID: 102900000, guid: 96f8b068569c3af499a42faaa07b1b40, type: 3}
+    _sceneName: Zone1_ChallengeRoom1
   _defaultNewSaveAreaScene:
-    _sceneAsset: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
-    _sceneName: Area1-1
+    _sceneAsset: {fileID: 102900000, guid: 3de06872060ee194b928d09355a57e49, type: 3}
+    _sceneName: Area1_ChallengeRoom1_1
 --- !u!1 &4567710014493137354
 GameObject:
   m_ObjectHideFlags: 0

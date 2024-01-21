@@ -68,7 +68,7 @@ namespace _Scripts._Game.General.Managers{
             bool newOutput = logicEntity.IsOutputLogicValid;
             foreach (LogicEntity output in logicEntity.Outputs)
             {
-                if (newOutput && !output.UseSeparateOutputLogic)
+                if (!output.UseSeparateOutputLogic)
                 {
                     if (AreAllInputsValid(output) != output.IsInputLogicValid)
                     {

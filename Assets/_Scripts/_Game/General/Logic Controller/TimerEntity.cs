@@ -11,6 +11,8 @@ namespace _Scripts._Game.General.LogicController{
     public class TimerEntity : MonoBehaviour
     {
         #region General
+        //[SerializeField]
+        //private bool _useLogicEntity;
         private ILogicEntity _logicEntity;
         #endregion
 
@@ -36,6 +38,8 @@ namespace _Scripts._Game.General.LogicController{
                 _logicEntity = GetComponent<LogicEntity>();
             }
             _logicEntity.OnInputChanged.AddListener(OnInputChanged);
+
+            OnInputChanged();
         }
 
         private void OnDisable()
