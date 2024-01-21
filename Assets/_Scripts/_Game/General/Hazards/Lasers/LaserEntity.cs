@@ -86,9 +86,9 @@ namespace _Prefabs.Level.Hazards.Lasers{
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            GameObject collidedGO = collision.gameObject;
+            GameObject collidedGO = collider.gameObject;
             if (collidedGO != null) 
             {
                 if ((_playerLayerMask.value & (1 << collidedGO.layer)) > 0)

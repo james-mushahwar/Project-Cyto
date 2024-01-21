@@ -67,6 +67,18 @@ namespace _Scripts.Editortools.Draw {
             Debug.DrawRay(pos + direction, right * arrowHeadLength, color);
             Debug.DrawRay(pos + direction, left * arrowHeadLength, color);
         }
+
+        //arrow
+        public static void ForArrowGizmo(Vector3 start, Vector3 end, Color color, float arrowHeadLength = 1.0f, float arrowHeadAngle = 30.0f)
+        {
+            Gizmos.color = color;
+            Gizmos.DrawLine(start, end);
+
+            Vector3 right = Quaternion.LookRotation(end - start) * Quaternion.Euler(180 + arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
+            Vector3 left = Quaternion.LookRotation(end - start) * Quaternion.Euler(180 - arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
+            Gizmos.DrawLine(end, end + (right * arrowHeadLength));
+            Gizmos.DrawLine(end, end + (left * arrowHeadLength));
+        }
         #endregion
 
         #region Shapes

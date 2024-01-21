@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Scripts._Game.General.Managers;
+using _Scripts.Editortools.Draw;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -114,6 +115,27 @@ namespace _Scripts._Game.General.LogicController{
         void Update()
         {
             
+        }
+
+        private void OnDrawGizmos()
+        {
+            for (int i = 0; i < _inputs.Count; i++)
+            {
+                LogicEntity logicEntity = _inputs[i];
+                if (logicEntity)
+                {
+                    DrawGizmos.ForArrowGizmo(logicEntity.transform.position, transform.position, Color.cyan);
+                }
+            }
+
+            //for (int i = 0; i < _outputs.Count; i++)
+            //{
+            //    LogicEntity logicEntity = _outputs[i];
+            //    if (logicEntity)
+            //    {
+            //        DrawGizmos.ForArrowGizmo(transform.position, logicEntity.transform.position, Color.green);
+            //    }
+            //}
         }
 
         //ISaveable
