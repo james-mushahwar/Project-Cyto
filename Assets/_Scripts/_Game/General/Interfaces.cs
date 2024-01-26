@@ -26,14 +26,20 @@ namespace _Scripts._Game.General{
         Player,
         Ally,
         Enemy,
-        BondedEnemy
+        BondedEnemy,
+        Hazard
     }
 
     public enum EDamageType
     {
-        Player_BasicAttack,
-        BombDroid_BombDrop_DirectHit,
-        BombDroid_BombDrop_Explosion,
+        //Player
+        Player_BasicAttack              = 0,
+        //AI                
+        BombDroid_BombDrop_DirectHit    = 10000,
+        BombDroid_BombDrop_Explosion    = 10001,
+        //Hazards
+        Laser_Tick                      = 20000,
+        Laser_Impact                    = 20001,
     }
 
     public interface IDamageable

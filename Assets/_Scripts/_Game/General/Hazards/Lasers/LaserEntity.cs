@@ -106,7 +106,7 @@ namespace _Prefabs.Level.Hazards.Lasers{
                         IDamageable damageable = collidedGO.GetComponent<IDamageable>();
                         if (damageable != null)
                         {
-                            damageable.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.BondedEnemy, transform.position);
+                            damageable.TakeDamage(EDamageType.Laser_Impact, EEntityType.BondedEnemy, transform.position);
                         }
                     }
 
