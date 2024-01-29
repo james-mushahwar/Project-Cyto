@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 416694167506982298}
   - component: {fileID: 416694167506982292}
   - component: {fileID: 416694167506982293}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TargetCameraBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}

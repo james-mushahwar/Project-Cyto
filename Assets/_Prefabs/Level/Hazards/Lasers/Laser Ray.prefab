@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 2967103407903847968}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1924650756309565622
 MonoBehaviour:
@@ -50,15 +50,15 @@ MonoBehaviour:
   _raycastContactFilter:
     useTriggers: 0
     useLayerMask: 1
-    useDepth: 0
+    useDepth: 1
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
       m_Bits: 1472
-    minDepth: 0
-    maxDepth: 0
+    minDepth: -Infinity
+    maxDepth: Infinity
     minNormalAngle: 0
     maxNormalAngle: 0
   _damageableLayerMask:
@@ -202,7 +202,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 5.5555553, z: 0}
-  - {x: 0, y: -23.9, z: 0}
+  - {x: 0, y: 137.9028, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -331,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7861266631127898523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -23.9, z: 0}
+  m_LocalPosition: {x: 0, y: 137.90276, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

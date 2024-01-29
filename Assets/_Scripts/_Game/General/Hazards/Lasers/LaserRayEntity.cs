@@ -57,11 +57,14 @@ namespace _Scripts._Game.General.Hazards.Lasers{
             if (_laserOn)
             {
                 _raycastEndPosition = _raycastStartTransform.position + (_raycastLength * _raycastStartTransform.up);
-                int hitCount = Physics2D.Raycast(_raycastStartTransform.position, _raycastStartTransform.up, _raycastContactFilter, _lastRaycastHits, _raycastLength);
+                //RaycastHit2D hit = Physics2D.Raycast(_raycastStartTransform.position, _raycastStartTransform.up, _raycastLength);
+
+                RaycastHit2D[] hits = Physics2D.RaycastAll(_raycastStartTransform.position, _raycastStartTransform.up, _raycastLength, _raycastContactFilter.layerMask);
                 Debug.DrawRay(_raycastStartTransform.position, (_raycastLength * _raycastStartTransform.up));
-                if (hitCount > 0)
+                if (hits.Length > 0)
                 {
-                    FilterHits();
+                    Debug.Log("Laser hit");
+                    FilterHits(hits);
                 }
 
                 _raycastEndTransform.position = _raycastEndPosition;
@@ -85,15 +88,15 @@ namespace _Scripts._Game.General.Hazards.Lasers{
             }
         }
 
-        private void FilterHits()
+        private void FilterHits(RaycastHit2D[] hits)
         {
             float endDistance = _raycastLength;
             RaycastHit2D _closestBlockHit = default;
-            for (int i = 0; i < _lastRaycastHits.Count; i++)
+            for (int i = 0; i < hits.Length; i++)
             {
                 //find closest hit
-                RaycastHit2D hit = _lastRaycastHits[i];
-                if (hit.collider.gameObject.layer == _blockingLayerMask)
+                RaycastHit2D hit = hits[i];
+                if ((_blockingLayerMask.value & (1 << hit.collider.gameObject.layer)) > 0)
                 {
                     if (hit.distance < endDistance)
                     {
@@ -103,13 +106,13 @@ namespace _Scripts._Game.General.Hazards.Lasers{
                 }
             }
 
-            for (int i = 0; i < _lastRaycastHits.Count; i++)
+            for (int i = 0; i < hits.Length; i++)
             {
-                RaycastHit2D hit = _lastRaycastHits[i];
+                RaycastHit2D hit = hits[i];
 
-                if (hit.collider.gameObject.layer == _damageableLayerMask)
+                if ((_damageableLayerMask.value & (1 << hit.collider.gameObject.layer)) > 0)
                 {
-                    if (hit.distance > _closestBlockHit.distance)
+                    if (hit.distance <= endDistance)
                     {
                         // within range of laser
                         _filteredRaycastHits.Add(hit);
