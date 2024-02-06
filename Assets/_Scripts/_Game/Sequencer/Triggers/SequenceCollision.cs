@@ -6,14 +6,10 @@ using UnityEngine;
 
 namespace _Scripts._Game.Sequencer.Triggers{
     
-    public class SequenceCollision : MonoBehaviour
+    public class SequenceCollision : SequenceTrigger
     {
         [SerializeField]
-        private Sequenceable _sequenceToTrigger;
-        [SerializeField]
         private Collider2D _collider2D;
-        [SerializeField]
-        private SequenceSettings _sequenceSettings;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -26,7 +22,7 @@ namespace _Scripts._Game.Sequencer.Triggers{
 
                 if (isPlayerPossessed)
                 {
-                    bool register = SequencerManager.Instance.TryRegisterSequence(_sequenceToTrigger, _sequenceSettings);
+                    bool register = RegisterSequences();
 
                     if (register)
                     {

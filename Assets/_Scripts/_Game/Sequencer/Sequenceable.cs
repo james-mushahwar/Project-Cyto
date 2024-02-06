@@ -23,4 +23,10 @@ namespace _Scripts._Game.Sequencer {
         public abstract string RuntimeID { get; }
     }
 
+    [Serializable]
+    public class SequenceableSettings
+    {
+        public Sequenceable _sequenceable;
+        public SequenceSettings _sequenceSettings;
+    }
 }

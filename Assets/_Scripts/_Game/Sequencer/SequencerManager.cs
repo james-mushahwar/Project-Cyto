@@ -4,13 +4,18 @@ using UnityEngine;
 using _Scripts._Game.General;
 using _Scripts._Game.Sequencer;
 using System;
+using _Scripts._Game.Sequencer.Triggers;
 
 namespace _Scripts._Game.Sequencer{
     
     [Serializable]  
     public class SequenceSettings
     {
-        public bool _freezePlayer;
+        //Player
+        public bool _freezePlayer = false;
+
+        //General
+        public bool _canAlwaysRun = false;
     }
 
     public class SequencerManager : Singleton<SequencerManager>, IManager
