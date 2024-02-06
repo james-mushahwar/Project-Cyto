@@ -3,142 +3,114 @@ using System.Collections.Generic;
 using UnityEngine;
 using _Scripts._Game.General;
 using _Scripts._Game.Sequencer;
-using System.Linq;
+using System;
 
- namespace _Scripts._Game.Sequencer{
-  
-    public class SequencerManager : Singleton<SequencerManager>
+namespace _Scripts._Game.Sequencer{
+    
+    [Serializable]  
+    public class SequenceSettings
     {
-        private bool _isSequenceActive = false;
-        private SequenceContainer _sequenceContainer;
-        private SequenceContainer[] _queuedSequenceContainers;
-        [SerializeField] private int _maxQueuedContainers;
-        private int _nextFreeSlot;
-        private int _queueHeadSlot;
-        private int _freeQueueSlots;
+        public bool _freezePlayer;
+    }
 
-         // Start is called before the first frame update
-         void Start()
-         {
-            _queuedSequenceContainers = new SequenceContainer[_maxQueuedContainers];
-            _nextFreeSlot = _maxQueuedContainers - 1;
-            _queueHeadSlot = -1;
-            _freeQueueSlots = _maxQueuedContainers;
+    public class SequencerManager : Singleton<SequencerManager>, IManager
+    {
+        private List<Sequenceable> _activeSequences = new List<Sequenceable>();
+        private int _freezePlayerStack;
+        private Dictionary<string, SequenceSettings> _sequenceSettings = new Dictionary<string, SequenceSettings>();
 
-            foreach (var container in FindObjectsOfType<SequenceContainer>())
+        // Start is called before the first frame update
+        public void PreInGameLoad()
+        {
+            _freezePlayerStack = 0;
+            _activeSequences.Clear();
+            _sequenceSettings.Clear();
+        }
+
+        public void PostInGameLoad()
+        {
+            
+        }
+
+        public void PreMainMenuLoad()
+        {
+            if (_freezePlayerStack != 0)
             {
-                TryNewSequenceContainer(container);
-                if (_sequenceContainer == null)
+                //unfreeze player 
+
+                _freezePlayerStack = 0;
+            }
+            _activeSequences.Clear();
+            _sequenceSettings.Clear();
+        }
+
+        public void PostMainMenuLoad()
+        {
+            
+        }
+
+        void FixedUpdate()
+        {
+            foreach (var sequence in _activeSequences)
+            {
+                if (sequence.IsStarted() == false)
                 {
-                    _sequenceContainer = _queuedSequenceContainers[4];
+                    sequence.Begin();
                 }
-            }
-         }
-  
-         void FixedUpdate()
-         {
-            if (_sequenceContainer == null)
-            {
-                if (_freeQueueSlots < _maxQueuedContainers)
-                {
-                    // take next queued sequence
-                    Debug.Log("Seqcontainer is null");
-                    _sequenceContainer = GetNextQueuedSequence();
-                }
-            }
-            else if (_sequenceContainer.IsContainerComplete())
-            {
-                if (_freeQueueSlots < _maxQueuedContainers)
-                {
-                    // take next queued sequence
-                    Debug.Log("Seqcontainer is complete");
-                    _sequenceContainer = GetNextQueuedSequence();
-                }
+
+                sequence.Tick();
             }
 
-            if (_sequenceContainer)
+            for (int i = _activeSequences.Count - 1; i >= 0; i--)
             {
-                float deltaTime = Time.deltaTime;
-                TickSequenceableContainer(deltaTime);
-            }
-         }
+                Sequenceable sequence = _activeSequences[i];
 
-         public void TryNewSequenceContainer(SequenceContainer seqContainer)
-         {
-            if (_isSequenceActive)
-            {
-                if (_freeQueueSlots > 0 && !SequenceContainerIsQueued(seqContainer))
+                if (sequence.IsComplete())
                 {
-                    if (seqContainer.CanBeQueued)
+                    sequence.Stop();
+
+                    // resolve settings
+                    bool found = _sequenceSettings.TryGetValue(sequence.RuntimeID, out SequenceSettings settings);
+                    if (found)
                     {
-                        QueueSequenceContainer(seqContainer);
+                        if (settings._freezePlayer)
+                        {
+                            _freezePlayerStack--;
+                            if (_freezePlayerStack == 0)
+                            {
+                                // unfreeze player 
+                            }
+                        }
+                    }
+                    _sequenceSettings.Remove(sequence.RuntimeID);
+                    _activeSequences.RemoveAt(i);
+                }
+            }
+        }
+
+        public bool TryRegisterSequence(Sequenceable seq, SequenceSettings seqSettings)
+        {
+            bool register = false;
+            string runtimeID = seq.RuntimeID;
+
+            if (!_sequenceSettings.ContainsKey(runtimeID))
+            {
+                _activeSequences.Add(seq);
+
+                if (seqSettings._freezePlayer)
+                {
+                    _freezePlayerStack++;
+                    if (_freezePlayerStack == 1)
+                    {
+                        //freeze player
                     }
                 }
+                _sequenceSettings.Add(runtimeID, seqSettings);
 
-                return;
+                register = true;
             }
 
-            _sequenceContainer = seqContainer;
-         }
-
-         private bool SequenceContainerIsQueued(SequenceContainer seqContainer)
-         {
-            for (int i = _maxQueuedContainers - 1; i >= 0; --i)
-            {
-                if (_queuedSequenceContainers[i] == seqContainer)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-         }
-
-        private void QueueSequenceContainer(SequenceContainer seqContainer)
-        {
-            _queuedSequenceContainers[_nextFreeSlot] = seqContainer;
-            if (_queueHeadSlot == -1)
-            {
-                _queueHeadSlot = _nextFreeSlot;
-            }
-            _freeQueueSlots--;
-            if (_freeQueueSlots > 0)
-            {
-                _nextFreeSlot--;
-                if (_nextFreeSlot == -1)
-                {
-                    _nextFreeSlot = _maxQueuedContainers - 1;
-                }
-            }
-            else
-            {
-                _nextFreeSlot = -1;
-            }
-        }
-     
-        private SequenceContainer GetNextQueuedSequence()
-        {
-            if (_freeQueueSlots >= _maxQueuedContainers - 1)
-            {
-                return null;
-            }
-
-            SequenceContainer seqCont = _queuedSequenceContainers[_queueHeadSlot];
-            _queuedSequenceContainers[_queueHeadSlot] = null;
-
-            _queueHeadSlot--;
-            if (_queueHeadSlot < 0)
-            {
-                _queueHeadSlot = _maxQueuedContainers - 1;
-            } 
-
-            return seqCont;
-        }
-
-        private void TickSequenceableContainer(float deltaTime)
-        {
-            _sequenceContainer.TickSequenceContainer();
+            return register;
         }
     }
-  
 }

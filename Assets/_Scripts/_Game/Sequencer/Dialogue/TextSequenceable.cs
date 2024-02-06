@@ -4,6 +4,7 @@ using UnityEngine;
 using _Scripts._Game.Dialogue;
 using Unity.Mathematics;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.General.Identification;
 
 namespace _Scripts._Game.Sequencer.Dialogue{
     
@@ -17,10 +18,21 @@ namespace _Scripts._Game.Sequencer.Dialogue{
         private int _phrasesIndex = 0;
         private Task _taskRef;
 
+        private RuntimeID _runtimeID;
+        private bool _isStarted;
+
+        public override string RuntimeID => _runtimeID.Id;
+
+        private void Awake()
+        {
+            _runtimeID = GetComponent<RuntimeID>();
+        }
+
         public override void Begin()
         {
             _taskRef = DialogueManager.Instance.PostText<Phrase>(_scriptableDialogue.GetPhrase(_phrasesIndex), _dialogueType);
             _phrasesIndex++;
+            _isStarted = true; 
         }
 
         public override void Stop()
@@ -45,6 +57,11 @@ namespace _Scripts._Game.Sequencer.Dialogue{
                 _taskRef = DialogueManager.Instance.PostText<Phrase>(_scriptableDialogue.GetPhrase(_phrasesIndex), _dialogueType);
                 _phrasesIndex++;
             }
+        }
+
+        public override bool IsStarted()
+        {
+            return _isStarted;
         }
 
         public override bool IsComplete()

@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _Scripts._Game.General.Hazards.Lasers{
     
-    public class LaserRayEntity : RaycastDamageEntity
+    public class LaserRayEntity : RaycastDamageEntity, IMoveableEntity
     {
         [SerializeField]
         private bool _laserOn;
@@ -30,6 +31,12 @@ namespace _Scripts._Game.General.Hazards.Lasers{
         private List<RaycastHit2D> _lastRaycastHits = new List<RaycastHit2D>();
         private List<RaycastHit2D> _filteredRaycastHits = new List<RaycastHit2D>();
 
+        //Imoveableentity
+        private UnityEvent _moveEnabled = new UnityEvent();
+        public UnityEvent MoveEnabled => _moveEnabled;
+        private UnityEvent _moveDisabled = new UnityEvent();
+        public UnityEvent MoveDisabled => _moveDisabled;
+
         private void Awake()
         {
             if (_raycastEndTransform && _raycastStartTransform)
@@ -41,12 +48,29 @@ namespace _Scripts._Game.General.Hazards.Lasers{
 
         private void OnEnable()
         {
-            
+            bool enableMove = false;
+            if (_laserOn)
+            {
+                if (_laserMoves)
+                {
+                    enableMove = true;
+                }
+            }
+
+            if (enableMove)
+            {
+                _moveEnabled.Invoke();
+            }
+            else
+            {
+                _moveDisabled.Invoke();
+            }
         }
 
         private void OnDisable()
         {
-            
+            //_moveDisabled.RemoveAllListeners();
+            //_moveEnabled.RemoveAllListeners();
         }
 
         private void Update()
@@ -57,13 +81,11 @@ namespace _Scripts._Game.General.Hazards.Lasers{
             if (_laserOn)
             {
                 _raycastEndPosition = _raycastStartTransform.position + (_raycastLength * _raycastStartTransform.up);
-                //RaycastHit2D hit = Physics2D.Raycast(_raycastStartTransform.position, _raycastStartTransform.up, _raycastLength);
 
                 RaycastHit2D[] hits = Physics2D.RaycastAll(_raycastStartTransform.position, _raycastStartTransform.up, _raycastLength, _raycastContactFilter.layerMask);
                 Debug.DrawRay(_raycastStartTransform.position, (_raycastLength * _raycastStartTransform.up));
                 if (hits.Length > 0)
                 {
-                    Debug.Log("Laser hit");
                     FilterHits(hits);
                 }
 
@@ -125,6 +147,11 @@ namespace _Scripts._Game.General.Hazards.Lasers{
                 _raycastEndPosition = _closestBlockHit.point;
             }
                 
+        }
+
+        public bool GetCanMove()
+        {
+            return this.isActiveAndEnabled && _laserMoves;
         }
     }
     

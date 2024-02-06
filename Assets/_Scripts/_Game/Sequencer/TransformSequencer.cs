@@ -1,30 +1,16 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Identification;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Scripts._Game.Sequencer{
     
-    public class TextSequencer : Sequenceable
+    public class TextSequencer : MonoBehaviour
     {
-        public override void Begin()
-        {
-             
-        }
+        private RuntimeID _runtimeID;
+        //public override string RuntimeID => _runtimeID.Id;
 
-        public override void Stop()
-        {
-             
-        }
-
-        public override void Tick()
-        {
-             
-        }
-
-        public override bool IsComplete()
-        {
-            return true;
-        }
+   
     }
     
 }

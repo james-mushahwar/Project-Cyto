@@ -1,19 +1,40 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Identification;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Scripts._Game.Sequencer{
     
-    public class SequenceableGroup : MonoBehaviour
+    public class SequenceableGroup : Sequenceable
     {
         [SerializeField]
         private bool _isSimultaneousGroup;
+
         [SerializeField]
         public List<Sequenceable> _sequenceables = new List<Sequenceable>();
 
-        private int _sequenceIndex;
+        private bool _isStarted = false;
+        private int _sequenceIndex = 0;
 
-        public void TickSequenceableGroup()
+        private RuntimeID _runtimeID;
+        public override string RuntimeID => _runtimeID.Id;
+
+        private void Awake()
+        {
+            _runtimeID = GetComponent<RuntimeID>();
+        }
+
+        public override void Begin()
+        {
+            _isStarted = true;
+            _sequenceIndex = 0;
+        }
+
+        public override void Stop()
+        {
+        }
+
+        public override void Tick()
         {
             if (_isSimultaneousGroup)
             {
@@ -21,6 +42,7 @@ namespace _Scripts._Game.Sequencer{
             }
             else
             {
+
                 Sequenceable seq = GetCurrentSequence();
 
                 if (seq)
@@ -31,9 +53,17 @@ namespace _Scripts._Game.Sequencer{
                         seq = GetNextSequence();
                     }
                 }
+                else
+                {
+
+                }
 
                 if (seq)
                 {
+                    if (seq.IsStarted() == false)
+                    {
+                        seq.Begin();
+                    }
                     seq.Tick();
                 }
                 else
@@ -44,7 +74,13 @@ namespace _Scripts._Game.Sequencer{
             }
         }
 
-        public bool IsComplete()
+
+        public override bool IsStarted()
+        {
+            return _isStarted;
+        }
+
+        public override bool IsComplete()
         {
             if (_isSimultaneousGroup)
             {
@@ -60,7 +96,6 @@ namespace _Scripts._Game.Sequencer{
                 return complete;
             }
         }
-
         private Sequenceable GetCurrentSequence()
         {
             if (_sequenceIndex >= _sequenceables.Count)
@@ -73,6 +108,7 @@ namespace _Scripts._Game.Sequencer{
         private Sequenceable GetNextSequence()
         {
             _sequenceIndex++;
+
             if (IsComplete())
             {
                 return null;

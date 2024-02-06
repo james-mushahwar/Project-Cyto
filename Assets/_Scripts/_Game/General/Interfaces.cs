@@ -169,6 +169,15 @@ namespace _Scripts._Game.General{
     }
     #endregion
 
+    #region Movement
+    public interface IMoveableEntity
+    {
+        bool GetCanMove();
+        UnityEvent MoveEnabled { get; }
+        UnityEvent MoveDisabled { get; }
+    }
+    #endregion
+
     // SYSTEMS //////////////////////////////////////
     #region RuntimeID
     public interface IRuntimeId

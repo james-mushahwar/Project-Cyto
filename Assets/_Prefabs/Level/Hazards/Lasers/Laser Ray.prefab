@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _laserOn: 1
-  _laserMoves: 0
+  _laserMoves: 1
   _raycastContactFilter:
     useTriggers: 0
     useLayerMask: 1

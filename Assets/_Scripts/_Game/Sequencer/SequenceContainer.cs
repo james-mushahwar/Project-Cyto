@@ -1,80 +1,86 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.Identification;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Scripts._Game.Sequencer{
     
-    public class SequenceContainer : MonoBehaviour
+    public class SequenceContainer : Sequenceable
     {
-        [SerializeField]
-        private bool _canBeQueued;
         [SerializeField]
         private bool _isSimultaneous;
 
         [SerializeField]
-        private List<SequenceableGroup> _sequenceableGroups = new List<SequenceableGroup>();
+        private List<Sequenceable> _sequenceables = new List<Sequenceable>();
 
         private int _groupIndex;
 
-        public bool CanBeQueued { get => _canBeQueued; }
-        // Start is called before the first frame update
-        void Start()
+        private RuntimeID _runtimeID;
+        public override string RuntimeID => _runtimeID.Id;
+
+        private void Awake()
         {
-            
-        }
-    
-        // Update is called once per frame
-        void Update()
-        {
-            
+            _runtimeID = GetComponent<RuntimeID>();
         }
 
-        public void TickSequenceContainer()
+        private Sequenceable GetCurrentSequence()
         {
-            SequenceableGroup group = GetCurrentGroup();
-
-            if (group == null || group.IsComplete()) 
+            if (_groupIndex < _sequenceables.Count)
             {
-                group = GetNextGroup();
-            }
-
-            if (group != null)
-            {
-                group.TickSequenceableGroup();
-            }
-            else
-            {
-                return;
-            }
-
-        }
-
-        public bool IsContainerComplete()
-        {
-            return _groupIndex >= _sequenceableGroups.Count;
-        }
-
-        private SequenceableGroup GetCurrentGroup()
-        {
-            if (_groupIndex < _sequenceableGroups.Count)
-            {
-                return _sequenceableGroups[_groupIndex];
+                return _sequenceables[_groupIndex];
             }
 
             return null;
         }
 
-        private SequenceableGroup GetNextGroup()
+        private Sequenceable GetNextSequence()
         {
             _groupIndex++;
-            if (IsContainerComplete())
+            if (IsComplete())
             {
                 return null;
             }
             else
             {
-                return _sequenceableGroups[_groupIndex];
+                return _sequenceables[_groupIndex];
             }
+        }
+
+        public override void Begin()
+        {
+        }
+
+        public override void Stop()
+        {
+        }
+
+        public override void Tick()
+        {
+            Sequenceable seq = GetCurrentSequence();
+
+            if (seq == null || seq.IsComplete())
+            {
+                seq = GetNextSequence();
+            }
+
+            if (seq != null)
+            {
+                seq.Tick();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public override bool IsStarted()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool IsComplete()
+        {
+            return _groupIndex >= _sequenceables.Count;
         }
     }
     
