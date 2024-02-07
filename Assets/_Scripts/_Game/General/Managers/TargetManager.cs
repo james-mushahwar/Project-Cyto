@@ -217,7 +217,7 @@ namespace _Scripts._Game.General.Managers{
 
             if (PlayerEntity.Instance.IsPossessed())
             {
-                int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.localPosition, _damageableOverlapRange, _damageableContactFilter, _damageColliders);
+                int aiOverlapCount = Physics2D.OverlapCircle(PlayerEntity.Instance.Transform.position, _damageableOverlapRange, _damageableContactFilter, _damageColliders);
 
                 if (aiOverlapCount > 0)
                 {

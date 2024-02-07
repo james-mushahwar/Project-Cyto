@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _possessableTargetParameters:
-    _targetType: 1
+    _targetType: 4
     _maxSqDistance: 225
     _minDotProduct: 0.8
     _threatScoreMultiplier: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
     _ignoreDotProductScore: 0
     _ignoreDistanceScore: 0
   _damageableTargetParameters:
-    _targetType: 2
+    _targetType: 5
     _maxSqDistance: 100
     _minDotProduct: 0.75
     _threatScoreMultiplier: 0
@@ -5994,7 +5994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c02756edadb944caba24152805d112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxQueuedContainers: 5
 --- !u!1 &5635477004884628448
 GameObject:
   m_ObjectHideFlags: 0
