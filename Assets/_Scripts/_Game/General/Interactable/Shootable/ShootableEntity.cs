@@ -1,17 +1,15 @@
-﻿using _Scripts._Game.General.SaveLoad;
-using System.Collections;
-using System.Collections.Generic;
-using _Scripts._Game.General.LogicController;
+﻿using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
 using UnityEngine;
 
-namespace _Scripts._Game.General.Interactable.Shootable{
+namespace _Scripts._Game.General.Interactable.Shootable
+{
 
     [RequireComponent(typeof(LogicEntity))]
     public class ShootableEntity : MonoBehaviour, IDamageable, IExposable, ISaveable
     {
         #region General
-        [SerializeField] 
+        [SerializeField]
         private int _exposeHealth;
 
         private ILogicEntity _logicEntity;
@@ -36,7 +34,7 @@ namespace _Scripts._Game.General.Interactable.Shootable{
         {
             _logicEntity = GetComponent<LogicEntity>();
             _logicEntity.IsInputLogicValid = LogicManager.Instance.AreAllInputsValid(_logicEntity);
-            
+
             _animator = GetComponentInChildren<Animator>();
             _animator.enabled = false;
             _renderer = GetComponentInChildren<SpriteRenderer>();
@@ -48,7 +46,16 @@ namespace _Scripts._Game.General.Interactable.Shootable{
             {
                 _logicEntity = GetComponent<LogicEntity>();
             }
-            _logicEntity.OnInputChanged.AddListener(OnInputChanged);
+
+            if (_logicEntity.UseSeparateOutputLogic)
+            {
+                _logicEntity.OnOutputChanged.AddListener(OnOutputChanged);
+            }
+            else
+            {
+                _logicEntity.OnInputChanged.AddListener(OnInputChanged);
+            }
+
         }
 
         private void OnDisable()
@@ -57,7 +64,15 @@ namespace _Scripts._Game.General.Interactable.Shootable{
             {
                 _logicEntity = GetComponent<LogicEntity>();
             }
-            _logicEntity.OnInputChanged.RemoveListener(OnInputChanged);
+
+            if (_logicEntity.UseSeparateOutputLogic)
+            {
+                _logicEntity.OnOutputChanged.RemoveListener(OnOutputChanged);
+            }
+            else
+            {
+                _logicEntity.OnInputChanged.RemoveListener(OnInputChanged);
+            }
         }
 
         public bool IsAlive()
@@ -106,7 +121,6 @@ namespace _Scripts._Game.General.Interactable.Shootable{
 
             _logicEntity.IsOutputLogicValid = true;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
-
         }
 
         public void FinishedStartup()
@@ -130,6 +144,11 @@ namespace _Scripts._Game.General.Interactable.Shootable{
 
         private void OnInputChanged()
         {
+            if (_logicEntity.UseSeparateOutputLogic)
+            {
+                return;
+            }
+
             if (_logicEntity.IsInputLogicValid)
             {
                 OnExposed();
@@ -140,6 +159,18 @@ namespace _Scripts._Game.General.Interactable.Shootable{
                 {
                     OnUnexposed();
                 }
+            }
+        }
+
+        private void OnOutputChanged()
+        {
+            if (_logicEntity.IsOutputLogicValid)
+            {
+                OnExposed();
+            }
+            else
+            {
+                OnUnexposed();
             }
         }
 
@@ -180,5 +211,5 @@ namespace _Scripts._Game.General.Interactable.Shootable{
             }
         }
     }
-    
+
 }

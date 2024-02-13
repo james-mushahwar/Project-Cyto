@@ -70,10 +70,10 @@ namespace _Scripts._Game.General.Managers{
             {
                 if (!output.UseSeparateOutputLogic)
                 {
-                    if (AreAllInputsValid(output) != output.IsInputLogicValid)
+                    //if (AreAllInputsValid(output) != output.IsInputLogicValid)
                     {
-                        output.IsInputLogicValid = !output.IsInputLogicValid;
-                        output.OnInputChanged.Invoke();
+                        output.IsInputLogicValid = AreAllInputsValid(output);
+                        //output.OnInputChanged.Invoke();
                         //OnOutputChanged(output);
                     }
                 }

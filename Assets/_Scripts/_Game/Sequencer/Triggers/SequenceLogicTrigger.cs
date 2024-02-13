@@ -67,6 +67,11 @@ namespace _Scripts._Game.Sequencer.Triggers{
             {
                 _hasActivated = true;
             }
+
+            if (_isOneShot)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

@@ -62,7 +62,11 @@ namespace _Scripts._Game.General.LogicController{
         public bool IsInputLogicValid
         {
             get { return _isInputLogicValid; }
-            set { _isInputLogicValid = value; }
+            set 
+            { 
+                _isInputLogicValid = value;
+                OnInputChanged.Invoke();
+            }
         }
         public bool IsOutputLogicValid
         {
@@ -81,7 +85,13 @@ namespace _Scripts._Game.General.LogicController{
             {
                 if (_useSeparateOutputLogic)
                 {
+                    bool outputChanged = _isOutputLogicValid != value;
                     _isOutputLogicValid = value;
+                    if (outputChanged)
+                    {
+                        OnOutputChanged.Invoke();
+                        LogicManager.Instance.OnOutputChanged(this);
+                    }
                 }
             }
         }
@@ -105,16 +115,9 @@ namespace _Scripts._Game.General.LogicController{
             get { return _outputs; }
         }
 
-        // Start is called before the first frame update
-        void Start()
+        void OnEnable()
         {
-            
-        }
-    
-        // Update is called once per frame
-        void Update()
-        {
-            
+            LogicManager.Instance.OnOutputChanged(this);
         }
 
         private void OnDrawGizmos()

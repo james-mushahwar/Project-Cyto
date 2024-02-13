@@ -1,12 +1,11 @@
-﻿using _Scripts._Game.General;
-using _Scripts._Game.General.Identification;
+﻿using _Scripts._Game.General.Identification;
 using _Scripts._Game.General.LogicController;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Scripts._Game.Sequencer.Gameplay{
-    
+namespace _Scripts._Game.Sequencer.Gameplay
+{
+
     public class LogicIOSequence : Sequenceable
     {
         [SerializeField]
@@ -67,5 +66,5 @@ namespace _Scripts._Game.Sequencer.Gameplay{
             _isComplete = true;
         }
     }
-    
+
 }

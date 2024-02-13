@@ -51,7 +51,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             }
 
             _logicEntity = GetComponent<LogicEntity>();
-            _logicEntity.IsInputLogicValid = LogicManager.Instance.AreAllInputsValid(_logicEntity);
+            _isClosed = !_logicEntity.IsInputLogicValid;
 
             _animator = GetComponentInChildren<Animator>();
 
@@ -72,7 +72,9 @@ namespace _Scripts._Game.General.Interactable.Reactable{
             {
                 _logicEntity = GetComponent<LogicEntity>();
             }
+
             _logicEntity.OnInputChanged.AddListener(OnInputChanged);
+            _logicEntity.IsInputLogicValid = LogicManager.Instance.AreAllInputsValid(_logicEntity);
 
             _blockingCollider.enabled = !_logicEntity.IsInputLogicValid;
         }
@@ -106,6 +108,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
                 AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Environment_SpaceDoor_Open, transform.position);
             }
             _isClosed = false;
+            _blockingCollider.enabled = true;
 
             _logicEntity.IsOutputLogicValid = true;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
@@ -118,7 +121,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
                 Animate(_closingHash);
             }
             _isClosed = true;
-            _blockingCollider.enabled = false;
+            _blockingCollider.enabled = true;
 
             _logicEntity.IsOutputLogicValid = false;
             LogicManager.Instance.OnOutputChanged(_logicEntity);
@@ -165,7 +168,7 @@ namespace _Scripts._Game.General.Interactable.Reactable{
 
             _isClosed = saveData.isClosed;
             _hasAlreadyOpened = saveData.hasAlreadyOpened;
-            Animate(_isClosed ? _closingHash : _openingHash);
+            //Animate(_isClosed ? _closingHash : _openingHash);
         }
     }
     

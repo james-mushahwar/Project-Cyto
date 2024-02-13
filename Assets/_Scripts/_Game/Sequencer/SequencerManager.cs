@@ -54,7 +54,7 @@ namespace _Scripts._Game.Sequencer{
             
         }
 
-        void FixedUpdate()
+        public void ManagedTick()
         {
             foreach (var sequence in _activeSequences)
             {
