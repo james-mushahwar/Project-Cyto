@@ -140,6 +140,11 @@ namespace _Scripts._Game.General.Managers{
         {
             
         }
+
+        public void ManagedAwake()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class UniqueTickGroup

@@ -119,9 +119,7 @@ namespace _Scripts._Game.AI{
 
         protected virtual void Awake()
         {
-            FEntityStats entityStats = StatsManager.Instance.GetEntityStat(_entity);
-            _enemyHealthStats         = new EnemyHealthStats(entityStats.MaxHealth, entityStats.MaxHealth, EHealthStatType.EnemyHealth);
-            _enemyBondableHealthStats = new EnemyHealthStats(entityStats.MaxBondableHealth, entityStats.MaxBondableHealth, EHealthStatType.BondableHealth);
+            
         }
 
         public virtual void Tick()
@@ -199,6 +197,10 @@ namespace _Scripts._Game.AI{
             //reset states
             _movementSM.Spawn();
             _attackSM.Spawn();
+
+            FEntityStats entityStats = StatsManager.Instance.GetEntityStat(_entity);
+            _enemyHealthStats = new EnemyHealthStats(entityStats.MaxHealth, entityStats.MaxHealth, EHealthStatType.EnemyHealth);
+            _enemyBondableHealthStats = new EnemyHealthStats(entityStats.MaxBondableHealth, entityStats.MaxBondableHealth, EHealthStatType.BondableHealth);
 
             _enemyHealthStats.RestoreHitPoints();
             _enemyBondableHealthStats.RestoreHitPoints();

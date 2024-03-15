@@ -175,7 +175,7 @@ namespace _Scripts._Game.General.SaveLoad{
         }
 
         [ContextMenu("Delete All Saves")]
-        void DeleteAllSaves()
+        public void DeleteAllSaves()
         {
             Delete($"{Application.persistentDataPath}/{_savePaths[0].String}");
             Delete($"{Application.persistentDataPath}/{_savePaths[1].String}");
@@ -189,7 +189,7 @@ namespace _Scripts._Game.General.SaveLoad{
             }
         }
         [ContextMenu("Delete All GamePrefs")]
-        void DeleteAllGamePrefs()
+        public void DeleteAllGamePrefs()
         {
             Delete($"{GamePrefsPath}");
         }

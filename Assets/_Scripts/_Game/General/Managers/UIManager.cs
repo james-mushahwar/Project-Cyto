@@ -112,12 +112,6 @@ namespace _Scripts._Game.General.Managers
         private GameObject _loadingScreenGO;
         #endregion
 
-
-        protected override void Awake()
-        {
-            
-        }
-
         public void Start()
         {
             //prompts
@@ -314,6 +308,22 @@ namespace _Scripts._Game.General.Managers
             _loadingScreenGO.SetActive(show);
 
             UpdateInputStack(show, UIInputState.LoadingScreen);
+        }
+
+        //UIButtons clicked
+        //MainMenu
+        public void StartGameButtonClicked(bool newGame = false)
+        {
+            GameStateManager.Instance.StartGame(newGame);
+        }
+        public void LoadSaveSlotButtonClicked(int index = 0)
+        {
+            GameStateManager.Instance.LoadGame(index);
+        }
+        public void DeleteAllSavesButtonClicked()
+        {
+            SaveLoadSystem.Instance.DeleteAllSaves();
+            SaveLoadSystem.Instance.DeleteAllGamePrefs();
         }
 
         // Player Input 

@@ -4,14 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.Player;
+using _Scripts._Game.Sequencer;
 using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 namespace _Scripts._Game.General.Managers{
     [RequireComponent(typeof(SaveableEntity))]
     public class GameStateManager : Singleton<GameStateManager>, ISaveable
     {
+        private EGameState _gameState;
+        private EGameState _pendingGameState;
+        public EGameState GameState { get { return _gameState; } }
+
         private int _saveIndex = -1;        //what save file index
         private SceneField _zoneSpawnScene;
         public SceneField ZoneSpawnScene
@@ -110,8 +116,9 @@ namespace _Scripts._Game.General.Managers{
 
         [Header("Manager references")]
         [SerializeField]
+        private GameObject _alwaysOnManagersGroup;
+        [SerializeField]
         private GameObject _inGameManagerGroup;
-        private GameObject[] _inGameManagers;
 
         [Header("Saveable references")]
         [SerializeField]
@@ -119,10 +126,140 @@ namespace _Scripts._Game.General.Managers{
 
         //Managers
         private IManager[] _managers;
+        private IManager[] _alwaysOnManagers;
+        private IManager[] _inGameManagers;
+        [SerializeField]
+        private AIManager _aiManagerPrefab;
+        private AIManager _aiManager;
+        [SerializeField]
+        private AssetManager _assetManagerPrefab;
+        private AssetManager _assetManager;
+        [SerializeField]
+        private AudioManager _audioManagerPrefab;
+        private AudioManager _audioManager;
+        [SerializeField]
+        private CorpseManager _corpseManagerPrefab;
+        private CorpseManager _corpseManager;
+        [SerializeField]
+        private DialogueManager _dialogueManagerPrefab;
+        private DialogueManager _dialogueManager;
+        [SerializeField]
+        private FeedbackManager _feedbackManagerPrefab;
+        private FeedbackManager _feedbackManager;
+        [SerializeField]
+        private InputManager _inputManagerPrefab;
+        private InputManager _inputManager;
+        [SerializeField]
+        private InteractableManager _interactableManagerPrefab;
+        private InteractableManager _interactableManager;
+        [SerializeField]
+        private LightingManager _lightManagerPrefab;
+        private LightingManager _lightManager;
+        [SerializeField]
+        private LogicManager _logicManagerPrefab;
+        private LogicManager _logicManager;
+        [SerializeField]
+        private ParticleManager _particleManagerPrefab;
+        private ParticleManager _particleManager;
+        [SerializeField]
+        private PauseManager _pauseManagerPrefab;
+        private PauseManager _pauseManager;
+        [SerializeField]
+        private ProjectileManager _projectileManagerPrefab;
+        private ProjectileManager _projectileManager;
+        [SerializeField]
+        private RespawnManager _respawnManagerPrefab;
+        private RespawnManager _respawnManager;
+        [SerializeField]
+        private RuntimeIDManager _runtimeIDManagerPrefab;
+        private RuntimeIDManager _runtimeIDManager;
+        [SerializeField]
+        private SpawnManager _spawnManagerPrefab;
+        private SpawnManager _spawnManager;
+        [SerializeField]
+        private StatsManager _statsManagerPrefab;
+        private StatsManager _statsManager;
+        [SerializeField]
+        private TargetManager _targetManagerPrefab;
+        private TargetManager _targetManager;
+        [SerializeField]
+        private TimeManager _timeManagerPrefab;
+        private TimeManager _timeManager;
+        [SerializeField]
+        private UIManager _uiManagerPrefab;
+        private UIManager _uiManager;
+        [SerializeField]
+        private VolumeManager _volumeManagerPrefab;
+        private VolumeManager _volumeManager;
+        [SerializeField]
+        private SequencerManager _sequencerManagerPrefab;
+        private SequencerManager _sequencerManager;
+        //extra
+        [SerializeField]
+        private DebugManager _debugManagerPrefab;
+        private DebugManager _debugManager;
+        [SerializeField]
+        private TaskManager _taskManagerPrefab;
+        private TaskManager _taskManager;
 
         protected override void Awake()
         {
-            //Managers
+            _gameState = EGameState.NONE;
+            _pendingGameState = EGameState.NONE;
+
+            bool done = RequestNewGameState(EGameState.InitialiseGameState, false);
+            if (!done)
+            {
+                throw new Exception("Initialise Managers failed");
+            }
+        }
+
+        protected void InitaliseGameState()
+        {
+            //Create Managers
+            _taskManager = Instantiate(_taskManagerPrefab.gameObject).GetComponent<TaskManager>();
+            _debugManager = Instantiate(_debugManagerPrefab.gameObject).GetComponent<DebugManager>();
+
+            _assetManager       = Instantiate<AssetManager>(_assetManagerPrefab, _alwaysOnManagersGroup.transform);
+            _audioManager       = Instantiate<AudioManager>(_audioManagerPrefab, _alwaysOnManagersGroup.transform);
+            _corpseManager      = Instantiate<CorpseManager>(_corpseManagerPrefab, _inGameManagerGroup.transform);
+            _dialogueManager    = Instantiate<DialogueManager>(_dialogueManagerPrefab, _alwaysOnManagersGroup.transform);
+            _feedbackManager    = Instantiate<FeedbackManager>(_feedbackManagerPrefab, _inGameManagerGroup.transform);
+            _aiManager          = Instantiate<AIManager>(_aiManagerPrefab, _alwaysOnManagersGroup.transform);
+            _inputManager       = Instantiate<InputManager>(_inputManagerPrefab, _alwaysOnManagersGroup.transform);
+            _interactableManager= Instantiate<InteractableManager>(_interactableManagerPrefab, _inGameManagerGroup.transform);
+            _lightManager       = Instantiate<LightingManager>(_lightManagerPrefab, _alwaysOnManagersGroup.transform);
+            _logicManager       = Instantiate<LogicManager>(_logicManagerPrefab, _inGameManagerGroup.transform);
+            _particleManager    = Instantiate<ParticleManager>(_particleManagerPrefab, _alwaysOnManagersGroup.transform);
+            _pauseManager       = Instantiate<PauseManager>(_pauseManagerPrefab, _alwaysOnManagersGroup.transform);
+            _projectileManager  = Instantiate<ProjectileManager>(_projectileManagerPrefab, _inGameManagerGroup.transform);
+            _respawnManager     = Instantiate<RespawnManager>(_respawnManagerPrefab, _inGameManagerGroup.transform);
+            _runtimeIDManager   = Instantiate<RuntimeIDManager>(_runtimeIDManagerPrefab, _inGameManagerGroup.transform);
+            _spawnManager       = Instantiate<SpawnManager>(_spawnManagerPrefab, _inGameManagerGroup.transform);
+            _statsManager       = Instantiate<StatsManager>(_statsManagerPrefab, _alwaysOnManagersGroup.transform);
+            _targetManager      = Instantiate<TargetManager>(_targetManagerPrefab, _inGameManagerGroup.transform);
+            _timeManager        = Instantiate<TimeManager>(_timeManagerPrefab, _inGameManagerGroup.transform);
+            _uiManager          = Instantiate<UIManager>(_uiManagerPrefab, _alwaysOnManagersGroup.transform);
+            _volumeManager      = Instantiate<VolumeManager>(_volumeManagerPrefab, _alwaysOnManagersGroup.transform);
+            _sequencerManager   = Instantiate<SequencerManager>(_sequencerManagerPrefab, _inGameManagerGroup.transform);
+
+            _alwaysOnManagers = new IManager[_alwaysOnManagersGroup.transform.childCount];
+            int i = 0;
+            foreach (Transform managerTransform in _alwaysOnManagersGroup.transform)
+            {
+                _alwaysOnManagers[i] = managerTransform.gameObject.GetComponent<IManager>();
+                i++;
+            }
+
+            _inGameManagers = new IManager[_inGameManagerGroup.transform.childCount];
+            i = 0;
+            foreach (Transform managerTransform in _inGameManagerGroup.transform)
+            {
+                _inGameManagers[i] = managerTransform.gameObject.GetComponent<IManager>();
+                i++;
+            }
+
+            _inGameManagerGroup.SetActive(false);
 
             _managers = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IManager>().ToArray();
 
@@ -130,25 +267,103 @@ namespace _Scripts._Game.General.Managers{
             Application.quitting += OnQuit;
             _saveableEntity = GetComponent<SaveableEntity>();
 
-            _inGameManagers = new GameObject[_inGameManagerGroup.transform.childCount];
-            int i = 0;
-            foreach (Transform managerTransform in _inGameManagerGroup.transform)
-            {
-                _inGameManagers[i] = managerTransform.gameObject;
-                i++;
-            }
             SceneManager.sceneLoaded += OnSceneLoaded;
+
+            bool done = RequestNewGameState(EGameState.PostInitialiseGameState, false);
+            if (!done)
+            {
+
+            }
+        }
+
+        void PostInitialiseGameState()
+        {
+            bool done = RequestNewGameState(EGameState.MainMenu, false);
+            if (!done)
+            {
+
+            }
         }
 
         void Update()
         {
-            if (IsGameRunning)
+            for (int i = 0; i < _alwaysOnManagers.Length; i++)
             {
-                for (int i = 0; i < _managers.Length; i++)
-                {
-                    IManager manager = _managers[i];
-                    manager.ManagedTick();
-                }
+                IManager manager = _alwaysOnManagers[i];
+                manager.ManagedTick();
+            }
+            switch (GameState)
+            {
+                case EGameState.InitialiseGameState:
+                    break;
+                case EGameState.PostInitialiseGameState:
+                    break;
+                case EGameState.MainMenu:
+                    break;
+                case EGameState.LoadGame:
+                    break;
+                case EGameState.RestoreSave:
+                    break;
+                case EGameState.PrePlayGame:
+                    break;
+                case EGameState.PlayingGame:
+                    for (int i = 0; i < _inGameManagers.Length; i++)
+                    {
+                        IManager manager = _inGameManagers[i];
+                        manager.ManagedTick();
+                    }
+                    break;
+                case EGameState.PreTeardownGame:
+                    break;
+
+            }
+            //if (IsGameRunning)
+            //{
+            //    for (int i = 0; i < _managers.Length; i++)
+            //    {
+            //        IManager manager = _managers[i];
+            //        manager.ManagedTick();
+            //    }
+            //}
+        }
+
+        public bool RequestNewGameState(EGameState newGameState, bool doFade)
+        {
+            if (newGameState == _gameState || _pendingGameState != EGameState.NONE)
+            {
+                return false;
+            }
+
+            _pendingGameState = newGameState;
+            SetNextPlayState();
+            return true;
+        }
+
+        private void SetNextPlayState()
+        {
+            _gameState = _pendingGameState;
+            _pendingGameState = EGameState.NONE;
+
+            switch (_gameState)
+            {
+                case EGameState.InitialiseGameState:
+                    InitaliseGameState();
+                    break;
+                case EGameState.PostInitialiseGameState:
+                    PostInitialiseGameState();
+                    break;
+                case EGameState.MainMenu:
+                    break;
+                case EGameState.LoadGame:
+                    break;
+                case EGameState.RestoreSave:
+                    break;
+                case EGameState.PrePlayGame:
+                    break;
+                case EGameState.PlayingGame:
+                    break;
+                case EGameState.PreTeardownGame:
+                    break;
             }
         }
 

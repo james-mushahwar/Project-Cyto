@@ -361,6 +361,19 @@ namespace _Scripts._Game.General{
     #endregion
 
     #region GameState
+    public enum EGameState
+    {
+        NONE,
+        InitialiseGameState, // create managers
+        PostInitialiseGameState, // after managers are created
+        MainMenu, // in main menu
+        LoadGame, // load zones and areas,
+        RestoreSave, // load save for current loaded scenes + player + world state
+        PrePlayGame, // just before game is player can play
+        PlayingGame, // during play
+        PreTeardownGame, // just before scenes are unloaded
+    }
+
     public enum EGameType
     {
         MainMenu,
@@ -420,6 +433,10 @@ namespace _Scripts._Game.General{
 
     public interface IManager
     {
+        public void OnCreated()
+        {
+
+        }
         // managed tick
         public void ManagedTick()
         {
@@ -437,6 +454,7 @@ namespace _Scripts._Game.General{
 
     public interface IManagedPool
     {
+        public void ManagedAwake();
         public void ManagedTick()
         {
 

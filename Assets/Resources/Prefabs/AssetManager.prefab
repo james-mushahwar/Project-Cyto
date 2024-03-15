@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3641440080504163286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4182149278641836855}
+  - component: {fileID: 3054441650378997009}
+  m_Layer: 0
+  m_Name: AssetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4182149278641836855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641440080504163286}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -416.15085, y: -87.40873, z: 4.16577}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3054441650378997009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641440080504163286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cdf692a11964cc098281a3edef01b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _allBuildSceneFields:
+  - _sceneAsset: {fileID: 102900000, guid: 7b0efb6352eb84f01b76b6d1c9c240a0, type: 3}
+    _sceneName: Main_Menu
+  - _sceneAsset: {fileID: 102900000, guid: a3e946a6ca0204d82b1290b4c5ddcde1, type: 3}
+    _sceneName: PlayerScene
+  - _sceneAsset: {fileID: 102900000, guid: 74103667a05e941b4b36433f3070b79b, type: 3}
+    _sceneName: PersistantInGameScene
+  - _sceneAsset: {fileID: 102900000, guid: 771701603d1bd4cbbb0757ddf9795280, type: 3}
+    _sceneName: Zone1
+  - _sceneAsset: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
+    _sceneName: Area1-1
+  - _sceneAsset: {fileID: 102900000, guid: e95005787b6906c43ad617b05afd393a, type: 3}
+    _sceneName: Area1-2
+  - _sceneAsset: {fileID: 102900000, guid: d60282ebfb551a94692ae266150e110a, type: 3}
+    _sceneName: Area1-3
+  - _sceneAsset: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
+    _sceneName: Area1-4
+  - _sceneAsset: {fileID: 102900000, guid: 96f8b068569c3af499a42faaa07b1b40, type: 3}
+    _sceneName: Zone1_ChallengeRoom1
+  - _sceneAsset: {fileID: 102900000, guid: 3de06872060ee194b928d09355a57e49, type: 3}
+    _sceneName: Area1_ChallengeRoom1_1
+  - _sceneAsset: {fileID: 102900000, guid: 88dc018104c636c4d8521524922abff9, type: 3}
+    _sceneName: Area1_ChallengeRoom1_2
+  - _sceneAsset: {fileID: 102900000, guid: 8f12294cf7b2b5044a109fe9349e42d4, type: 3}
+    _sceneName: Zone2
+  - _sceneAsset: {fileID: 102900000, guid: 87144452415595645abd1f7e85b99cac, type: 3}
+    _sceneName: Area2-1
+  - _sceneAsset: {fileID: 102900000, guid: e2452ed618cd60d42aba823e3ed871b8, type: 3}
+    _sceneName: Area2-2
+  - _sceneAsset: {fileID: 102900000, guid: 3639918c6539e4b499e78336209a022d, type: 3}
+    _sceneName: Area2-3
+  - _sceneAsset: {fileID: 102900000, guid: f5e41eabe20057344ba1257890ba3b2f, type: 3}
+    _sceneName: Area2-4
+  - _sceneAsset: {fileID: 102900000, guid: f5e41eabe20057344ba1257890ba3b2f, type: 3}
+    _sceneName: Area2-4
+  - _sceneAsset: {fileID: 102900000, guid: 7b465a8f680a62c45a000bd839be9d09, type: 3}
+    _sceneName: EnemyArena_Zone
+  - _sceneAsset: {fileID: 102900000, guid: b01ddd18217e30a47bd4b17bfedc75b8, type: 3}
+    _sceneName: EnemyArena_Area
+  _zones:
+  - {fileID: 11400000, guid: cfe1426883d614e5dab06ac4e0c0db29, type: 2}
+  - {fileID: 11400000, guid: 794f951cf6d7ff6408a45613dd446dd4, type: 2}
+  - {fileID: 11400000, guid: 1637d1458f190d74597de979ff9f2f2a, type: 2}
+  - {fileID: 11400000, guid: bfede5c647f5535429cccab6d1a085e3, type: 2}
+  _defaultNewSaveZoneScene:
+    _sceneAsset: {fileID: 102900000, guid: 96f8b068569c3af499a42faaa07b1b40, type: 3}
+    _sceneName: Zone1_ChallengeRoom1
+  _defaultNewSaveAreaScene:
+    _sceneAsset: {fileID: 102900000, guid: 88dc018104c636c4d8521524922abff9, type: 3}
+    _sceneName: Area1_ChallengeRoom1_2

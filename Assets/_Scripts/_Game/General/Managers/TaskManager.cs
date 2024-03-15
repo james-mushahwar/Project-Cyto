@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -207,6 +208,11 @@ namespace _Scripts._Game.General.Managers{
         public static TaskState CreateTask(IEnumerator coroutine)
         {
             return new TaskState(coroutine);
+        }
+
+        public static explicit operator TaskManager(GameObject v)
+        {
+            throw new NotImplementedException();
         }
     }
 
