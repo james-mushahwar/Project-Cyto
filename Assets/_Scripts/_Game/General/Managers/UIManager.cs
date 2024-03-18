@@ -326,6 +326,16 @@ namespace _Scripts._Game.General.Managers
             SaveLoadSystem.Instance.DeleteAllGamePrefs();
         }
 
+        //Pause Menu
+        public void OnSelect_Resume()
+        {
+            PauseManager.Instance.TogglePause();
+        }
+        public void OnSelect_Quit()
+        {
+            GameStateManager.Instance.QuitToMainMenu();
+        }
+
         // Player Input 
         public void OnMovementInput(InputAction.CallbackContext context)
         {

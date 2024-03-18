@@ -202,6 +202,11 @@ namespace _Scripts._Game.General.Managers{
         private TaskManager _taskManagerPrefab;
         private TaskManager _taskManager;
 
+        private void Log(string log)
+        {
+            Debug.Log("GameStateManager: " + log);
+        }
+
         protected override void Awake()
         {
             _gameState = EGameState.NONE;
@@ -217,8 +222,8 @@ namespace _Scripts._Game.General.Managers{
         protected void GameState_InitaliseGameState()
         {
             //Create Managers
-            _taskManager = Instantiate(_taskManagerPrefab.gameObject).GetComponent<TaskManager>();
-            _debugManager = Instantiate(_debugManagerPrefab.gameObject).GetComponent<DebugManager>();
+            _taskManager = Instantiate<TaskManager>(_taskManagerPrefab, _alwaysOnManagersGroup.transform);
+            _debugManager = Instantiate<DebugManager>(_debugManagerPrefab, _alwaysOnManagersGroup.transform);
 
             _assetManager       = Instantiate<AssetManager>(_assetManagerPrefab, _alwaysOnManagersGroup.transform);
             _audioManager       = Instantiate<AudioManager>(_audioManagerPrefab, _alwaysOnManagersGroup.transform);
@@ -295,6 +300,19 @@ namespace _Scripts._Game.General.Managers{
 
         }
 
+
+        // in main menu
+        void GameState_MainMenu()
+        {
+
+        }
+
+        // playing game
+        void GameState_PlayingGame()
+        {
+
+        }
+
         void Update()
         {
             for (int i = 0; i < _alwaysOnManagers.Length; i++)
@@ -321,8 +339,14 @@ namespace _Scripts._Game.General.Managers{
                     }
                     break;
                 case EGameState.LoadMainMenu:
+                    done = RequestNewGameState(EGameState.MainMenu, false);
+                    if (!done)
+                    {
+                        throw new Exception("request new game state failed");
+                    }
                     break;
                 case EGameState.MainMenu:
+                    // request new state on button click
                     break;
                 case EGameState.LoadGame:
                     break;
@@ -370,6 +394,8 @@ namespace _Scripts._Game.General.Managers{
             _gameState = _pendingGameState;
             _pendingGameState = EGameState.NONE;
 
+            Log("Set play state = " + _gameState);
+
             switch (_gameState)
             {
                 case EGameState.InitialiseGameState:
@@ -379,9 +405,10 @@ namespace _Scripts._Game.General.Managers{
                     GameState_PostInitialiseGameState();
                     break;
                 case EGameState.LoadMainMenu:
-
+                    GameState_LoadMainMenu();
                     break;
                 case EGameState.MainMenu:
+                    GameState_MainMenu();
                     break;
                 case EGameState.LoadGame:
                     break;
@@ -392,6 +419,7 @@ namespace _Scripts._Game.General.Managers{
                 case EGameState.PrePlayGame:
                     break;
                 case EGameState.PlayingGame:
+                    GameState_PlayingGame();
                     break;
                 case EGameState.PreTeardownGame:
                     break;
@@ -493,6 +521,8 @@ namespace _Scripts._Game.General.Managers{
 
             _loadGameCoroutine = null;
             _loadType = ELoadType.NONE;
+
+            RequestNewGameState(EGameState.PlayingGame, false);
         }
 
         private IEnumerator LoadInGame()
@@ -590,6 +620,8 @@ namespace _Scripts._Game.General.Managers{
 
         public void QuitToMainMenu()
         {
+            RequestNewGameState(EGameState.PreTeardownGame, false);
+
             PreMainMenuLoad();
             AudioManager.Instance.StopAllAudioTracks();
 

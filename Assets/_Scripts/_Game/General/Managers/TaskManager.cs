@@ -192,7 +192,7 @@ namespace _Scripts._Game.General.Managers{
         }
     }
 
-    public class TaskManager : Singleton<TaskManager>
+    public class TaskManager : Singleton<TaskManager>, IManager
     {
         private WaitForSecondsPool _waitForSecondsPool;
 
@@ -208,6 +208,22 @@ namespace _Scripts._Game.General.Managers{
         public static TaskState CreateTask(IEnumerator coroutine)
         {
             return new TaskState(coroutine);
+        }
+
+        public void PreInGameLoad()
+        {
+        }
+
+        public void PostInGameLoad()
+        {
+        }
+
+        public void PreMainMenuLoad()
+        {
+        }
+
+        public void PostMainMenuLoad()
+        {
         }
 
         public static explicit operator TaskManager(GameObject v)

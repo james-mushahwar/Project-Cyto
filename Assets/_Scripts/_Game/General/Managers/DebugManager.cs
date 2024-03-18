@@ -6,12 +6,28 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Managers{
     
-    public class DebugManager : Singleton<DebugManager>
+    public class DebugManager : Singleton<DebugManager>, IManager
     {
         [SerializeField]
         private DebugSettings _debugSettings;
 
         public DebugSettings DebugSettings { get => _debugSettings; }
+
+        public void PostInGameLoad()
+        {
+        }
+
+        public void PostMainMenuLoad()
+        {
+        }
+
+        public void PreInGameLoad()
+        {
+        }
+
+        public void PreMainMenuLoad()
+        {
+        }
     }
     
 }
