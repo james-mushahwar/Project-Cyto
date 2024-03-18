@@ -214,7 +214,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        protected void InitaliseGameState()
+        protected void GameState_InitaliseGameState()
         {
             //Create Managers
             _taskManager = Instantiate(_taskManagerPrefab.gameObject).GetComponent<TaskManager>();
@@ -272,17 +272,27 @@ namespace _Scripts._Game.General.Managers{
             bool done = RequestNewGameState(EGameState.PostInitialiseGameState, false);
             if (!done)
             {
-
+                throw new Exception("request new game state failed");
             }
         }
 
-        void PostInitialiseGameState()
+        //post initialise game state
+        void GameState_PostInitialiseGameState()
         {
-            bool done = RequestNewGameState(EGameState.MainMenu, false);
-            if (!done)
+            GameState_ManagerPostInitialiseGameState();
+        }
+        private void GameState_ManagerPostInitialiseGameState()
+        {
+            for (int i = 0; i < _managers.Length; i++)
             {
-
+                _managers[i].ManagedPostInitialiseGameState();
             }
+        }
+
+        // load main menu
+        void GameState_LoadMainMenu()
+        {
+
         }
 
         void Update()
@@ -292,15 +302,31 @@ namespace _Scripts._Game.General.Managers{
                 IManager manager = _alwaysOnManagers[i];
                 manager.ManagedTick();
             }
+
+            bool done = false;
             switch (GameState)
             {
                 case EGameState.InitialiseGameState:
+                    done = RequestNewGameState(EGameState.PostInitialiseGameState, false);
+                    if (!done)
+                    {
+                        throw new Exception("request new game state failed");
+                    }
                     break;
                 case EGameState.PostInitialiseGameState:
+                    done = RequestNewGameState(EGameState.LoadMainMenu, false);
+                    if (!done)
+                    {
+                        throw new Exception("request new game state failed");
+                    }
+                    break;
+                case EGameState.LoadMainMenu:
                     break;
                 case EGameState.MainMenu:
                     break;
                 case EGameState.LoadGame:
+                    break;
+                case EGameState.PostLoadGame:
                     break;
                 case EGameState.RestoreSave:
                     break;
@@ -347,14 +373,19 @@ namespace _Scripts._Game.General.Managers{
             switch (_gameState)
             {
                 case EGameState.InitialiseGameState:
-                    InitaliseGameState();
+                    GameState_InitaliseGameState();
                     break;
                 case EGameState.PostInitialiseGameState:
-                    PostInitialiseGameState();
+                    GameState_PostInitialiseGameState();
+                    break;
+                case EGameState.LoadMainMenu:
+
                     break;
                 case EGameState.MainMenu:
                     break;
                 case EGameState.LoadGame:
+                    break;
+                case EGameState.PostLoadGame:
                     break;
                 case EGameState.RestoreSave:
                     break;
@@ -466,6 +497,8 @@ namespace _Scripts._Game.General.Managers{
 
         private IEnumerator LoadInGame()
         {
+            RequestNewGameState(EGameState.LoadGame, false);
+
             PreInGameLoad();
 
             UIManager.Instance.ShowMainMenu(false);
@@ -519,6 +552,8 @@ namespace _Scripts._Game.General.Managers{
                     RespawnManager.Instance.RespawnObject(PlayerEntity.Instance.gameObject);
                 }
             }
+
+            RequestNewGameState(EGameState.PostLoadGame, false);
 
             AsyncOperation unloadMainMenuAsync = SceneManager.UnloadSceneAsync("Main_Menu");
             while (!unloadMainMenuAsync.isDone)
@@ -618,6 +653,8 @@ namespace _Scripts._Game.General.Managers{
         }
 
         // managers
+
+
         private void PreInGameLoad()
         {
             for (int i = 0; i < _managers.Length; i++)

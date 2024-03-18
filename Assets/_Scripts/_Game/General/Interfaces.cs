@@ -366,8 +366,10 @@ namespace _Scripts._Game.General{
         NONE,
         InitialiseGameState, // create managers
         PostInitialiseGameState, // after managers are created
-        MainMenu, // in main menu
+        LoadMainMenu, // load main menu
+        MainMenu,   // in main menu
         LoadGame, // load zones and areas,
+        PostLoadGame, // load zones and areas,
         RestoreSave, // load save for current loaded scenes + player + world state
         PrePlayGame, // just before game is player can play
         PlayingGame, // during play
@@ -442,6 +444,10 @@ namespace _Scripts._Game.General{
         {
 
         }
+
+        public void ManagedPreInitialiseGameState(){}
+        public void ManagedPostInitialiseGameState(){}
+
         // before game starts loading
         public void PreInGameLoad();
         // just as game finishes loading
