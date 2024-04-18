@@ -18,6 +18,10 @@ namespace _Scripts._Game.General.Managers{
         private EGameState _pendingGameState;
         public EGameState GameState { get { return _gameState; } }
 
+        private EAsyncGameState _streamGameState; // game state while playing to load and restore save for scenes and world objects
+        private EAsyncGameState _pendingStreamGameState;
+        public EAsyncGameState StreamGameState {  get { return _streamGameState; } }
+
         private int _saveIndex = -1;        //what save file index
         private SceneField _zoneSpawnScene;
         public SceneField ZoneSpawnScene
@@ -211,6 +215,8 @@ namespace _Scripts._Game.General.Managers{
         {
             _gameState = EGameState.NONE;
             _pendingGameState = EGameState.NONE;
+            _streamGameState = EAsyncGameState.NONE;
+            _pendingStreamGameState = EAsyncGameState.NONE;
 
             bool done = RequestNewGameState(EGameState.InitialiseGameState, false);
             if (!done)

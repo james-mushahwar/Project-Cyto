@@ -376,6 +376,16 @@ namespace _Scripts._Game.General{
         PreTeardownGame, // just before scenes are unloaded
     }
 
+    public enum EAsyncGameState
+    {
+        NONE, 
+        Async_PreLoadWorld,
+        Async_PostLoadWorld,
+        Async_PreRestoreSave,
+        Async_PostRestoreSave,
+        Aync_Complete
+    }
+
     public enum EGameType
     {
         MainMenu,

@@ -280,7 +280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _acceptInput: 0
   _activateGOs:
-  - {fileID: 188109141}
+  - {fileID: 1233604460}
+  - {fileID: 183395756}
   _deactivateGOs: []
   _toggleGOs: []
   _activateMonobehaviours: []
@@ -2064,11 +2065,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001119, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 65.5
+      value: 61.5
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001119, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -36.5
+      value: -22.5
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001119, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2834,7 +2835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001112, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001116, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_Enabled
@@ -2874,11 +2875,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001119, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 108
+      value: 115.5
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001119, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -36.5
+      value: -22.5
       objectReference: {fileID: 0}
     - target: {fileID: 6382330855593001119, guid: 0612301a8a47a284cba0a74225b90ef0, type: 3}
       propertyPath: m_LocalPosition.z
