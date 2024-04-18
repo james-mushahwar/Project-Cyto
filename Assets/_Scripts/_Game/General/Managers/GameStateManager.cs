@@ -313,6 +313,12 @@ namespace _Scripts._Game.General.Managers{
 
         }
 
+        // load save game 
+        void GameState_LoadGame()
+        {
+
+        }
+
         // playing game
         void GameState_PlayingGame()
         {
