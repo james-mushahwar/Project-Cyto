@@ -363,10 +363,25 @@ namespace _Scripts._Game.General.Managers{
                 case EGameState.LoadGame:
                     break;
                 case EGameState.PostLoadGame:
+                    done = RequestNewGameState(EGameState.RestoreSave, false);
+                    if (!done)
+                    {
+                        throw new Exception("request new game state failed");
+                    }
                     break;
                 case EGameState.RestoreSave:
+                    done = RequestNewGameState(EGameState.PrePlayGame, false);
+                    if (!done)
+                    {
+                        throw new Exception("request new game state failed");
+                    }
                     break;
                 case EGameState.PrePlayGame:
+                    done = RequestNewGameState(EGameState.PlayingGame, false);
+                    if (!done)
+                    {
+                        throw new Exception("request new game state failed");
+                    }
                     break;
                 case EGameState.PlayingGame:
                     for (int i = 0; i < _inGameManagers.Length; i++)
@@ -397,30 +412,22 @@ namespace _Scripts._Game.General.Managers{
             }
 
             _pendingGameState = newGameState;
-            SetNextPlayState();
-            return true;
+            bool changedState = SetNextPlayState();
+            return changedState;
         }
 
-        private void SetNextPlayState()
+        private bool SetNextPlayState()
         {
-            _gameState = _pendingGameState;
-            _pendingGameState = EGameState.NONE;
-
-            Log("Set play state = " + _gameState);
-
-            switch (_gameState)
+            bool changeState = true;
+            switch (_pendingGameState)
             {
                 case EGameState.InitialiseGameState:
-                    GameState_InitaliseGameState();
                     break;
                 case EGameState.PostInitialiseGameState:
-                    GameState_PostInitialiseGameState();
                     break;
                 case EGameState.LoadMainMenu:
-                    GameState_LoadMainMenu();
                     break;
                 case EGameState.MainMenu:
-                    GameState_MainMenu();
                     break;
                 case EGameState.LoadGame:
                     break;
@@ -431,11 +438,57 @@ namespace _Scripts._Game.General.Managers{
                 case EGameState.PrePlayGame:
                     break;
                 case EGameState.PlayingGame:
-                    GameState_PlayingGame();
+                    if (_gameState != EGameState.PrePlayGame)
+                    {
+                        changeState = false;
+                    }
                     break;
                 case EGameState.PreTeardownGame:
                     break;
             }
+
+            if (changeState)
+            {
+                _gameState = _pendingGameState;
+                _pendingGameState = EGameState.NONE;
+
+                Log("Set play state = " + _gameState);
+
+                switch (_gameState)
+                {
+                    case EGameState.InitialiseGameState:
+                        GameState_InitaliseGameState();
+                        break;
+                    case EGameState.PostInitialiseGameState:
+                        GameState_PostInitialiseGameState();
+                        break;
+                    case EGameState.LoadMainMenu:
+                        GameState_LoadMainMenu();
+                        break;
+                    case EGameState.MainMenu:
+                        GameState_MainMenu();
+                        break;
+                    case EGameState.LoadGame:
+                        break;
+                    case EGameState.PostLoadGame:
+                        break;
+                    case EGameState.RestoreSave:
+                        break;
+                    case EGameState.PrePlayGame:
+                        break;
+                    case EGameState.PlayingGame:
+                        GameState_PlayingGame();
+                        break;
+                    case EGameState.PreTeardownGame:
+                        break;
+                }
+            }
+            else
+            {
+                Debug.LogError("Attempted new state = " + _pendingGameState + " from current state: " + _gameState);
+            }
+
+            return changeState;
         }
 
         void OnQuit()
@@ -534,7 +587,7 @@ namespace _Scripts._Game.General.Managers{
             _loadGameCoroutine = null;
             _loadType = ELoadType.NONE;
 
-            RequestNewGameState(EGameState.PlayingGame, false);
+            //RequestNewGameState(EGameState.PlayingGame, false);
         }
 
         private IEnumerator LoadInGame()
