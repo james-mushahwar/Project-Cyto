@@ -124,19 +124,19 @@ namespace _Scripts._Game.General.Managers{
                 CheckPools();
             }
         }
-        public virtual void PreInGameLoad()
+        public virtual void ManagedPreInGameLoad()
         {
             
         }
-        public virtual void PostInGameLoad()
+        public virtual void ManagedPostInGameLoad()
         {
             
         }
-        public virtual void PreMainMenuLoad()
+        public virtual void ManagedPreMainMenuLoad()
         {
             
         }
-        public virtual void PostMainMenuLoad()
+        public virtual void ManagedPostMainMenuLoad()
         {
             
         }

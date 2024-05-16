@@ -13,19 +13,19 @@ namespace _Scripts._Game.General.Managers{
 
         public DebugSettings DebugSettings { get => _debugSettings; }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
         }
 
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
         }
     }

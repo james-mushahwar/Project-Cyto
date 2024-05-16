@@ -254,22 +254,22 @@ namespace _Scripts._Game.General.Managers{
             }).SetEase(easeType);
         }
 
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
              
         }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
              
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
              
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
              
         }

@@ -111,22 +111,22 @@ namespace _Scripts._Game.General.Managers{
             Debug.Log("Completion time is: " + _completionStats[(int)EStatsType.TimePlayed]);
         }
 
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
              
         }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
              
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
             SaveLoadSystem.Instance?.OnDisableSaveState(ESaveTarget.Saveable, _saveableEntity);
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
              
         }

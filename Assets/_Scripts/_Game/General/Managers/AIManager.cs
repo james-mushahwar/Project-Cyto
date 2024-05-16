@@ -94,22 +94,22 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
             _activeAIEntities = new List<AIEntity>();
         }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
              
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
              
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
              
         }

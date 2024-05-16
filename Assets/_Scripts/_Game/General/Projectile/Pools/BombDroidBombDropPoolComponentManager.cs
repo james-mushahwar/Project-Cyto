@@ -62,22 +62,22 @@ namespace _Scripts._Game.General.Projectile.Pools{
             return found;
         }
 
-        public override void PreInGameLoad()
+        public override void ManagedPreInGameLoad()
         {
             
         }
 
-        public override void PostInGameLoad()
+        public override void ManagedPostInGameLoad()
         {
             
         }
 
-        public override void PreMainMenuLoad()
+        public override void ManagedPreMainMenuLoad()
         {
             
         }
 
-        public override void PostMainMenuLoad()
+        public override void ManagedPostMainMenuLoad()
         {
             
         }

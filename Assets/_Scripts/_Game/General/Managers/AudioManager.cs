@@ -536,22 +536,22 @@ namespace _Scripts._Game.General.Managers {
             _audioHandlersToBeRemoved.Clear();
         }
 
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
             _audioSourcePool.CleanAudioSourcePool();
         }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
             
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
             _audioSourcePool.CleanAudioSourcePool();
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
         }
 

@@ -373,7 +373,8 @@ namespace _Scripts._Game.General{
         RestoreSave, // load save for current loaded scenes + player + world state
         PrePlayGame, // just before game is player can play
         PlayingGame, // during play
-        PreTeardownGame, // just before scenes are unloaded
+        PreTeardownGame, // before scenes are unloaded
+        PostTeardownGame, // after scenes are unloaded
     }
 
     public enum EAsyncGameState
@@ -445,27 +446,32 @@ namespace _Scripts._Game.General{
 
     public interface IManager
     {
-        public void OnCreated()
-        {
+        public void OnCreated() { }
 
-        }
-        // managed tick
-        public void ManagedTick()
-        {
-
-        }
-
-        public void ManagedPreInitialiseGameState(){}
-        public void ManagedPostInitialiseGameState(){}
-
-        // before game starts loading
-        public void PreInGameLoad();
-        // just as game finishes loading
-        public void PostInGameLoad();
-        // before game starts loading
-        public void PreMainMenuLoad();
-        // just as game finishes loading
-        public void PostMainMenuLoad();
+        // as gamestate is being generated
+        public void ManagedPreInitialiseGameState() { }
+        // after gamestate is generated
+        public void ManagedPostInitialiseGameState() { }
+        // before main menu loads
+        public void ManagedPreMainMenuLoad() { }
+        // after main menu loads
+        public void ManagedPostMainMenuLoad() { }
+        // before world (level, area, zone) starts loading
+        public void ManagedPreInGameLoad() { }
+        // after world (level, area, zone) finished loading
+        public void ManagedPostInGameLoad() { }
+        // save states are restored
+        public void ManagedRestoreSave() { }
+        // after save states are restored
+        public void ManagedPostRestoreSave() { }
+        // before play begins 
+        public void ManagedPrePlayGame() { }
+        // tick for playing game 
+        public void ManagedTick() { }
+        // before world (level, area, zone) starts unloading
+        public void ManagedPreTearddownGame() { }
+        // after world (level, area, zone) unloading
+        public void ManagedPostTearddownGame() { }
     }
 
     public interface IManagedPool

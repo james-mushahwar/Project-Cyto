@@ -25,19 +25,19 @@ namespace _Scripts._Game.Sequencer{
         private Dictionary<string, SequenceSettings> _sequenceSettings = new Dictionary<string, SequenceSettings>();
 
         // Start is called before the first frame update
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
             _freezePlayerStack = 0;
             _activeSequences.Clear();
             _sequenceSettings.Clear();
         }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
             
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
             if (_freezePlayerStack != 0)
             {
@@ -49,7 +49,7 @@ namespace _Scripts._Game.Sequencer{
             _sequenceSettings.Clear();
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
             
         }

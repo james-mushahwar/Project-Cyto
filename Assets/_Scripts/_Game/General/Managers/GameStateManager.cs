@@ -594,7 +594,7 @@ namespace _Scripts._Game.General.Managers{
         {
             RequestNewGameState(EGameState.LoadGame, false);
 
-            PreInGameLoad();
+            ManagedPreInGameLoad();
 
             UIManager.Instance.ShowMainMenu(false);
             UIManager.Instance.ShowLoadingScreen(true);
@@ -662,7 +662,7 @@ namespace _Scripts._Game.General.Managers{
             // unlock player movement
             PlayerEntity.Instance.FreezeAllMovement(false);
 
-            PostInGameLoad();
+            ManagedPostInGameLoad();
         }
 
         public void SetAreaSpawnScene(int index)
@@ -687,7 +687,7 @@ namespace _Scripts._Game.General.Managers{
         {
             RequestNewGameState(EGameState.PreTeardownGame, false);
 
-            PreMainMenuLoad();
+            ManagedPreMainMenuLoad();
             AudioManager.Instance.StopAllAudioTracks();
 
             PauseManager.Instance.TogglePause();
@@ -695,7 +695,7 @@ namespace _Scripts._Game.General.Managers{
             SceneManager.LoadScene("Main_Menu");
             UIManager.Instance.ShowMainMenu(true);
 
-            PostMainMenuLoad();
+            ManagedPostMainMenuLoad();
             _inGameManagerGroup.SetActive(false);
         }
 
@@ -752,32 +752,32 @@ namespace _Scripts._Game.General.Managers{
         // managers
 
 
-        private void PreInGameLoad()
+        private void ManagedPreInGameLoad()
         {
             for (int i = 0; i < _managers.Length; i++)
             {
-                _managers[i].PreInGameLoad();
+                _managers[i].ManagedPreInGameLoad();
             }
         }
-        private void PostInGameLoad()
+        private void ManagedPostInGameLoad()
         {
             for (int i = 0; i < _managers.Length; i++)
             {
-                _managers[i].PostInGameLoad();
+                _managers[i].ManagedPostInGameLoad();
             }
         }
-        private void PreMainMenuLoad()
+        private void ManagedPreMainMenuLoad()
         {
             for (int i = 0; i < _managers.Length; i++)
             {
-                _managers[i].PreMainMenuLoad();
+                _managers[i].ManagedPreMainMenuLoad();
             }
         }
-        private void PostMainMenuLoad()
+        private void ManagedPostMainMenuLoad()
         {
             for (int i = 0; i < _managers.Length; i++)
             {
-                _managers[i].PostMainMenuLoad();
+                _managers[i].ManagedPostMainMenuLoad();
             }
         }
 

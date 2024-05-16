@@ -214,22 +214,22 @@ namespace _Scripts._Game.General.Managers{
             AudioManager.Instance.PlayAudio(musicType, true, 2.0f);
         }
 
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
              
         }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
              
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
              
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
              
         }

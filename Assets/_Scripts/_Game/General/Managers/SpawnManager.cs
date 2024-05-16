@@ -145,22 +145,22 @@ namespace _Scripts._Game.General.Managers{
             return timer <= 0.0f;
         }
 
-        public void PreInGameLoad()
+        public void ManagedPreInGameLoad()
         {
             _activeSpawnPoints = new List<SpawnPoint>();
         }
 
-        public void PostInGameLoad()
+        public void ManagedPostInGameLoad()
         {
              
         }
 
-        public void PreMainMenuLoad()
+        public void ManagedPreMainMenuLoad()
         {
              
         }
 
-        public void PostMainMenuLoad()
+        public void ManagedPostMainMenuLoad()
         {
              
         }
