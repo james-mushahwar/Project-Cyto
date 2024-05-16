@@ -26,11 +26,6 @@ namespace _Scripts._Game.General.Managers{
 
         public void ManagedTick()
         {
-            if (!GameStateManager.Instance.IsGameRunning)
-            {
-                return;
-            }
-
             if (_closestInteractable != null)
             {
                 if (_closestInteractable.IsInteractionLocked)

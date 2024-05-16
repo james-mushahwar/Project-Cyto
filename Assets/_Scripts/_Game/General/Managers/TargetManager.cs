@@ -117,11 +117,6 @@ namespace _Scripts._Game.General.Managers{
 
         public void ManagedTick()
         {
-            if (!GameStateManager.Instance.IsGameRunning)
-            {
-                return;
-            }
-
             ManagedTargetsTick();
 
             // bondable target

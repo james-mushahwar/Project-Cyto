@@ -327,11 +327,11 @@ namespace _Scripts._Game.General.Managers{
 
         void Update()
         {
-            for (int i = 0; i < _alwaysOnManagers.Length; i++)
-            {
-                IManager manager = _alwaysOnManagers[i];
-                manager.ManagedTick();
-            }
+            //for (int i = 0; i < _alwaysOnManagers.Length; i++)
+            //{
+            //    IManager manager = _alwaysOnManagers[i];
+            //    manager.ManagedTick();
+            //}
 
             bool done = false;
             switch (GameState)
