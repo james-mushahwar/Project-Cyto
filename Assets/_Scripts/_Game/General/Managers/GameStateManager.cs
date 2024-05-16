@@ -270,7 +270,7 @@ namespace _Scripts._Game.General.Managers{
                 i++;
             }
 
-            _inGameManagerGroup.SetActive(false);
+            //_inGameManagerGroup.SetActive(false);
 
             _managers = GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<IManager>().ToArray();
 
@@ -604,7 +604,7 @@ namespace _Scripts._Game.General.Managers{
             SaveLoadSystem.Instance.SaveGamePrefs();
 
             // in game managers enable
-            _inGameManagerGroup.SetActive(true);
+            //_inGameManagerGroup.SetActive(true);
 
             // run load for managers that load on start
             foreach (SaveableEntity saveableEntity in _startInGameSaveableEntityLoad)
@@ -696,7 +696,7 @@ namespace _Scripts._Game.General.Managers{
             UIManager.Instance.ShowMainMenu(true);
 
             ManagedPostMainMenuLoad();
-            _inGameManagerGroup.SetActive(false);
+            //_inGameManagerGroup.SetActive(false);
         }
 
         public void TryNewZoneAndArea(SceneField zoneScene, SceneField areaScene)
