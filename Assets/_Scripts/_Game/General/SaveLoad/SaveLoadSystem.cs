@@ -38,6 +38,9 @@ namespace _Scripts._Game.General.SaveLoad{
             get { return $"{Application.persistentDataPath}/{_gamePrefsPath.String}"; }
         }
 
+        [SerializeField]
+        private bool _disableSaveLoad = true;
+
         private Dictionary<string, object> _gamePrefsDict = new Dictionary<string, object>();
 
         private bool _hasFirstTickElapsed = false;
@@ -85,6 +88,11 @@ namespace _Scripts._Game.General.SaveLoad{
         [ContextMenu("Save")]
         void Save(ESaveType saveType)
         {
+            if (_disableSaveLoad)
+            {
+                return;
+            }
+
             if (_isSaveOrLoadInProgress)
             {
                 return;
@@ -232,7 +240,7 @@ namespace _Scripts._Game.General.SaveLoad{
             return formatter;
         }
 
-        public void SaveFile(object state, string path)
+        private void SaveFile(object state, string path)
         {
             using (var stream = File.Open(path, FileMode.Create))
             {
@@ -241,7 +249,7 @@ namespace _Scripts._Game.General.SaveLoad{
             }
         }
 
-        Dictionary<string, object> LoadFile(string path)
+        private Dictionary<string, object> LoadFile(string path)
         {
             if (!File.Exists(path))
             {
@@ -257,8 +265,13 @@ namespace _Scripts._Game.General.SaveLoad{
             }
         }
 
-        void SaveState(ESaveTarget saveTarget, Dictionary<string, object> state)
+        private void SaveState(ESaveTarget saveTarget, Dictionary<string, object> state)
         {
+            if (_disableSaveLoad)
+            {
+                return;
+            }
+
             foreach (var saveable in FindObjectsOfType<SaveableEntity>())
             {
                 if (!saveable.CanSave(saveTarget, _saveType))
@@ -269,8 +282,13 @@ namespace _Scripts._Game.General.SaveLoad{
             }
         }
 
-        void LoadState(ESaveTarget saveTarget, Dictionary<string, object> state)
+        private void LoadState(ESaveTarget saveTarget, Dictionary<string, object> state)
         {
+            if (_disableSaveLoad)
+            {
+                return;
+            }
+
             foreach (var saveable in FindObjectsOfType<SaveableEntity>())
             {
                 if (state.TryGetValue(saveable.Id, out object savedState))
@@ -282,6 +300,10 @@ namespace _Scripts._Game.General.SaveLoad{
 
         public void OnDisableSaveState(ESaveTarget saveTarget, SaveableEntity saveable)
         {
+            if (_disableSaveLoad)
+            {
+                return;
+            }
             var state = LoadFile(SavePath);
             state[saveable.Id] = saveable.SaveState(saveTarget);
             SaveFile(state, SavePath);
@@ -289,6 +311,10 @@ namespace _Scripts._Game.General.SaveLoad{
 
         public void OnEnableLoadState(ESaveTarget saveTarget, SaveableEntity saveable)
         {
+            if (_disableSaveLoad)
+            {
+                return;
+            }
             var state = LoadFile(SavePath);
             if (state.TryGetValue(saveable.Id, out object savedState))
             {
