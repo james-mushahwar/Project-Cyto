@@ -281,10 +281,17 @@ namespace _Scripts._Game.General{
     #region Entities
     public enum EEntity
     {
-        Player,
-        BombDroid,
+        //Player
+        Player                                  = 0,
+        //AI 
+        BombDroid                               = 1000,
         MushroomArcher,
         DaggerMushroom,
+
+        // Ally
+
+        //Environment
+
         COUNT
     }
     #endregion

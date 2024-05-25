@@ -52,7 +52,6 @@ namespace _Scripts._Game.Player{
         public PlayerAttackingStateMachine AttackingSM { get => _attackingSM; set => _attackingSM = value; }
         public PlayerSpriteAnimator SpriteAnimator { get => _spriteAnimator; set => _spriteAnimator = value; }
         #endregion
-
         #region Player Components
         private PlayerHealthStats _playerHealthStats;
         private EnergyStats _playerEnergyStats;

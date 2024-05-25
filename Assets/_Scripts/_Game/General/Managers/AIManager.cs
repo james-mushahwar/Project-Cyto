@@ -29,7 +29,7 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
-            _aiPoolDict[entity] = pool;
+            _aiPoolDict.Add(entity, pool);
         }
 
         public void UnasignAIPool(AIPool pool)

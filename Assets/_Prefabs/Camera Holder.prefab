@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 6544084828957507871}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6544084828829350067
 MonoBehaviour:
@@ -54,12 +54,16 @@ MonoBehaviour:
   _dashingXYCameraOffset: {x: 0, y: 0}
   _floatingXYCameraOffset: {x: 2.5, y: 0}
   _bouncingXYCameraOffset: {x: 2, y: -2}
+  _flyingAIXYCameraOffset: {x: 2, y: 1}
+  _groundedAIXYCameraOffset: {x: 1, y: 1}
   _groundedXYLerpSpeeds: {x: 5, y: 5}
   _jumpingXYLerpSpeeds: {x: 5, y: 2.5}
   _fallingXYLerpSpeeds: {x: 5, y: 5}
   _dashingXYLerpSpeeds: {x: 10, y: 2}
   _floatingXYLerpSpeeds: {x: 2, y: 2}
   _bouncingXYLerpSpeeds: {x: 5, y: 5}
+  _flyingAIXYLerpSpeeds: {x: 2, y: 2}
+  _groundedAIXYLerpSpeeds: {x: 2, y: 2}
   _playerAttackZOffset: -22.9
   _playerAttackZOffsetDuration: 0.3
   _playerAttackZOffsetEase: 27

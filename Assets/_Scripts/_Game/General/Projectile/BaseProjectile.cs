@@ -7,6 +7,10 @@ namespace _Scripts._Game.General.Projectile{
     
     public class BaseProjectile : MonoBehaviour, ITickGroup
     {
+        protected GameObject _instigator;
+        protected EEntityType _instigatorType;
+        public EEntityType InstigatorType { get => _instigatorType; set => _instigatorType = value; }
+
         private readonly UniqueTickGroup _uniqueTickGroup = new UniqueTickGroup();
 
         public UniqueTickGroup UniqueTickGroup { get => _uniqueTickGroup; }

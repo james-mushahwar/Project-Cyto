@@ -34,7 +34,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
         }
 
         // knockback reaction and reset
-        public void StartKnockbackEffect()
+        public override void StartKnockbackEffect()
         {
             if (DoesStateUseAIPathFinding(CurrentStateEnum))
             {
@@ -44,7 +44,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Flying{
             }
         }
 
-        public void EndKnockbackEffect()
+        public override void EndKnockbackEffect()
         {
             if (DoesStateUseAIPathFinding(CurrentStateEnum) && !Entity.IsExposed())
             {

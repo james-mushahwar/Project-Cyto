@@ -15,12 +15,9 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
     
     public class BombDroidBombDropProjectile : BaseProjectile
     {
-        private GameObject _instigator;
-        private EEntityType _instigatorType;
         private bool _collided;
         private bool _explodeElapsed;
 
-        public EEntityType InstigatorType { get => _instigatorType; set => _instigatorType = value; }
         public bool Collided { get => _collided; }
         public bool ExplodeElapsed { get => _explodeElapsed; }
 

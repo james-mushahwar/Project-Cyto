@@ -8,6 +8,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
 using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.General;
+using Pathfinding;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
@@ -223,6 +224,10 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             OverrideState(AIMovementState.Idle);
         }
 
+        // knockback reaction and reset
+        public virtual void StartKnockbackEffect() { }
+        public virtual void EndKnockbackEffect() { }
+       
         //abstract classes
         public abstract bool DoesStateUseAIPathFinding(AIMovementState state);
 

@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 8527710219603585277}
   - component: {fileID: 8527710219603585273}
   m_Layer: 8
-  m_Name: Bomb Droid
+  m_Name: BombDroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

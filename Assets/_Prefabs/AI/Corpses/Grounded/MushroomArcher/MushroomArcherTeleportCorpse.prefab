@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2597291718102842133}
   - component: {fileID: 2597291718102842134}
   m_Layer: 0
-  m_Name: BombDroidTeleportCorpse
+  m_Name: MushroomArcherTeleportCorpse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2670128b0e940484cb452626198b10b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entity: 1000
+  _entity: 1001
   _corpseLifetime: 1.75
 --- !u!50 &2597291718102842132
 Rigidbody2D:

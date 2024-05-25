@@ -96,11 +96,14 @@ namespace _Scripts._Game.Animation.Character.AI.Flying.BombDroid{
         {
             if (Entity.IsPossessed())
             {
-                Renderer.flipX = _moveCtx.Rb.velocity.x < 0.0f;
+                if (Mathf.Abs(_moveCtx.Rb.velocity.x) >= 5.0f)
+                {
+                    Renderer.flipX = _moveCtx.Rb.velocity.x < 0.0f;
+                }
             }
             else
             {
-                if (_moveCtx.AIPath.velocity.x != 0)
+                if (Mathf.Abs(_moveCtx.AIPath.velocity.x) >= 1.0f)
                 {
                     Renderer.flipX = _moveCtx.AIPath.velocity.x < 0.0f;
                 }

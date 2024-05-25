@@ -7,6 +7,16 @@ using _Scripts._Game.Player;
 using DG.Tweening;
 using UnityEngine.Rendering;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.AI;
+using _Scripts._Game.AI.AttackStateMachine;
+using _Scripts._Game.AI.MovementStateMachine.Ground;
+using _Scripts._Game.AI.MovementStateMachine;
+using _Scripts._Game.AI.MovementStateMachine.Flying;
+
+
+
+
+
 
 #if UNITY_EDITOR
 using _Scripts.Editortools.Draw;
@@ -48,6 +58,11 @@ public class FollowCamera : Singleton<FollowCamera>
     private Vector2 _floatingXYCameraOffset;
     [SerializeField]
     private Vector2 _bouncingXYCameraOffset;
+    //AI offsets
+    [SerializeField]
+    private Vector2 _flyingAIXYCameraOffset;
+    [SerializeField]
+    private Vector2 _groundedAIXYCameraOffset;
 
     [Header("Lerp speeds")]
     [SerializeField]
@@ -62,6 +77,11 @@ public class FollowCamera : Singleton<FollowCamera>
     private Vector2 _floatingXYLerpSpeeds;
     [SerializeField]
     private Vector2 _bouncingXYLerpSpeeds;
+    //AI speeds
+    [SerializeField]
+    private Vector2 _flyingAIXYLerpSpeeds;
+    [SerializeField]
+    private Vector2 _groundedAIXYLerpSpeeds;
 
     [Header("Target Z offsets")]
     // attack
@@ -103,7 +123,7 @@ public class FollowCamera : Singleton<FollowCamera>
         _playerControlledGO = PlayerEntity.Instance?.GetControlledGameObject();
 
         Vector2 lerpSpeeds = GetLerpSpeed();
-        Vector3 newOffset;
+        Vector3 newOffset = new Vector3(0.0f, 0.0f, _targetZOffset);
         Vector3 desiredPosition = transform.position;
         TargetOffsets();
 
@@ -148,6 +168,31 @@ public class FollowCamera : Singleton<FollowCamera>
             return new Vector2(_cameraBounds.LerpXSpeed, _cameraBounds.LerpYSpeed);
         }
 
+        PlayerEntity playerEntity = PlayerEntity.Instance;
+        IPossessable possessed = playerEntity.Possessed;
+        AIEntity aiEntity = null;
+
+        if (possessed != null)
+        {
+            aiEntity = possessed.Transform.gameObject.GetComponent<AIEntity>();
+            if (aiEntity != null)
+            {
+                AIMovementStateMachineBase movementSM = aiEntity.MovementSM;
+                if (movementSM != null)
+                {
+                    FlyingAIMovementStateMachine flyingMovementSM = (FlyingAIMovementStateMachine)movementSM;
+                    if (flyingMovementSM != null)
+                    {
+                        return _flyingAIXYLerpSpeeds;
+                    }
+                    else
+                    {
+                        return _groundedAIXYLerpSpeeds;
+                    }
+                }
+            }
+        }
+
         if (_ctx.CurrentState is GroundedMovementState)
         {
             return _groundedXYLerpSpeeds;
@@ -178,37 +223,68 @@ public class FollowCamera : Singleton<FollowCamera>
 
     private void TargetOffsets()
     {
-        bool facingRight = _ctx.IsFacingRight == true;
-        _targetXOffset = facingRight ? _facingRightOffset : -_facingRightOffset;
-        if (_ctx.CurrentState is GroundedMovementState)
+        bool facingRight = false;
+        PlayerEntity playerEntity = PlayerEntity.Instance;
+        IPossessable possessed = playerEntity.Possessed;
+        AIEntity aiEntity = null;
+
+        if (possessed != null)
         {
-            _targetXOffset *= _groundedXYCameraOffset.x;
-            _targetYOffset =  _groundedXYCameraOffset.y;
+            aiEntity = possessed.Transform.gameObject.GetComponent<AIEntity>();
+            facingRight = possessed.FacingRight;
+            _targetXOffset = facingRight ? _facingRightOffset : -_facingRightOffset;
+
+            if (aiEntity != null)
+            {
+                AIMovementStateMachineBase movementSM = aiEntity.MovementSM;
+                if (movementSM != null)
+                {
+                    _targetXOffset *= _groundedAIXYCameraOffset.x;
+                    _targetYOffset = _groundedAIXYCameraOffset.y;
+
+                    FlyingAIMovementStateMachine flyingMovementSM = (FlyingAIMovementStateMachine)movementSM;
+                    if (flyingMovementSM != null)
+                    {
+                        _targetXOffset *=   _flyingAIXYCameraOffset.x;
+                        _targetYOffset =    _flyingAIXYCameraOffset.y;
+                    }
+                }
+            }
         }
-        else if (_ctx.CurrentState is JumpingMovementState)
+        else
         {
-            _targetXOffset *= _jumpingXYCameraOffset.x;
-            _targetYOffset =  _jumpingXYCameraOffset.y;
-        }
-        else if (_ctx.CurrentState is FallingMovementState)
-        {
-            _targetXOffset *= _fallingXYCameraOffset.x;
-            _targetYOffset =  _fallingXYCameraOffset.y;
-        }
-        else if (_ctx.CurrentState is DashingMovementState)
-        {
-            _targetXOffset *= _dashingXYCameraOffset.x;
-            _targetYOffset =  _dashingXYCameraOffset.y;
-        }
-        else if (_ctx.CurrentState is FloatingMovementState)
-        {
-            _targetXOffset *= _floatingXYCameraOffset.x;
-            _targetYOffset =  _floatingXYCameraOffset.y;
-        }
-        else if (_ctx.CurrentState is BouncingMovementState)
-        {
-            _targetXOffset *= _bouncingXYCameraOffset.x;
-            _targetYOffset =  _bouncingXYCameraOffset.y;
+            facingRight = _ctx.IsFacingRight == true;
+            _targetXOffset = facingRight ? _facingRightOffset : -_facingRightOffset;
+            if (_ctx.CurrentState is GroundedMovementState)
+            {
+                _targetXOffset *= _groundedXYCameraOffset.x;
+                _targetYOffset =  _groundedXYCameraOffset.y;
+            }
+            else if (_ctx.CurrentState is JumpingMovementState)
+            {
+                _targetXOffset *= _jumpingXYCameraOffset.x;
+                _targetYOffset =  _jumpingXYCameraOffset.y;
+            }
+            else if (_ctx.CurrentState is FallingMovementState)
+            {
+                _targetXOffset *= _fallingXYCameraOffset.x;
+                _targetYOffset =  _fallingXYCameraOffset.y;
+            }
+            else if (_ctx.CurrentState is DashingMovementState)
+            {
+                _targetXOffset *= _dashingXYCameraOffset.x;
+                _targetYOffset =  _dashingXYCameraOffset.y;
+            }
+            else if (_ctx.CurrentState is FloatingMovementState)
+            {
+                _targetXOffset *= _floatingXYCameraOffset.x;
+                _targetYOffset =  _floatingXYCameraOffset.y;
+            }
+            else if (_ctx.CurrentState is BouncingMovementState)
+            {
+                _targetXOffset *= _bouncingXYCameraOffset.x;
+                _targetYOffset =  _bouncingXYCameraOffset.y;
+            }
         }
 
         // target direction

@@ -71,13 +71,13 @@ namespace _Scripts._Game.General.Managers{
         // Entity stats
         public FEntityStats GetEntityStat(EEntity type)
         {
-            int index = (int)type;
-            if (index >= (int)EStatsType.COUNT)
-            {
-                return new FEntityStats();
-            }
+            //int index = (int)type;
+            //if (index >= (int)EStatsType.COUNT)
+            //{
+            //    return new FEntityStats();
+            //}
 
-            FEntityStats foundEntityStats;
+            FEntityStats foundEntityStats = new FEntityStats();
             _entityStatsDict.TryGetValue(type, out foundEntityStats);
             return foundEntityStats;
         }

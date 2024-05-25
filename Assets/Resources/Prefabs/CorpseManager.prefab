@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6913160261383002391}
   - component: {fileID: 2337045091782417321}
+  - component: {fileID: 2576764172866107310}
   m_Layer: 0
   m_Name: MushroomArcherCorpsePool
   m_TagString: Untagged
@@ -46,9 +47,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useTickMaster: 0
   m_PoolCount: 8
-  _entity: 2
-  _positionOffset: {x: 0, y: 4.62}
-  _corpsePrefab: {fileID: 2597291718102842129, guid: 7b7c9c309caeea1429f891339c1583d0, type: 3}
+  _entity: 1001
+  _positionOffset: {x: 0, y: 0}
+  _corpsePrefab: {fileID: 2597291718102842129, guid: c85add4befcc7f44aaccad2b9b40aa62, type: 3}
+--- !u!114 &2576764172866107310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379596970165678309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7729f15924b6149828bb3d25c34641cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTickMaster: 0
+  m_PoolCount: 8
+  _entity: 1001
+  _positionOffset: {x: 0, y: 0}
+  _corpsePrefab: {fileID: 3042958321771509206, guid: 8fb741a0010f7a34ca1db48c9f56ccc9, type: 3}
 --- !u!1 &2374311537076108284
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,8 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useTickMaster: 0
-  m_PoolCount: 0
-  _entity: 3
+  m_PoolCount: 8
+  _entity: 1002
   _positionOffset: {x: 0, y: 0}
   _corpsePrefab: {fileID: 2597291718102842129, guid: 7b7c9c309caeea1429f891339c1583d0, type: 3}
 --- !u!1 &3133658458380872998
@@ -131,7 +149,7 @@ Transform:
   - {fileID: 6913160261383002391}
   - {fileID: 7019849970910920086}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1898322568985533042
 MonoBehaviour:
@@ -192,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useTickMaster: 0
   m_PoolCount: 8
-  _entity: 1
+  _entity: 1000
   _positionOffset: {x: 0, y: 4.62}
   _corpsePrefab: {fileID: 2597291718102842129, guid: 7b7c9c309caeea1429f891339c1583d0, type: 3}
 --- !u!114 &6383052132779647877
@@ -209,6 +227,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useTickMaster: 0
   m_PoolCount: 8
-  _entity: 1
+  _entity: 1000
   _positionOffset: {x: 0, y: 4.62}
   _corpsePrefab: {fileID: 3042958321771509206, guid: b3510ee027e6d453483dc76a6beb99ca, type: 3}

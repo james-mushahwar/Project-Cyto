@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4122553692372580621
 MonoBehaviour:
@@ -46,15 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityStatsDict:
-    m_keys: 000000000100000002000000
+    m_keys: 00000000e8030000e9030000
     m_values:
     - _entity: 0
       _maxHealth: 3
       _maxBondableHealth: 1
-    - _entity: 1
+    - _entity: 1000
       _maxHealth: 2
       _maxBondableHealth: 1
-    - _entity: 2
+    - _entity: 1001
       _maxHealth: 3
       _maxBondableHealth: 1
 --- !u!114 &6334015674278682708

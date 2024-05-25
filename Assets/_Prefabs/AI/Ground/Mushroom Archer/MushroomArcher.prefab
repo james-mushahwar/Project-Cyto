@@ -166,10 +166,10 @@ MonoBehaviour:
   _beginKnockbackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.Flying.FlyingAIMovementStateMachine,
+      - m_Target: {fileID: 8712255422450157064}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.AIMovementStateMachineBase,
           Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: StartKnockbackEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -182,10 +182,10 @@ MonoBehaviour:
   _endKnockbackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.Flying.FlyingAIMovementStateMachine,
+      - m_Target: {fileID: 8712255422450157064}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.AIMovementStateMachineBase,
           Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: EndKnockbackEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

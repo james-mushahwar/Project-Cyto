@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2597291718102842135}
-  - component: {fileID: 3042958321771509206}
+  - component: {fileID: 2597291718102842129}
   - component: {fileID: 2597291718102842132}
   - component: {fileID: 1619282696342969822}
   - component: {fileID: 2597291718102842133}
   - component: {fileID: 2597291718102842134}
   m_Layer: 0
-  m_Name: BombDroidTeleportCorpse
+  m_Name: MushroomArcherCorpse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,9 +34,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3042958321771509206
+--- !u!114 &2597291718102842129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,11 +45,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2597291718102842219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2670128b0e940484cb452626198b10b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 296664737750f4047b73c00dedfc5685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entity: 1000
-  _corpseLifetime: 1.75
+  _entity: 1001
+  _corpseLifetime: 3
 --- !u!50 &2597291718102842132
 Rigidbody2D:
   serializedVersion: 4
@@ -65,7 +65,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.25
-  m_GravityScale: 0.1
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -109,11 +109,11 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.2, y: -4.08}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.25, y: 2.125}
+    oldSize: {x: 11.75, y: 9.625}
     newSize: {x: 11.75, y: 9.625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -142,7 +142,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 645d964f92b695043a0ae0a6ccf013ed, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,7 +163,7 @@ SpriteRenderer:
   m_SortingLayerID: 2051981439
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1324428466, guid: 9db54c3c829217e4fb4af71e8e30b769, type: 3}
+  m_Sprite: {fileID: -823434096, guid: 6d3341e4e57f58046b0e500fff1a02a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
