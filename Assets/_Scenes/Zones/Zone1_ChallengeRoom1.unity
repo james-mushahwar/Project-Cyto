@@ -185,20 +185,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356760003601296778, guid: a37b8ea9f2773764eb8a2ca29ed432a5, type: 3}
       propertyPath: _leftAreaName._sceneName
-      value: Area1-2
+      value: Area1_ChallengeRoom1_1
       objectReference: {fileID: 0}
     - target: {fileID: 7356760003601296778, guid: a37b8ea9f2773764eb8a2ca29ed432a5, type: 3}
       propertyPath: _leftAreaName._sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: e95005787b6906c43ad617b05afd393a, type: 3}
+      objectReference: {fileID: 102900000, guid: 3de06872060ee194b928d09355a57e49, type: 3}
     - target: {fileID: 7356760003601296778, guid: a37b8ea9f2773764eb8a2ca29ed432a5, type: 3}
       propertyPath: _rightAreaName._sceneName
-      value: Area1-3
+      value: Area1_ChallengeRoom1_2
       objectReference: {fileID: 0}
     - target: {fileID: 7356760003601296778, guid: a37b8ea9f2773764eb8a2ca29ed432a5, type: 3}
       propertyPath: _rightAreaName._sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: d60282ebfb551a94692ae266150e110a, type: 3}
+      objectReference: {fileID: 102900000, guid: 88dc018104c636c4d8521524922abff9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -686,27 +686,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: _sceneAssets.Array.data[0]._sceneName
-      value: Area1-1
+      value: Area1_ChallengeRoom1_1
       objectReference: {fileID: 0}
     - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: _sceneAssets.Array.data[1]._sceneName
-      value: Area1-4
+      value: Area1_ChallengeRoom1_2
       objectReference: {fileID: 0}
     - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: _sceneAssets.Array.data[0]._sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: fedf52344d5df4cf198a9ad34575e97b, type: 3}
+      objectReference: {fileID: 102900000, guid: 3de06872060ee194b928d09355a57e49, type: 3}
     - target: {fileID: 1838541037096922977, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: _sceneAssets.Array.data[1]._sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 149b7c21f76ca164c842fe710a1ade5f, type: 3}
+      objectReference: {fileID: 102900000, guid: 88dc018104c636c4d8521524922abff9, type: 3}
     - target: {fileID: 3273431067193249683, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_Name
       value: SwitcherArea1-1To1-4
       objectReference: {fileID: 0}
     - target: {fileID: 3273431067193249683, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3309373898359707734, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_RootOrder
@@ -714,11 +714,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3309373898359707734, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 246
+      value: 129.5
       objectReference: {fileID: 0}
     - target: {fileID: 3309373898359707734, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: 3309373898359707734, guid: e4e66eb723270477a9aebc1001d3c7b5, type: 3}
       propertyPath: m_LocalPosition.z

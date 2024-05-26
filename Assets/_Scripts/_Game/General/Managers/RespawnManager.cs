@@ -13,7 +13,7 @@ namespace _Scripts._Game.General.Managers{
     {
         #region Respawn
         private GameObject _respawnGO;
-        private string _respawnGOID = "empty";
+        private string _respawnGOID = "";
 
         public GameObject RespawnGO
         {
@@ -57,7 +57,7 @@ namespace _Scripts._Game.General.Managers{
 
         #region Doorways And Corridors
         private GameObject _doorwayGO;
-        private string _doorwayGOID = "empty";
+        private string _doorwayGOID = "";
 
         public GameObject DoorWayGO
         {

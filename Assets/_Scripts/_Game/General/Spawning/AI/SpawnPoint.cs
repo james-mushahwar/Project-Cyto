@@ -71,7 +71,7 @@ namespace _Scripts._Game.General.Spawning.AI{
                 bool respawnEntity = SpawnManager.Instance.TryHasRespawnTimerElapsed(this);
                 if (respawnEntity)
                 {
-                    Debug.Log("Respawn timer elapsed, respawning Entity");
+                    //Debug.Log("Respawn timer elapsed, respawning Entity");
 
                     AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
                     if (entity == null)
