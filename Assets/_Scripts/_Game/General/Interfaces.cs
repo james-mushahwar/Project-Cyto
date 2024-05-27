@@ -9,6 +9,7 @@ using _Scripts._Game.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using System.ComponentModel;
 
 namespace _Scripts._Game.General{
 
@@ -175,6 +176,16 @@ namespace _Scripts._Game.General{
         bool GetCanMove();
         UnityEvent MoveEnabled { get; }
         UnityEvent MoveDisabled { get; }
+    }
+
+    public interface ITeleporter
+    {
+        [DefaultValue(false)]
+        bool TeleportPhyiscs { get; }
+    }
+    public interface ITeleportEntity
+    {
+        void Teleport(ITeleporter teleporter, Vector3 position, Vector3 direction);
     }
     #endregion
 

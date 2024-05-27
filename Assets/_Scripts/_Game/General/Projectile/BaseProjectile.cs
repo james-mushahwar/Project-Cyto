@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Scripts._Game.General.Projectile{
     
-    public class BaseProjectile : MonoBehaviour, ITickGroup
+    public class BaseProjectile : MonoBehaviour, ITickGroup, ITeleportEntity
     {
         protected GameObject _instigator;
         protected EEntityType _instigatorType;
@@ -20,6 +20,12 @@ namespace _Scripts._Game.General.Projectile{
         public bool IsActive()
         {
             return ProjectileLifetimeTimer <= ProjectileLifetime;
+        }
+
+        public void Teleport(ITeleporter teleporter, Vector3 position, Vector3 direction)
+        {
+            transform.position = position;
+            transform.rotation = Quaternion.LookRotation(direction.normalized);
         }
     }
     

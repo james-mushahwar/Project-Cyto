@@ -65,6 +65,8 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             _explosionTimer = 0.0f;
             _spriteRenderer.enabled = true;
 
+            //transform.rotation = Quaternion.LookRotation(Vector3.right);
+
             for (int i = 0; i < _hitColliders.Length; i++)
             {
                 _hitColliders[i] = null;
@@ -92,7 +94,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 #region Projectile Movement
 
                 float step = _fallSpeedCurve.Evaluate(ProjectileLifetimeTimer) * Time.deltaTime;
-                Vector2 newPosition = Vector2.MoveTowards(transform.position, transform.position + (Vector3.down * 100.0f), step);
+                Vector2 newPosition = Vector2.MoveTowards(transform.position, transform.position + (-transform.up * 100.0f), step);
                 transform.position = newPosition;
                 
                 #endregion
