@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _Scripts._Game.General.Projectile.Environment{
 
-    public class PipePortal : MonoBehaviour, ITeleporter
+    public class PipePortal : MonoBehaviour, ITeleporter, IMoveableEntity
     {
         [Header("Projectiles")]
         [SerializeField]
@@ -20,6 +21,12 @@ namespace _Scripts._Game.General.Projectile.Environment{
         public Transform OutputTransform { get { return _outputTransform; } }
 
         public bool TeleportPhyiscs { get; private set; }
+
+        private UnityEvent _moveEnabled = new UnityEvent();
+        public UnityEvent MoveEnabled => throw new System.NotImplementedException();
+
+        private UnityEvent _moveDisabled = new UnityEvent();
+        public UnityEvent MoveDisabled => throw new System.NotImplementedException();
 
         [Header("IO")]
         [SerializeField]
@@ -51,9 +58,9 @@ namespace _Scripts._Game.General.Projectile.Environment{
             }
         }
 
-        public void ObjectEnter()
+        public bool GetCanMove()
         {
-
+            return isActiveAndEnabled;
         }
     }
     
