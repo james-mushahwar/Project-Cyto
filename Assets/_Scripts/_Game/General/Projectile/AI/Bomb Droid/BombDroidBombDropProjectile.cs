@@ -66,6 +66,8 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             _spriteRenderer.enabled = true;
 
             //transform.rotation = Quaternion.LookRotation(Vector3.right);
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+            //transform.Rotate(new Vector3(0.0f, 0.0f, 180.0f), Space.World);
 
             for (int i = 0; i < _hitColliders.Length; i++)
             {

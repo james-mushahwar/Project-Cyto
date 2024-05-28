@@ -25,7 +25,12 @@ namespace _Scripts._Game.General.Projectile{
         public void Teleport(ITeleporter teleporter, Vector3 position, Vector3 direction)
         {
             transform.position = position;
-            transform.rotation = Quaternion.LookRotation(direction.normalized);
+            Vector3 angleBetween = Quaternion.FromToRotation(transform.rotation.eulerAngles, direction).eulerAngles;
+
+            //transform.rotation = Quaternion.LookRotation(direction.normalized);
+            //transform.Rotate(angleBetween);
+            transform.rotation *= Quaternion.FromToRotation(-transform.up, direction);
+            transform.rotation *= Quaternion.FromToRotation(transform.forward, Vector3.forward);
         }
     }
     
