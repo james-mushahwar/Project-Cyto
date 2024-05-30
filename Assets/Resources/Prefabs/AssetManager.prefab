@@ -69,6 +69,8 @@ MonoBehaviour:
     _sceneName: Area1_ChallengeRoom1_2
   - _sceneAsset: {fileID: 102900000, guid: fd1844b9401d6e742af0955edbcb5313, type: 3}
     _sceneName: Area1_ChallengeRoom1_3
+  - _sceneAsset: {fileID: 102900000, guid: 557aae7f25d59c44295eac24acad4ee1, type: 3}
+    _sceneName: Area1_ChallengeRoom1_4
   - _sceneAsset: {fileID: 102900000, guid: 8f12294cf7b2b5044a109fe9349e42d4, type: 3}
     _sceneName: Zone2
   - _sceneAsset: {fileID: 102900000, guid: 87144452415595645abd1f7e85b99cac, type: 3}
@@ -94,5 +96,5 @@ MonoBehaviour:
     _sceneAsset: {fileID: 102900000, guid: 96f8b068569c3af499a42faaa07b1b40, type: 3}
     _sceneName: Zone1_ChallengeRoom1
   _defaultNewSaveAreaScene:
-    _sceneAsset: {fileID: 102900000, guid: fd1844b9401d6e742af0955edbcb5313, type: 3}
-    _sceneName: Area1_ChallengeRoom1_3
+    _sceneAsset: {fileID: 102900000, guid: 557aae7f25d59c44295eac24acad4ee1, type: 3}
+    _sceneName: Area1_ChallengeRoom1_4

@@ -62,5 +62,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Areas/Area1_ChallengeRoom1_3.unity
     guid: fd1844b9401d6e742af0955edbcb5313
+  - enabled: 1
+    path: Assets/_Scenes/Areas/Area1_ChallengeRoom1_4.unity
+    guid: 557aae7f25d59c44295eac24acad4ee1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1dc90654f5220354f8b06859e6810d7a, type: 2}

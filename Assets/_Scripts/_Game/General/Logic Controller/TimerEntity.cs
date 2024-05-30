@@ -24,6 +24,11 @@ namespace _Scripts._Game.General.LogicController{
         private float _timer;
         #endregion
 
+        #region Logic
+        [SerializeField]
+        private bool _flipFlop = false; // toggle output twice when elapsed
+        #endregion
+
         private void Awake()
         {
             _logicEntity = GetComponent<LogicEntity>();

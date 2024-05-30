@@ -24,11 +24,11 @@ namespace _Scripts._Game.General{
 
     public enum EEntityType
     {
-        Player,
-        Ally,
-        Enemy,
-        BondedEnemy,
-        Hazard
+        Player              = 0,
+        Ally                = 1,
+        Enemy               = 1000,
+        BondedEnemy         = 2000,
+        Hazard              = 3000,
     }
 
     public enum EDamageType
@@ -499,6 +499,13 @@ namespace _Scripts._Game.General{
         {
 
         }
+    }
+
+    //pool component types
+    //projectile
+    public interface IProjectileHandler
+    {
+
     }
     #endregion
 }

@@ -25,6 +25,8 @@ namespace _Scripts._Game.General.Hazards.Lasers{
         private Transform _raycastEndTransform;
         [SerializeField]
         private LineRenderer _lineRenderer;
+        [SerializeField]
+        private EDamageType _laserDamageType = EDamageType.Laser_Tick;
 
         private Vector2 _raycastEndPosition;
         private float _raycastLength = 20.0f;
@@ -105,7 +107,7 @@ namespace _Scripts._Game.General.Hazards.Lasers{
 
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(EDamageType.Laser_Tick, EEntityType.Hazard, hit.point);
+                    damageable.TakeDamage(_laserDamageType, EEntityType.Hazard, hit.point);
                 }
             }
         }

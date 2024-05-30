@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _Scripts._Game.General.Projectile;
+using _Scripts._Game.General.Projectile.Player;
 using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.Player;
 using _Scripts._Game.Sequencer;

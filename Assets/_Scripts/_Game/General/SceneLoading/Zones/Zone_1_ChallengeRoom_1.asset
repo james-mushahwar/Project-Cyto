@@ -40,5 +40,15 @@ MonoBehaviour:
     _connectedAreas:
     - _sceneAsset: {fileID: 102900000, guid: 88dc018104c636c4d8521524922abff9, type: 3}
       _sceneName: Area1_ChallengeRoom1_2
+    - _sceneAsset: {fileID: 102900000, guid: 557aae7f25d59c44295eac24acad4ee1, type: 3}
+      _sceneName: Area1_ChallengeRoom1_4
+    _areaMusic: 0
+    _areaAmbience: 0
+  - _areaName:
+      _sceneAsset: {fileID: 102900000, guid: 557aae7f25d59c44295eac24acad4ee1, type: 3}
+      _sceneName: Area1_ChallengeRoom1_4
+    _connectedAreas:
+    - _sceneAsset: {fileID: 102900000, guid: fd1844b9401d6e742af0955edbcb5313, type: 3}
+      _sceneName: Area1_ChallengeRoom1_3
     _areaMusic: 0
     _areaAmbience: 0

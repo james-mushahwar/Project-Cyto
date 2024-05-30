@@ -10,9 +10,12 @@ namespace _Scripts._Game.General.Managers{
     
     public enum EProjectileType
     {
-        BasicAttack,
-        BombDroidBombDrop,
-        COUNT
+        //Player
+        BasicAttack             = 0,
+        //AI
+        BombDroidBombDrop       = 1000,
+        //Environment
+        COUNT                   = 100000
     }
 
     public class ProjectileManager : Singleton<ProjectileManager>, IManager
@@ -55,8 +58,24 @@ namespace _Scripts._Game.General.Managers{
             _basicAttackProjectilePool = GetComponentInChildren<BasicAttackPoolComponentManager>();
             _bdBombDropProjectilePool = GetComponentInChildren<BombDroidBombDropPoolComponentManager>();
 
+
             _managedProjectilePools.Add(_basicAttackProjectilePool);
             _managedProjectilePools.Add(_bdBombDropProjectilePool);
+        }
+
+
+        public void SpawnProjectileByType(EProjectileType particleType, Vector3 spawnPosition, EEntityType instigator, IDamageable damageableTarget = null, int index = 0)
+        {
+            switch (particleType)
+            {
+                case EProjectileType.BasicAttack:
+                    TryBasicAttackProjectile(damageableTarget, spawnPosition, index);
+                    break;
+                case EProjectileType.BombDroidBombDrop:
+                    TryBombDroidBombDropProjectile(instigator, spawnPosition);
+                    break;
+                default: break;
+            }
         }
 
         public bool TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex)
