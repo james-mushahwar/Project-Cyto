@@ -58,6 +58,7 @@ namespace _Scripts._Game.General.Managers{
             _basicAttackProjectilePool = GetComponentInChildren<BasicAttackPoolComponentManager>();
             _bdBombDropProjectilePool = GetComponentInChildren<BombDroidBombDropPoolComponentManager>();
 
+            //_particleTypePools.Add(EParticleType.BasicAttack, _basicAttackProjectilePool);
 
             _managedProjectilePools.Add(_basicAttackProjectilePool);
             _managedProjectilePools.Add(_bdBombDropProjectilePool);
