@@ -37,10 +37,12 @@ namespace _Scripts._Game.General{
         Player_BasicAttack              = 0,
         //AI                
         BombDroid_BombDrop_DirectHit    = 10000,
-        BombDroid_BombDrop_Explosion    = 10001,
+        BombDroid_BombDrop_Explosion,
         //Hazards
         Laser_Tick                      = 20000,
-        Laser_Impact                    = 20001,
+        Laser_Impact,
+        Laser_Instakill,
+
     }
 
     public interface IDamageable

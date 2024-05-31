@@ -246,13 +246,17 @@ namespace _Scripts._Game.AI{
         {
             float resultHealth = 100.0f;
             bool killedOrBroken = false;
-            if (_enemyBondableHealthStats.IsAlive())
+
+            bool IsInstakill = damageType == EDamageType.Laser_Instakill;
+            float damageAmount = DamageManager.GetDamageFromTypeToEntity(damageType, this);
+
+            if (_enemyBondableHealthStats.IsAlive() && !IsInstakill)
             {
                 //where is the damage coming from?
                 DamageDirection = (Transform.position - damagePosition).normalized;
                 if (CanTakeDamage())
                 {
-                    resultHealth = _enemyBondableHealthStats.RemoveHitPoints(1.0f, true);
+                    resultHealth = _enemyBondableHealthStats.RemoveHitPoints(damageAmount, true);
                 }
 
                 bool brokenShield = resultHealth <= 0.0f;
@@ -284,7 +288,7 @@ namespace _Scripts._Game.AI{
                 DamageDirection = (Transform.position - damagePosition).normalized;
                 if (CanTakeDamage())
                 {
-                    resultHealth = _enemyHealthStats.RemoveHitPoints(1.0f, true);
+                    resultHealth = _enemyHealthStats.RemoveHitPoints(damageAmount, true);
                 }
 
                 bool killed = resultHealth <= 0.0f;

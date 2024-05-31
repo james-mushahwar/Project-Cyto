@@ -223,12 +223,15 @@ namespace _Scripts._Game.Player{
                 return;
             }
 
+            bool IsInstakill = damageType == EDamageType.Laser_Instakill;
+            float damageAmount = DamageManager.GetDamageFromTypeToEntity(damageType, this);
+
             //where is the damage coming from?
             DamageDirection = (damagePosition - Transform.position).normalized; 
 
             if (_possessed != null)
             {
-                resultsHealth = _playerEnergyStats.RemoveEnergyPoints(1.0f, false);
+                resultsHealth = _playerEnergyStats.RemoveEnergyPoints(damageAmount, false);
 
                 if (resultsHealth <= 0.0f)
                 {
@@ -238,7 +241,7 @@ namespace _Scripts._Game.Player{
             }
             else
             {
-                resultsHealth = _playerHealthStats.RemoveHitPoints(1.0f, false);
+                resultsHealth = _playerHealthStats.RemoveHitPoints(damageAmount, false);
 
                 if (resultsHealth <= 0.0f)
                 {
