@@ -26,6 +26,8 @@ namespace _Scripts._Game.General.Managers
         private UIInputState CurrentInputState { get => _currentInputStateStack.Peek(); }
 
         public Dictionary<EPlayerInput, Action<InputAction.CallbackContext>> InputsDict { get => _inputsDict; }
+
+        private Camera _camera;
         #endregion
 
         #region State Machine
@@ -114,6 +116,8 @@ namespace _Scripts._Game.General.Managers
 
         public void Start()
         {
+            _camera = Camera.main;
+
             //prompts
             foreach (EPlayerInput inputType in _playerInputPromptDict.Keys)
             {
@@ -197,7 +201,7 @@ namespace _Scripts._Game.General.Managers
                 //first you need the RectTransform component of your canvas
                 RectTransform canvasRect = _promptCanvas.GetComponent<RectTransform>();
 
-                Vector2 viewportPosition = Camera.main.WorldToViewportPoint(targetTransform.position);
+                Vector2 viewportPosition = _camera.WorldToViewportPoint(targetTransform.position);
                 Vector2 worldObject_ScreenPosition = new Vector2(
                     ((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f)),
                     ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f)));

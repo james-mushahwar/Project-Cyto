@@ -31,6 +31,24 @@ namespace _Scripts._Game.Sequencer.Triggers{
 
             return registered;
         }
+
+        public virtual bool UnregisterSequences()
+        {
+            bool unregistered = true;
+
+            foreach (SequenceableSettings seqSettings in _sequenceableSettings)
+            {
+                bool unregister = SequencerManager.Instance.TryUnregisterSequence(seqSettings._sequenceable, seqSettings._sequenceSettings);
+
+                if (!unregister && unregistered)
+                {
+                    unregistered = false;
+                }
+
+            }
+
+            return unregistered;
+        }
     }
     
 }

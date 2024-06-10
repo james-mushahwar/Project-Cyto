@@ -326,12 +326,25 @@ namespace _Scripts._Game.General{
         None = 2, // all inputs are off to be valid (NOT)
     }
 
+    //advanced logic -signals
+
+    public enum ELogicSignalConditionType
+    {
+        OR      = 0,
+        AND     = 1,
+        ///XOR     = 2,
+        //NAND    = 3,
+    }
+
+    public delegate bool IsEntityLogicValid();
+
     public interface ILogicEntity
     {
         public ELogicType InputLogicType { get; }
         public ELogicConditionType InputConditionType { get; }
         public bool IsInputLogicValid { get; set; } // are all inputs leading to this true?
         UnityEvent OnInputChanged { get; }
+        public IsEntityLogicValid IsEntityLogicValid { get; set; }
 
         public ELogicType OutputLogicType { get; }
         public bool UseSeparateOutputLogic { get; } // true use IsOutputLogicValid, false check all inputs are valid
@@ -340,6 +353,10 @@ namespace _Scripts._Game.General{
 
         public List<LogicEntity> Inputs { get; }
         public List<LogicEntity> Outputs { get; }
+
+        public bool UseAdvancedInputs { get; }
+        public ELogicSignalConditionType AdvancedConditionType { get; }
+        public List<FLogicSignal> AdvancedInputs { get; }
     }
 
     #endregion

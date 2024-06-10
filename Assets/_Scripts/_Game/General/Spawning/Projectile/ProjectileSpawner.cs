@@ -20,6 +20,12 @@ namespace _Scripts._Game.General.Spawning.Projectile{
         [SerializeField]
         private float _delayTime = 0.0f;
         private float _delayTimer;
+        [SerializeField]
+        private bool _spawnProjectileOnManualTimer = true;
+        [SerializeField]
+        private bool _spawnOnInputChangedToTrue = false;
+        [SerializeField]
+        private bool _spawnOnInputChangedToFalse = false;
 
         private void Awake()
         {
@@ -28,7 +34,7 @@ namespace _Scripts._Game.General.Spawning.Projectile{
 
         private void Update()
         {
-            if (_delayTimer >= 0.0f)
+            if (_spawnProjectileOnManualTimer && _delayTimer >= 0.0f)
             {
                 _delayTimer -= Time.deltaTime;
 
@@ -60,11 +66,13 @@ namespace _Scripts._Game.General.Spawning.Projectile{
 
         public void OnInputChanged()
         {
-            if (_delayTime >= 0.0f)
+            if (_spawnProjectileOnManualTimer && _delayTime >= 0.0f)
             {
                 _delayTime = _delayTimer;
             }
-            else
+
+            bool canSpawnOnLogicChange = (_logicEntity.IsInputLogicValid && _spawnOnInputChangedToTrue) || (!_logicEntity.IsInputLogicValid && _spawnOnInputChangedToFalse);
+            if (canSpawnOnLogicChange)
             {
                 SpawnProjectile();
             }

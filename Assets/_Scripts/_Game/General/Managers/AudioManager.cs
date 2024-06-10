@@ -255,6 +255,8 @@ namespace _Scripts._Game.General.Managers {
         public const float DefaultPitch = 1.0f;
         #endregion
 
+        private Camera _camera;
+
         [SerializeField]
         private AudioSourcePool _audioSourcePool;
 
@@ -438,7 +440,7 @@ namespace _Scripts._Game.General.Managers {
             }
             else
             {
-                audioListenerTransform = Camera.main.transform;
+                audioListenerTransform = _camera.transform;
             }
             
             Vector3 listenerLocation = audioListenerTransform.position;

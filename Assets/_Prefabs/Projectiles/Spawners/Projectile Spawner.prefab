@@ -83,6 +83,9 @@ MonoBehaviour:
   _instigator: 1000
   _spawnTransform: {fileID: 6446179484002895885}
   _delayTime: 0
+  _spawnProjectileOnManualTimer: 1
+  _spawnOnInputChangedToTrue: 0
+  _spawnOnInputChangedToFalse: 0
 --- !u!114 &6767877425930696298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,8 +196,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2051981439
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -1365403092, guid: 383495af364a67f448daecc940220bb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

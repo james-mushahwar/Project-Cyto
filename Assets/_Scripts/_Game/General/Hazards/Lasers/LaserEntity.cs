@@ -35,6 +35,12 @@ namespace _Prefabs.Level.Hazards.Lasers{
                 _logicEntity = GetComponent<LogicEntity>();
             }
             _logicEntity.OnInputChanged.AddListener(OnInputChanged);
+            _logicEntity.IsEntityLogicValid = IsLaserActive;
+        }
+
+        private bool IsLaserActive()
+        {
+            return gameObject.activeInHierarchy;
         }
 
         private void OnDisable()

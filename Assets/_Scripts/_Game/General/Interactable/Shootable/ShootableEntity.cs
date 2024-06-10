@@ -87,12 +87,38 @@ namespace _Scripts._Game.General.Interactable.Shootable
                 return;
             }
 
-            _exposeHealth--;
-
-            if (_exposeHealth <= 0)
+            if (_logicEntity != null)
             {
-                _exposeHealth = 0;
-                OnExposed();
+                if (_logicEntity.UseSeparateOutputLogic == false)
+                {
+                    if (_logicEntity.IsInputLogicValid == false)
+                    {
+                        return;
+                    }
+                }
+            }
+
+
+            bool canAcceptDamage = false;
+            if (_logicEntity == null)
+            {
+                canAcceptDamage = true;
+            }
+            else
+            {
+                canAcceptDamage = _logicEntity.UseSeparateOutputLogic || (!_logicEntity.UseSeparateOutputLogic && _logicEntity.IsInputLogicValid);
+            }
+
+
+            if (canAcceptDamage)
+            {
+                _exposeHealth--;
+
+                if (_exposeHealth <= 0)
+                {
+                    _exposeHealth = 0;
+                    OnExposed();
+                }
             }
         }
         private Vector2 _damageDirection;
@@ -149,16 +175,20 @@ namespace _Scripts._Game.General.Interactable.Shootable
                 return;
             }
 
-            if (_logicEntity.IsInputLogicValid)
+            //if (_logicEntity.IsInputLogicValid)
+            //{
+            //    OnExposed();
+            //}
+            //else
+            //{
+            //    if (_logicEntity.InputLogicType == ELogicType.Constant)
+            //    {
+            //        OnUnexposed();
+            //    }
+            //}
+            if (!_logicEntity.IsInputLogicValid)
             {
-                OnExposed();
-            }
-            else
-            {
-                if (_logicEntity.InputLogicType == ELogicType.Constant)
-                {
-                    OnUnexposed();
-                }
+                OnUnexposed();
             }
         }
 

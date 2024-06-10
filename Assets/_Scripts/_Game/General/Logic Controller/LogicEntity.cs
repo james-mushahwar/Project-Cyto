@@ -5,8 +5,21 @@ using _Scripts._Game.General.Managers;
 using _Scripts.Editortools.Draw;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 namespace _Scripts._Game.General.LogicController{
+
+    [System.Serializable]
+    public struct FLogicSignal
+    {
+        [SerializeField]
+        private ELogicSignalConditionType _conditionType;
+        [SerializeField]
+        private List<LogicEntity> _logicEntities;
+
+        public ELogicSignalConditionType ConditionType { get => _conditionType; }
+        public List<LogicEntity> LogicEntities { get => _logicEntities; }
+    }
 
     [RequireComponent(typeof(SaveableEntity))]
     public class LogicEntity : MonoBehaviour, ILogicEntity, ISaveable
@@ -21,6 +34,14 @@ namespace _Scripts._Game.General.LogicController{
         [SerializeField]
         private List<LogicEntity> _inputs;
         private UnityEvent _onInputChanged = new UnityEvent();
+        private IsEntityLogicValid _isEntityLogicValid;
+
+        [SerializeField]
+        private bool _useAdvancedInputs;
+        [SerializeField]
+        private ELogicSignalConditionType _advancedConditionType;
+        [SerializeField]
+        private List<FLogicSignal> _advancedInputs;
 
         [Space]
 
@@ -96,6 +117,9 @@ namespace _Scripts._Game.General.LogicController{
             }
         }
 
+        public IsEntityLogicValid IsEntityLogicValid { get => _isEntityLogicValid; set => _isEntityLogicValid = value; }
+
+
         public UnityEvent OnInputChanged
         {
             get { return _onInputChanged; }
@@ -115,9 +139,25 @@ namespace _Scripts._Game.General.LogicController{
             get { return _outputs; }
         }
 
+        public bool UseAdvancedInputs
+        {
+            get { return _useAdvancedInputs; }
+        }
+
+        public ELogicSignalConditionType AdvancedConditionType
+        {
+            get { return _advancedConditionType; }
+        }
+
+        public List<FLogicSignal> AdvancedInputs
+        {
+            get { return _advancedInputs; }
+        }
+
         void OnEnable()
         {
             LogicManager.Instance.OnOutputChanged(this);
+            _isEntityLogicValid += () => true;
         }
 
         private void OnDrawGizmos()
@@ -165,7 +205,6 @@ namespace _Scripts._Game.General.LogicController{
             _isInputLogicValid = saveData.isInputLogicValid;
             _isOutputLogicValid = saveData.isOutputLogicValid;
         }
-
     }
     
 }

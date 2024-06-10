@@ -10,6 +10,14 @@ namespace _Scripts._Game.Sequencer.Triggers{
     {
         private LogicEntity _logicEntity;
         [SerializeField]
+        private bool _reactToValidInput = true;
+        [SerializeField]
+        private bool _activateOrDeactivateOnValidInput = true;
+        [SerializeField]
+        private bool _reactToInvalidInput;
+        [SerializeField]
+        private bool _activateOrDeactivateOnInvalidInput;
+        [SerializeField]
         private bool _isOneShot;
         private bool _hasActivated;
 
@@ -48,9 +56,33 @@ namespace _Scripts._Game.Sequencer.Triggers{
 
         private void OnInputChanged()
         {
-            if (_logicEntity.IsInputLogicValid)
+            bool validInput = (_logicEntity.IsInputLogicValid && _reactToValidInput);
+            bool invalidInput = (!_logicEntity.IsInputLogicValid && _reactToInvalidInput);
+            bool react = validInput || invalidInput;
+            if (react)
             {
-                Activate();
+                if (validInput)
+                {
+                    if (_activateOrDeactivateOnValidInput)
+                    {
+                        Activate();
+                    }
+                    else
+                    {
+                        Deactivate();
+                    }
+                }
+                else if (invalidInput)
+                {
+                    if (_activateOrDeactivateOnInvalidInput)
+                    {
+                        Activate();
+                    }
+                    else
+                    {
+                        Deactivate();
+                    }
+                }
             }
         }
 
@@ -71,6 +103,26 @@ namespace _Scripts._Game.Sequencer.Triggers{
             if (_isOneShot)
             {
                 gameObject.SetActive(false);
+            }
+        }
+
+        private void Deactivate()
+        {
+            if (!_hasActivated)
+            {
+                return;
+            }
+
+            bool unregister = UnregisterSequences();
+
+            if (unregister)
+            {
+                _hasActivated = false;
+            }
+
+            if (_isOneShot)
+            {
+                gameObject.SetActive(true);
             }
         }
     }

@@ -7,60 +7,103 @@ namespace _Scripts._Game.General.Managers{
     
     public class LogicManager : Singleton<LogicManager>, IManager
     {
+        //private List<bool> validInputs = new List<bool>();
+        //private List<bool>
+
         public bool AreAllInputsValid(ILogicEntity logicEntity)
         {
             bool inputIsValid = true;
+            bool entityLogicIsValid = logicEntity.IsEntityLogicValid != null ? logicEntity.IsEntityLogicValid.Invoke() : true;
 
-            // constant 
-            if (logicEntity.InputLogicType == ELogicType.Constant)
+            if (logicEntity.UseAdvancedInputs)
             {
-                if (logicEntity.IsInputLogicValid == true)
+                List<bool> validInputs = new List<bool>();
+                foreach(FLogicSignal advancedInput in logicEntity.AdvancedInputs)
                 {
-                    return inputIsValid;
-                }
-            }
+                    bool validLogicSignal = false;
+                    List<bool> validSignals = new List<bool>();
 
-            if (logicEntity.InputConditionType == ELogicConditionType.All)
-            {
-                foreach (LogicEntity input in logicEntity.Inputs)
-                {
-                    if (!input.IsOutputLogicValid)
+                    foreach (LogicEntity input in advancedInput.LogicEntities)
                     {
-                        inputIsValid = false;
-                        break;
+                        validSignals.Add(input.IsOutputLogicValid);
                     }
+
+                    if (advancedInput.ConditionType == ELogicSignalConditionType.OR)
+                    {
+                        validLogicSignal = validSignals.Contains(true);
+                    }
+                    else if (advancedInput.ConditionType == ELogicSignalConditionType.AND)
+                    {
+                        validLogicSignal = !validSignals.Contains(false);
+                    }
+
+                    validInputs.Add(validLogicSignal);
+                }
+
+                if (logicEntity.AdvancedConditionType == ELogicSignalConditionType.OR)
+                {
+                    inputIsValid = validInputs.Contains(true);
+                }
+                else if (logicEntity.AdvancedConditionType == ELogicSignalConditionType.AND)
+                {
+                    inputIsValid = !validInputs.Contains(false);
+                }
+
+                return inputIsValid;
+            }
+            else
+            {
+                // constant 
+                if (logicEntity.InputLogicType == ELogicType.Constant)
+                {
+                    if (logicEntity.IsInputLogicValid == true)
+                    {
+                        return inputIsValid;
+                    }
+                }
+
+                if (logicEntity.InputConditionType == ELogicConditionType.All)
+                {
+                    foreach (LogicEntity input in logicEntity.Inputs)
+                    {
+                        if (!input.IsOutputLogicValid)
+                        {
+                            inputIsValid = false;
+                            break;
+                        }
                     
-                    //if (!AreAllInputsValid(input))
-                    //{
-                    //    return false;
-                    //}
-                }
-            }
-            else if (logicEntity.InputConditionType == ELogicConditionType.Any)
-            {
-                inputIsValid = false;
-                foreach (LogicEntity input in logicEntity.Inputs)
-                {
-                    if (input.IsOutputLogicValid)
-                    {
-                        inputIsValid = true;
-                        break;
+                        //if (!AreAllInputsValid(input))
+                        //{
+                        //    return false;
+                        //}
                     }
                 }
-            }
-            else if (logicEntity.InputConditionType == ELogicConditionType.None)
-            {
-                foreach (LogicEntity input in logicEntity.Inputs)
+                else if (logicEntity.InputConditionType == ELogicConditionType.Any)
                 {
-                    if (input.IsOutputLogicValid)
+                    inputIsValid = false;
+                    foreach (LogicEntity input in logicEntity.Inputs)
                     {
-                        inputIsValid = false;
-                        break;
+                        if (input.IsOutputLogicValid)
+                        {
+                            inputIsValid = true;
+                            break;
+                        }
+                    }
+                }
+                else if (logicEntity.InputConditionType == ELogicConditionType.None)
+                {
+                    foreach (LogicEntity input in logicEntity.Inputs)
+                    {
+                        if (input.IsOutputLogicValid)
+                        {
+                            inputIsValid = false;
+                            break;
+                        }
                     }
                 }
             }
 
-            return inputIsValid;
+            return inputIsValid && entityLogicIsValid;
         }
 
         public void OnOutputChanged(ILogicEntity logicEntity)

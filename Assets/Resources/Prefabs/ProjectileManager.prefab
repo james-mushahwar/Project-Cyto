@@ -32,7 +32,7 @@ Transform:
   - {fileID: 3997180191439378436}
   - {fileID: 6903783545612358200}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3710714158718144291
 MonoBehaviour:
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useTickMaster: 1
-  m_PoolCount: 8
+  m_PoolCount: 16
   _bombDroidProjectilePrefab: {fileID: 5458949934131665997, guid: 4ecaa3321214b7d4d93f30f4b6de61a0, type: 3}
 --- !u!1 &6458702124103505636
 GameObject:

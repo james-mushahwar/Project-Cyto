@@ -117,5 +117,30 @@ namespace _Scripts._Game.Sequencer{
 
             return register;
         }
+
+        public bool TryUnregisterSequence(Sequenceable seq, SequenceSettings seqSettings)
+        {
+            bool unregister = false;
+            string runtimeID = seq.RuntimeID;
+
+            if (_sequenceSettings.ContainsKey(runtimeID))
+            {
+                _activeSequences.Remove(seq);
+
+                if (seqSettings._freezePlayer)
+                {
+                    _freezePlayerStack--;
+                    if (_freezePlayerStack == 0)
+                    {
+                        //unfreeze player
+                    }
+                }
+                _sequenceSettings.Remove(runtimeID);
+
+                unregister = true;
+            }
+
+            return unregister;
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace _Scripts._Game.Sequencer {
     public class SequenceableSettings
     {
         public Sequenceable _sequenceable;
+        public List<Sequenceable> _sequenceablesToStop;
         public SequenceSettings _sequenceSettings;
     }
 }

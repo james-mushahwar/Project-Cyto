@@ -213,7 +213,10 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
             if (hitFloor || LayerMask.NameToLayer("Ground") == collidedGO.layer)
             {
                 _collided = true;
-                ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, closestCollisionPoint, 0.0f);
+
+                Vector3 angleBetween = Quaternion.FromToRotation(transform.rotation.eulerAngles, transform.up).eulerAngles;
+
+                ParticleManager.Instance.TryPlayParticleSystem(EParticleType.BombDroidBombDrop, closestCollisionPoint, angleBetween.y);
                 _spriteRenderer.enabled = false;
                 ProjectileLifetimeTimer = ProjectileLifetime - _explosionTimeDuration;
             }
