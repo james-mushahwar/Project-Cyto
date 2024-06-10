@@ -304,6 +304,14 @@ PrefabInstance:
       propertyPath: _instigator
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToTrue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToFalse
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8968774529574970688, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
       propertyPath: _intervals.Array.size
       value: 1
@@ -572,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4318611485348866815, guid: 06d510f7b3a20b143b7f2a86601e71fa, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4318611485348866815, guid: 06d510f7b3a20b143b7f2a86601e71fa, type: 3}
       propertyPath: _intervals.Array.size
@@ -709,6 +717,9 @@ MonoBehaviour:
   _inputLogicType: 1
   _inputConditionType: 0
   _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
@@ -746,9 +757,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sequenceableSettings:
   - _sequenceable: {fileID: 640616682}
+    _sequenceablesToStop: []
     _sequenceSettings:
       _freezePlayer: 1
       _canAlwaysRun: 0
+  _reactToValidInput: 1
+  _activateOrDeactivateOnValidInput: 1
+  _reactToInvalidInput: 0
+  _activateOrDeactivateOnInvalidInput: 0
   _isOneShot: 1
 --- !u!1001 &429340983
 PrefabInstance:
@@ -899,6 +915,14 @@ PrefabInstance:
     - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
       propertyPath: _instigator
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToTrue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToFalse
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8968774529574970688, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
       propertyPath: _intervals.Array.size
@@ -1335,6 +1359,9 @@ MonoBehaviour:
   _inputLogicType: 0
   _inputConditionType: 0
   _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 1
   _isOutputLogicValid: 1
@@ -1523,6 +1550,14 @@ PrefabInstance:
     - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
       propertyPath: _instigator
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToTrue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToFalse
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8968774529574970688, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
       propertyPath: _intervals.Array.size
@@ -9406,6 +9441,14 @@ PrefabInstance:
       propertyPath: _inputs.Array.data[0]
       value: 
       objectReference: {fileID: 391928437}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToTrue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223998377070822677, guid: a26060e5258e6bd4185a683eb1d6567a, type: 3}
+      propertyPath: _spawnOnInputChangedToFalse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

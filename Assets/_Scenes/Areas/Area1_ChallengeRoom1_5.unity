@@ -4580,8 +4580,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 4.9981995, y: 3.9983501, z: 0}
-    m_Extent: {x: 42.7542, y: 27.25325, z: 0}
+    m_Center: {x: 4.9990997, y: 3.9968996, z: 0}
+    m_Extent: {x: 42.7489, y: 27.2518, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5830,9 +5830,13 @@ MonoBehaviour:
   _inputs:
   - {fileID: 1327896738}
   - {fileID: 1422571310}
-  _useAdvancedInputs: 0
+  _useAdvancedInputs: 1
   _advancedConditionType: 0
-  _advancedInputs: []
+  _advancedInputs:
+  - _conditionType: 1
+    _logicEntities:
+    - {fileID: 1327896738}
+    - {fileID: 1422571310}
   _outputLogicType: 1
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0

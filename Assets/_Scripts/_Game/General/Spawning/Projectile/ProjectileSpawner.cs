@@ -68,7 +68,7 @@ namespace _Scripts._Game.General.Spawning.Projectile{
         {
             if (_spawnProjectileOnManualTimer && _delayTime >= 0.0f)
             {
-                _delayTime = _delayTimer;
+                _delayTimer = _delayTime;
             }
 
             bool canSpawnOnLogicChange = (_logicEntity.IsInputLogicValid && _spawnOnInputChangedToTrue) || (!_logicEntity.IsInputLogicValid && _spawnOnInputChangedToFalse);
