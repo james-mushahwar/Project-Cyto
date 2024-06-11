@@ -15,6 +15,12 @@ namespace _Scripts._Game.Sequencer.Triggers{
 
             foreach (SequenceableSettings seqSettings in _sequenceableSettings)
             {
+                foreach(Sequenceable stopSeq in seqSettings._sequenceablesToStop)
+                {
+                    SequencerManager.Instance.TryUnregisterSequence(stopSeq, null);
+                    Debug.LogWarning("Stopping sequenceable : " + stopSeq);
+                }
+
                 bool register = SequencerManager.Instance.TryRegisterSequence(seqSettings._sequenceable, seqSettings._sequenceSettings);
 
                 if (!register && seqSettings._sequenceSettings._canAlwaysRun)

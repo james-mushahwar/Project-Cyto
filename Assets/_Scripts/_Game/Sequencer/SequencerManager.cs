@@ -16,6 +16,7 @@ namespace _Scripts._Game.Sequencer{
 
         //General
         public bool _canAlwaysRun = false;
+        public bool _canLoop = false;
     }
 
     public class SequencerManager : Singleton<SequencerManager>, IManager
@@ -70,12 +71,20 @@ namespace _Scripts._Game.Sequencer{
             {
                 Sequenceable sequence = _activeSequences[i];
 
+                bool found = _sequenceSettings.TryGetValue(sequence.RuntimeID, out SequenceSettings settings);
+
+
                 if (sequence.IsComplete())
                 {
                     sequence.Stop();
 
+                    if (settings._canLoop)
+                    {
+                        sequence.Begin();
+                        continue;
+                    }
+
                     // resolve settings
-                    bool found = _sequenceSettings.TryGetValue(sequence.RuntimeID, out SequenceSettings settings);
                     if (found)
                     {
                         if (settings._freezePlayer)
@@ -125,6 +134,11 @@ namespace _Scripts._Game.Sequencer{
 
             if (_sequenceSettings.ContainsKey(runtimeID))
             {
+                if (seqSettings == null)
+                {
+                    _sequenceSettings.TryGetValue(runtimeID, out seqSettings);
+                }
+
                 _activeSequences.Remove(seq);
 
                 if (seqSettings._freezePlayer)

@@ -52,6 +52,7 @@ namespace _Scripts._Game.Sequencer{
 
         public override void Stop()
         {
+            _groupIndex = 0;
         }
 
         public override void Tick()

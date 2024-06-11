@@ -32,6 +32,8 @@ namespace _Scripts._Game.Sequencer{
 
         public override void Stop()
         {
+            _isStarted = false;
+            _sequenceIndex = 0;
         }
 
         public override void Tick()

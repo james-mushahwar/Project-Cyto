@@ -43,6 +43,8 @@ namespace _Scripts._Game.Sequencer.Gameplay
 
         public override void Stop()
         {
+            _isStarted = false;
+            _isComplete = false;
         }
 
         public override void Tick()

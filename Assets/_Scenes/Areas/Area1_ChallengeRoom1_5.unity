@@ -898,7 +898,6 @@ MonoBehaviour:
   _inputs:
   - {fileID: 1327896738}
   - {fileID: 1422571310}
-  - {fileID: 1992838094}
   _useAdvancedInputs: 0
   _advancedConditionType: 0
   _advancedInputs: []
@@ -939,10 +938,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sequenceableSettings:
   - _sequenceable: {fileID: 728809637}
-    _sequenceablesToStop: []
+    _sequenceablesToStop:
+    - {fileID: 2071292806}
     _sequenceSettings:
       _freezePlayer: 0
       _canAlwaysRun: 0
+      _canLoop: 1
   _reactToValidInput: 1
   _activateOrDeactivateOnValidInput: 1
   _reactToInvalidInput: 0
@@ -1176,109 +1177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
---- !u!1 &357789646
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 357789647}
-  - component: {fileID: 357789650}
-  - component: {fileID: 357789649}
-  - component: {fileID: 357789648}
-  m_Layer: 0
-  m_Name: Sequence Logic Trigger FinishRoom
-  m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &357789647
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357789646}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 412.5, y: -62, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 412392019}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &357789648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357789646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputLogicType: 1
-  _inputConditionType: 0
-  _inputs: []
-  _useAdvancedInputs: 1
-  _advancedConditionType: 0
-  _advancedInputs:
-  - _conditionType: 1
-    _logicEntities:
-    - {fileID: 1327896738}
-    - {fileID: 1422571310}
-    - {fileID: 1992838094}
-  _outputLogicType: 1
-  _useSeparateOutputLogic: 0
-  _isOutputLogicValid: 0
-  _outputs: []
---- !u!114 &357789649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357789646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: e2adc895-9d3b-4f83-b20c-8fa276aafc5d
-  _editorIgnoreAllSaves: 0
-  _editorIgnoreAllLoads: 0
-  _excludedSaveTypes: 
-  _saveOnDisable: 0
-  _loadOnEnable: 0
-  _skipLoadOnFirstPlay: 0
---- !u!114 &357789650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357789646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec17d86decfb8c1429af3b311050a32c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sequenceableSettings:
-  - _sequenceable: {fileID: 640616682}
-    _sequenceablesToStop: []
-    _sequenceSettings:
-      _freezePlayer: 1
-      _canAlwaysRun: 0
-  _reactToValidInput: 1
-  _activateOrDeactivateOnValidInput: 1
-  _reactToInvalidInput: 0
-  _activateOrDeactivateOnInvalidInput: 0
-  _isOneShot: 1
 --- !u!1 &376231621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1209,108 @@ Transform:
   m_Father: {fileID: 150643066}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &383872430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383872431}
+  - component: {fileID: 383872434}
+  - component: {fileID: 383872433}
+  - component: {fileID: 383872432}
+  m_Layer: 0
+  m_Name: Sequence Logic Trigger Bomb sequence 3 Complete
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &383872431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383872430}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 414, y: -81, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 412392019}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &383872432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383872430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputLogicType: 1
+  _inputConditionType: 0
+  _inputs:
+  - {fileID: 1327896738}
+  - {fileID: 1422571310}
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
+  _outputLogicType: 1
+  _useSeparateOutputLogic: 0
+  _isOutputLogicValid: 0
+  _outputs: []
+--- !u!114 &383872433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383872430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 48f7c0c9-b0a1-4bbb-a88f-f0ecc94f9c26
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
+  _saveOnDisable: 0
+  _loadOnEnable: 0
+  _skipLoadOnFirstPlay: 0
+--- !u!114 &383872434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383872430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec17d86decfb8c1429af3b311050a32c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sequenceableSettings:
+  - _sequenceable: {fileID: 640616682}
+    _sequenceablesToStop:
+    - {fileID: 728809637}
+    _sequenceSettings:
+      _freezePlayer: 0
+      _canAlwaysRun: 0
+      _canLoop: 0
+  _reactToValidInput: 1
+  _activateOrDeactivateOnValidInput: 1
+  _reactToInvalidInput: 0
+  _activateOrDeactivateOnInvalidInput: 0
+  _isOneShot: 1
 --- !u!1 &389052118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,10 +1454,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1375855577}
-  - {fileID: 1178274345}
   - {fileID: 1992838093}
   - {fileID: 283481505}
-  - {fileID: 357789647}
+  - {fileID: 383872431}
   m_Father: {fileID: 982343700}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3911,109 +3910,11 @@ Transform:
   - {fileID: 47752924}
   - {fileID: 1457056999}
   - {fileID: 1422571309}
+  - {fileID: 1755285122}
+  - {fileID: 1468725886}
   m_Father: {fileID: 150643066}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1178274344
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1178274345}
-  - component: {fileID: 1178274348}
-  - component: {fileID: 1178274347}
-  - component: {fileID: 1178274346}
-  m_Layer: 0
-  m_Name: Sequence Logic Trigger Bomb sequence 1 Elapsed Timer
-  m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1178274345
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178274344}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 385, y: -82.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 412392019}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1178274346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178274344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputLogicType: 0
-  _inputConditionType: 0
-  _inputs:
-  - {fileID: 1327896738}
-  - {fileID: 1422571310}
-  _useAdvancedInputs: 0
-  _advancedConditionType: 0
-  _advancedInputs: []
-  _outputLogicType: 1
-  _useSeparateOutputLogic: 0
-  _isOutputLogicValid: 0
-  _outputs: []
---- !u!114 &1178274347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178274344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 8baf4929-3717-442e-b4b6-b3f6bf45361e
-  _editorIgnoreAllSaves: 0
-  _editorIgnoreAllLoads: 0
-  _excludedSaveTypes: 
-  _saveOnDisable: 0
-  _loadOnEnable: 0
-  _skipLoadOnFirstPlay: 0
---- !u!114 &1178274348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178274344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec17d86decfb8c1429af3b311050a32c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sequenceableSettings:
-  - _sequenceable: {fileID: 2071292806}
-    _sequenceablesToStop: []
-    _sequenceSettings:
-      _freezePlayer: 0
-      _canAlwaysRun: 0
-  _reactToValidInput: 1
-  _activateOrDeactivateOnValidInput: 1
-  _reactToInvalidInput: 0
-  _activateOrDeactivateOnInvalidInput: 0
-  _isOneShot: 0
 --- !u!1 &1207876887
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,6 +4162,50 @@ PrefabInstance:
       propertyPath: _useSeparateOutputLogic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[0]._conditionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[1]._conditionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[2]._conditionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[0]._logicEntities.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[1]._logicEntities.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[2]._logicEntities.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[0]._logicEntities.Array.data[0]
+      value: 
+      objectReference: {fileID: 1422571310}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[1]._logicEntities.Array.data[0]
+      value: 
+      objectReference: {fileID: 1755285123}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[1]._logicEntities.Array.data[1]
+      value: 
+      objectReference: {fileID: 1422571310}
+    - target: {fileID: 5816247375677860416, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
+      propertyPath: _advancedInputs.Array.data[2]._logicEntities.Array.data[0]
+      value: 
+      objectReference: {fileID: 1468725887}
     - target: {fileID: 5816247375677860420, guid: 9389f77116a3ad646845df983157dbb9, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -4441,6 +4386,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1115736757}
     - target: {fileID: 746515081225711780, guid: 1813d9d59c9ba9047bf9ed6469c17d43, type: 3}
+      propertyPath: _sequenceableSettings.Array.data[1]._sequenceSettings._canLoop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 746515081225711780, guid: 1813d9d59c9ba9047bf9ed6469c17d43, type: 3}
       propertyPath: _sequenceableSettings.Array.data[0]._sequenceSettings._freezePlayer
       value: 1
       objectReference: {fileID: 0}
@@ -4580,8 +4529,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 4.9990997, y: 3.9968996, z: 0}
-    m_Extent: {x: 42.7489, y: 27.2518, z: 0}
+    m_Center: {x: 5.006901, y: 3.9995499, z: 0}
+    m_Extent: {x: 42.7509, y: 27.25485, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4690,7 +4639,7 @@ GameObject:
   - component: {fileID: 1422571311}
   - component: {fileID: 1422571310}
   m_Layer: 0
-  m_Name: Drop Button P Accept LogicInput
+  m_Name: Drop Button P Accept LogicInput R1
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4704,7 +4653,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422571308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 337.5, y: -70.5, z: 0}
+  m_LocalPosition: {x: 337.5, y: -68.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4963,6 +4912,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 421d62e0-0cd9-4750-a197-3306a16ae3e6
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
+  _saveOnDisable: 0
+  _loadOnEnable: 0
+  _skipLoadOnFirstPlay: 0
+--- !u!1 &1468725885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1468725886}
+  - component: {fileID: 1468725888}
+  - component: {fileID: 1468725887}
+  m_Layer: 0
+  m_Name: Drop Button P Accept LogicInput R3
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1468725886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468725885}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 337.5, y: -70.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1177095089}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468725887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468725885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputLogicType: 0
+  _inputConditionType: 0
+  _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
+  _outputLogicType: 1
+  _useSeparateOutputLogic: 1
+  _isOutputLogicValid: 0
+  _outputs:
+  - {fileID: 1327896738}
+--- !u!114 &1468725888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468725885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: aa4421f6-47c2-4796-8e70-82a9bf91ab46
   _editorIgnoreAllSaves: 0
   _editorIgnoreAllLoads: 0
   _excludedSaveTypes: 
@@ -5330,6 +5354,81 @@ MonoBehaviour:
   - {x: 2.5, y: 0.5, z: 0}
   - {x: 2.5, y: 4.5, z: 0}
   - {x: -2.5, y: 4.5, z: 0}
+--- !u!1 &1755285121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755285122}
+  - component: {fileID: 1755285124}
+  - component: {fileID: 1755285123}
+  m_Layer: 0
+  m_Name: Drop Button P Accept LogicInput R2
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1755285122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755285121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 337.5, y: -69.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1177095089}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1755285123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755285121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputLogicType: 0
+  _inputConditionType: 0
+  _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
+  _outputLogicType: 1
+  _useSeparateOutputLogic: 1
+  _isOutputLogicValid: 0
+  _outputs:
+  - {fileID: 1327896738}
+--- !u!114 &1755285124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755285121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: aa4421f6-47c2-4796-8e70-82a9bf91ab46
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
+  _saveOnDisable: 0
+  _loadOnEnable: 0
+  _skipLoadOnFirstPlay: 0
 --- !u!1 &1760318076
 GameObject:
   m_ObjectHideFlags: 0
@@ -5585,7 +5684,7 @@ GameObject:
   - component: {fileID: 1975923269}
   - component: {fileID: 1975923268}
   m_Layer: 0
-  m_Name: ButtonSequence3_Startup
+  m_Name: ButtonSequence3_Cleanup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5633,13 +5732,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceptInput: 0
-  _activateGOs: []
+  _activateGOs:
+  - {fileID: 383872430}
   _deactivateGOs:
   - {fileID: 2108629402}
   - {fileID: 84103151}
   - {fileID: 1804194498}
   - {fileID: 991539590}
   - {fileID: 249564196}
+  - {fileID: 1992838092}
+  - {fileID: 283481504}
   _toggleGOs: []
   _activateMonobehaviours: []
   _deactivateMonobehaviours: []
@@ -5689,7 +5791,7 @@ GameObject:
   - component: {fileID: 1983787569}
   - component: {fileID: 1983787566}
   m_Layer: 0
-  m_Name: ButtonSequence1_Startup
+  m_Name: ButtonSequence1_Cleanup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5768,13 +5870,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceptInput: 0
-  _activateGOs: []
+  _activateGOs:
+  - {fileID: 1992838092}
   _deactivateGOs:
   - {fileID: 2108629402}
   - {fileID: 84103151}
   - {fileID: 1804194498}
   - {fileID: 991539590}
   - {fileID: 249564196}
+  - {fileID: 283481504}
+  - {fileID: 383872430}
   _toggleGOs: []
   _activateMonobehaviours: []
   _deactivateMonobehaviours: []
@@ -5797,7 +5902,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1992838093
 Transform:
   m_ObjectHideFlags: 0
@@ -5827,9 +5932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputLogicType: 0
   _inputConditionType: 0
-  _inputs:
-  - {fileID: 1327896738}
-  - {fileID: 1422571310}
+  _inputs: []
   _useAdvancedInputs: 1
   _advancedConditionType: 0
   _advancedInputs:
@@ -5840,8 +5943,7 @@ MonoBehaviour:
   _outputLogicType: 1
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
-  _outputs:
-  - {fileID: 357789648}
+  _outputs: []
 --- !u!114 &1992838095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5874,11 +5976,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sequenceableSettings:
-  - _sequenceable: {fileID: 640616682}
-    _sequenceablesToStop: []
+  - _sequenceable: {fileID: 2071292806}
+    _sequenceablesToStop:
+    - {fileID: 1115736757}
     _sequenceSettings:
       _freezePlayer: 0
       _canAlwaysRun: 0
+      _canLoop: 1
   _reactToValidInput: 1
   _activateOrDeactivateOnValidInput: 1
   _reactToInvalidInput: 0
@@ -21588,7 +21692,7 @@ GameObject:
   - component: {fileID: 2126088650}
   - component: {fileID: 2126088649}
   m_Layer: 0
-  m_Name: ButtonSequence2_Startup
+  m_Name: ButtonSequence2_Cleanup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21636,13 +21740,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceptInput: 0
-  _activateGOs: []
+  _activateGOs:
+  - {fileID: 283481504}
   _deactivateGOs:
   - {fileID: 2108629402}
   - {fileID: 84103151}
   - {fileID: 1804194498}
   - {fileID: 991539590}
   - {fileID: 249564196}
+  - {fileID: 1992838092}
+  - {fileID: 383872430}
   _toggleGOs: []
   _activateMonobehaviours: []
   _deactivateMonobehaviours: []
