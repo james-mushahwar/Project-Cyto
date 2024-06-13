@@ -57,7 +57,10 @@ namespace _Scripts._Game.Sequencer{
 
         public void ManagedTick()
         {
-            foreach (var sequence in _activeSequences)
+            List<Sequenceable> activeSequencesCopy = new List<Sequenceable>();
+            activeSequencesCopy.AddRange(_activeSequences);
+
+            foreach (var sequence in activeSequencesCopy)
             {
                 if (sequence.IsStarted() == false)
                 {
