@@ -933,6 +933,9 @@ MonoBehaviour:
   - {fileID: 334833617}
   - {fileID: 954699799}
   - {fileID: 29442114}
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
@@ -970,9 +973,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sequenceableSettings:
   - _sequenceable: {fileID: 640616682}
+    _sequenceablesToStop: []
     _sequenceSettings:
       _freezePlayer: 1
       _canAlwaysRun: 0
+      _canLoop: 0
+  _reactToValidInput: 1
+  _activateOrDeactivateOnValidInput: 1
+  _reactToInvalidInput: 0
+  _activateOrDeactivateOnInvalidInput: 0
   _isOneShot: 1
 --- !u!1001 &429340983
 PrefabInstance:
@@ -1459,6 +1468,9 @@ MonoBehaviour:
   _inputLogicType: 0
   _inputConditionType: 0
   _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 1
   _isOutputLogicValid: 1

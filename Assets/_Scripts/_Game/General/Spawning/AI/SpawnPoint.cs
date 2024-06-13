@@ -1,5 +1,6 @@
 ﻿using _Scripts._Game.AI;
 using _Scripts._Game.General.Identification;
+using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,14 +17,25 @@ namespace _Scripts._Game.General.Spawning.AI{
         [Header("Spawn properties")]
         [SerializeField]
         private EEntity _entity = (EEntity)1000;
-
         [SerializeField]
+        private bool _trySpawnAutomatically = true;
         //runtime waypoint
+        [SerializeField]
         private Waypoints _waypoints;
         private string _waypointsID = "";
 
         private bool _isEntitySpawned;
         private AIEntity _entitySpawned;
+
+        [Header("Logic Entity")]
+        [SerializeField]
+        private bool _enableSpawnOnInputChanged = false;
+        [SerializeField]
+        private bool _trySpawnOnInputValid = false;
+        [SerializeField]
+        private bool _trySpawnOnInputInvalid = false;
+        private ILogicEntity _logicEntity;
+
 
         //public Waypoints Waypoints 
         //{ 
@@ -52,10 +64,27 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void Awake()
         {
+            _logicEntity = GetComponent<LogicEntity>();
+
+            _logicEntity.OnInputChanged.AddListener(OnLogicInputChanged);
+
             _runtimeID = GetComponent<RuntimeID>();
             RuntimeIDManager.Instance.RegisterRuntimeSpawnPoint(this);
 
             SpawnManager.Instance.AssignSpawnPoint(gameObject.scene.buildIndex, this);
+        }
+
+        private void OnLogicInputChanged()
+        {
+            if (_enableSpawnOnInputChanged)
+            {
+                bool input = _logicEntity.IsInputLogicValid;
+
+                if ((input && _trySpawnOnInputValid) || (!input && _trySpawnOnInputInvalid))
+                {
+                    Spawn();
+                }
+            }
         }
 
         public void Tick()
@@ -65,23 +94,17 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 return;
             }
+
             // timer has elapsed and need to respawn
             if (_isEntitySpawned == false || _entitySpawned == null)
             {
-                bool respawnEntity = SpawnManager.Instance.TryHasRespawnTimerElapsed(this);
-                if (respawnEntity)
+                if (_trySpawnAutomatically)
                 {
-                    //Debug.Log("Respawn timer elapsed, respawning Entity");
-
-                    AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
-                    if (entity == null)
+                    bool respawnEntity = SpawnManager.Instance.TryHasRespawnTimerElapsed(this);
+                    if (respawnEntity)
                     {
+                        //Debug.Log("Respawn timer elapsed, respawning Entity");
                         Spawn();
-                    }
-                    else
-                    {
-                        _isEntitySpawned = true;
-                        _entitySpawned = entity;
                     }
                 }
             }
@@ -141,6 +164,12 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void Spawn()
         {
+            AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
+            if (entity != null)
+            {
+                return;
+            }
+
             AIEntity aiEntity = AIManager.Instance.TrySpawnAI(Entity, transform.position, RuntimeID.Id, _waypointsID);
             if (aiEntity != null)
             {

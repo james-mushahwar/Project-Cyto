@@ -761,6 +761,7 @@ MonoBehaviour:
     _sequenceSettings:
       _freezePlayer: 1
       _canAlwaysRun: 0
+      _canLoop: 0
   _reactToValidInput: 1
   _activateOrDeactivateOnValidInput: 1
   _reactToInvalidInput: 0

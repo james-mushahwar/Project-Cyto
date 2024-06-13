@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: IconHelper
   m_TagString: EditorOnly
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
@@ -56,6 +56,8 @@ GameObject:
   - component: {fileID: 8785238773573704689}
   - component: {fileID: 5136327111450731217}
   - component: {fileID: 8785238773573704690}
+  - component: {fileID: 3492384070818754562}
+  - component: {fileID: 4616664878592277317}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -77,7 +79,7 @@ Transform:
   m_Children:
   - {fileID: 3084955636732209582}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5136327111450731217
 MonoBehaviour:
@@ -105,4 +107,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: 1
+  _trySpawnAutomatically: 1
   _waypoints: {fileID: 0}
+  _enableSpawnOnInputChanged: 0
+  _trySpawnOnInputValid: 0
+  _trySpawnOnInputInvalid: 0
+--- !u!114 &3492384070818754562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8785238773573704691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: a9ad1e60-fb8a-4352-8d1f-736d5921015f
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
+  _saveOnDisable: 0
+  _loadOnEnable: 0
+  _skipLoadOnFirstPlay: 0
+--- !u!114 &4616664878592277317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8785238773573704691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputLogicType: 0
+  _inputConditionType: 0
+  _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
+  _outputLogicType: 0
+  _useSeparateOutputLogic: 1
+  _isOutputLogicValid: 0
+  _outputs: []

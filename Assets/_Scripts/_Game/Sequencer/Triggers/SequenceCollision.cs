@@ -8,8 +8,11 @@ namespace _Scripts._Game.Sequencer.Triggers{
     
     public class SequenceCollision : SequenceTrigger
     {
+        [Header("Collision Settings")]
         [SerializeField]
         private Collider2D _collider2D;
+        [SerializeField]
+        private bool _disableCollisionOnRegisterSequence = true;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -24,7 +27,7 @@ namespace _Scripts._Game.Sequencer.Triggers{
                 {
                     bool register = RegisterSequences();
 
-                    if (register)
+                    if (register && _disableCollisionOnRegisterSequence)
                     {
                         _collider2D.enabled = false;
                     }

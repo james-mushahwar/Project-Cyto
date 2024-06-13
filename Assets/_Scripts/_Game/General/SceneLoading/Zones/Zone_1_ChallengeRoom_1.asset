@@ -60,3 +60,11 @@ MonoBehaviour:
       _sceneName: Area1_ChallengeRoom1_4
     _areaMusic: 0
     _areaAmbience: 0
+  - _areaName:
+      _sceneAsset: {fileID: 102900000, guid: ee23d6e317d41e348b827be2f8a2b8e1, type: 3}
+      _sceneName: Area1_ChallengeRoom1_WaveSpawns
+    _connectedAreas:
+    - _sceneAsset: {fileID: 102900000, guid: e38854c1d2e44a04ca71bce2007d78a7, type: 3}
+      _sceneName: Area1_ChallengeRoom1_5
+    _areaMusic: 0
+    _areaAmbience: 0

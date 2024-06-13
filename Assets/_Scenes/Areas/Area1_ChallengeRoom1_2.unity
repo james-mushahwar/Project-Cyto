@@ -8866,6 +8866,9 @@ MonoBehaviour:
   _inputConditionType: 0
   _inputs:
   - {fileID: 188109140}
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
@@ -8903,9 +8906,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sequenceableSettings:
   - _sequenceable: {fileID: 62436430}
+    _sequenceablesToStop: []
     _sequenceSettings:
       _freezePlayer: 1
       _canAlwaysRun: 0
+      _canLoop: 0
+  _reactToValidInput: 1
+  _activateOrDeactivateOnValidInput: 1
+  _reactToInvalidInput: 0
+  _activateOrDeactivateOnInvalidInput: 0
   _isOneShot: 1
 --- !u!1001 &724844771
 PrefabInstance:
@@ -9516,6 +9525,9 @@ MonoBehaviour:
   - {fileID: 188109140}
   - {fileID: 1233604462}
   - {fileID: 183395757}
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
@@ -9553,9 +9565,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sequenceableSettings:
   - _sequenceable: {fileID: 1092103536}
+    _sequenceablesToStop: []
     _sequenceSettings:
       _freezePlayer: 1
       _canAlwaysRun: 0
+      _canLoop: 0
+  _reactToValidInput: 1
+  _activateOrDeactivateOnValidInput: 1
+  _reactToInvalidInput: 0
+  _activateOrDeactivateOnInvalidInput: 0
   _isOneShot: 1
 --- !u!1001 &1085439288
 PrefabInstance:
@@ -10609,6 +10627,9 @@ MonoBehaviour:
   _inputLogicType: 0
   _inputConditionType: 0
   _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 1
   _isOutputLogicValid: 1
@@ -10751,6 +10772,9 @@ MonoBehaviour:
   _inputs:
   - {fileID: 1233604462}
   - {fileID: 183395757}
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
   _outputLogicType: 0
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
@@ -10788,9 +10812,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sequenceableSettings:
   - _sequenceable: {fileID: 1350620010}
+    _sequenceablesToStop: []
     _sequenceSettings:
       _freezePlayer: 1
       _canAlwaysRun: 0
+      _canLoop: 0
+  _reactToValidInput: 1
+  _activateOrDeactivateOnValidInput: 1
+  _reactToInvalidInput: 0
+  _activateOrDeactivateOnInvalidInput: 0
   _isOneShot: 1
 --- !u!1 &2040686077
 GameObject:
