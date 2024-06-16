@@ -72,6 +72,7 @@ MonoBehaviour:
   _aiManagerPrefab: {fileID: 8613944311331828447, guid: 5680b9f851729a04a9a90b22d500af86, type: 3}
   _assetManagerPrefab: {fileID: 3054441650378997009, guid: 2eeff2545d6b6514da78b4290bde6b22, type: 3}
   _audioManagerPrefab: {fileID: 8659364362566741441, guid: f9a2a3e8ba125814da13e04fd941c2f5, type: 3}
+  _cameraManagerPrefab: {fileID: -4601890063438560810, guid: b643f9fa932f19d419eee0f5e9728fb9, type: 3}
   _corpseManagerPrefab: {fileID: 1898322568985533042, guid: cea853daed0064b4cb6f2ad7b9ffa835, type: 3}
   _dialogueManagerPrefab: {fileID: 6728234329966278815, guid: 9820f4af9e088b446a1b29fe75746c21, type: 3}
   _feedbackManagerPrefab: {fileID: 8457427190580527658, guid: c8a4eb46e8924d146b6c6a2da75a42e6, type: 3}

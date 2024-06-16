@@ -144,6 +144,9 @@ namespace _Scripts._Game.General.Managers{
         private AudioManager _audioManagerPrefab;
         private AudioManager _audioManager;
         [SerializeField]
+        private CameraManager _cameraManagerPrefab;
+        private CameraManager _cameraManager;
+        [SerializeField]
         private CorpseManager _corpseManagerPrefab;
         private CorpseManager _corpseManager;
         [SerializeField]
@@ -235,6 +238,7 @@ namespace _Scripts._Game.General.Managers{
 
             _assetManager       = Instantiate<AssetManager>(_assetManagerPrefab, _alwaysOnManagersGroup.transform);
             _audioManager       = Instantiate<AudioManager>(_audioManagerPrefab, _alwaysOnManagersGroup.transform);
+            _cameraManager      = Instantiate<CameraManager>(_cameraManagerPrefab, _alwaysOnManagersGroup.transform);
             _corpseManager      = Instantiate<CorpseManager>(_corpseManagerPrefab, _inGameManagerGroup.transform);
             _dialogueManager    = Instantiate<DialogueManager>(_dialogueManagerPrefab, _alwaysOnManagersGroup.transform);
             _feedbackManager    = Instantiate<FeedbackManager>(_feedbackManagerPrefab, _inGameManagerGroup.transform);
@@ -305,20 +309,33 @@ namespace _Scripts._Game.General.Managers{
         // load main menu
         void GameState_LoadMainMenu()
         {
-
+            ManagedPreMainMenuLoad();
         }
 
 
         // in main menu
         void GameState_MainMenu()
         {
-
+            ManagedPostMainMenuLoad();
         }
 
         // load save game 
         void GameState_LoadGame()
         {
 
+        }
+
+        // pre play game
+        void GameState_PrePlayGame()
+        {
+            ManagedPrePlayGame(); 
+        }
+        void ManagedPrePlayGame()
+        {
+            for (int i = 0; i < _managers.Length; i++)
+            {
+                _managers[i].ManagedPrePlayGame();
+            }
         }
 
         // playing game
@@ -477,6 +494,7 @@ namespace _Scripts._Game.General.Managers{
                     case EGameState.RestoreSave:
                         break;
                     case EGameState.PrePlayGame:
+                        GameState_PrePlayGame();
                         break;
                     case EGameState.PlayingGame:
                         GameState_PlayingGame();

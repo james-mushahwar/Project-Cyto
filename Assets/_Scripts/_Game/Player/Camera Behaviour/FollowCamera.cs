@@ -27,6 +27,7 @@ public class FollowCamera : Singleton<FollowCamera>
     #region Camera constraints
     [SerializeField]
     private Camera _camera;
+    public Camera Camera { get { return _camera; } }
     [SerializeField]
     private AudioListener _audioListener;
     private BaseCameraBounds _cameraBounds;
