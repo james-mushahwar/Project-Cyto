@@ -6,10 +6,30 @@ using _Scripts._Game.General.SaveLoad;
 namespace _Scripts._Game.General.Managers{
 
     [System.Serializable]
-    public struct FEntityStats
+    public struct FAbilityState
     {
         [SerializeField]
-        private EEntity _entity;
+        private bool _unlocked;
+        [SerializeField]
+        private bool _disabled;
+
+        public bool Unlocked { get => _unlocked; }
+        public bool Disabled { get => _disabled; }
+
+        public void SetUnlocked( bool set)
+        {
+            _unlocked = set;
+        }
+
+        public void SetDisabled(bool set)
+        {
+            _disabled = set;
+        }
+    }
+
+    [System.Serializable]
+    public struct FEntityStats
+    {
         [SerializeField]
         private float _maxHealth;
         [SerializeField]
@@ -30,15 +50,40 @@ namespace _Scripts._Game.General.Managers{
         [SerializeField] 
         private EEntityFEntityStatsDictionary _entityStatsDict = new EEntityFEntityStatsDictionary();
 
+        [Header("Abilities")]
+        [SerializeField]
+        private FAbilityUnlockedStateDictionary _abilityUnlockStates = new FAbilityUnlockedStateDictionary();
+
         // Start is called before the first frame update
-        void Start()
+        void OnCreated()
         {
             _saveableEntity = GetComponentInChildren<SaveableEntity>();
         }
-    
+
+        public void ManagedPreInGameLoad()
+        {
+
+        }
+
+        public void ManagedPostInGameLoad()
+        {
+
+        }
+
+        public void ManagedPreMainMenuLoad()
+        {
+            SaveLoadSystem.Instance?.OnDisableSaveState(ESaveTarget.Saveable, _saveableEntity);
+        }
+
+        public void ManagedPostMainMenuLoad()
+        {
+
+        }
+
         // Update is called once per frame
         public void ManagedTick()
         {
+            //stats
             if (GameStateManager.Instance.IsGameRunning && !PauseManager.Instance.IsPaused)
             {
                 _completionStats[(int)EStatsType.TimePlayed] += Time.unscaledDeltaTime;
@@ -82,6 +127,58 @@ namespace _Scripts._Game.General.Managers{
             return foundEntityStats;
         }
 
+        //Abilities
+        public bool IsAbilityUnlocked(EAbility abilityType)
+        {
+            bool unlocked = false;
+
+            FAbilityState ability = new FAbilityState();
+            _abilityUnlockStates.TryGetValue(abilityType, out ability);
+
+            unlocked = ability.Unlocked;
+
+            return unlocked;
+        }
+
+        public bool IsAbilityDisabled(EAbility abilityType)
+        {
+            bool disabled = false;
+
+            FAbilityState ability = new FAbilityState();
+            _abilityUnlockStates.TryGetValue(abilityType, out ability);
+
+            disabled = ability.Disabled;
+
+            return disabled;
+        }
+
+        public bool IsAbilityUsable(EAbility abilityType)
+        {
+            return IsAbilityUnlocked((EAbility)abilityType) && !IsAbilityDisabled((EAbility)abilityType);
+        }
+
+        public bool UnlockAbility(EAbility abilityType)
+        {
+            if (!_abilityUnlockStates.TryGetValue(abilityType, out FAbilityState ability))
+            {
+                return false;
+            }
+
+            _abilityUnlockStates[abilityType].SetUnlocked(true);
+
+            return true;
+        }
+
+        public void DisableAbility(EAbility abilityType, bool set)
+        {
+            if (!_abilityUnlockStates.TryGetValue(abilityType, out FAbilityState ability))
+            {
+                return;
+            }
+
+            _abilityUnlockStates[abilityType].SetDisabled(set);
+        }
+
         [System.Serializable]
         public struct SaveData
         {
@@ -111,25 +208,7 @@ namespace _Scripts._Game.General.Managers{
             Debug.Log("Completion time is: " + _completionStats[(int)EStatsType.TimePlayed]);
         }
 
-        public void ManagedPreInGameLoad()
-        {
-             
-        }
-
-        public void ManagedPostInGameLoad()
-        {
-             
-        }
-
-        public void ManagedPreMainMenuLoad()
-        {
-            SaveLoadSystem.Instance?.OnDisableSaveState(ESaveTarget.Saveable, _saveableEntity);
-        }
-
-        public void ManagedPostMainMenuLoad()
-        {
-             
-        }
+        
     }
     
 }

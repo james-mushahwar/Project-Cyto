@@ -60,6 +60,10 @@ namespace _Scripts._Game.General.LogicController{
         private List<LogicEntity> _outputs;
         private UnityEvent _onOutputChanged = new UnityEvent();
 
+        [Header("Options")]
+        [SerializeField]
+        private bool _proprogateIOLogic = false;
+
         public ELogicType InputLogicType
         {
             get { return _inputLogicType; }
@@ -86,6 +90,7 @@ namespace _Scripts._Game.General.LogicController{
             set 
             { 
                 _isInputLogicValid = value;
+
                 OnInputChanged.Invoke();
             }
         }
@@ -153,6 +158,8 @@ namespace _Scripts._Game.General.LogicController{
         {
             get { return _advancedInputs; }
         }
+
+        public bool ProprogateIOLogic { get => _proprogateIOLogic; }
 
         void OnEnable()
         {

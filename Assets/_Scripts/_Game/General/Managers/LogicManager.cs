@@ -117,7 +117,12 @@ namespace _Scripts._Game.General.Managers{
                     {
                         output.IsInputLogicValid = AreAllInputsValid(output);
                         //output.OnInputChanged.Invoke();
-                        //OnOutputChanged(output);
+                        if (output.ProprogateIOLogic)
+                        {
+                            output.IsOutputLogicValid = output.IsInputLogicValid;
+                            output.OnOutputChanged.Invoke();
+                            OnOutputChanged(output);
+                        }
                     }
                 }
             }

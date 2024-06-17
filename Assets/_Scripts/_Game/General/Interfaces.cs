@@ -251,6 +251,7 @@ namespace _Scripts._Game.General{
         None,
         SaveStation,
         Doorway,
+        AbilityUnlock,
         COUNT,
     }
 
@@ -287,6 +288,18 @@ namespace _Scripts._Game.General{
         Phases,
         Exposures,
 
+        COUNT
+    }
+    #endregion
+
+    #region Abilities
+    public enum EAbility
+    {
+        //Player
+        Player_Bond                          = 0,
+
+        //AI
+        BombDroid_SuperBombDrop              = 1000,
         COUNT
     }
     #endregion

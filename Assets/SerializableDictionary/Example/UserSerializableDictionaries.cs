@@ -37,6 +37,8 @@ public class QuaternionMyClassDictionary : SerializableDictionary<Quaternion, My
 [Serializable]
 public class EEntityFEntityStatsDictionary : SerializableDictionary<EEntity, FEntityStats> {}
 [Serializable]
+public class FAbilityUnlockedStateDictionary : SerializableDictionary<EAbility, FAbilityState> { }
+[Serializable]
 public class PlayerInputPromptDictionary : SerializableDictionary<EPlayerInput, RectTransform> {}
 [Serializable]
 public class AudioPlaybackDictionary : SerializableDictionary<EAudioType, ScriptableAudioPlayback> {}

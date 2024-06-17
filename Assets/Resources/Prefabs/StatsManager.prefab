@@ -48,15 +48,19 @@ MonoBehaviour:
   _entityStatsDict:
     m_keys: 00000000e8030000e9030000
     m_values:
-    - _entity: 0
-      _maxHealth: 3
+    - _maxHealth: 3
       _maxBondableHealth: 1
-    - _entity: 1000
-      _maxHealth: 2
+    - _maxHealth: 2
       _maxBondableHealth: 1
-    - _entity: 1001
-      _maxHealth: 3
+    - _maxHealth: 3
       _maxBondableHealth: 1
+  _abilityUnlockStates:
+    m_keys: 00000000e8030000
+    m_values:
+    - _unlocked: 1
+      _disabled: 0
+    - _unlocked: 0
+      _disabled: 0
 --- !u!114 &6334015674278682708
 MonoBehaviour:
   m_ObjectHideFlags: 0

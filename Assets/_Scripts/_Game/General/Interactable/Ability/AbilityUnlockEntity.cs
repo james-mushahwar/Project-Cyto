@@ -1,45 +1,34 @@
-﻿using _Scripts._Game.Dialogue;
-using _Scripts._Game.General.LogicController;
+﻿using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
-using _Scripts._Game.General.SaveLoad;
 using _Scripts._Game.Player;
 using System.Collections;
 using System.Collections.Generic;
-using _Scripts._Game.Events;
-using _Scripts._Game.General.Identification;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _Scripts._Game.General.Interactable{
+namespace _Scripts._Game.General.Interactable.Ability{
 
-    [RequireComponent(typeof(LogicEntity))]
-    public class InteractableEntity : MonoBehaviour, IInteractable
+    public class AbilityUnlockEntity : MonoBehaviour, IInteractable
     {
         #region Interactable
-        private SaveableEntity _saveStationSE;
         //IInteractable
+        [SerializeField]
+        private Transform _interactRoot;
+        private bool _isInteractableLocked;
         [SerializeField]
         private EInteractableStimuli _interactableStimuli;
         [SerializeField]
         private EInteractableType _interactableType;
         [SerializeField]
-        private Transform _interactRoot;
-        private bool _isInteractableLocked;
-        [SerializeField]
         private RangeParams _rangeParams = new RangeParams(false);
         private UnityEvent _onHighlight = new UnityEvent();
         private UnityEvent _onUnhighlight = new UnityEvent();
-        [SerializeField]
         private UnityEvent _onInteractStart = new UnityEvent();
-        [SerializeField]
         private UnityEvent _onInteractEnd = new UnityEvent();
-        [SerializeField]
-        private GameEvent _onInteractStartGE;
-        [SerializeField]
-        private GameEvent _onInteractEndGE;
 
-        public EInteractableStimuli InteractableStimuli { get => _interactableStimuli; }
-        public EInteractableType InteractableType { get => _interactableType; }
+        public EInteractableStimuli InteractableStimuli => _interactableStimuli;
+
+        public EInteractableType InteractableType => _interactableType;
 
         public Transform InteractRoot
         {
@@ -60,36 +49,63 @@ namespace _Scripts._Game.General.Interactable{
         public UnityEvent OnInteractEnd { get => _onInteractEnd; }
         #endregion
 
-        private void Awake()
-        {
-            if (_interactRoot == null)
-            {
-                _interactRoot = transform;
-            }
+        #region Logic
+        [SerializeField]
+        private bool _isInteractable;
+        [SerializeField]
+        private bool _logicBlocksIsInteractable = false;
+        private ILogicEntity _logicEntity;
 
-            if (_interactableType == EInteractableType.SaveStation)
+        [SerializeField]
+        private bool _disableAbilityOnUnlock = false;
+        #endregion
+
+        #region Ability
+        [SerializeField]
+        private EAbility _abilityToUnlock = EAbility.COUNT;
+        #endregion
+
+        public void Start()
+        {
+            if (_logicEntity == null)
             {
-                _saveStationSE = gameObject.GetComponent<SaveableEntity>();
+                _logicEntity = GetComponent<LogicEntity>();
             }
+            _logicEntity.OnInputChanged.AddListener(OnInputChanged);
         }
 
-        private void OnEnable()
+        private void OnInputChanged()
+        {
+            Debug.LogWarning("ability logic input has changed");
+        }
+
+        public void OnEnable()
         {
             InteractableManager.Instance?.AddInteractable(this);
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             InteractableManager.Instance?.RemoveInteractable(this);
         }
 
         public bool IsInteractable()
         {
-            if (InteractableManager.Instance.IsInteractableLocked(this))
+            bool isLogicValid = !_logicBlocksIsInteractable || (_logicBlocksIsInteractable && _logicEntity.IsInputLogicValid);
+
+            bool isAbilityUnlocked = false; 
+
+            if (_abilityToUnlock != EAbility.COUNT)
+            {
+                isAbilityUnlocked = StatsManager.Instance.IsAbilityUnlocked(_abilityToUnlock);
+            }
+
+            if ((isLogicValid && _isInteractable && !isAbilityUnlocked) == false)
             {
                 return false;
             }
 
+            // range check
             Vector2 playerPos = PlayerEntity.Instance.GetControlledGameObject().transform.position;
             Vector2 interactablePos = InteractRoot.position;
             Vector2 difference = (interactablePos - playerPos);
@@ -102,37 +118,27 @@ namespace _Scripts._Game.General.Interactable{
                 isInDotProductRange = dotProduct >= Mathf.Min(_rangeParams._dotRange.x, _rangeParams._dotRange.y);
             }
 
-            //Debug.Log("SqDistance from interactable is" + difference.SqrMagnitude());
             bool isInDistanceRange = isInDotProductRange && (difference.SqrMagnitude() <= _rangeParams._maxSqDistance);
 
-            return isInDistanceRange;
+            if (!isInDistanceRange)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public void OnInteract()
         {
-            if (IsInteractionLocked)
-            {
-                OnInteractEnd.Invoke();
-                _onInteractEndGE.TriggerEvent();
-            }
-            else
-            {
-                if (_interactableType == EInteractableType.SaveStation)
-                {
-                    GameStateManager.Instance.SetAreaSpawnScene(gameObject.scene.buildIndex);
-                    if (_saveStationSE != null)
-                    {
-                        RespawnManager.Instance.RespawnGOID = _saveStationSE.Id;
-                    }
+            _isInteractable = false;
 
-                    AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Environment_SaveStation_Save, gameObject.transform.position);
-                }
-                OnInteractStart.Invoke();
-                _onInteractStartGE.TriggerEvent();
-            }
+            //start sequence to unlock ability?
+            StatsManager.Instance.UnlockAbility(_abilityToUnlock);
+            StatsManager.Instance.DisableAbility(_abilityToUnlock, _disableAbilityOnUnlock);
 
-            InteractableManager.Instance.ResolveInteraction(this);
+            _logicEntity.IsOutputLogicValid = true;
+            LogicManager.Instance.OnOutputChanged(_logicEntity);
         }
     }
-    
+
 }
