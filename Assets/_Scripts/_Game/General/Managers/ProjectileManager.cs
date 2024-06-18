@@ -14,6 +14,7 @@ namespace _Scripts._Game.General.Managers{
         BasicAttack             = 0,
         //AI
         BombDroidBombDrop       = 1000,
+        BombDroidSuperBombDrop        ,
         //Environment
         COUNT                   = 100000
     }
@@ -34,6 +35,7 @@ namespace _Scripts._Game.General.Managers{
         #region Pools
         private BasicAttackPoolComponentManager _basicAttackProjectilePool;
         private BombDroidBombDropPoolComponentManager _bdBombDropProjectilePool;
+        private BombDroidSuperBombDropPoolComponentManager _bdSuperBombDropProjectilePool;
 
         private List<IManagedPool> _managedProjectilePools;
         #endregion
@@ -55,13 +57,15 @@ namespace _Scripts._Game.General.Managers{
 
         protected void Start()
         {
-            _basicAttackProjectilePool = GetComponentInChildren<BasicAttackPoolComponentManager>();
-            _bdBombDropProjectilePool = GetComponentInChildren<BombDroidBombDropPoolComponentManager>();
+            _basicAttackProjectilePool       = GetComponentInChildren<BasicAttackPoolComponentManager>();
+            _bdBombDropProjectilePool        = GetComponentInChildren<BombDroidBombDropPoolComponentManager>();
+            _bdSuperBombDropProjectilePool   = GetComponentInChildren<BombDroidSuperBombDropPoolComponentManager>();
 
             //_particleTypePools.Add(EParticleType.BasicAttack, _basicAttackProjectilePool);
 
             _managedProjectilePools.Add(_basicAttackProjectilePool);
             _managedProjectilePools.Add(_bdBombDropProjectilePool);
+            _managedProjectilePools.Add(_bdSuperBombDropProjectilePool);
         }
 
 
@@ -75,6 +79,7 @@ namespace _Scripts._Game.General.Managers{
                 case EProjectileType.BombDroidBombDrop:
                     TryBombDroidBombDropProjectile(instigator, spawnPosition);
                     break;
+                
                 default: break;
             }
         }
@@ -87,6 +92,15 @@ namespace _Scripts._Game.General.Managers{
         public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
         {
             bool found = _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition);
+            if (found)
+            {
+                AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_BombDroid_BombDropAttack, startPosition);
+            }
+        }
+
+        public void TryBombDroidSuperBombDropProjectile(EEntityType instigator, Vector3 startPosition)
+        {
+            bool found = _bdSuperBombDropProjectilePool.TryBombDroidSuperBombDropProjectile(instigator, startPosition);
             if (found)
             {
                 AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_BombDroid_BombDropAttack, startPosition);

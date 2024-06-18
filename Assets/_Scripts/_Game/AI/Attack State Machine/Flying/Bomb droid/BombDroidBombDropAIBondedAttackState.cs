@@ -11,6 +11,8 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         private BombDroidAIAttackStateMachine _bdCtx;
         private bool _hasDroppedBomb;
 
+        private bool _inputHeld;
+
         public BombDroidBombDropAIBondedAttackState(AIAttackStateMachineBase ctx, AIAttackStateMachineFactory factory) : base(ctx, factory)
         {
             _bdCtx = ctx.GetStateMachine<BombDroidAIAttackStateMachine>();
@@ -18,6 +20,20 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public override bool CheckSwitchStates()
         {
+            if (StatsManager.Instance.IsAbilityUsable(General.EAbility.BombDroid_SuperBombDrop))
+            {
+                if (_inputHeld)
+                {
+                    _inputHeld = _ctx.IsWestButtonPressed;
+
+                    if (_stateTimer >= _bdCtx.BondedSuperBombDropTransitionDelay)
+                    {
+                        SwitchStates(_factory.GetBondedState(AIAttackState.Attack2));
+                        return true;
+                    }
+                }
+            }
+
             if (_stateTimer >= _bdCtx.BondedBombDropBuildUpDuration)
             {
                 if (!_hasDroppedBomb)
@@ -34,6 +50,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
         {
             _stateTimer = 0.0f;
             _hasDroppedBomb = false;
+            _inputHeld = _ctx.IsWestButtonPressed;
             AudioManager.Instance.TryPlayAudioSourceAttached(EAudioType.SFX_Enemy_BombDroid_ChargeBombAttack, _ctx.transform);
         }
 

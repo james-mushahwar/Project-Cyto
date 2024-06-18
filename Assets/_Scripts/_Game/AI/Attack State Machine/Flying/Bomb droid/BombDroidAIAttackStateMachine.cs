@@ -51,6 +51,24 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
 
         public float BondedBombDropBuildUpDuration { get => _bondedBombDropBuildUpDuration; }
         public float BondedBombDropStateDuration { get => _bondedBombDropStateDuration; }
+        
+        [Header("Bonded Super Bomb drop attack properties")]
+        [SerializeField]
+        private float _bondedSuperBombDropTransitionDelay;
+        [SerializeField]
+        private float _bondedSuperBombDropHoldInputDuration;
+        [SerializeField]
+        private float _bondedSuperBombDropPreDropDelay;
+        [SerializeField]
+        private float _bondedSuperBombDropPostDropDelay;
+        [SerializeField]
+        private float _bondedSuperBombDropPostFailedDropDelay;
+
+        public float BondedSuperBombDropTransitionDelay { get => _bondedSuperBombDropTransitionDelay; set => _bondedSuperBombDropTransitionDelay = value; }
+        public float BondedSuperBombDropHoldInputDuration { get => _bondedSuperBombDropHoldInputDuration; set => _bondedSuperBombDropHoldInputDuration = value; }
+        public float BondedSuperBombDropPreDropDelay { get => _bondedSuperBombDropPreDropDelay; set => _bondedSuperBombDropPreDropDelay = value; }
+        public float BondedSuperBombDropPostDropDelay { get => _bondedSuperBombDropPostDropDelay; set => _bondedSuperBombDropPostDropDelay = value; }
+        public float BondedSuperBombDropPostFailedDropDelay { get => _bondedSuperBombDropPostFailedDropDelay; set => _bondedSuperBombDropPostFailedDropDelay = value; }
         #endregion
 
         protected override void Awake()
@@ -65,6 +83,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
             //bonded attacks
             States.AddState(AIAttackState.Idle, new BombDroidIdleAIBondedAttackState(this, States));
             States.AddState(AIAttackState.Attack1, new BombDroidBombDropAIBondedAttackState(this, States));
+            States.AddState(AIAttackState.Attack2, new BombDroidSuperBombDropAIBondedAttackState(this, States));
 
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
             BondInputsDict.Add(PossessInput.WButton, OnWestButtonInput);

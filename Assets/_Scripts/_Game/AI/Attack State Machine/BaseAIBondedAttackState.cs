@@ -21,6 +21,8 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
         public abstract void EnterState();
 
+        public void EnterState(float timer) { }
+
         public abstract void ManagedStateTick();
 
         public abstract bool CheckSwitchStates();

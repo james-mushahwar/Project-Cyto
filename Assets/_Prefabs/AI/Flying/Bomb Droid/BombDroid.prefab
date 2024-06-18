@@ -385,6 +385,11 @@ MonoBehaviour:
   _bondedBombDropCooldown: 2
   _bondedBombDropBuildUpDuration: 0.25
   _bondedBombDropStateDuration: 1
+  _bondedSuperBombDropTransitionDelay: 0.2
+  _bondedSuperBombDropHoldInputDuration: 0.5
+  _bondedSuperBombDropPreDropDelay: 0.1
+  _bondedSuperBombDropPostDropDelay: 0.25
+  _bondedSuperBombDropPostFailedDropDelay: 0.25
 --- !u!114 &8527710219603585274
 MonoBehaviour:
   m_ObjectHideFlags: 0

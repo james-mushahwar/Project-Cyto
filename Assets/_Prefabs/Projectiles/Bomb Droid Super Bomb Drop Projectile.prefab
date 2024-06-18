@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 3714733584879471686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7845348097244184477}
   m_Father: {fileID: 5458949934131665994}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 6
   m_SortingOrder: -1
   m_Sprite: {fileID: -690705591, guid: ef0aaaa5c743a9641a40dad3246185dd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8702882, g: 0.9245283, b: 0.34451762, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 22d676fe91c7c18468f4e9e32e23eae0, type: 3}
-  m_Color: {r: 0.8490566, g: 0.20425417, b: 0.20425417, a: 1}
+  m_Color: {r: 1, g: 0.945184, b: 0.48584908, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -195,11 +195,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5458949934131665994}
-  - component: {fileID: 2324557426529746048}
+  - component: {fileID: 5791012749861057406}
   - component: {fileID: 8976877524791897117}
   - component: {fileID: 3494103280454084905}
   m_Layer: 9
-  m_Name: Bomb Droid Bomb Drop Projectile
+  m_Name: Bomb Droid Super Bomb Drop Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,7 +221,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2324557426529746048
+--- !u!114 &5791012749861057406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5458949934131665997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c7872a02f3a4b4bb9b49682a24d8c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 16f0834027c80a046abf9cccbe148cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 0}
@@ -268,7 +268,7 @@ MonoBehaviour:
   _playerLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  _explosionOverlapRange: 2.43
+  _explosionOverlapRange: 2.75
   _explosionContactFilter:
     useTriggers: 1
     useLayerMask: 1
