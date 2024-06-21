@@ -6,7 +6,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.AI.MovementStateMachine;
 using _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid;
 
-namespace _Scripts._Game.AI.Entity.Flying{
+namespace _Scripts._Game.AI.Entity.Flying.Bombdroid{
     
     public class BombDroidAIEntity : AIEntity
     {

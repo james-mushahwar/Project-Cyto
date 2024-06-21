@@ -1,4 +1,5 @@
 ﻿using _Scripts._Game.AI;
+using _Scripts._Game.AI.Entity.Bosses;
 using _Scripts._Game.General.Identification;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,11 @@ namespace _Scripts._Game.General.Managers{
 
         private List<AIPool> _activeAIPools = new List<AIPool>();
         private List<AIEntity> _activeAIEntities = new List<AIEntity>();
+
+        //boss ai
+        [SerializeField]
+        private GigaBombDroidAIEntity _gigaBombDroidPrefab;
+        private GigaBombDroidAIEntity _gigaBombDroid;
 
         public void AssignAIPool(EEntity entity, AIPool pool)
         {
@@ -43,29 +49,48 @@ namespace _Scripts._Game.General.Managers{
         public AIEntity TrySpawnAI(EEntity entity, Vector2 spawnLocation, string spawnPointID, string waypointID)
         {
             AIPool aiPool = null;
-            if (_aiPoolDict.TryGetValue(entity, out aiPool))
+            AIEntity aiEntity = null;
+            if (StatsManager.IsBossAIEntity(entity))
             {
-                AIEntity aiEntity = aiPool.GetAIEntity();
-                if (aiEntity)
+                //boss ai
+                switch (entity)
                 {
-                    aiEntity.transform.position = spawnLocation;
-                    aiEntity.SpawnPointID = spawnPointID;
-                    aiEntity.MovementSM.WaypointsID = waypointID;
-                    aiEntity.Spawn();
-
-                    if (!_activeAIEntities.Contains(aiEntity))
-                    {
-                        _activeAIEntities.Add(aiEntity);
-                    }
-
-                    return aiEntity;
-                }
-                else
-                {
-                    Debug.Log("Couldn't get AI entity of type: " + entity);
+                    case EEntity.GigaBombDroid:
+                        aiEntity = _gigaBombDroid;
+                        break;
+                    default:   
+                        break;
                 }
             }
-            return null;
+            else
+            {
+                //ai
+                if (_aiPoolDict.TryGetValue(entity, out aiPool))
+                {
+                    aiEntity = aiPool.GetAIEntity();
+                }
+            }
+
+            if (aiEntity)
+            {
+                aiEntity.transform.position = spawnLocation;
+                aiEntity.SpawnPointID = spawnPointID;
+                aiEntity.MovementSM.WaypointsID = waypointID;
+                aiEntity.Spawn();
+
+                if (!_activeAIEntities.Contains(aiEntity))
+                {
+                    _activeAIEntities.Add(aiEntity);
+                }
+
+                return aiEntity;
+            }
+            else
+            {
+                Debug.Log("Couldn't get AI entity of type: " + entity);
+            }
+
+            return aiEntity;
         }
 
         public void UnassignSpawnedEntity(AIEntity aiEntity)
@@ -87,6 +112,17 @@ namespace _Scripts._Game.General.Managers{
             {
                 aiEntity.Tick();
             }
+        }
+
+        public void OnCreated()
+        {
+            if (!_gigaBombDroid)
+            {
+                _gigaBombDroid = Instantiate<GigaBombDroidAIEntity>(_gigaBombDroidPrefab);
+                _gigaBombDroid.transform.parent = this.gameObject.transform;
+                _gigaBombDroid.gameObject.SetActive(false);
+            }
+
         }
 
         public void ManagedPreInGameLoad()

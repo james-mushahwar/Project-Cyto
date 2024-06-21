@@ -17,7 +17,7 @@ using EZCameraShake;
 
 namespace _Scripts._Game.AI{
 
-    public abstract class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup, IExposable
+    public abstract class AIEntity : MonoBehaviour, IBondable, IPossessable, IDamageable, ITickGroup, IExposable, ISpawnable
     {
         [Header("Entity")]
         protected EEntity _entity;
@@ -145,7 +145,7 @@ namespace _Scripts._Game.AI{
             return _isPossessed;
         }
 
-        public bool CanBePossessed()
+        public virtual bool CanBePossessed()
         {
             return !_isPossessed && ((_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable) ;
         }

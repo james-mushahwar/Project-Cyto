@@ -2,7 +2,7 @@
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
 using UnityEngine;
- using _Scripts._Game.AI.Entity.Flying;
+using _Scripts._Game.AI.Entity.Flying.Bombdroid;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     

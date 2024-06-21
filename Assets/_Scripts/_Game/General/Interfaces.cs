@@ -38,6 +38,9 @@ namespace _Scripts._Game.General{
         //AI                
         BombDroid_BombDrop_DirectHit    = 10000,
         BombDroid_BombDrop_Explosion,
+        //Boss AI
+        GigaBombDroid_Bomb_DirectHit    = 15000,
+        GIgaBombDroid_Bomb_Explosion,
         //Hazards
         Laser_Tick                      = 20000,
         Laser_Impact,
@@ -68,6 +71,12 @@ namespace _Scripts._Game.General{
         bool IsExposed();
         void OnExposed();
         void OnUnexposed();
+    }
+
+    public interface ISpawnable
+    {
+        void Spawn();
+        void Despawn(bool killed = false);
     }
     #endregion
 
@@ -313,6 +322,8 @@ namespace _Scripts._Game.General{
         BombDroid                               = 1000,
         MushroomArcher,
         DaggerMushroom,
+        //Boss AI
+        GigaBombDroid                           = 10000,
 
         // Ally
 

@@ -1,10 +1,10 @@
 ﻿using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
-using _Scripts._Game.AI.Entity.Flying;
 using Pathfinding;
 using UnityEngine;
 using _Scripts.CautionaryTalesScripts;
+using _Scripts._Game.AI.Entity.Flying.Bombdroid;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid{
     

@@ -54,6 +54,16 @@ namespace _Scripts._Game.General.Managers{
         [SerializeField]
         private FAbilityUnlockedStateDictionary _abilityUnlockStates = new FAbilityUnlockedStateDictionary();
 
+        public static bool IsAIEntity(EEntity entity)
+        {
+            return false;
+        }
+
+        public static bool IsBossAIEntity(EEntity entity) 
+        {
+            return entity >= EEntity.GigaBombDroid && entity < EEntity.COUNT;
+        }
+
         // Start is called before the first frame update
         void OnCreated()
         {

@@ -286,10 +286,21 @@ namespace _Scripts._Game.General.Managers{
 
             SceneManager.sceneLoaded += OnSceneLoaded;
 
+            OnManagersCreated();
+
             bool done = RequestNewGameState(EGameState.PostInitialiseGameState, false);
             if (!done)
             {
                 throw new Exception("request new game state failed");
+            }
+        }
+
+        //on managers created
+        void OnManagersCreated()
+        {
+            for (int i = 0; i < _managers.Length; i++)
+            {
+                _managers[i].OnCreated();
             }
         }
 

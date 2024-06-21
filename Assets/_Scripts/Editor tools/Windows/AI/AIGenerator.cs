@@ -6,17 +6,20 @@ using Pathfinding;
 using UnityEditor;
 
 namespace Editor.Windows.AI{
-    
-    public enum AIType
-    {
-        BombDroid,
-        MushroomArcher,
-        DaggerMushroom,
-        COUNT
-    }
 
     public class AIGenerator : EditorWindow
     {
+        private enum AIType
+        {
+            //AI
+            BombDroid,
+            MushroomArcher,
+            DaggerMushroom,
+            //Boss AI
+            GigaBombDroid,
+            COUNT
+        }
+
         #region General
         private const string _aiTemplatePath = "Assets/_Scripts/Editor tools/Templates/AI/";
 
@@ -32,6 +35,7 @@ namespace Editor.Windows.AI{
             "BombDroid",        // Bomb Droid
             "MushroomArcher",   // Mushroom Archer
             "DaggerMushroom",   // Dagger Mushroom
+            "GigaBombDroid",    // Giga BombdDroid
         };
 
         string[] _entityStatePaths = new string[(int)AIType.COUNT]
@@ -39,6 +43,7 @@ namespace Editor.Windows.AI{
             "Assets/_Scripts/_Game/AI/Entity/Flying/Bomb droid",        // Bomb Droid
             "Assets/_Scripts/_Game/AI/Entity/Ground/Mushroom Archer",   // Mushroom Archer
             "Assets/_Scripts/_Game/AI/Entity/Ground/Dagger Mushroom",   // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Entity/Bosses/Giga Bomb Droid",   // Giga Bomb Droid
         };
 
         string[] _movementStatePaths = new string[(int)AIType.COUNT]
@@ -46,6 +51,7 @@ namespace Editor.Windows.AI{
             "Assets/_Scripts/_Game/AI/Movement State Machine/Flying/Bomb droid",        // Bomb Droid
             "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Mushroom Archer",   // Mushroom Archer
             "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Dagger Mushroom",   // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Bosses/Giga Bomb Droid",   // Giga Bomb Droid
         };
 
         string[] _attackStatePaths = new string[(int)AIType.COUNT]
@@ -53,6 +59,7 @@ namespace Editor.Windows.AI{
             "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb droid",      // Bomb Droid
             "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Mushroom Archer", // Mushroom Archer
             "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom", // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Bosses/Giga Bomb Droid", // Giga Bomb Droid
         };
 
         //Animator scripts
@@ -61,6 +68,7 @@ namespace Editor.Windows.AI{
             "Assets/_Scripts/_Game/Animation/Character/AI/Flying/Bomb Droid",      // Bomb Droid
             "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Mushroom Archer", // Mushroom Archer
             "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Dagger Mushroom", // Dagger Mushroom
+            "Assets/_Scripts/_Game/Animation/Character/AI/Bosses/Giga Bomb Droid", // Giga Bomb Droid
         };
 
         //Animation assets
@@ -69,6 +77,7 @@ namespace Editor.Windows.AI{
             "Assets/_Animation/AI/Flying/Bomb Droid",      // Bomb Droid
             "Assets/_Animation/AI/Ground/Mushroom Archer", // Mushroom Archer
             "Assets/_Animation/AI/Ground/Dagger Mushroom", // Dagger Mushroom
+            "Assets/_Animation/AI/Bosses/Giga BOmb Droid", // Giga Bomb Droid 
         };
 
         string[] _prefabPaths = new string[(int)AIType.COUNT]
@@ -76,6 +85,7 @@ namespace Editor.Windows.AI{
             "Assets/_Prefabs/AI/Flying/Bomb Droid",      // Bomb Droid
             "Assets/_Prefabs/AI/Ground/Mushroom Archer", // Mushroom Archer
             "Assets/_Prefabs/AI/Ground/Dagger Mushroom", // Dagger Mushroom
+            "Assets/_Prefabs/AI/Bosses/Giga Bomb Droid", // Giga Bomb Droid
         };
 
         #endregion

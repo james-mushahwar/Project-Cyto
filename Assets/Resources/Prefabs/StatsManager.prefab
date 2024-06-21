@@ -46,11 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityStatsDict:
-    m_keys: 00000000e8030000e9030000
+    m_keys: 00000000e8030000e903000010270000
     m_values:
     - _maxHealth: 3
       _maxBondableHealth: 1
     - _maxHealth: 2
+      _maxBondableHealth: 1
+    - _maxHealth: 3
       _maxBondableHealth: 1
     - _maxHealth: 3
       _maxBondableHealth: 1

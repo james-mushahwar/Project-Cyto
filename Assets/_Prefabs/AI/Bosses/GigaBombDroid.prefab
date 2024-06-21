@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8527710219251885140}
   - component: {fileID: 3279110197100341938}
   m_Layer: 8
-  m_Name: BombDroid Sprite
+  m_Name: GigaBombDroid Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 8527710219251885160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.78, y: 1.78, z: 1.78}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8527710219603585275}
   m_RootOrder: -1
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 2051981439
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 14247772, guid: 383495af364a67f448daecc940220bb1, type: 3}
+  m_Sprite: {fileID: 1998603187, guid: 9db54c3c829217e4fb4af71e8e30b769, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8527710219603585275}
-  - component: {fileID: 7571349261389069}
+  - component: {fileID: 8959136349346415014}
   - component: {fileID: 6152986643205584587}
   - component: {fileID: 4454979531169731600}
   - component: {fileID: 8527710219603585274}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 8527710219603585277}
   - component: {fileID: 8527710219603585273}
   m_Layer: 8
-  m_Name: BombDroid
+  m_Name: GigaBombDroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,7 +196,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7571349261389069
+--- !u!114 &8959136349346415014
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8527710219603585278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7df278e80fc9e5409c82c3b5a26e96e, type: 3}
+  m_Script: {fileID: 11500000, guid: 275b2ee57a8f4e9449ebb4c1490bf4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _onHitEvent:
@@ -313,18 +313,6 @@ MonoBehaviour:
   _onStartBondEvent:
     m_PersistentCalls:
       m_Calls: []
-  _bombDroidMovementAudioHandler:
-    _attachAudioSource: 1
-    _position: {x: 0, y: 0, z: 0}
-    _defaultVolumeAlpha: 0
-    _defaultPitchAlpha: 0
-    _audioType: 0
-    _active: 0
-    _release: 0
-    _audioSource: {fileID: 0}
-    _handleParametersSO: {fileID: 11400000, guid: e7f42f79d837bce4695e2b9956f8e822, type: 2}
-    _loops: 1
-    _canReplayCurrentlyPlayingSource: 0
 --- !u!114 &6152986643205584587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,9 +531,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.18}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.05
+  m_Radius: 1.92
 --- !u!50 &8527710219603585273
 Rigidbody2D:
   serializedVersion: 4
