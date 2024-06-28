@@ -12,6 +12,8 @@ using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.AI.MovementStateMachine.Ground;
 using _Scripts._Game.AI.MovementStateMachine;
 using _Scripts._Game.AI.MovementStateMachine.Flying;
+using _Scripts._Game.AI.MovementStateMachine.Bosses;
+
 
 
 
@@ -243,11 +245,14 @@ public class FollowCamera : Singleton<FollowCamera>
                     _targetXOffset *= _groundedAIXYCameraOffset.x;
                     _targetYOffset = _groundedAIXYCameraOffset.y;
 
-                    FlyingAIMovementStateMachine flyingMovementSM = (FlyingAIMovementStateMachine)movementSM;
-                    if (flyingMovementSM != null)
+                    if (movementSM is FlyingAIMovementStateMachine || movementSM is BossAIMovementStateMachine)
                     {
-                        _targetXOffset *=   _flyingAIXYCameraOffset.x;
+                        //FlyingAIMovementStateMachine flyingMovementSM = (FlyingAIMovementStateMachine)movementSM;
+                        //if (flyingMovementSM != null)
+                        //{
+                        //}
                         _targetYOffset =    _flyingAIXYCameraOffset.y;
+                        _targetXOffset *=   _flyingAIXYCameraOffset.x;
                     }
                 }
             }

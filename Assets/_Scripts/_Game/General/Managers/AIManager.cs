@@ -1,5 +1,6 @@
 ﻿using _Scripts._Game.AI;
 using _Scripts._Game.AI.Entity.Bosses;
+using _Scripts._Game.AI.Entity.Bosses.GigaBombDroid;
 using _Scripts._Game.General.Identification;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace _Scripts._Game.General.Managers{
         private List<AIEntity> _activeAIEntities = new List<AIEntity>();
 
         //boss ai
+        [Header("Bosses")]
         [SerializeField]
         private GigaBombDroidAIEntity _gigaBombDroidPrefab;
         private GigaBombDroidAIEntity _gigaBombDroid;

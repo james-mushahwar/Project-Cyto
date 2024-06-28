@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8527710219251885143}
   - component: {fileID: 8527710219251885142}
   - component: {fileID: 8527710219251885141}
-  - component: {fileID: 8527710219251885140}
+  - component: {fileID: 7133308391675728595}
   - component: {fileID: 3279110197100341938}
   m_Layer: 8
   m_Name: GigaBombDroid Sprite
@@ -108,7 +108,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8527710219251885140
+--- !u!114 &7133308391675728595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,10 +117,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8527710219251885160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa810291659eb44a9ae1e7e3e1934fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb9bf61a69106646870c8350d4903ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageFlashDuration: 0.33
+  _damageFlashDuration: 0.5
   _defaultXThickness: 0
   _defaultYThickness: 0
   _exposedXThickness: 0.5
@@ -128,7 +128,6 @@ MonoBehaviour:
   _onPossessOutlineDuration: 0.25
   _onPossessXThickness: 2
   _onPossessYThickness: 2
-  _bondedMovementAnimSpeedRange: {x: 0.75, y: 1.5}
 --- !u!114 &3279110197100341938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,10 +163,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8527710219603585275}
-  - component: {fileID: 8959136349346415014}
+  - component: {fileID: 6705691969280962572}
   - component: {fileID: 6152986643205584587}
-  - component: {fileID: 4454979531169731600}
-  - component: {fileID: 8527710219603585274}
+  - component: {fileID: 468975281368964354}
+  - component: {fileID: 125839726798823997}
   - component: {fileID: 8527710219603585276}
   - component: {fileID: 8527710219603585272}
   - component: {fileID: 8527710219603585255}
@@ -196,7 +195,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8959136349346415014
+--- !u!114 &6705691969280962572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,110 +204,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8527710219603585278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 275b2ee57a8f4e9449ebb4c1490bf4a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 594569d4220c2554692051f4012a2ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _onHitEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6152986643205584587}
-        m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
-        m_MethodName: PlayFeedback
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3279110197100341938}
-        m_TargetAssemblyTypeName: _Scripts._Game.General.GameFeel.HitStop.HitStopShake,
-          Assembly-CSharp
-        m_MethodName: PlayShake
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _onTakeDamageEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6152986643205584587}
-        m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
-        m_MethodName: PlayFeedback
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3279110197100341938}
-        m_TargetAssemblyTypeName: _Scripts._Game.General.GameFeel.HitStop.HitStopShake,
-          Assembly-CSharp
-        m_MethodName: PlayShake
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _onPossessedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8527710219251885140}
-        m_TargetAssemblyTypeName: _Scripts._Game.Animation.SpriteAnimator, Assembly-CSharp
-        m_MethodName: OnPossessed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _onExposedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8527710219251885140}
-        m_TargetAssemblyTypeName: _Scripts._Game.Animation.SpriteAnimator, Assembly-CSharp
-        m_MethodName: OnExposed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _onUnexposedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8527710219251885140}
-        m_TargetAssemblyTypeName: _Scripts._Game.Animation.SpriteAnimator, Assembly-CSharp
-        m_MethodName: OnUnexposed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _sqDistanceToCompleteBond: 1
   _onStartBondEvent:
     m_PersistentCalls:
@@ -333,7 +246,7 @@ MonoBehaviour:
   _beginKnockbackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8527710219603585274}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.Flying.FlyingAIMovementStateMachine,
           Assembly-CSharp
         m_MethodName: StartKnockbackEffect
@@ -349,7 +262,7 @@ MonoBehaviour:
   _endKnockbackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8527710219603585274}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: _Scripts._Game.AI.MovementStateMachine.Flying.FlyingAIMovementStateMachine,
           Assembly-CSharp
         m_MethodName: EndKnockbackEffect
@@ -362,7 +275,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4454979531169731600
+--- !u!114 &468975281368964354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -371,26 +284,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8527710219603585278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7be1d94c8877a2248bb911dc16023ccb, type: 3}
+  m_Script: {fileID: 11500000, guid: 948a25f135305fc47a8af01e606ef723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnDefaultAttackState: 1
   _spawnDefaultBondedAttackState: 1
-  _bombDropCooldown: 2
-  _bombDropMinimumYDistance: 5
-  _bombDropMaximumXLimit: 1.5
-  _bombDropStateDuration: 2.5
-  _bombDropUpwardsForce: 10
-  _bombDropBuildUpDuration: 1
-  _bondedBombDropCooldown: 2
-  _bondedBombDropBuildUpDuration: 0.25
-  _bondedBombDropStateDuration: 1
-  _bondedSuperBombDropTransitionDelay: 0.2
-  _bondedSuperBombDropHoldInputDuration: 0.5
-  _bondedSuperBombDropPreDropDelay: 0.1
-  _bondedSuperBombDropPostDropDelay: 0.25
-  _bondedSuperBombDropPostFailedDropDelay: 0.25
---- !u!114 &8527710219603585274
+--- !u!114 &125839726798823997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -399,22 +298,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8527710219603585278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 794e2373d43d58341bf6b6fa3d8879d3, type: 3}
+  m_Script: {fileID: 11500000, guid: e8a4cb57a918be04487432dedc834d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDefaultMovementState: 2
+  _spawnDefaultMovementState: 0
   _spawnDefaultBondedMovementState: 3
   _groundedLayer:
     serializedVersion: 2
     m_Bits: 0
-  _patrolSpeed: 2
-  _patrolWaitTimeRange: {x: 1.5, y: 2.2}
-  _chaseDetectionSqRange: 225
-  _chaseLostDetectionSqRange: 506.25
-  _chaseSpeed: 3
-  _flyingMaximumHorizontalVelocity: 8
-  _flyingMaximumVerticalVelocity: 8
-  _flyingMovementDirectionThrust: 2000
+  _patrolSpeed: 8
+  _patrolWaitTimeRange: {x: 2, y: 4}
+  _flyingMaximumHorizontalVelocity: 10
+  _flyingMaximumVerticalVelocity: 10
+  _flyingMovementDirectionThrust: 2500
 --- !u!114 &8527710219603585276
 MonoBehaviour:
   m_ObjectHideFlags: 0

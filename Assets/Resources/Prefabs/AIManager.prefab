@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085f26c21963a3f4593d9a12620c9d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gigaBombDroidPrefab: {fileID: 8959136349346415014, guid: e5a70fbe29d697941baa499b333fa0fb, type: 3}
+  _gigaBombDroidPrefab: {fileID: 6705691969280962572, guid: e5a70fbe29d697941baa499b333fa0fb, type: 3}
 --- !u!1 &5021289057843050810
 GameObject:
   m_ObjectHideFlags: 0

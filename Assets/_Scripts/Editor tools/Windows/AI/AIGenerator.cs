@@ -77,7 +77,7 @@ namespace Editor.Windows.AI{
             "Assets/_Animation/AI/Flying/Bomb Droid",      // Bomb Droid
             "Assets/_Animation/AI/Ground/Mushroom Archer", // Mushroom Archer
             "Assets/_Animation/AI/Ground/Dagger Mushroom", // Dagger Mushroom
-            "Assets/_Animation/AI/Bosses/Giga BOmb Droid", // Giga Bomb Droid 
+            "Assets/_Animation/AI/Bosses/Giga Bomb Droid", // Giga Bomb Droid 
         };
 
         string[] _prefabPaths = new string[(int)AIType.COUNT]

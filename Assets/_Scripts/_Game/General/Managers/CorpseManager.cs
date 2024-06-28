@@ -60,12 +60,15 @@ namespace _Scripts._Game.General.Managers{
         public void TrySpawnCorpse(EEntity entity, Vector2 position)
         {
             CorpsePool pool = GetCorpsePool(entity);
-            Corpse corpse = pool.GetCorpse();
-            if (corpse != null)
+            if (pool != null)
             {
-                corpse.transform.position = position + pool.PositionOffset;
-                corpse.gameObject.SetActive(true);
-                _activeCorpses.Add(corpse);
+                Corpse corpse = pool.GetCorpse();
+                if (corpse != null)
+                {
+                    corpse.transform.position = position + pool.PositionOffset;
+                    corpse.gameObject.SetActive(true);
+                    _activeCorpses.Add(corpse);
+                }
             }
         }
 
