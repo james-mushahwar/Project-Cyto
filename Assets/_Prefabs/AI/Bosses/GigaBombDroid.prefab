@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a4cb57a918be04487432dedc834d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDefaultMovementState: 0
+  _spawnDefaultMovementState: 2
   _spawnDefaultBondedMovementState: 3
   _groundedLayer:
     serializedVersion: 2
