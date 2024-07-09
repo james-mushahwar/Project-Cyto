@@ -54,6 +54,8 @@ namespace _Scripts._Game.General{
         bool IsAlive();
         void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
         Vector2 DamageDirection { get; set; }
+
+        List<EDamageType> DamageTypeExclusions { get; }
         //Components
         Transform Transform { get; }
     }

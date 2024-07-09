@@ -41,6 +41,8 @@ namespace _Scripts._Game.Player{
             get { return _playerParentTransform; }
         }
 
+        private EEntity _entity;
+        public EEntity Entity { get => _entity; }
         #endregion
 
         #region State Machines
@@ -71,6 +73,10 @@ namespace _Scripts._Game.Player{
         public Vector2 DamageDirection { get => _damageDirection; set => _damageDirection = value; }
         public Transform Transform { get => transform; }
 
+        [SerializeField]
+        private List<EDamageType> _damageTypeExclusions;
+        public List<EDamageType> DamageTypeExclusions { get { return _damageTypeExclusions; } }
+
         public bool FacingRight
         {
             get
@@ -89,11 +95,13 @@ namespace _Scripts._Game.Player{
         {
             base.Awake();
 
+            _entity = EEntity.Player;
+
             //FreezeAllMovement(true);
 
             _playerParentTransform = transform.parent;
 
-            FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
+            FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(_entity);
             _playerHealthStats = new PlayerHealthStats(playerEntityStats.MaxHealth, playerEntityStats.MaxHealth);
             _playerEnergyStats = new EnergyStats(1.0f, 1.0f);
         }
@@ -117,7 +125,7 @@ namespace _Scripts._Game.Player{
                     _playerRespawnReason._reaspawnReason = ERespawnReason.None;
                     _playerRespawnReason._isRespawning = false;
 
-                    FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(EEntity.Player);
+                    FEntityStats playerEntityStats = StatsManager.Instance.GetEntityStat(_entity);
                     _playerHealthStats.AddHitPoints(playerEntityStats.MaxHealth);
                     _isInvulnerableTimer = 0.0f;
 
@@ -216,12 +224,17 @@ namespace _Scripts._Game.Player{
 
         public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
-            float resultsHealth = 0.0f;
+            if (DamageManager.CanBeDamaged(damageType, this) == false)
+            {
+                return;
+            }
 
             if (!CanTakeDamage())
             {
                 return;
             }
+
+            float resultsHealth = 0.0f;
 
             bool IsInstakill = damageType == EDamageType.Laser_Instakill;
             float damageAmount = DamageManager.GetDamageFromTypeToEntity(damageType, this);

@@ -46,6 +46,16 @@ namespace _Scripts._Game.General.Managers{
 
             return damage;
         }
+
+        public static bool CanBeDamaged(EDamageType damageType, IDamageable damageable)
+        {
+            if (damageable.DamageTypeExclusions.Contains(damageType))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
     
 }

@@ -232,6 +232,11 @@ namespace _Scripts._Game.General.Managers{
 
                         if (currentDamageable != null)
                         {
+                            if (DamageManager.CanBeDamaged(EDamageType.Player_BasicAttack, currentDamageable) == false)
+                            {
+                                continue;
+                            }
+
                             if (currentDamageable.IsAlive() == false)
                             {
                                 continue;

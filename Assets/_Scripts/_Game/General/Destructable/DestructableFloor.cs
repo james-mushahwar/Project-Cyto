@@ -6,6 +6,11 @@ namespace _Scripts._Game.General.Destructable{
     
     public class DestructableFloor : MonoBehaviour, IDamageable, ISaveable
     {
+
+        [SerializeField]
+        private List<EDamageType> _damageTypeExclusions;
+        public List<EDamageType> DamageTypeExclusions { get { return _damageTypeExclusions; } }
+
         [SerializeField] 
         private int _maxHitPoints;
         private int _hitPoints;

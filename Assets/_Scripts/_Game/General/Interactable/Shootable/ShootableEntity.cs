@@ -1,5 +1,6 @@
 ﻿using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Scripts._Game.General.Interactable.Shootable
@@ -135,6 +136,10 @@ namespace _Scripts._Game.General.Interactable.Shootable
         {
             get { return _targetRoot == null ? transform : _targetRoot; }
         }
+
+        [SerializeField]
+        private List<EDamageType> _damageTypeExclusions;
+        public List<EDamageType> DamageTypeExclusions { get { return _damageTypeExclusions; } }
 
         public bool IsExposed()
         {

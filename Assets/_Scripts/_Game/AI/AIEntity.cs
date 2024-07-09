@@ -91,6 +91,10 @@ namespace _Scripts._Game.AI{
 
         public bool FacingRight { get => !_spriteAnimator.Renderer.flipX; }
 
+        [SerializeField]
+        private List<EDamageType> _damageTypeExclusions;
+        public List<EDamageType> DamageTypeExclusions { get { return _damageTypeExclusions; } }
+
         //Exposable
         [Header("Exposable")]
         [SerializeField]
@@ -244,6 +248,11 @@ namespace _Scripts._Game.AI{
 
         public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
+            if (DamageManager.CanBeDamaged(damageType, this) == false)
+            {
+                return;
+            }
+
             float resultHealth = 100.0f;
             bool killedOrBroken = false;
 
