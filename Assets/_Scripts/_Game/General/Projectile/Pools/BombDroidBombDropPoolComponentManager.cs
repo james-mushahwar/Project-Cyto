@@ -42,7 +42,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
             return component.IsActive() && (component.Collided == false || component.ExplodeElapsed == false);
         }
 
-        public bool TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
+        public bool TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition, Vector3 direction)
         {
             bool found = false;
             BombDroidBombDropProjectile pooledComp = GetPooledComponent();
@@ -51,6 +51,7 @@ namespace _Scripts._Game.General.Projectile.Pools{
             {
                 pooledComp.InstigatorType = instigator;
                 pooledComp.transform.position = startPosition;
+                pooledComp.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
                 pooledComp.gameObject.SetActive(true);
                 found = true;
             }

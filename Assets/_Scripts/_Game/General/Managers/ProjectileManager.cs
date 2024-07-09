@@ -84,20 +84,33 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
+        #region Basic Attack
         public bool TryBasicAttackProjectile(IDamageable damageable, Vector3 startPosition, int comboIndex)
         {
             return _basicAttackProjectilePool.TryBasicAttackProjectile(damageable, startPosition, comboIndex);
         }
+        #endregion
 
+        #region Bomb Drop
         public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition)
         {
-            bool found = _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition);
+            bool found = _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition, Quaternion.identity.eulerAngles);
             if (found)
             {
                 AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_BombDroid_BombDropAttack, startPosition);
             }
         }
+        public void TryBombDroidBombDropProjectile(EEntityType instigator, Vector3 startPosition, Vector3 direction)
+        {
+            bool found = _bdBombDropProjectilePool.TryBombDroidBombDropProjectile(instigator, startPosition, direction);
+            if (found)
+            {
+                AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_BombDroid_BombDropAttack, startPosition);
+            }
+        }
+        #endregion
 
+        #region Super Bomb Drop
         public void TryBombDroidSuperBombDropProjectile(EEntityType instigator, Vector3 startPosition)
         {
             bool found = _bdSuperBombDropProjectilePool.TryBombDroidSuperBombDropProjectile(instigator, startPosition);
@@ -106,6 +119,7 @@ namespace _Scripts._Game.General.Managers{
                 AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Enemy_BombDroid_BombDropAttack, startPosition);
             }
         }
+        #endregion
 
         public void ManagedPreInGameLoad()
         {

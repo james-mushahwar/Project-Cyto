@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using _Scripts._Game.AI.AttackStateMachine;
+using _Scripts._Game.AI.MovementStateMachine;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
     
-    public class GigaBombDroidIdleAIAttackState : BaseAIAttackState
+    public class GigaBombDroidIdleAIAttackState : GigaBombDroidBaseAIAttackState
     {
         public GigaBombDroidIdleAIAttackState(AIAttackStateMachineBase ctx, AIAttackStateMachineFactory factory) : base(ctx, factory)
         {
@@ -12,12 +13,21 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
     
         public override bool CheckSwitchStates()
         {
+            int damageState = _gbdEntity.DamageState;
+            float idleToAttackDelay = _gbdCtx.GetIdleToShootDelay(damageState);
+
+            if (_stateTimer >= idleToAttackDelay)
+            {
+                SwitchStates(_factory.GetState(AIAttackState.Attack1));
+                return true;
+            }
+
             return false;
         }
     
         public override void EnterState()
         {
-            
+            _stateTimer = 0;
         }
     
         public override void ExitState()
@@ -32,7 +42,12 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
     
         public override void ManagedStateTick()
         {
-            
+            _stateTimer += Time.deltaTime;
+
+            if (CheckSwitchStates() == false)
+            {
+                // do nothing
+            }
         }
     }
     
