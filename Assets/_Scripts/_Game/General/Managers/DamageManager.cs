@@ -49,7 +49,15 @@ namespace _Scripts._Game.General.Managers{
 
         public static bool CanBeDamaged(EDamageType damageType, IDamageable damageable)
         {
-            if (damageable.DamageTypeExclusions.Contains(damageType))
+            if (damageable.DamageTypesToAccept.Count > 0)
+            {
+                if (damageable.DamageTypesToAccept.Contains(damageType) == false)
+                {
+                    return false;
+                }
+            }
+
+            if (damageable.DamageTypesToIgnore.Contains(damageType))
             {
                 return false;
             }

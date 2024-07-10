@@ -38,6 +38,8 @@ namespace _Scripts._Game.General{
         //AI                
         BombDroid_BombDrop_DirectHit    = 10000,
         BombDroid_BombDrop_Explosion,
+        BombDroid_SuperBombDrop_DirectHit,
+        BombDroid_SuperBombDrop_Explosion,
         //Boss AI
         GigaBombDroid_Bomb_DirectHit    = 15000,
         GIgaBombDroid_Bomb_Explosion,
@@ -55,7 +57,8 @@ namespace _Scripts._Game.General{
         void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
         Vector2 DamageDirection { get; set; }
 
-        List<EDamageType> DamageTypeExclusions { get; }
+        List<EDamageType> DamageTypesToIgnore { get; }
+        List<EDamageType> DamageTypesToAccept { get; }
         //Components
         Transform Transform { get; }
     }

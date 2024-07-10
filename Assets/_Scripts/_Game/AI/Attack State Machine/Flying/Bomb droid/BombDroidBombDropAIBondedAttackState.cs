@@ -31,6 +31,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid{
                         SwitchStates(_factory.GetBondedState(AIAttackState.Attack2));
                         return true;
                     }
+                    return false;
                 }
             }
 

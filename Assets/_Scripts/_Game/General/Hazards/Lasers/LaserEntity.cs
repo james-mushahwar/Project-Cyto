@@ -99,7 +99,7 @@ namespace _Prefabs.Level.Hazards.Lasers{
             {
                 if ((_playerLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {
-                    PlayerEntity.Instance.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.Enemy, transform.position);
+                    PlayerEntity.Instance.TakeDamage(EDamageType.Laser_Impact, EEntityType.Enemy, transform.position);
                 }
                 else if ((_aiLayerMask.value & (1 << collidedGO.layer)) > 0)
                 {

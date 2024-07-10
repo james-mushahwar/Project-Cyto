@@ -800,7 +800,8 @@ MonoBehaviour:
   _onPossessedEvent:
     m_PersistentCalls:
       m_Calls: []
-  _damageTypeExclusions: 00000000
+  _damageTypesToIgnore: 
+  _damageTypesToAccept: 1227000013270000
   _onExposedEvent:
     m_PersistentCalls:
       m_Calls: []

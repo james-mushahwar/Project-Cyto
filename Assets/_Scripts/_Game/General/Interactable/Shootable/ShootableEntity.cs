@@ -138,8 +138,12 @@ namespace _Scripts._Game.General.Interactable.Shootable
         }
 
         [SerializeField]
-        private List<EDamageType> _damageTypeExclusions;
-        public List<EDamageType> DamageTypeExclusions { get { return _damageTypeExclusions; } }
+        private List<EDamageType> _damageTypesToIgnore;
+        [SerializeField]
+        private List<EDamageType> _damageTypesToAccept;
+
+        public List<EDamageType> DamageTypesToIgnore => _damageTypesToIgnore;
+        public List<EDamageType> DamageTypesToAccept => _damageTypesToAccept;
 
         public bool IsExposed()
         {

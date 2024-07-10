@@ -174,7 +174,9 @@ namespace _Scripts._Game.General.Managers{
                 return false;
             }
 
-            _abilityUnlockStates[abilityType].SetUnlocked(true);
+            ability.SetUnlocked(true);
+
+            _abilityUnlockStates[abilityType] = ability;
 
             return true;
         }
@@ -186,7 +188,9 @@ namespace _Scripts._Game.General.Managers{
                 return;
             }
 
-            _abilityUnlockStates[abilityType].SetDisabled(set);
+            ability.SetDisabled(set);
+
+            _abilityUnlockStates[abilityType] = ability;
         }
 
         [System.Serializable]

@@ -133,7 +133,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
 
                                 if ((damageable is AIEntity && !isPlayerPossessed && (_instigatorType == EEntityType.BondedEnemy)) || (damageable is PlayerEntity && (_instigatorType == EEntityType.Enemy)))
                                 {
-                                    damageable.TakeDamage(EDamageType.BombDroid_BombDrop_Explosion, _instigatorType, transform.position);
+                                    damageable.TakeDamage(EDamageType.BombDroid_SuperBombDrop_Explosion, _instigatorType, transform.position);
                                     _damageablesHit.Add(damageable);
                                 }
                                 
@@ -166,7 +166,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                 {
                     _collided = true;
                     _explodeElapsed = true;
-                    PlayerEntity.Instance.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.Enemy, transform.position);
+                    PlayerEntity.Instance.TakeDamage(EDamageType.BombDroid_SuperBombDrop_DirectHit, EEntityType.Enemy, transform.position);
                 }
             }
             else if (_instigatorType == EEntityType.BondedEnemy)
@@ -183,7 +183,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                         IDamageable damageable = collidedGO.GetComponent<IDamageable>();
                         if (damageable != null)
                         {
-                            damageable.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.BondedEnemy, transform.position);
+                            damageable.TakeDamage(EDamageType.BombDroid_SuperBombDrop_DirectHit, EEntityType.BondedEnemy, transform.position);
                         }
                     }
                 }
@@ -201,7 +201,7 @@ namespace _Scripts._Game.General.Projectile.AI.BombDroid{
                         IDamageable damageable = collidedGO.GetComponent<IDamageable>();
                         if (damageable != null)
                         {
-                            damageable.TakeDamage(EDamageType.BombDroid_BombDrop_DirectHit, EEntityType.BondedEnemy, transform.position);
+                            damageable.TakeDamage(EDamageType.BombDroid_SuperBombDrop_DirectHit, EEntityType.BondedEnemy, transform.position);
                         }
                     }
                     
