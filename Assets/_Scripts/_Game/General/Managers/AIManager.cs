@@ -100,6 +100,7 @@ namespace _Scripts._Game.General.Managers{
             if (_activeAIEntities.Contains(aiEntity))
             {
                 _activeAIEntities.Remove(aiEntity);
+                aiEntity.transform.position = Vector3.zero;
             }
         }
 

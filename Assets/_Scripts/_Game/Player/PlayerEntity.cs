@@ -226,16 +226,16 @@ namespace _Scripts._Game.Player{
             return _playerHealthStats.IsAlive() && !_playerRespawnReason._isRespawning;
         }
 
-        public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
+        public virtual bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
             if (DamageManager.CanBeDamaged(damageType, this) == false)
             {
-                return;
+                return false;
             }
 
             if (!CanTakeDamage())
             {
-                return;
+                return false;
             }
 
             float resultsHealth = 0.0f;
@@ -284,6 +284,8 @@ namespace _Scripts._Game.Player{
             }
             TimeManager.Instance.TryRequestTimeScale(ETimeImportance.High, 0.0f, 0.0f, 0.025f, 0.2f);
             _isInvulnerableTimer = _invulnerableDuration;
+
+            return true;
         }
 
         private bool CanTakeDamage()

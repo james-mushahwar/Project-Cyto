@@ -81,11 +81,11 @@ namespace _Scripts._Game.General.Interactable.Shootable
             return _exposeHealth > 0 && _logicEntity.IsInputLogicValid;
         }
 
-        public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
+        public bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
             if (!IsAlive())
             {
-                return;
+                return false;
             }
 
             if (_logicEntity != null)
@@ -94,7 +94,7 @@ namespace _Scripts._Game.General.Interactable.Shootable
                 {
                     if (_logicEntity.IsInputLogicValid == false)
                     {
-                        return;
+                        return false;
                     }
                 }
             }
@@ -121,7 +121,10 @@ namespace _Scripts._Game.General.Interactable.Shootable
                     OnExposed();
                 }
             }
+
+            return true;
         }
+
         private Vector2 _damageDirection;
 
         public Vector2 DamageDirection

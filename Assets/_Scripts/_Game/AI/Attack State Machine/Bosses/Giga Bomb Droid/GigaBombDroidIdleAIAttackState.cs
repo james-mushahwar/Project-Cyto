@@ -13,8 +13,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
     
         public override bool CheckSwitchStates()
         {
-            int damageState = _gbdEntity.DamageState;
-            float idleToAttackDelay = _gbdCtx.GetIdleToShootDelay(damageState);
+            float idleToAttackDelay = _gbdCtx.IdleToShootDelay;
 
             if (_stateTimer >= idleToAttackDelay)
             {

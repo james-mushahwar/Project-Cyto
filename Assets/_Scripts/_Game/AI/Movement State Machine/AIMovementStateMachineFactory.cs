@@ -15,6 +15,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
         Patrol,
         Chase,
         Attack,
+        Damaged,
         Dead
     }
 

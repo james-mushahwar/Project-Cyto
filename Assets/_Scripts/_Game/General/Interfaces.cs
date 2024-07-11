@@ -54,7 +54,7 @@ namespace _Scripts._Game.General{
     {
         IExposable Exposable { get; }
         bool IsAlive();
-        void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
+        bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition);
         Vector2 DamageDirection { get; set; }
 
         List<EDamageType> DamageTypesToIgnore { get; }

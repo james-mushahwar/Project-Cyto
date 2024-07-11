@@ -5,14 +5,19 @@ using _Scripts._Game.General;
 using _Scripts._Game.AI.AttackStateMachine.Flying.Bombdroid;
 using System.Collections.Generic;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.AI.Entity.Bosses.GigaBombDroid;
 
 namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
     
     public class GigaBombDroidAIAttackStateMachine : BossAIAttackStateMachine
     {
+        private GigaBombDroidAIEntity _gbdEntity;
+
         #region Idle Stats
         [SerializeField]
         private List<float> _idleToShootDelay;
+
+        public float IdleToShootDelay { get { return _idleToShootDelay[_gbdEntity.DamageState]; } }
         #endregion
 
         #region Attack Stats
@@ -31,11 +36,15 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
         [SerializeField]
         private List<float> _orbitSpeedPerDamageState = new List<float>();
 
+        public float Radius { get => _radiusPerDamageState[_gbdEntity.DamageState]; }
+        public float OrbitSpeed { get => _orbitSpeedPerDamageState[_gbdEntity.DamageState]; }
         #endregion
 
         protected override void Awake()
         {
             base.Awake();
+
+            _gbdEntity = Entity as GigaBombDroidAIEntity;
 
             // ai attacks
             States.AddState(AIAttackState.Idle, new GigaBombDroidIdleAIAttackState(this, States));
@@ -94,10 +103,10 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
             }
         }
 
-        public float GetIdleToShootDelay(int state)
-        {
-            return _idleToShootDelay[state];
-        }
+        //public float GetIdleToShootDelay(int state)
+        //{
+        //    return _idleToShootDelay[state];
+        //}
     }
     
 }

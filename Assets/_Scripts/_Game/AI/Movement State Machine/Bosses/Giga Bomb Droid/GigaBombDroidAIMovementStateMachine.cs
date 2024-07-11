@@ -8,16 +8,22 @@ namespace _Scripts._Game.AI.MovementStateMachine.Bosses.GigaBombDroid{
     
     public class GigaBombDroidAIMovementStateMachine : BossAIMovementStateMachine
     {
-        #region #TBD# Stats
+        #region Stats
         [Header("Patrol Properties")]
         [SerializeField]
         private float _patrolSpeed;
         [SerializeField]
         private Vector2 _patrolWaitTimeRange;
         public Vector2 PatrolWaitTimeRange { get => _patrolWaitTimeRange; }
+
+        [Header("Damaged Properties")]
+        [SerializeField]
+        private float _damagedStateDuration;
+
+        public float DamagedStateDuration { get => _damagedStateDuration; }
         #endregion
 
-        #region Bonded #TBD# Stats
+        #region Bonded Stats
         [Header("Bonded Flying Properties")]
         [SerializeField]
         private float _flyingMaximumHorizontalVelocity;

@@ -34,12 +34,12 @@ namespace _Scripts._Game.General.Destructable{
             return _hitPoints > 0;
         }
 
-        public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
+        public bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
             if (!IsAlive())
             {
                 Debug.LogWarning("DestructableFloor: took damage but is supposed to be destroyed");
-                return;
+                return false;
             }
 
             _hitPoints--;
@@ -47,6 +47,8 @@ namespace _Scripts._Game.General.Destructable{
             {
                 DestroyedState();
             }
+
+            return true;
         }
 
         private void DestroyedState()

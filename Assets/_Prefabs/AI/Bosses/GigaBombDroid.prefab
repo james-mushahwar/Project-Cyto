@@ -876,7 +876,10 @@ MonoBehaviour:
   _spawnDefaultAttackState: 1
   _spawnDefaultBondedAttackState: 1
   _idleToShootDelay:
-  - 2.5
+  - 2.4
+  - 2
+  - 1.75
+  - 1.6
   _shootCooldown: 1
   _cannons:
   - {fileID: 2873427101538741020}
@@ -885,8 +888,14 @@ MonoBehaviour:
   - {fileID: 5792192972777557328}
   _radiusPerDamageState:
   - 3
+  - 3.5
+  - 4
+  - 4.5
   _orbitSpeedPerDamageState:
   - 25
+  - 30
+  - 35
+  - 40
 --- !u!114 &125839726798823997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,6 +915,7 @@ MonoBehaviour:
     m_Bits: 0
   _patrolSpeed: 8
   _patrolWaitTimeRange: {x: 2, y: 4}
+  _damagedStateDuration: 0
   _flyingMaximumHorizontalVelocity: 10
   _flyingMaximumVerticalVelocity: 10
   _flyingMovementDirectionThrust: 2500

@@ -125,6 +125,9 @@ namespace _Scripts._Game.AI{
         private UnityEvent _onStartBondEvent;
         public UnityEvent OnStartBondEvent => _onStartBondEvent;
 
+        public UnityEvent<GameObject> OnHitEvent { get => _onHitEvent; }
+        public UnityEvent<GameObject> OnTakeDamageEvent { get => _onTakeDamageEvent; }
+
         protected virtual void Awake()
         {
             
@@ -253,11 +256,11 @@ namespace _Scripts._Game.AI{
             }
         }
 
-        public void TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
+        public virtual bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
             if (DamageManager.CanBeDamaged(damageType, this) == false)
             {
-                return;
+                return false;
             }
 
             float resultHealth = 100.0f;
@@ -326,6 +329,8 @@ namespace _Scripts._Game.AI{
             }
 
             CameraShaker.Instance.ShakeOnce(killedOrBroken ? 4.0f : 2.0f, killedOrBroken ? 0.5f : 0.2f, 0.0f, 0.15f);
+
+            return true;
         }
 
         public bool CanTakeDamage()

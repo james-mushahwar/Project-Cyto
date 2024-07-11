@@ -55,7 +55,7 @@ MonoBehaviour:
     - _maxHealth: 3
       _maxBondableHealth: 1
     - _maxHealth: 3
-      _maxBondableHealth: 1
+      _maxBondableHealth: 0
   _abilityUnlockStates:
     m_keys: 00000000e8030000
     m_values:

@@ -90,6 +90,7 @@ namespace _Scripts._Game.General{
         private float _maxHitPoints;
 
         public override float HitPoints { get => _hitPoints; }
+        public float MaxHitPoints { get => _maxHitPoints; }
         #endregion
 
         public EnemyHealthStats(float hp, float maxHP, EHealthStatType statType)
