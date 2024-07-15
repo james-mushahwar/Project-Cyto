@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d93e1cdc2539284eb12f249015859fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 4260520103991201206}
+  _transformToShake: {fileID: 6860750290703073251}
   _shakeDuration: 0
   _shakePreDelay: 0
   _horizontalShake:
@@ -398,7 +398,7 @@ Transform:
   - {fileID: 6860750290703073251}
   - {fileID: 5694443763414463344}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &5581101032112713367
 CapsuleCollider2D:
@@ -475,6 +475,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _invulnerableDuration: 0.8
+  _damageTypesToIgnore: 
+  _damageTypesToAccept: 
 --- !u!114 &5581101032112713369
 MonoBehaviour:
   m_ObjectHideFlags: 0

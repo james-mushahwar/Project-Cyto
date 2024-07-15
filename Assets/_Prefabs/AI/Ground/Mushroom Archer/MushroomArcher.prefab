@@ -124,6 +124,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _damageTypesToIgnore: 
+  _damageTypesToAccept: 
   _onExposedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -517,7 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d93e1cdc2539284eb12f249015859fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 6356904485646086255}
+  _transformToShake: {fileID: 8316242132109734854}
   _shakeDuration: 0.25
   _shakePreDelay: 0
   _horizontalShake:

@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d93e1cdc2539284eb12f249015859fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 8527710219251885142}
+  _transformToShake: {fileID: 7104061958480722136}
   _shakeDuration: 0.25
   _shakePreDelay: 0
   _horizontalShake:
@@ -793,13 +793,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onHitEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6152986643205584587}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3279110197100341938}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.GameFeel.HitStop.HitStopShake,
+          Assembly-CSharp
+        m_MethodName: PlayShake
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onTakeDamageEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6152986643205584587}
+        m_TargetAssemblyTypeName: _Scripts._Game.AI.KnockbackFeedback, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3279110197100341938}
+        m_TargetAssemblyTypeName: _Scripts._Game.General.GameFeel.HitStop.HitStopShake,
+          Assembly-CSharp
+        m_MethodName: PlayShake
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onPossessedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7133308391675728595}
+        m_TargetAssemblyTypeName: _Scripts._Game.Animation.SpriteAnimator, Assembly-CSharp
+        m_MethodName: OnPossessed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _damageTypesToIgnore: 
   _damageTypesToAccept: 1227000013270000
   _onExposedEvent:

@@ -25,7 +25,7 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
 
         [Header("Components")]
         [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        private Transform _transformToShake;
 
         [Header("Shake Properties")]
         [SerializeField]
@@ -53,7 +53,7 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
 
         private void Awake()
         {
-            _defaultSpriteLocalPosition = _spriteRenderer.transform.localPosition;
+            _defaultSpriteLocalPosition = _transformToShake.localPosition;
         }
 
         private void OnDisable()
@@ -97,11 +97,11 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
                 float alphaYDampen = Mathf.SmoothStep(_verticalShake._dampenOverTime.x, _verticalShake._dampenOverTime.y, shakeTimer / _shakeDuration);
                 float newYPosition = displaceVert ? Mathf.Sin(shakeTimer * _verticalShake._rate) * _verticalShake._displacement * alphaYDampen : 0.0f;
 
-                _spriteRenderer.gameObject.transform.localPosition = new Vector3(newXPosition, newYPosition, _spriteRenderer.gameObject.transform.position.z);
+                _transformToShake.localPosition = new Vector3(newXPosition, newYPosition, _transformToShake.position.z);
                 yield return null;
             }
 
-            _spriteRenderer.gameObject.transform.localPosition = Vector3.zero;
+            _transformToShake.localPosition = Vector3.zero;
             _displacementPlaying = false;
         }
 
@@ -118,8 +118,8 @@ namespace _Scripts._Game.General.GameFeel.HitStop{
             _offsetTweener = DOVirtual.Vector3(_defaultSpriteLocalPosition, targetPosition, _attackJoltDuration,
                 value =>
                 {
-                    _spriteRenderer.gameObject.transform.localPosition = value;
-                }).SetEase(_attackJoltEase).OnComplete(() => _spriteRenderer.gameObject.transform.localPosition = _defaultSpriteLocalPosition);
+                    _transformToShake.localPosition = value;
+                }).SetEase(_attackJoltEase).OnComplete(() => _transformToShake.localPosition = _defaultSpriteLocalPosition);
         }
 
         private void KillActiveTween(ref Tweener tweener)
