@@ -3,6 +3,8 @@ using UnityEngine;
 using _Scripts._Game.AI.MovementStateMachine;
 using _Scripts._Game.AI.MovementStateMachine.Ground;
 using _Scripts._Game.AI.MovementStateMachine.Flying;
+using _Scripts._Game.AI.AttackStateMachine;
+using _Scripts._Game.General.Managers;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Bosses.GigaBombDroid{
     
@@ -52,7 +54,24 @@ namespace _Scripts._Game.AI.MovementStateMachine.Bosses.GigaBombDroid{
 
         public override void Tick()
         {
-            base.Tick();
+            if (GameStateManager.Instance?.IsGameRunning == false)
+            {
+                return;
+            }
+
+            if (!Entity.IsPossessed())
+            {
+                if (Waypoints == null)
+                {
+                    Entity.Despawn();
+                }
+                
+                CurrentState.ManagedStateTick();
+            }
+            else
+            {
+                CurrentBondedState.ManagedStateTick();
+            }
         }
 
         public override bool DoesStateUseAIPathFinding(AIMovementState state)

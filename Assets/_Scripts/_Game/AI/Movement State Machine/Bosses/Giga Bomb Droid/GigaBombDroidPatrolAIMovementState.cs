@@ -18,7 +18,7 @@ namespace _Scripts._Game.AI.MovementStateMachine.Bosses.GigaBombDroid{
         public override bool CheckSwitchStates()
         {
             // debug settings
-            if (DebugManager.Instance.DebugSettings.AIFreezeMovement)
+            if (DebugManager.Instance.DebugSettings.AIFreezeMovement || _gbdEntity.IsExposed())
             {
                 SwitchStates(_factory.GetState(AIMovementState.Idle));
                 return true;

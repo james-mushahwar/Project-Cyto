@@ -3,6 +3,7 @@ using _Scripts._Game.AI.MovementStateMachine.Bosses.GigaBombDroid;
 using _Scripts._Game.AI.MovementStateMachine.Flying.Bombdroid;
 using _Scripts._Game.General;
 using _Scripts._Game.General.Managers;
+using _Scripts._Game.General.Spawning.AI;
 using _Scripts._Game.Player;
 using EZCameraShake;
 using System.Collections;
@@ -110,8 +111,8 @@ namespace _Scripts._Game.AI.Entity.Bosses.GigaBombDroid{
                 if (killed)
                 {
                     // death reaction needed
-                    Despawn(true);
-                    killedOrBroken = true;
+                    //Despawn(true);
+                    //killedOrBroken = true;
                 }
                 else
                 {
@@ -126,6 +127,35 @@ namespace _Scripts._Game.AI.Entity.Bosses.GigaBombDroid{
             CameraShaker.Instance.ShakeOnce(killedOrBroken ? 4.0f : 2.0f, killedOrBroken ? 0.5f : 0.2f, 0.0f, 0.15f);
 
             return true;
+        }
+
+        public override void Spawn()
+        {
+            _damageState = 0;
+
+            base.Spawn();
+        }
+
+        public override void Despawn(bool killed = false)
+        {
+            base.Despawn(killed);
+
+            AIManager.Instance.UnassignSpawnedEntity(this);
+        }
+
+        public override bool IsExposed()
+        {
+            return DamageState >= 3;
+        }
+
+        public override bool CanBeBonded()
+        {
+            return !IsPossessed() && ((isActiveAndEnabled && IsExposed()) || DebugManager.Instance.DebugSettings.AlwaysBondable);
+        }
+
+        public override bool CanBePossessed()
+        {
+            return !IsPossessed() && ((isActiveAndEnabled && IsExposed()) || DebugManager.Instance.DebugSettings.AlwaysBondable);
         }
     }
 }

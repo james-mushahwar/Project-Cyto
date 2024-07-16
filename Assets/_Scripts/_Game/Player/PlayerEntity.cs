@@ -290,7 +290,8 @@ namespace _Scripts._Game.Player{
 
         private bool CanTakeDamage()
         {
-            return !DebugManager.Instance.DebugSettings.PlayerImmune && _isInvulnerableTimer <= 0.0f && IsAlive();
+            bool inBondingMovementState = _movementSM.CurrentStateEnum == MovementState.Bonding;
+            return !DebugManager.Instance.DebugSettings.PlayerImmune && _isInvulnerableTimer <= 0.0f && IsAlive() && IsPossessed() && !inBondingMovementState;
         }
 
         public void OnRespawnStart()

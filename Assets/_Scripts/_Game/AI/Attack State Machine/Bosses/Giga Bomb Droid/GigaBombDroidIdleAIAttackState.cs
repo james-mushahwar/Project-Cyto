@@ -15,7 +15,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
         {
             float idleToAttackDelay = _gbdCtx.IdleToShootDelay;
 
-            if (_stateTimer >= idleToAttackDelay)
+            if (_stateTimer >= idleToAttackDelay && !_gbdEntity.IsExposed())
             {
                 SwitchStates(_factory.GetState(AIAttackState.Attack1));
                 return true;

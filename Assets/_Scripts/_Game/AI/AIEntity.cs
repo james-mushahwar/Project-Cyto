@@ -140,7 +140,7 @@ namespace _Scripts._Game.AI{
             _spriteAnimator.Tick();
         }
 
-        public bool CanBeBonded()
+        public virtual bool CanBeBonded()
         {
             return !_isPossessed && ((_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable);
         }
@@ -203,7 +203,7 @@ namespace _Scripts._Game.AI{
             }
         }
 
-        public void Spawn()
+        public virtual void Spawn()
         {
             //reset states
             _movementSM.Spawn();
@@ -218,7 +218,7 @@ namespace _Scripts._Game.AI{
             gameObject.SetActive(true);
         }
 
-        public void Despawn(bool killed = false)
+        public virtual void Despawn(bool killed = false)
         {
             gameObject.SetActive(false);
             
@@ -343,7 +343,7 @@ namespace _Scripts._Game.AI{
             return _enemyHealthStats.IsAlive();
         }
 
-        public bool IsExposed()
+        public virtual bool IsExposed()
         {
             return !_enemyBondableHealthStats.IsAlive();
         }

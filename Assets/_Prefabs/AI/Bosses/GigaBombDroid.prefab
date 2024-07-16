@@ -938,10 +938,10 @@ MonoBehaviour:
   _spawnDefaultAttackState: 1
   _spawnDefaultBondedAttackState: 1
   _idleToShootDelay:
-  - 2.4
+  - 2.25
   - 2
-  - 1.75
-  - 1.6
+  - 1.7
+  - 1.5
   _shootCooldown: 1
   _cannons:
   - {fileID: 2873427101538741020}
@@ -956,8 +956,8 @@ MonoBehaviour:
   _orbitSpeedPerDamageState:
   - 25
   - 30
-  - 35
-  - 40
+  - 37.5
+  - 0
 --- !u!114 &125839726798823997
 MonoBehaviour:
   m_ObjectHideFlags: 0

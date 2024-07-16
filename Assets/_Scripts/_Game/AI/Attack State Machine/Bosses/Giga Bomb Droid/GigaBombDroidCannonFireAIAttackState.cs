@@ -15,6 +15,12 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
 
         public override bool CheckSwitchStates()
         {
+            if (_gbdEntity.IsExposed())
+            {
+                SwitchStates(_factory.GetState(AIAttackState.Idle));
+                return true;
+            }
+
             if (_fired)
             {
                 if (_cooldownTimer >= _gbdCtx.ShootCooldown)

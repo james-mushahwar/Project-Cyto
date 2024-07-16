@@ -73,8 +73,9 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
 
             //update cannons
             float interval = 360 / _cannons.Count;
-            Vector3 posOffset = Entity.transform.position + (_radiusPerDamageState[0] * Vector3.up);
-            float speed = _orbitSpeedPerDamageState[0];
+            int damageState = _gbdEntity.DamageState;
+            Vector3 posOffset = Entity.transform.position + (_radiusPerDamageState[damageState] * Vector3.up);
+            float speed = _orbitSpeedPerDamageState[damageState];
 
             for (int i = 0; i < _cannons.Count; i++)
             {
