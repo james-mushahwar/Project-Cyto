@@ -1,4 +1,5 @@
-﻿using Pathfinding;
+﻿using _Scripts._Game.General;
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,8 @@ namespace _Scripts._Game.AI.MovementStateMachine.Bosses{
             _seeker = GetComponent<Seeker>();
             _destinationSetter = GetComponent<AIDestinationSetter>();
             _aiPath = GetComponent<AIPath>();
+
+            BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
         }
         //public override bool DoesStateUseAIPathFinding(AIMovementState state)
         //{
