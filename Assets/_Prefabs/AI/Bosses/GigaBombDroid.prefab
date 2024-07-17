@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3326480460475610653}
   - component: {fileID: 7463908325646535499}
   m_Layer: 0
-  m_Name: Cannon2
+  m_Name: Cannon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidBody2D: {fileID: 7463908325646535499}
-  _loseCannonForce: 25
+  _loseCannonForce: 15
 --- !u!50 &7463908325646535499
 Rigidbody2D:
   serializedVersion: 4
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidBody2D: {fileID: 4432564973659550436}
-  _loseCannonForce: 25
+  _loseCannonForce: 15
 --- !u!50 &4432564973659550436
 Rigidbody2D:
   serializedVersion: 4
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 287572178289087348}
   - component: {fileID: 184634587607298378}
   m_Layer: 0
-  m_Name: Cannon3
+  m_Name: Cannon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -510,7 +510,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5712731150268779391}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -3.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidBody2D: {fileID: 184634587607298378}
-  _loseCannonForce: 25
+  _loseCannonForce: 15
 --- !u!50 &184634587607298378
 Rigidbody2D:
   serializedVersion: 4
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidBody2D: {fileID: 1244768189509823266}
-  _loseCannonForce: 25
+  _loseCannonForce: 15
 --- !u!50 &1244768189509823266
 Rigidbody2D:
   serializedVersion: 4
@@ -748,8 +748,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6950822515583340595}
-  - {fileID: 1043301396656062952}
   - {fileID: 6795845980033174422}
+  - {fileID: 1043301396656062952}
   - {fileID: 1440011001788761380}
   m_Father: {fileID: 8527710219603585275}
   m_RootOrder: -1
@@ -1117,8 +1117,8 @@ MonoBehaviour:
   _shootCooldown: 1
   _cannons:
   - {fileID: 1478363975432613418}
-  - {fileID: 3326480460475610653}
   - {fileID: 287572178289087348}
+  - {fileID: 3326480460475610653}
   - {fileID: 2351556512941408231}
   _radiusPerDamageState:
   - 3
@@ -1127,8 +1127,8 @@ MonoBehaviour:
   - 4.5
   _orbitSpeedPerDamageState:
   - 25
-  - 30
-  - 37.5
+  - 40
+  - 60
   - 0
 --- !u!114 &125839726798823997
 MonoBehaviour:

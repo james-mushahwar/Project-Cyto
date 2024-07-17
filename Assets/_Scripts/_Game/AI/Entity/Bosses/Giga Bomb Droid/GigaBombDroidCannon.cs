@@ -68,8 +68,9 @@ namespace _Scripts._Game.AI.Entity.Bosses.GigaBombDroid{
             _rigidBody2D.gravityScale = 1.0f;
 
             //add random force
-            Vector2 direction = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+            Vector2 direction = transform.up;//new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
             _rigidBody2D.AddForce(direction * _loseCannonForce, ForceMode2D.Impulse);
+            _rigidBody2D.AddTorque(_loseCannonForce, ForceMode2D.Impulse);
         }
 
         public void Deactivate()
