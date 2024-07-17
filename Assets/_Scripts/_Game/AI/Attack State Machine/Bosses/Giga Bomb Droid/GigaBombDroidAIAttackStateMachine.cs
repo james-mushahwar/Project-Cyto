@@ -30,7 +30,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
         #region Cannons
         [Header("Cannons")]
         [SerializeField]
-        private List<GameObject> _cannons = new List<GameObject>();
+        private List<GigaBombDroidCannon> _cannons = new List<GigaBombDroidCannon>();
         [SerializeField]
         private List<float> _radiusPerDamageState = new List<float>();
         [SerializeField]
@@ -54,6 +54,16 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
 
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
             BondInputsDict.Add(PossessInput.WButton, OnWestButtonInput);
+
+            for (int i = 0; i < _cannons.Count; i++)
+            {
+                GigaBombDroidCannon cannon = _cannons[i];
+                if (cannon != null)
+                {
+                    cannon.Initialise(_gbdEntity, i);
+                }
+
+            }
         }
 
         public override void Tick()
@@ -72,15 +82,21 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
             }
 
             //update cannons
+            for (int i = 0; i < _cannons.Count; i++)
+            {
+                GigaBombDroidCannon cannon = _cannons[i];
+                cannon.Tick();
+            }
+
             float interval = 360 / _cannons.Count;
             int damageState = _gbdEntity.DamageState;
             Vector3 posOffset = Entity.transform.position + (_radiusPerDamageState[damageState] * Vector3.up);
             float speed = _orbitSpeedPerDamageState[damageState];
 
-            for (int i = 0; i < _cannons.Count; i++)
+            for (int i = damageState; i < _cannons.Count; i++)
             {
                 float cannonAngleOffset = interval * i;
-                GameObject cannon = _cannons[i];
+                GameObject cannon = _cannons[i].gameObject;
                 if (cannon != null)
                 {
                     cannon.transform.RotateAround(Entity.transform.position, Vector3.forward, speed * Time.deltaTime);
@@ -93,9 +109,16 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
 
         public void FireCannons()
         {
-            for (int i = 0; i < _cannons.Count; i++)
+            int damageState = _gbdEntity.DamageState;
+
+            for (int i = damageState; i < _cannons.Count; i++)
             {
-                GameObject cannon = _cannons[i];
+                if (_cannons[i].IsConnected == false)
+                {
+                    continue;
+                }
+
+                GameObject cannon = _cannons[i].gameObject;
                 if (cannon != null)
                 {
                     Vector3 direction = -cannon.transform.up;

@@ -38,7 +38,7 @@ namespace _Scripts._Game.AI.Entity.Bosses.GigaBombDroid{
         protected override void Awake()
         {
              base.Awake();
-           
+            
         }
 
         public override void Tick()

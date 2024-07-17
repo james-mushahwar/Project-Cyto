@@ -183,7 +183,7 @@ public class FollowCamera : Singleton<FollowCamera>
                 AIMovementStateMachineBase movementSM = aiEntity.MovementSM;
                 if (movementSM != null)
                 {
-                    FlyingAIMovementStateMachine flyingMovementSM = (FlyingAIMovementStateMachine)movementSM;
+                    FlyingAIMovementStateMachine flyingMovementSM = movementSM as FlyingAIMovementStateMachine;
                     if (flyingMovementSM != null)
                     {
                         return _flyingAIXYLerpSpeeds;
