@@ -36,6 +36,11 @@ namespace _Scripts._Game.General.Spawning.AI{
         private bool _trySpawnOnInputInvalid = false;
         private ILogicEntity _logicEntity;
 
+        [Header("Wave properties")]
+        [SerializeField]
+        private bool _waveCompleteOnAllAIExposed = false;
+
+        public bool WaveCompleteOnAllAIExposed { get => _waveCompleteOnAllAIExposed; }
 
         //public Waypoints Waypoints 
         //{ 

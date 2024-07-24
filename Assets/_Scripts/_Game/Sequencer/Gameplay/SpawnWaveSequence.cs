@@ -64,9 +64,25 @@ namespace _Scripts._Game.Sequencer.Gameplay{
             foreach (SpawnPoint spawnPoint in _activeSpawners)
             {
                 AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(spawnPoint);
+
+                if (entity == null)
+                {
+                    continue;
+                }
                 if (entity != null)
                 {
-                    hasWaveFished = false;
+                    if (spawnPoint.WaveCompleteOnAllAIExposed)
+                    {
+                        hasWaveFished = entity.IsExposed();
+                    }
+                    else
+                    {
+                        hasWaveFished = false;
+                    }
+                }
+
+                if (!hasWaveFished)
+                {
                     break;
                 }
             }

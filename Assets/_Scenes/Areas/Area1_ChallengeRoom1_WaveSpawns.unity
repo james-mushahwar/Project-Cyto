@@ -2311,6 +2311,10 @@ PrefabInstance:
       propertyPath: _enableSpawnOnInputChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8785238773573704690, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
+      propertyPath: _waveCompleteOnAllAIExposed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8785238773573704691, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
       propertyPath: m_Name
       value: SpawnPoint GigaBombDroid
@@ -2875,8 +2879,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 5.0058994, y: 3.9991503, z: 0}
-    m_Extent: {x: 42.7527, y: 27.24245, z: 0}
+    m_Center: {x: 5.005499, y: 4.0023003, z: 0}
+    m_Extent: {x: 42.7526, y: 27.2556, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3266,7 +3270,7 @@ PrefabInstance:
       objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 6895112987133379989, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
       propertyPath: m_Name
-      value: Enable Uprgrade Interaction Logic
+      value: Enable Upgrade Interaction Logic
       objectReference: {fileID: 0}
     - target: {fileID: 7433325232197905384, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
       propertyPath: _outputs.Array.size
@@ -18533,7 +18537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6895112987133379989, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
       propertyPath: m_Name
-      value: Cleared GigaBomdDroid Logic
+      value: Cleared GigaBombDroid Logic
       objectReference: {fileID: 0}
     - target: {fileID: 7433325232197905384, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
       propertyPath: _outputs.Array.size
