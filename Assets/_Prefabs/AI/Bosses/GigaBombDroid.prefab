@@ -1130,6 +1130,8 @@ MonoBehaviour:
   - 40
   - 60
   - 0
+  _bondedCannonAimSpeed: 10
+  _cannonGroup: {fileID: 133782399176162156}
 --- !u!114 &125839726798823997
 MonoBehaviour:
   m_ObjectHideFlags: 0

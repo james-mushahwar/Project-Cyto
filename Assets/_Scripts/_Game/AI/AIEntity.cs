@@ -161,7 +161,7 @@ namespace _Scripts._Game.AI{
             return !_isPossessed && ((_enemyHealthStats.IsAlive() && !_enemyBondableHealthStats.IsAlive()) || DebugManager.Instance.DebugSettings.AlwaysBondable) ;
         }
 
-        public void OnPossess()
+        public virtual void OnPossess()
         {
             AudioManager.Instance.TryPlayAudioSourceAtLocation(EAudioType.SFX_Player_PossessStart, PlayerEntity.Instance.transform.position);
 

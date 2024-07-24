@@ -157,5 +157,6 @@ namespace _Scripts._Game.AI.Entity.Bosses.GigaBombDroid{
         {
             return !IsPossessed() && ((isActiveAndEnabled && IsExposed()) || DebugManager.Instance.DebugSettings.AlwaysBondable);
         }
+
     }
 }

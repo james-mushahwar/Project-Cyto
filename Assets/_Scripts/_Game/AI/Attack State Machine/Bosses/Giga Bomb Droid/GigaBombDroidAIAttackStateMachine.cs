@@ -38,6 +38,11 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
 
         public float Radius { get => _radiusPerDamageState[_gbdEntity.DamageState]; }
         public float OrbitSpeed { get => _orbitSpeedPerDamageState[_gbdEntity.DamageState]; }
+
+        [SerializeField]
+        private float _bondedCannonAimSpeed;
+        [SerializeField]
+        private Transform _cannonGroup;
         #endregion
 
         protected override void Awake()
@@ -74,8 +79,9 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
             }
             else
             {
+                CurrentBondedState.ManagedStateTick();
             }
-    
+
             if (IsAttackInterrupted)
             {
                 IsAttackInterrupted = false;
@@ -88,18 +94,48 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
                 cannon.Tick();
             }
 
-            float interval = 360 / _cannons.Count;
-            int damageState = _gbdEntity.DamageState;
-            Vector3 posOffset = Entity.transform.position + (_radiusPerDamageState[damageState] * Vector3.up);
-            float speed = _orbitSpeedPerDamageState[damageState];
-
-            for (int i = damageState; i < _cannons.Count; i++)
+            if (!Entity.IsPossessed())
             {
-                float cannonAngleOffset = interval * i;
-                GameObject cannon = _cannons[i].gameObject;
-                if (cannon != null)
+                float interval = 360 / _cannons.Count;
+                int damageState = _gbdEntity.DamageState;
+                Vector3 posOffset = Entity.transform.position + (_radiusPerDamageState[damageState] * Vector3.up);
+                float speed = _orbitSpeedPerDamageState[damageState];
+
+                for (int i = damageState; i < _cannons.Count; i++)
                 {
-                    cannon.transform.RotateAround(Entity.transform.position, Vector3.forward, speed * Time.deltaTime);
+                    float cannonAngleOffset = interval * i;
+                    GameObject cannon = _cannons[i].gameObject;
+                    if (cannon != null)
+                    {
+                        cannon.transform.RotateAround(Entity.transform.position, Vector3.forward, speed * Time.deltaTime);
+
+                        Vector3 direction = (cannon.transform.position - Entity.transform.position).normalized;
+                        cannon.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+                    }
+                }
+            }
+            else
+            {
+
+                bool input = _gbdEntity.MovementSM.CurrentMovementInput.sqrMagnitude > 0.0f;
+
+                Vector3 cannonAimDirection = input ? _gbdEntity.MovementSM.CurrentMovementInput.normalized : _gbdEntity.MovementSM.Rb.velocity.normalized;
+
+                Transform cannonGroup = _cannonGroup;
+                if (cannonGroup != null && cannonAimDirection.sqrMagnitude > 0.0f)
+                {
+                    //Vector3 targetDirection = (cannonGroup.up - cannonAimDirection).normalized;
+                    //Quaternion targetRotation = Quaternion.LookRotation(cannonAimDirection);
+                    //cannonGroup.rotation = Quaternion.RotateTowards(cannonGroup.rotation, targetRotation, Time.deltaTime * _bondedCannonAimSpeed);
+
+                    //Debug.Log("Target rotation: " + targetRotation.eulerAngles +  " Cannon group euler angles: " + cannonGroup.eulerAngles);
+
+                    Vector3 lerpDirection = Vector3.MoveTowards(cannonGroup.up, cannonAimDirection, _bondedCannonAimSpeed * Time.deltaTime).normalized;
+
+                    cannonGroup.rotation *= Quaternion.FromToRotation(cannonGroup.up, lerpDirection);
+                    cannonGroup.rotation *= Quaternion.FromToRotation(cannonGroup.forward, Vector3.forward);
+
+                    GameObject cannon = _cannons[3].gameObject;
 
                     Vector3 direction = (cannon.transform.position - Entity.transform.position).normalized;
                     cannon.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
@@ -125,6 +161,17 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
                     ProjectileManager.Instance.TryBombDroidBombDropProjectile(General.EEntityType.Enemy, cannon.transform.position, direction);
                 }
             }
+        }
+
+        public override void OnPossess()
+        {
+            base.OnPossess();
+
+            int damageState = _gbdEntity.DamageState;
+
+            Transform cannonTransform = _cannons[3].transform;
+
+            cannonTransform.localPosition = new Vector3(0.0f, _radiusPerDamageState[damageState], 0.0f);
         }
 
         //public float GetIdleToShootDelay(int state)
