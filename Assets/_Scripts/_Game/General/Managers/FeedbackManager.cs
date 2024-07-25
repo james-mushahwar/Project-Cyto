@@ -14,7 +14,7 @@ namespace _Scripts._Game.General.Managers{
         UI_Click,
         UI_Enter,
         UI_Exit,
-        // HIGH PRIORITY
+        // Medium PRIORITY
         // Game - interaction
         Game_BondEnter,
         Game_BondExit,
@@ -22,6 +22,8 @@ namespace _Scripts._Game.General.Managers{
         Game_BasicAttackLight,
         Game_BasicAttackHeavy,
         Game_OnAIExposed,
+        Game_FireWeapon_Light,
+        Game_FireWeapon_Heavy,
         Game_TakeDamageLight,
         Game_TakeDamageHeavy,
     }
@@ -70,6 +72,10 @@ namespace _Scripts._Game.General.Managers{
         private FFeedbackPattern _takeDamageLightFeedback;
         [SerializeField]
         private FFeedbackPattern _takeDamageHeavyFeedback;
+        [SerializeField]
+        private FFeedbackPattern _fireWeaponLightFeedback;
+        [SerializeField]
+        private FFeedbackPattern _fireWeaponHeavyFeedback;
 
         protected override void Awake() 
         {
@@ -192,6 +198,10 @@ namespace _Scripts._Game.General.Managers{
                     return _takeDamageLightFeedback;
                 case EFeedbackPattern.Game_TakeDamageHeavy:
                     return _takeDamageHeavyFeedback;
+                case EFeedbackPattern.Game_FireWeapon_Light:
+                    return _fireWeaponLightFeedback;
+                case EFeedbackPattern.Game_FireWeapon_Heavy: 
+                    return _fireWeaponHeavyFeedback;
                 default:
                     return _noneFeedbackPattern;
             }

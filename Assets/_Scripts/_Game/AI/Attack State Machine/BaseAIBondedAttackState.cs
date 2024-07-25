@@ -33,6 +33,8 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
         protected void SwitchStates(BaseAIBondedAttackState newState)
         {
+            _ctx.PreviousBondedState = this;
+
             ExitState();
 
             newState.EnterState();

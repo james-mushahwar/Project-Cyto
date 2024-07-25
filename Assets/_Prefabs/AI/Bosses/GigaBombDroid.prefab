@@ -1132,6 +1132,7 @@ MonoBehaviour:
   - 0
   _bondedCannonAimSpeed: 10
   _cannonGroup: {fileID: 133782399176162156}
+  _postBombFireCooldownDuration: 0.5
 --- !u!114 &125839726798823997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,9 +1153,9 @@ MonoBehaviour:
   _patrolSpeed: 8
   _patrolWaitTimeRange: {x: 2, y: 4}
   _damagedStateDuration: 0
-  _flyingMaximumHorizontalVelocity: 10
-  _flyingMaximumVerticalVelocity: 10
-  _flyingMovementDirectionThrust: 2500
+  _flyingMaximumHorizontalVelocity: 6
+  _flyingMaximumVerticalVelocity: 6
+  _flyingMovementDirectionThrust: 1500
 --- !u!114 &8527710219603585276
 MonoBehaviour:
   m_ObjectHideFlags: 0

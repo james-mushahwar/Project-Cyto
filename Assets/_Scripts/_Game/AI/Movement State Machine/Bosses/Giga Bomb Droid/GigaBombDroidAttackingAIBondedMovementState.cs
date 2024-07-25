@@ -3,7 +3,7 @@ using _Scripts._Game.AI.MovementStateMachine;
 
 namespace _Scripts._Game.AI.MovementStateMachine.Bosses.GigaBombDroid{
     
-    public class GigaBombDroidAttackingAIBondedMovementState : BaseAIBondedMovementState
+    public class GigaBombDroidAttackingAIBondedMovementState : BossBaseAIBondedMovementState
     {
         public GigaBombDroidAttackingAIBondedMovementState(AIMovementStateMachineBase ctx, AIMovementStateMachineFactory factory) : base(ctx, factory)
         {

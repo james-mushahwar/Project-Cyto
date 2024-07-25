@@ -75,6 +75,8 @@ MonoBehaviour:
     _sceneName: Area1_ChallengeRoom1_5
   - _sceneAsset: {fileID: 102900000, guid: ee23d6e317d41e348b827be2f8a2b8e1, type: 3}
     _sceneName: Area1_ChallengeRoom1_WaveSpawns
+  - _sceneAsset: {fileID: 102900000, guid: 1d10c23591b5c9644a724cef1b85306a, type: 3}
+    _sceneName: Area1_ChallengeRoom1_EscapeRun
   - _sceneAsset: {fileID: 102900000, guid: 8f12294cf7b2b5044a109fe9349e42d4, type: 3}
     _sceneName: Zone2
   - _sceneAsset: {fileID: 102900000, guid: 87144452415595645abd1f7e85b99cac, type: 3}

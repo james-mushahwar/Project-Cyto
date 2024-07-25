@@ -16,10 +16,14 @@ namespace _Scripts._Game.AI.AttackStateMachine{
         #region State Machine
         //Movement
         private BaseAIAttackState _currentState;
+        private BaseAIAttackState _previousState;
         private BaseAIBondedAttackState _currentBondedState;
+        private BaseAIBondedAttackState _previousBondedState;
 
         public BaseAIAttackState CurrentState { get => _currentState; set => _currentState = value; }
+        public BaseAIAttackState PreviousState { get => _previousState; set => _previousState = value; }
         public BaseAIBondedAttackState CurrentBondedState { get => _currentBondedState; set => _currentBondedState = value; }
+        public BaseAIBondedAttackState PreviousBondedState { get => _previousBondedState; set => _previousBondedState = value; }
 
         protected AIAttackStateMachineFactory _states;
 

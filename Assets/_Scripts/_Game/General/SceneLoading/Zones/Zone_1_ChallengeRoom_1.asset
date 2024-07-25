@@ -66,5 +66,15 @@ MonoBehaviour:
     _connectedAreas:
     - _sceneAsset: {fileID: 102900000, guid: e38854c1d2e44a04ca71bce2007d78a7, type: 3}
       _sceneName: Area1_ChallengeRoom1_5
+    - _sceneAsset: {fileID: 102900000, guid: 1d10c23591b5c9644a724cef1b85306a, type: 3}
+      _sceneName: Area1_ChallengeRoom1_EscapeRun
+    _areaMusic: 0
+    _areaAmbience: 0
+  - _areaName:
+      _sceneAsset: {fileID: 102900000, guid: 1d10c23591b5c9644a724cef1b85306a, type: 3}
+      _sceneName: Area1_ChallengeRoom1_EscapeRun
+    _connectedAreas:
+    - _sceneAsset: {fileID: 102900000, guid: ee23d6e317d41e348b827be2f8a2b8e1, type: 3}
+      _sceneName: Area1_ChallengeRoom1_WaveSpawns
     _areaMusic: 0
     _areaAmbience: 0

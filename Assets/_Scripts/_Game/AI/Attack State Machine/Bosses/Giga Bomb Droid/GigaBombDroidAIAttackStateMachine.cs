@@ -45,6 +45,15 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
         private Transform _cannonGroup;
         #endregion
 
+
+        #region Bonded Attacks
+        [Header("Attack 1 - Bomb fire")]
+        [SerializeField]
+        private float _postBombFireCooldownDuration;
+
+        public float PostBombFireCooldownDuration { get => _postBombFireCooldownDuration; }
+        #endregion
+
         protected override void Awake()
         {
             base.Awake();
@@ -56,6 +65,7 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
             States.AddState(AIAttackState.Attack1, new GigaBombDroidCannonFireAIAttackState(this, States));
             //bonded attacks
             States.AddState(AIAttackState.Idle, new GigaBombDroidIdleAIBondedAttackState(this, States));
+            States.AddState(AIAttackState.Attack1, new GigaBombDroidCannonFireAIBondedAttackState(this, States));
 
             BondInputsDict.Add(PossessInput.Movement, OnMovementInput);
             BondInputsDict.Add(PossessInput.WButton, OnWestButtonInput);
@@ -158,7 +168,15 @@ namespace _Scripts._Game.AI.AttackStateMachine.Bosses.GigaBombDroid{
                 if (cannon != null)
                 {
                     Vector3 direction = -cannon.transform.up;
-                    ProjectileManager.Instance.TryBombDroidBombDropProjectile(General.EEntityType.Enemy, cannon.transform.position, direction);
+
+                    EEntityType entityType = _gbdEntity.IsPossessed() ? EEntityType.BondedEnemy : EEntityType.Enemy;
+                    
+                    ProjectileManager.Instance.TryBombDroidBombDropProjectile(entityType, cannon.transform.position, direction);
+                
+                    if (entityType == EEntityType.BondedEnemy)
+                    {
+                        FeedbackManager.Instance.TryFeedbackPattern(EFeedbackPattern.Game_FireWeapon_Light);
+                    }
                 }
             }
         }

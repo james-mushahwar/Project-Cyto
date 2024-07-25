@@ -42,7 +42,7 @@ namespace _Scripts._Game.General{
         BombDroid_SuperBombDrop_Explosion,
         //Boss AI
         GigaBombDroid_Bomb_DirectHit    = 15000,
-        GIgaBombDroid_Bomb_Explosion,
+        GigaBombDroid_Bomb_Explosion,
         //Hazards
         Laser_Tick                      = 20000,
         Laser_Impact,

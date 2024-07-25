@@ -32,6 +32,8 @@ namespace _Scripts._Game.AI.AttackStateMachine{
 
         protected void SwitchStates(BaseAIAttackState newState)
         {
+            _ctx.PreviousState = this;
+
             ExitState();
 
             newState.EnterState();
