@@ -10,6 +10,9 @@ namespace _Scripts._Game.General.Managers{
     
     public class SpawnManager : Singleton<SpawnManager>, IManager
     {
+        [Header("Spawn properties")]
+        private float _defaultRespawnWaitTime;
+
         #region General
         private Dictionary<int, List<string>> _sceneSpawnPointsDict = new Dictionary<int, List<string>>();
         private Dictionary<string, AIEntity> _spawnPointEntityDict = new Dictionary<string, AIEntity>();
@@ -53,7 +56,6 @@ namespace _Scripts._Game.General.Managers{
 
         private void UpdateRespawnTimers()
         {
-            //update respawn timers;
             for (int i = _spawnPointRespawnTimersDict.Count - 1; i >= 0; i--)
             {
                 KeyValuePair<string, float> entry = _spawnPointRespawnTimersDict.ElementAt(i);
@@ -138,7 +140,6 @@ namespace _Scripts._Game.General.Managers{
             {
                 _spawnPointEntityDict.Remove(id);
             }
-
         }
 
         public AIEntity TryGetRegisteredEntity(SpawnPoint spawnPoint)
@@ -157,12 +158,18 @@ namespace _Scripts._Game.General.Managers{
             }
         }
 
-        public void RegisterSpawnPointRespawnTimer(string id)
+        public void RegisterSpawnPointRespawnTimer(string id, SpawnPoint spawnPoint)
         {
-            float timer = -1.0f;
+            float timer = _defaultRespawnWaitTime;
+
+            if (spawnPoint != null)
+            {
+                timer = spawnPoint.GetRespawnDelay();
+            }
+
             if (!_spawnPointRespawnTimersDict.TryGetValue(id, out timer))
             {
-                _spawnPointRespawnTimersDict.Add(id, 5.0f);
+                _spawnPointRespawnTimersDict.Add(id, timer);
             }
         }
 

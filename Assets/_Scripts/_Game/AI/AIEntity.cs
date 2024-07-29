@@ -223,9 +223,10 @@ namespace _Scripts._Game.AI{
             gameObject.SetActive(false);
             
             SpawnManager.Instance.UnregisterSpawnPointEntity(_spawnPointID);
+
             if (killed)
             {
-                SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPointID);
+                SpawnManager.Instance.RegisterSpawnPointRespawnTimer(_spawnPointID, SpawnPoint);
                 // spawnpoint is still active so tell it that the spawn is dead
                 if (SpawnPoint)
                 {

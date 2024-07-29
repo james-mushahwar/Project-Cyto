@@ -2,6 +2,7 @@
 using _Scripts._Game.General.Identification;
 using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -11,7 +12,7 @@ using UnityEngine.SceneManagement;
 using static UnityEngine.EventSystems.EventTrigger;
 
 namespace _Scripts._Game.General.Spawning.AI{
-    
+
     public class SpawnPoint : MonoBehaviour, IRuntimeId
     {
         private AISpawner _spawner;
@@ -24,6 +25,10 @@ namespace _Scripts._Game.General.Spawning.AI{
         private EEntity _entity = (EEntity)1000;
         [SerializeField]
         private bool _trySpawnAutomatically = true;
+        [SerializeField]
+        private bool _overrideRespawnDelay;
+        [ShowIf("_overrideRespawnDelay"), SerializeField]
+        private float _respawnTimerDelay = 5.0f;
         //runtime waypoint
         [SerializeField]
         private Waypoints _waypoints;
@@ -31,6 +36,9 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private bool _isEntitySpawned;
         private AIEntity _entitySpawned;
+
+        public bool IsEntitySpawned { get { return _isEntitySpawned; } }
+        public AIEntity EntitySpawned { get { return _entitySpawned; } }
 
         [Header("Logic Entity")]
         [SerializeField]
@@ -73,9 +81,30 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         #endregion
 
+        public bool HasSpawnAuthority()
+        {
+            return Spawner == null || (Spawner != null && Spawner.SpawnerControlsSpawning == false);
+        }
+
+        public float GetRespawnDelay()
+        {
+            float delay = _respawnTimerDelay;
+            
+            if (_overrideRespawnDelay == false && _spawner != null)
+            {
+                delay = _spawner.DelayUntilRespawn;
+            }
+
+            return delay;
+        }
+
         private void Awake()
         {
             _spawner = GetComponentInParent<AISpawner>();
+            if (_spawner == null)
+            {
+                Debug.LogWarning("No AI Spawner attached to this spawnpoint");
+            }
 
             _logicEntity = GetComponent<LogicEntity>();
 
@@ -89,7 +118,7 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void OnLogicInputChanged()
         {
-            if (_enableSpawnOnInputChanged)
+            if (HasSpawnAuthority() && _enableSpawnOnInputChanged)
             {
                 bool input = _logicEntity.IsInputLogicValid;
 
@@ -108,19 +137,23 @@ namespace _Scripts._Game.General.Spawning.AI{
                 return;
             }
 
-            // timer has elapsed and need to respawn
-            if (_isEntitySpawned == false || _entitySpawned == null)
+            if (HasSpawnAuthority())
             {
-                if (_trySpawnAutomatically)
+                // timer has elapsed and need to respawn
+                if (_isEntitySpawned == false || _entitySpawned == null)
                 {
-                    bool respawnEntity = SpawnManager.Instance.TryHasRespawnTimerElapsed(this);
-                    if (respawnEntity)
+                    if (_trySpawnAutomatically)
                     {
-                        //Debug.Log("Respawn timer elapsed, respawning Entity");
-                        Spawn();
+                        bool respawnEntity = SpawnManager.Instance.TryHasRespawnTimerElapsed(this);
+                        if (respawnEntity)
+                        {
+                            //Debug.Log("Respawn timer elapsed, respawning Entity");
+                            Spawn();
+                        }
                     }
                 }
             }
+
         }
 
         private void Start()
@@ -175,7 +208,7 @@ namespace _Scripts._Game.General.Spawning.AI{
             RuntimeIDManager.Instance?.UnregisterRuntimeSpawnPoint(this);
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(this);
             if (entity != null)
