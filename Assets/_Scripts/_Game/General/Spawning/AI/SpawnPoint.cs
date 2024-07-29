@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -13,6 +14,10 @@ namespace _Scripts._Game.General.Spawning.AI{
     
     public class SpawnPoint : MonoBehaviour, IRuntimeId
     {
+        private AISpawner _spawner;
+
+        public AISpawner Spawner { get { return _spawner; } }
+
         #region General
         [Header("Spawn properties")]
         [SerializeField]
@@ -42,6 +47,7 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         public bool WaveCompleteOnAllAIExposed { get => _waveCompleteOnAllAIExposed; }
 
+
         //public Waypoints Waypoints 
         //{ 
         //    get
@@ -69,6 +75,8 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void Awake()
         {
+            _spawner = GetComponentInParent<AISpawner>();
+
             _logicEntity = GetComponent<LogicEntity>();
 
             _logicEntity.OnInputChanged.AddListener(OnLogicInputChanged);
@@ -95,7 +103,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         public void Tick()
         {
             // check level is running
-            if (GameStateManager.Instance.IsGameRunning == false)
+            if (GameStateManager.Instance.IsGameRunning == false )
             {
                 return;
             }
@@ -189,6 +197,11 @@ namespace _Scripts._Game.General.Spawning.AI{
             _isEntitySpawned = false;
             _entitySpawned = null;
             SpawnManager.Instance?.TryRemoveRegisteredEntity(this);
+
+            if (_spawner != null)
+            {
+                _spawner.OnSpawnKilled(this);
+            }
         }
     }
     

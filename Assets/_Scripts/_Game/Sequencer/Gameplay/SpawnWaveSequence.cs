@@ -14,6 +14,13 @@ namespace _Scripts._Game.Sequencer.Gameplay{
         private List<SpawnPoint> _spawners = new List<SpawnPoint>();
         private List<SpawnPoint> _activeSpawners = new List<SpawnPoint>();
 
+        [Header("Properties")]
+        [SerializeField]
+        private bool _useSpawnsKilledToComplete;
+        [SerializeField]
+        private int _spawnsKilledToComplete;
+        private int _spawnsKilledCount;
+
         private bool _isStarted;
         private bool _isComplete;
 
@@ -36,6 +43,10 @@ namespace _Scripts._Game.Sequencer.Gameplay{
                 if (entity != null)
                 {
                     _activeSpawners.Add(spawnPoint);
+                    if (spawnPoint.Spawner != null)
+                    {
+                        spawnPoint.Spawner.OnSpawnKilledEvent.AddListener(SpawnKilled);
+                    }
                 }
             }
         }
@@ -54,40 +65,65 @@ namespace _Scripts._Game.Sequencer.Gameplay{
         {
             _isStarted = false;
             _isComplete = false;
+
+            for (int i = 0; i < _activeSpawners.Count; i++)
+            {
+                SpawnPoint spawnPoint = _activeSpawners[i];
+
+                if (spawnPoint != null && spawnPoint.Spawner != null)
+                {
+                    spawnPoint.Spawner.OnSpawnKilledEvent.RemoveListener(SpawnKilled);
+                }
+            }
             _activeSpawners.Clear();
         }
 
         public override void Tick()
         {
-            bool hasWaveFished = true;
+            bool hasWaveFinished = true;
 
-            foreach (SpawnPoint spawnPoint in _activeSpawners)
+            if (_useSpawnsKilledToComplete)
             {
-                AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(spawnPoint);
-
-                if (entity == null)
+                if (_spawnsKilledCount < _spawnsKilledToComplete)
                 {
-                    continue;
-                }
-                if (entity != null)
-                {
-                    if (spawnPoint.WaveCompleteOnAllAIExposed)
-                    {
-                        hasWaveFished = entity.IsExposed();
-                    }
-                    else
-                    {
-                        hasWaveFished = false;
-                    }
-                }
-
-                if (!hasWaveFished)
-                {
-                    break;
+                    hasWaveFinished = false;
                 }
             }
+            else
+            {
+                foreach (SpawnPoint spawnPoint in _activeSpawners)
+                {
+                    AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(spawnPoint);
 
-            _isComplete = hasWaveFished;
+                    if (entity == null)
+                    {
+                        continue;
+                    }
+                    if (entity != null)
+                    {
+                        if (spawnPoint.WaveCompleteOnAllAIExposed)
+                        {
+                            hasWaveFinished = entity.IsExposed();
+                        }
+                        else
+                        {
+                            hasWaveFinished = false;
+                        }
+                    }
+
+                    if (!hasWaveFinished)
+                    {
+                        break;
+                    }
+                }
+
+                _isComplete = hasWaveFinished;
+            }
+        }
+
+        private void SpawnKilled()
+        {
+            _spawnsKilledCount++;
         }
 
     }

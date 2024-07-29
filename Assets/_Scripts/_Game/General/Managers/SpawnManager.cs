@@ -16,6 +16,7 @@ namespace _Scripts._Game.General.Managers{
         private Dictionary<string, float> _spawnPointRespawnTimersDict = new Dictionary<string, float>();
         //private List<string> _removeIDTimers = new List<string>();
 
+        private List<AISpawner> _activeSpawners = new List<AISpawner>();
         private List<SpawnPoint> _activeSpawnPoints = new List<SpawnPoint>();
 
         #endregion
@@ -31,9 +32,20 @@ namespace _Scripts._Game.General.Managers{
 
         public void ManagedTick()
         {
+            foreach (AISpawner spawner in _activeSpawners)
+            {
+                if (spawner != null && spawner.isActiveAndEnabled)
+                {
+                    spawner.Tick();
+                }
+            }
+
             foreach (SpawnPoint spawnPoint in _activeSpawnPoints)
             {
-                spawnPoint.Tick();
+                if (spawnPoint != null && spawnPoint.isActiveAndEnabled)
+                {
+                    spawnPoint.Tick();
+                }
             }
 
             UpdateRespawnTimers();
@@ -71,6 +83,22 @@ namespace _Scripts._Game.General.Managers{
                 {
 
                 }
+            }
+        }
+
+        public void AssignSpawner(AISpawner spawner)
+        {
+            if (!_activeSpawners.Contains(spawner))
+            {
+                _activeSpawners.Add(spawner);
+            }
+        }
+
+        public void UnassignSpawner(AISpawner spawner)
+        {
+            if (_activeSpawners.Contains(spawner))
+            {
+                _activeSpawners.Remove(spawner);
             }
         }
 

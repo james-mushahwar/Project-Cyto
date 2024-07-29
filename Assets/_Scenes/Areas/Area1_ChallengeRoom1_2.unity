@@ -8785,6 +8785,75 @@ Transform:
   m_Father: {fileID: 1218865398}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &390314528
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 839666682}
+    m_Modifications:
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036953137202829253, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: m_Name
+      value: AISpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1229032444}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+--- !u!4 &390314529 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+  m_PrefabInstance: {fileID: 390314528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &593734322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8873,6 +8942,7 @@ MonoBehaviour:
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
   _outputs: []
+  _proprogateIOLogic: 0
 --- !u!114 &644370257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9328,7 +9398,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1229032444}
+  - {fileID: 390314529}
   m_Father: {fileID: 229699583}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9532,6 +9602,7 @@ MonoBehaviour:
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
   _outputs: []
+  _proprogateIOLogic: 0
 --- !u!114 &958278427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10083,7 +10154,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 839666682}
+    m_TransformParent: {fileID: 390314529}
     m_Modifications:
     - target: {fileID: 1105649654805063819, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
       propertyPath: m_Icon
@@ -10636,6 +10707,7 @@ MonoBehaviour:
   _outputs:
   - {fileID: 749946080}
   - {fileID: 1099303773}
+  _proprogateIOLogic: 0
 --- !u!114 &1687572652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10779,6 +10851,7 @@ MonoBehaviour:
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
   _outputs: []
+  _proprogateIOLogic: 0
 --- !u!114 &2006303608
 MonoBehaviour:
   m_ObjectHideFlags: 0
