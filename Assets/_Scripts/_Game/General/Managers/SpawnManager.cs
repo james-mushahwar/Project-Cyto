@@ -148,6 +148,12 @@ namespace _Scripts._Game.General.Managers{
             _spawnPointEntityDict.TryGetValue(spawnPoint.RuntimeID.Id, out entity);
             return entity;
         }
+        public AIEntity TryGetRegisteredEntity(string spawnPointID)
+        {
+            AIEntity entity = null;
+            _spawnPointEntityDict.TryGetValue(spawnPointID, out entity);
+            return entity;
+        }
 
         public void TryRemoveRegisteredEntity(SpawnPoint spawnPoint)
         {
@@ -160,16 +166,16 @@ namespace _Scripts._Game.General.Managers{
 
         public void RegisterSpawnPointRespawnTimer(string id, SpawnPoint spawnPoint)
         {
-            float timer = _defaultRespawnWaitTime;
+            float newTimer = _defaultRespawnWaitTime;
 
             if (spawnPoint != null)
             {
-                timer = spawnPoint.GetRespawnDelay();
+                newTimer = spawnPoint.GetRespawnDelay();
             }
 
-            if (!_spawnPointRespawnTimersDict.TryGetValue(id, out timer))
+            if (!_spawnPointRespawnTimersDict.TryGetValue(id, out float timer))
             {
-                _spawnPointRespawnTimersDict.Add(id, timer);
+                _spawnPointRespawnTimersDict.Add(id, newTimer);
             }
         }
 

@@ -1,24 +1,43 @@
-﻿using _Scripts._Game.General.Managers;
+﻿using _Scripts._Game.General.Identification;
+using _Scripts._Game.General.LogicController;
+using _Scripts._Game.General.Managers;
 using NaughtyAttributes;
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace _Scripts._Game.General.Spawning.AI{
-    
+
+    [RequireComponent(typeof(RuntimeID))]
     public class AISpawner : MonoBehaviour
     {
-        private List<SpawnPoint> _spawnPoints;
+        private RuntimeID _runtimeID;
+
+        public RuntimeID RuntimeID { get => _runtimeID; }
+
+        [Header("Logic Entity")]
+        [SerializeField]
+        private bool _enableSpawnOnInputChanged = false;
+        [SerializeField]
+        private bool _trySpawnOnInputValid = false;
+        [SerializeField]
+        private bool _trySpawnOnInputInvalid = false;
+        private ILogicEntity _logicEntity;
 
         [Header("Spawn properties")]
-        [SerializeField]
-        private bool _spawnerControlsSpawning = false;
+        private List<SpawnPoint> _spawnPoints;
 
         [SerializeField]
-        private bool _limitMaxActiveSpawns = false;
-        [ShowIf("_limitMaxActiveSpawns"), SerializeField]
-        private int _maxActiveSpawns;
+        private bool _spawnerControlsSpawning = false;
+        [SerializeField]
+        private bool _trySpawnAutomatically = true; // use tick to check whether to spawn
+
+        //[SerializeField]
+        //private bool _limitMaxActiveSpawns;
+        [SerializeField]//, ShowIf("_limitMaxActiveSpawns")]
+        private int _maxActiveSpawns = 1;
 
         [SerializeField]
         private float _delayUntilRespawn = 5.0f; 
@@ -44,49 +63,61 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void OnEnable()
         {
+            if (_runtimeID == null)
+            {
+                _runtimeID = GetComponent<RuntimeID>();
+            }
+            RuntimeIDManager.Instance.RegisterRuntimeSpawner(this);
             SpawnManager.Instance.AssignSpawner(this);
 
+            _logicEntity = GetComponent<LogicEntity>();
+
+            _logicEntity.OnInputChanged.AddListener(OnLogicInputChanged);
+
+            _spawnPoints = new List<SpawnPoint>();
             GetComponentsInChildren<SpawnPoint>(_spawnPoints);
+
+            foreach(SpawnPoint spawnPoint in _spawnPoints)
+            {
+                spawnPoint.SpawnerID = _runtimeID.Id;
+            }
         }
 
         private void OnDisable()
         {
-            SpawnManager.Instance.UnassignSpawner(this);
+            SpawnManager.Instance?.UnassignSpawner(this);
+        }
+
+        private void OnLogicInputChanged()
+        {
+            if (_spawnerControlsSpawning && _enableSpawnOnInputChanged)
+            {
+                bool input = _logicEntity.IsInputLogicValid;
+
+                if ((input && _trySpawnOnInputValid) || (!input && _trySpawnOnInputInvalid))
+                {
+                    if (CanAISpawnerSpawn(false))
+                    {
+                        TrySpawnFromSpawnPoints();
+                    }
+                }
+            }
         }
 
         // Update is called once per frame
         public void Tick()
         {
-            bool activeSpawnLimitReached = GetActiveSpawnLimitReached();
-
-            bool canAISpawnerSpawn = _spawnerControlsSpawning && !activeSpawnLimitReached;
+            bool canAISpawnerSpawn = CanAISpawnerSpawn(true);
             if (canAISpawnerSpawn)
             {
-                foreach (SpawnPoint spawnPoint in _spawnPoints)
-                {
-                    if (spawnPoint.isActiveAndEnabled == false)
-                    {
-                        continue;
-                    }
-
-                    bool spawnPointHasSpawnedEntity = spawnPoint.IsEntitySpawned;
-                    bool respawnTimerElapsed = SpawnManager.Instance.TryHasRespawnTimerElapsed(spawnPoint);
-                    
-                    bool canSpawnPointSpawn = !spawnPointHasSpawnedEntity && respawnTimerElapsed;
-
-                    if (canSpawnPointSpawn)
-                    {
-                        spawnPoint.Spawn();
-                    }
-                }
-                
+                TrySpawnFromSpawnPoints();
             }
         }
 
         private bool GetActiveSpawnLimitReached()
         {
             bool activeSpawnLimitReached = false;
-            if (_limitMaxActiveSpawns)
+            if (_maxActiveSpawns > 0)
             {
                 int activeSpawnCount = 0;
                 foreach (SpawnPoint spawnPoint in _spawnPoints)
@@ -111,9 +142,53 @@ namespace _Scripts._Game.General.Spawning.AI{
             return activeSpawnLimitReached;
         }
 
-        public bool Spawn()
+        private bool CanAISpawnerSpawn(bool autoSpawn)
         {
-            return false;
+            bool activeSpawnLimitReached = GetActiveSpawnLimitReached();
+
+            bool autoSpawnCheck = (autoSpawn && _trySpawnAutomatically) || !autoSpawn;
+
+            bool canAISpawnerSpawn = _spawnerControlsSpawning && !activeSpawnLimitReached && autoSpawnCheck;
+
+            return canAISpawnerSpawn;
+        }
+
+        public bool TrySpawnFromSpawnPoints()
+        {
+            bool success = false;
+            foreach (SpawnPoint spawnPoint in _spawnPoints)
+            {
+                bool spawned = TrySpawnFromSpawnPoint(spawnPoint);
+
+                if (spawned && !success)
+                {
+                    success = true;
+                }
+            }
+
+            return success;
+        }
+
+        public bool TrySpawnFromSpawnPoint(SpawnPoint spawnPoint)
+        {
+            bool success = false;
+            if (spawnPoint.isActiveAndEnabled == false)
+            {
+                return false;
+            }
+
+            bool spawnPointHasSpawnedEntity = spawnPoint.IsEntitySpawned;
+            bool respawnTimerElapsed = SpawnManager.Instance.TryHasRespawnTimerElapsed(spawnPoint);
+
+            bool canSpawnPointSpawn = !spawnPointHasSpawnedEntity && respawnTimerElapsed;
+
+            if (canSpawnPointSpawn)
+            {
+                bool spawn = spawnPoint.Spawn();
+                success = spawn;
+            }
+
+            return success;
         }
 
         public void OnSpawnKilled(SpawnPoint spawnPoint)

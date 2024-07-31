@@ -8,6 +8,7 @@ using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
 using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.General;
+using _Scripts._Game.General.Navigation;
 using Pathfinding;
 
 namespace _Scripts._Game.AI.MovementStateMachine{

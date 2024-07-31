@@ -1153,8 +1153,8 @@ MonoBehaviour:
   _patrolSpeed: 8
   _patrolWaitTimeRange: {x: 2, y: 4}
   _damagedStateDuration: 0
-  _flyingMaximumHorizontalVelocity: 6
-  _flyingMaximumVerticalVelocity: 6
+  _flyingMaximumHorizontalVelocity: 7
+  _flyingMaximumVerticalVelocity: 7
   _flyingMovementDirectionThrust: 1500
 --- !u!114 &8527710219603585276
 MonoBehaviour:

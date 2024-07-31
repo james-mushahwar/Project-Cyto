@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6210150038454233585}
   - component: {fileID: 8863327458832588649}
+  - component: {fileID: 9154678402007061726}
+  - component: {fileID: 716268802080073133}
+  - component: {fileID: 4090097301259947607}
   m_Layer: 0
   m_Name: AISpawner
   m_TagString: Untagged
@@ -30,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8863327458832588649
 MonoBehaviour:
@@ -44,4 +47,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fdc6413134e474cafe9ba1a20204f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enableSpawnOnInputChanged: 0
+  _trySpawnOnInputValid: 0
+  _trySpawnOnInputInvalid: 0
+  _spawnerControlsSpawning: 0
+  _trySpawnAutomatically: 1
+  _maxActiveSpawns: 1
+  _delayUntilRespawn: 5
   _spawnPointPrefab: {fileID: 8785238773573704691, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
+  _onSpawnKilledEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &9154678402007061726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036953137202829253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb5a3e01aa280242abd7ffe660f8adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &716268802080073133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036953137202829253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 49d2c707-6d81-4041-abbd-f7c51fc450b1
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
+  _saveOnDisable: 0
+  _loadOnEnable: 0
+  _skipLoadOnFirstPlay: 0
+--- !u!114 &4090097301259947607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036953137202829253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputLogicType: 0
+  _inputConditionType: 0
+  _inputs: []
+  _useAdvancedInputs: 0
+  _advancedConditionType: 0
+  _advancedInputs: []
+  _outputLogicType: 0
+  _useSeparateOutputLogic: 1
+  _isOutputLogicValid: 0
+  _outputs: []
+  _proprogateIOLogic: 0

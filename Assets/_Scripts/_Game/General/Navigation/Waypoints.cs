@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _Scripts._Game.General{
+namespace _Scripts._Game.General.Navigation{
     
     public class Waypoints : MonoBehaviour, IRuntimeId
     {
