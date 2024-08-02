@@ -71,5 +71,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Areas/Area1_ChallengeRoom1_WaveSpawns.unity
     guid: ee23d6e317d41e348b827be2f8a2b8e1
+  - enabled: 1
+    path: Assets/_Scenes/Areas/Area1_ChallengeRoom1_EscapeRun.unity
+    guid: 1d10c23591b5c9644a724cef1b85306a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1dc90654f5220354f8b06859e6810d7a, type: 2}
