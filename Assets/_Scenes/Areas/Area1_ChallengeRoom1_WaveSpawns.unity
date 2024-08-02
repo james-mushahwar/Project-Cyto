@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 31275442}
   - component: {fileID: 31275441}
   m_Layer: 0
-  m_Name: SpawnPoint(Clone)
+  m_Name: SpawnPoint - Ambush 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb5a3e01aa280242abd7ffe660f8adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a8d6b01a-76c3-498e-ac7e-a55cbe74500a
+  id: 8f46ef11-f4ce-4170-aaa4-ffb98d6f2b38
 --- !u!1 &84485830
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +568,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _acceptInput: 0
   _spawners: []
-  _spawnPoints: []
+  _spawnPoints:
+  - {fileID: 1422377402}
+  - {fileID: 850055109}
+  - {fileID: 811325512}
   _useSpawnsKilledToComplete: 0
   _spawnsKilledToComplete: 0
 --- !u!114 &140873319
@@ -639,7 +642,7 @@ GameObject:
   - component: {fileID: 177038321}
   - component: {fileID: 177038320}
   m_Layer: 0
-  m_Name: SpawnPoint(Clone)
+  m_Name: SpawnPoint - Ambush 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -736,7 +739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb5a3e01aa280242abd7ffe660f8adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a8d6b01a-76c3-498e-ac7e-a55cbe74500a
+  id: 110f62a8-9f9c-4579-bab3-a662d37190e5
 --- !u!1 &192584762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1301,7 @@ Transform:
   - {fileID: 837734644}
   - {fileID: 1246844880}
   - {fileID: 1232110861}
+  - {fileID: 1198227601}
   m_Father: {fileID: 982343700}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1490,7 +1494,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: _maxActiveSpawns
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: _delayUntilRespawn
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: _delayBetweenSpawns
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: _limitMaxActiveSpawns
@@ -1528,6 +1540,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6210150038454233585, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
   m_PrefabInstance: {fileID: 600568357}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &600568359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7036953137202829253, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+  m_PrefabInstance: {fileID: 600568357}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &600568360 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+  m_PrefabInstance: {fileID: 600568357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600568359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45fdc6413134e474cafe9ba1a20204f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &615234370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,6 +1953,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &811325512 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8785238773573704690, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
+  m_PrefabInstance: {fileID: 811325509}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5d48ba71910e9478125a52e8f73d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &834153249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,6 +2219,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &850055109 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8785238773573704690, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
+  m_PrefabInstance: {fileID: 850055106}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5d48ba71910e9478125a52e8f73d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &875230178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2267,7 +2317,7 @@ GameObject:
   - component: {fileID: 886075299}
   - component: {fileID: 886075298}
   m_Layer: 0
-  m_Name: SpawnPoint(Clone)
+  m_Name: SpawnPoint - Ambush 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2364,7 +2414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb5a3e01aa280242abd7ffe660f8adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a8d6b01a-76c3-498e-ac7e-a55cbe74500a
+  id: 4b352a99-9a9f-4438-ac18-bda050490338
 --- !u!1001 &902490345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2803,7 +2853,7 @@ GameObject:
   - component: {fileID: 1090317951}
   - component: {fileID: 1090317950}
   m_Layer: 0
-  m_Name: SpawnPoint(Clone)
+  m_Name: SpawnPoint - Ambush 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2900,7 +2950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb5a3e01aa280242abd7ffe660f8adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a8d6b01a-76c3-498e-ac7e-a55cbe74500a
+  id: 34ae5f63-d83c-437a-aa8b-feabc6719117
 --- !u!1 &1109435261
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,7 +2997,7 @@ GameObject:
   - component: {fileID: 1129492285}
   - component: {fileID: 1129492284}
   m_Layer: 0
-  m_Name: SpawnPoint(Clone)
+  m_Name: SpawnPoint - Ambush 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3044,7 +3094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb5a3e01aa280242abd7ffe660f8adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a8d6b01a-76c3-498e-ac7e-a55cbe74500a
+  id: 4b6d62ea-3c63-44f0-9346-f38c7912af2f
 --- !u!1 &1177095088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3078,7 +3128,111 @@ Transform:
   - {fileID: 1845738021}
   - {fileID: 247589593}
   - {fileID: 2126314800}
+  - {fileID: 1459578466}
   m_Father: {fileID: 150643066}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1198227597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1198227601}
+  - component: {fileID: 1198227600}
+  - component: {fileID: 1198227599}
+  - component: {fileID: 1198227598}
+  m_Layer: 0
+  m_Name: Spawner Cleared Ambush
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1198227598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198227597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputLogicType: 0
+  _inputConditionType: 0
+  _inputs: []
+  _useAdvancedInputs: 1
+  _advancedConditionType: 0
+  _advancedInputs:
+  - _conditionType: 1
+    _logicEntities:
+    - {fileID: 1459578467}
+  _outputLogicType: 1
+  _useSeparateOutputLogic: 0
+  _isOutputLogicValid: 0
+  _outputs: []
+  _proprogateIOLogic: 1
+--- !u!114 &1198227599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198227597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5030a818f2e4c634eadfb3fa15d87610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: dfb59566-3c49-4184-bb5d-86e90f516f79
+  _editorIgnoreAllSaves: 0
+  _editorIgnoreAllLoads: 0
+  _excludedSaveTypes: 
+  _saveOnDisable: 0
+  _loadOnEnable: 0
+  _skipLoadOnFirstPlay: 0
+--- !u!114 &1198227600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198227597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec17d86decfb8c1429af3b311050a32c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sequenceableSettings:
+  - _sequenceable: {fileID: 247824708}
+    _sequenceablesToStop: []
+    _sequenceSettings:
+      _freezePlayer: 1
+      _canAlwaysRun: 1
+      _canLoop: 0
+  _reactToValidInput: 1
+  _activateOrDeactivateOnValidInput: 1
+  _reactToInvalidInput: 0
+  _activateOrDeactivateOnInvalidInput: 0
+  _isOneShot: 1
+--- !u!4 &1198227601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198227597}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 458.5, y: -192, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 412392019}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1200541254
@@ -3794,8 +3948,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 4.9927998, y: 3.9959002, z: 0}
-    m_Extent: {x: 42.7526, y: 27.254799, z: 0}
+    m_Center: {x: 5.0013504, y: 4.0075006, z: 0}
+    m_Extent: {x: 42.75855, y: 27.250801, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3928,6 +4082,110 @@ Transform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4616664878592277317, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
   m_PrefabInstance: {fileID: 1422377399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1422377402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8785238773573704690, guid: ddbf8505480e9f04c9ac481c013dfe85, type: 3}
+  m_PrefabInstance: {fileID: 1422377399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5d48ba71910e9478125a52e8f73d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1459578465
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1177095089}
+    m_Modifications:
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 389.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -158.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895112987133379989, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: m_Name
+      value: Cleared Ambush Logic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433325232197905384, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: _outputs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433325232197905384, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: _outputs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1198227598}
+    - target: {fileID: 7433325232197905384, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: _outputs.Array.data[1]
+      value: 
+      objectReference: {fileID: 850055108}
+    - target: {fileID: 7433325232197905384, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: _outputs.Array.data[2]
+      value: 
+      objectReference: {fileID: 811325511}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+--- !u!4 &1459578466 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+  m_PrefabInstance: {fileID: 1459578465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1459578467 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7433325232197905384, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+  m_PrefabInstance: {fileID: 1459578465}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -4192,9 +4450,9 @@ GameObject:
   - component: {fileID: 1783541598}
   - component: {fileID: 1783541605}
   - component: {fileID: 1783541604}
-  - component: {fileID: 1783541603}
-  - component: {fileID: 1783541602}
   - component: {fileID: 1783541601}
+  - component: {fileID: 1783541602}
+  - component: {fileID: 1783541606}
   - component: {fileID: 1783541599}
   m_Layer: 0
   m_Name: Room1_Wave_Seq_Ambush
@@ -4232,7 +4490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _acceptInput: 0
   _enableOutputs:
-  - {fileID: 2126314801}
+  - {fileID: 1459578467}
   _disableOutputs: []
   _toggleOutputs: []
 --- !u!114 &1783541601
@@ -4263,30 +4521,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _acceptInput: 0
   _activateGOs:
-  - {fileID: 1230999559}
-  _deactivateGOs:
-  - {fileID: 228882812830520108}
+  - {fileID: 600568359}
+  _deactivateGOs: []
   _toggleGOs: []
   _activateMonobehaviours: []
   _deactivateMonobehaviours: []
   _toggleMonobehaviours: []
---- !u!114 &1783541603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783541597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9593ffed057d372459e8afa5a3267fa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _acceptInput: 0
-  _enableOutputs:
-  - {fileID: 247589594}
-  _disableOutputs: []
-  _toggleOutputs: []
 --- !u!114 &1783541604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4302,10 +4542,9 @@ MonoBehaviour:
   _acceptInput: 0
   _isSimultaneousGroup: 0
   _sequenceables:
-  - {fileID: 1783541603}
-  - {fileID: 1783541602}
   - {fileID: 1783541601}
-  - {fileID: 0}
+  - {fileID: 1783541602}
+  - {fileID: 1783541606}
   - {fileID: 1783541599}
 --- !u!114 &1783541605
 MonoBehaviour:
@@ -4320,6 +4559,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 146b5e80-1057-40a7-9fdf-66ab69ebbe64
+--- !u!114 &1783541606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783541597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac7c9841c04877418d7314fadb4c781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _acceptInput: 0
+  _spawners:
+  - {fileID: 600568360}
+  _spawnPoints: []
+  _useSpawnsKilledToComplete: 1
+  _spawnsKilledToComplete: 8
 --- !u!1 &1814072594
 GameObject:
   m_ObjectHideFlags: 0
@@ -19236,7 +19493,7 @@ GameObject:
   - component: {fileID: 2088569546}
   - component: {fileID: 2088569545}
   m_Layer: 0
-  m_Name: SpawnPoint(Clone)
+  m_Name: SpawnPoint - Ambush 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19333,7 +19590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb5a3e01aa280242abd7ffe660f8adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a8d6b01a-76c3-498e-ac7e-a55cbe74500a
+  id: b36409cc-b7c0-4cff-b461-dfdca615be14
 --- !u!1 &2125352248
 GameObject:
   m_ObjectHideFlags: 0
@@ -19416,6 +19673,10 @@ PrefabInstance:
     - target: {fileID: 3348613338104250107, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3605834158648800143, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
+      propertyPath: id
+      value: 15f0f31e-fb84-4e70-a606-2440ba7e81b0
       objectReference: {fileID: 0}
     - target: {fileID: 6895112987133379989, guid: 69b6dffcb2b121148a5d6d049cd03416, type: 3}
       propertyPath: m_Name

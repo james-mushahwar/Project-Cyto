@@ -36,9 +36,25 @@ namespace _Scripts._Game.Sequencer.Gameplay{
             _spawnPointIDs = new List<string>();
             _activeSpawnPointIDs = new List<string>();
 
+            List<SpawnPoint> aiSpawnerSpawnPoints = new List<SpawnPoint>();
+
+            foreach (AISpawner spawner in _spawners)
+            {
+                foreach (SpawnPoint spawnPoint in spawner.SpawnPoints)
+                {
+                    if (_spawnPointIDs.Contains(spawnPoint.RuntimeID.Id) == false)
+                    {
+                        _spawnPointIDs.Add(spawnPoint.RuntimeID.Id);
+                    }
+                }
+            }
+
             foreach (SpawnPoint spawnPoint in _spawnPoints)
             {
-                _spawnPointIDs.Add(spawnPoint.RuntimeID.Id);
+                if (_spawnPointIDs.Contains(spawnPoint.RuntimeID.Id) == false)
+                {
+                    _spawnPointIDs.Add(spawnPoint.RuntimeID.Id);
+                }
             }
         }
 
@@ -136,9 +152,9 @@ namespace _Scripts._Game.Sequencer.Gameplay{
                         break;
                     }
                 }
-
-                _isComplete = hasWaveFinished;
             }
+
+            _isComplete = hasWaveFinished;
         }
 
         private void SpawnKilled()

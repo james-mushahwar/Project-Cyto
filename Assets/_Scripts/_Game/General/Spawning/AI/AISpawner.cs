@@ -27,7 +27,9 @@ namespace _Scripts._Game.General.Spawning.AI{
         private ILogicEntity _logicEntity;
 
         [Header("Spawn properties")]
-        private List<SpawnPoint> _spawnPoints;
+        private List<SpawnPoint> _spawnPoints = new List<SpawnPoint>();
+
+        public List<SpawnPoint> SpawnPoints { get => _spawnPoints; }
 
         [SerializeField]
         private bool _spawnerControlsSpawning = false;
@@ -39,10 +41,15 @@ namespace _Scripts._Game.General.Spawning.AI{
         [SerializeField]//, ShowIf("_limitMaxActiveSpawns")]
         private int _maxActiveSpawns = 1;
 
+        [SerializeField] 
+        private float _delayBetweenSpawns = 0.0f;
+        private float _delayBetweenSpawnsTimer = 0.0f;
+
         [SerializeField]
         private float _delayUntilRespawn = 5.0f; 
 
         public bool SpawnerControlsSpawning { get { return _spawnerControlsSpawning; } }
+        public float DelayBetweenSpawns { get { return _delayBetweenSpawns; } }
         public float DelayUntilRespawn {  get { return _delayUntilRespawn; } }
 
         [Header("Custom")]
@@ -81,6 +88,8 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 spawnPoint.SpawnerID = _runtimeID.Id;
             }
+
+            _delayBetweenSpawnsTimer = _delayBetweenSpawns;
         }
 
         private void OnDisable()
@@ -107,10 +116,25 @@ namespace _Scripts._Game.General.Spawning.AI{
         // Update is called once per frame
         public void Tick()
         {
-            bool canAISpawnerSpawn = CanAISpawnerSpawn(true);
-            if (canAISpawnerSpawn)
+            TickTimers();
+
+            //bool canAISpawnerSpawn = CanAISpawnerSpawn(true);
+            //if (canAISpawnerSpawn)
+            //{
+            //}
+            TrySpawnFromSpawnPoints();
+        }
+
+        private void TickTimers()
+        {
+            if (_delayBetweenSpawnsTimer > 0.0f)
             {
-                TrySpawnFromSpawnPoints();
+                _delayBetweenSpawnsTimer -= Time.deltaTime;
+
+                if (_delayBetweenSpawnsTimer < 0.0f)
+                {
+                    _delayBetweenSpawnsTimer = 0.0f;
+                }
             }
         }
 
@@ -148,7 +172,9 @@ namespace _Scripts._Game.General.Spawning.AI{
 
             bool autoSpawnCheck = (autoSpawn && _trySpawnAutomatically) || !autoSpawn;
 
-            bool canAISpawnerSpawn = _spawnerControlsSpawning && !activeSpawnLimitReached && autoSpawnCheck;
+            bool noTimeDelay = _delayBetweenSpawns <= 0.0f || _delayBetweenSpawnsTimer <= 0.0f;
+
+            bool canAISpawnerSpawn = _spawnerControlsSpawning && !activeSpawnLimitReached && autoSpawnCheck && noTimeDelay;
 
             return canAISpawnerSpawn;
         }
@@ -158,6 +184,11 @@ namespace _Scripts._Game.General.Spawning.AI{
             bool success = false;
             foreach (SpawnPoint spawnPoint in _spawnPoints)
             {
+                if (CanAISpawnerSpawn(true) == false)
+                {
+                    break;
+                }
+
                 bool spawned = TrySpawnFromSpawnPoint(spawnPoint);
 
                 if (spawned && !success)
@@ -186,6 +217,11 @@ namespace _Scripts._Game.General.Spawning.AI{
             {
                 bool spawn = spawnPoint.Spawn();
                 success = spawn;
+
+                if (success)
+                {
+                    _delayBetweenSpawnsTimer = _delayBetweenSpawns;
+                }
             }
 
             return success;
