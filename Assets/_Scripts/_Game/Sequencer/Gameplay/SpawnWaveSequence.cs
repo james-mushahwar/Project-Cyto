@@ -35,8 +35,12 @@ namespace _Scripts._Game.Sequencer.Gameplay{
             _runtimeID = GetComponent<RuntimeID>();
             _spawnPointIDs = new List<string>();
             _activeSpawnPointIDs = new List<string>();
+        }
 
-            List<SpawnPoint> aiSpawnerSpawnPoints = new List<SpawnPoint>();
+        private void SetupActiveSpawners()
+        {
+            _spawnPointIDs.Clear(); ;
+            _activeSpawnPointIDs.Clear();
 
             foreach (AISpawner spawner in _spawners)
             {
@@ -61,17 +65,20 @@ namespace _Scripts._Game.Sequencer.Gameplay{
         public override void Begin()
         {
             _isStarted = true;
-            _activeSpawnPointIDs.Clear();
+            
+            SetupActiveSpawners();
+
+            List<AISpawner> spawners = new List<AISpawner>();
 
             for (int i = 0; i < _spawnPointIDs.Count; i++)
             {
                 string id = _spawnPointIDs[i];
-                AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(id);
-                if (entity != null)
-                {
-                    _activeSpawnPointIDs.Add(id);
-                    SpawnPoint spawnPoint = RuntimeIDManager.Instance.GetRuntimeSpawnPoint(id);
-                    if (spawnPoint.Spawner != null)
+                
+                _activeSpawnPointIDs.Add(id);
+                SpawnPoint spawnPoint = RuntimeIDManager.Instance.GetRuntimeSpawnPoint(id);
+                if (spawnPoint.Spawner != null)
+                { 
+                    if (spawners.Contains(spawnPoint.Spawner)  == false)
                     {
                         spawnPoint.Spawner.OnSpawnKilledEvent.AddListener(SpawnKilled);
                     }
