@@ -19,10 +19,15 @@ namespace _Scripts._Game.Sequencer.Gameplay{
 
         [Header("Properties")]
         [SerializeField]
-        private bool _useSpawnsKilledToComplete;
+        private bool _useSpawnsKilledToCompleteCheck;
         [SerializeField]
         private int _spawnsKilledToComplete;
         private int _spawnsKilledCount;
+
+        [SerializeField, Tooltip("Are there no more active spawns?")]
+        private bool _useNoRemainingSpawnsToCompleteCheck = true;
+        [SerializeField]
+        private bool _flagStopSpawningWhenKillCountReached;
 
         private bool _isStarted;
         private bool _isComplete;
@@ -80,6 +85,7 @@ namespace _Scripts._Game.Sequencer.Gameplay{
                 { 
                     if (spawners.Contains(spawnPoint.Spawner)  == false)
                     {
+                        spawners.Add(spawnPoint.Spawner);
                         spawnPoint.Spawner.OnSpawnKilledEvent.AddListener(SpawnKilled);
                     }
                 }
@@ -118,14 +124,18 @@ namespace _Scripts._Game.Sequencer.Gameplay{
         {
             bool hasWaveFinished = true;
 
-            if (_useSpawnsKilledToComplete)
+            bool spawnsKilledCheck = true;
+            bool noRemainingSpawnsCheck = true;
+
+            if (_useSpawnsKilledToCompleteCheck)
             {
                 if (_spawnsKilledCount < _spawnsKilledToComplete)
                 {
-                    hasWaveFinished = false;
+                    spawnsKilledCheck = false;
                 }
             }
-            else
+
+            if (_useNoRemainingSpawnsToCompleteCheck)
             {
                 foreach (string id in _activeSpawnPointIDs)
                 {
@@ -146,27 +156,42 @@ namespace _Scripts._Game.Sequencer.Gameplay{
                     {
                         if (spawnPoint.WaveCompleteOnAllAIExposed)
                         {
-                            hasWaveFinished = entity.IsExposed();
+                            noRemainingSpawnsCheck = entity.IsExposed();
                         }
                         else
                         {
-                            hasWaveFinished = false;
+                            noRemainingSpawnsCheck = false;
                         }
                     }
 
-                    if (!hasWaveFinished)
+                    if (!noRemainingSpawnsCheck)
                     {
                         break;
                     }
                 }
             }
 
+            hasWaveFinished = spawnsKilledCheck && noRemainingSpawnsCheck;
+
             _isComplete = hasWaveFinished;
         }
 
-        private void SpawnKilled()
+        private void SpawnKilled(string spawnerId)
         {
             _spawnsKilledCount++;
+
+            if (_useSpawnsKilledToCompleteCheck && _spawnsKilledCount >= _spawnsKilledToComplete)
+            {
+                if (_flagStopSpawningWhenKillCountReached)
+                {
+                    AISpawner spawner = RuntimeIDManager.Instance.GetRuntimeSpawner(spawnerId);
+
+                    if (spawner != null)
+                    {
+                        spawner.SetSpawnAutomatically(false);
+                    }
+                }
+            }
         }
 
     }

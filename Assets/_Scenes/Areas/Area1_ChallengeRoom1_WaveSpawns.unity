@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: _limitMaxActiveSpawns
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9154678402007061726, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: id
+      value: 3a7b17a3-7b06-4d10-b529-41c74c18e830
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -572,8 +576,10 @@ MonoBehaviour:
   - {fileID: 1422377402}
   - {fileID: 850055109}
   - {fileID: 811325512}
-  _useSpawnsKilledToComplete: 0
+  _useSpawnsKilledToCompleteCheck: 0
   _spawnsKilledToComplete: 0
+  _useNoRemainingSpawnsToCompleteCheck: 1
+  _flagStopSpawningWhenKillCountReached: 0
 --- !u!114 &140873319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,8 +1156,10 @@ MonoBehaviour:
   _spawners: []
   _spawnPoints:
   - {fileID: 1200541256}
-  _useSpawnsKilledToComplete: 0
+  _useSpawnsKilledToCompleteCheck: 0
   _spawnsKilledToComplete: 0
+  _useNoRemainingSpawnsToCompleteCheck: 1
+  _flagStopSpawningWhenKillCountReached: 0
 --- !u!114 &259176456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1511,6 +1519,10 @@ PrefabInstance:
     - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: _spawnerControlsSpawning
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154678402007061726, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: id
+      value: dfdceedf-a8ac-433d-8907-80789e3e3b74
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2289,6 +2301,10 @@ PrefabInstance:
     - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: _limitMaxActiveSpawns
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154678402007061726, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: id
+      value: dff267a3-6e93-4b0b-9585-c15a245f8804
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3948,8 +3964,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 5.0013504, y: 4.0075006, z: 0}
-    m_Extent: {x: 42.75855, y: 27.250801, z: 0}
+    m_Center: {x: 4.9925003, y: 3.9966002, z: 0}
+    m_Extent: {x: 42.7504, y: 27.248901, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4575,8 +4591,10 @@ MonoBehaviour:
   _spawners:
   - {fileID: 600568360}
   _spawnPoints: []
-  _useSpawnsKilledToComplete: 1
+  _useSpawnsKilledToCompleteCheck: 1
   _spawnsKilledToComplete: 8
+  _useNoRemainingSpawnsToCompleteCheck: 1
+  _flagStopSpawningWhenKillCountReached: 1
 --- !u!1 &1814072594
 GameObject:
   m_ObjectHideFlags: 0
@@ -19924,6 +19942,10 @@ PrefabInstance:
     - target: {fileID: 7036953137202829253, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: m_Name
       value: AISpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154678402007061726, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: id
+      value: b7643e94-a75d-417d-8065-7312cb6de05d
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

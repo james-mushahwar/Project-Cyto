@@ -35,6 +35,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         private bool _spawnerControlsSpawning = false;
         [SerializeField]
         private bool _trySpawnAutomatically = true; // use tick to check whether to spawn
+        private bool _runtimeTrySpawnAutomatically;
 
         //[SerializeField]
         //private bool _limitMaxActiveSpawns;
@@ -57,9 +58,14 @@ namespace _Scripts._Game.General.Spawning.AI{
         private GameObject _spawnPointPrefab;
 
         [SerializeField]
-        private UnityEvent _onSpawnKilledEvent;
+        private UnityEvent<string> _onSpawnKilledEvent;
 
-        public UnityEvent OnSpawnKilledEvent { get => _onSpawnKilledEvent; }
+        public UnityEvent<string> OnSpawnKilledEvent { get => _onSpawnKilledEvent; }
+
+        private void Awake()
+        {
+            _runtimeTrySpawnAutomatically = _trySpawnAutomatically;
+        }
 
         public void CreateSpawnPoint()
         {
@@ -170,7 +176,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         {
             bool activeSpawnLimitReached = GetActiveSpawnLimitReached();
 
-            bool autoSpawnCheck = (autoSpawn && _trySpawnAutomatically) || !autoSpawn;
+            bool autoSpawnCheck = (autoSpawn && _runtimeTrySpawnAutomatically) || !autoSpawn;
 
             bool noTimeDelay = _delayBetweenSpawns <= 0.0f || _delayBetweenSpawnsTimer <= 0.0f;
 
@@ -229,7 +235,12 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         public void OnSpawnKilled(SpawnPoint spawnPoint)
         {
-            _onSpawnKilledEvent.Invoke();
+            _onSpawnKilledEvent.Invoke(_runtimeID.Id);
+        }
+
+        public void SetSpawnAutomatically(bool set)
+        {
+            _runtimeTrySpawnAutomatically = set;
         }
     }
     
