@@ -3,12 +3,138 @@ using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
 using NaughtyAttributes;
 using Pathfinding;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace _Scripts._Game.General.Spawning.AI{
+
+    [Serializable]
+    public struct FAISpawnerSpawnSettings
+    {
+        //Options
+        private bool _canEditAtRuntime;
+
+        //Spawn
+        [SerializeField]
+        private bool _spawnAutomatically; // true - spawn in tick. false - spawn some other way - Logic IO?
+        [SerializeField]
+        private bool _spawnAutomaticallyInputsAllValidCheck;
+        [SerializeField]
+        private bool _spawnOnInputChanged;
+        [SerializeField]
+        private bool _spawnOnInputChangedToValid;
+        [SerializeField]
+        private bool _spawnOnInputChangedToInvalid;
+
+        //limits
+        [SerializeField]
+        private int _maxActiveSpawns;
+
+        //delays
+        [SerializeField]
+        private float _delayBetweenSpawns;
+        [SerializeField]
+        private float _delayUntilRespawn;
+
+        #region Properties
+        public bool CanEditAtRuntime { get => _canEditAtRuntime; set => _canEditAtRuntime = value; }
+
+        public bool SpawnAutomatically 
+        {   
+            get => _spawnAutomatically; 
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _spawnAutomatically = value;
+                }
+            }
+        }
+        public bool SpawnAutomaticallyInputsAllValidCheck 
+        { 
+            get => _spawnAutomaticallyInputsAllValidCheck; 
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _spawnAutomaticallyInputsAllValidCheck = value;
+                }
+            }
+        }
+        public bool SpawnOnInputChanged 
+        { 
+            get => _spawnOnInputChanged;
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _spawnOnInputChanged = value;
+                }
+            }
+        }
+        public bool SpawnOnInputChangedToValid 
+        {
+            get => _spawnOnInputChangedToValid;
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _spawnOnInputChangedToValid = value;
+                }
+            }
+        }
+        public bool SpawnOnInputChangedToInvalid 
+        { 
+            get => _spawnOnInputChangedToInvalid;
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _spawnOnInputChangedToInvalid = value;
+                }
+            }
+        }
+
+        public int MaxActiveSpawns 
+        { 
+            get => _maxActiveSpawns;
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _maxActiveSpawns = value;
+                }
+            }
+        }
+
+        public float DelayBetweenSpawns 
+        { 
+            get => _delayBetweenSpawns;
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _delayBetweenSpawns = value;
+                }
+            }
+        }
+        public float DelayUntilRespawn 
+        {  
+            get => _delayUntilRespawn;
+            set
+            {
+                if (_canEditAtRuntime)
+                {
+                    _delayUntilRespawn = value;
+                }
+            }
+        }
+        #endregion
+    }
 
     [RequireComponent(typeof(RuntimeID))]
     public class AISpawner : MonoBehaviour
@@ -25,33 +151,50 @@ namespace _Scripts._Game.General.Spawning.AI{
         [SerializeField]
         private bool _trySpawnOnInputInvalid = false;
         private ILogicEntity _logicEntity;
+        [SerializeField]
+        private GameObject _waveCompletedOutputLogicGO;
+        private ILogicEntity _waveCompletedOutputLogicEntity;
+        [SerializeField]
+        private GameObject _spawnKilledOutputLogicGO;
+        private ILogicEntity _spawnKilledOutputLogicEntity;
 
-        [Header("Spawn properties")]
         private List<SpawnPoint> _spawnPoints = new List<SpawnPoint>();
 
         public List<SpawnPoint> SpawnPoints { get => _spawnPoints; }
 
-        [SerializeField]
+        [Header("Spawn properties")]
         private bool _spawnerControlsSpawning = false;
         [SerializeField]
-        private bool _trySpawnAutomatically = true; // use tick to check whether to spawn
-        private bool _runtimeTrySpawnAutomatically;
-
-        //[SerializeField]
-        //private bool _limitMaxActiveSpawns;
-        [SerializeField]//, ShowIf("_limitMaxActiveSpawns")]
-        private int _maxActiveSpawns = 1;
-
-        [SerializeField] 
-        private float _delayBetweenSpawns = 0.0f;
+        private FAISpawnerSpawnSettings _defaultSpawnSettings;
         private float _delayBetweenSpawnsTimer = 0.0f;
-
-        [SerializeField]
-        private float _delayUntilRespawn = 5.0f; 
-
         public bool SpawnerControlsSpawning { get { return _spawnerControlsSpawning; } }
-        public float DelayBetweenSpawns { get { return _delayBetweenSpawns; } }
-        public float DelayUntilRespawn {  get { return _delayUntilRespawn; } }
+
+        [Header("Wave properties")]
+        [SerializeField]
+        private FAISpawnerSpawnSettings _waveSpawnSettings;
+        private bool _isWaveActive = false;
+        [SerializeField]
+        private bool _waveCompleteOnNoActiveSpawns; // complete when all active spawns in the wave are killed
+        [SerializeField]
+        private bool _waveCompleteOnKilledCountReached; // complete when x spawns are killed
+
+        #region Runtime properties
+        private FAISpawnerSpawnSettings _runtimeSpawnSettings;
+
+        private int _spawnsKilledCount;
+        private int _waveSpawnsKilledCount;
+
+        private bool SpawnAutomatically { get => _isWaveActive ? _waveSpawnSettings.SpawnAutomatically : _defaultSpawnSettings.SpawnAutomatically; }
+        private bool SpawnAutomaticallyInputsAllValidCheck { get => _isWaveActive ? _waveSpawnSettings.SpawnAutomaticallyInputsAllValidCheck : _defaultSpawnSettings.SpawnAutomaticallyInputsAllValidCheck; }
+        private bool SpawnOnInputChanged { get => _isWaveActive ? _waveSpawnSettings.SpawnOnInputChanged : _defaultSpawnSettings.SpawnOnInputChanged; }
+        private bool SpawnOnInputChangedToValid { get => _isWaveActive ? _waveSpawnSettings.SpawnOnInputChangedToValid : _defaultSpawnSettings.SpawnOnInputChangedToValid; }
+        private bool SpawnOnInputChangedToInvalid { get => _isWaveActive ? _waveSpawnSettings.SpawnOnInputChangedToInvalid : _defaultSpawnSettings.SpawnOnInputChangedToInvalid; }
+
+        private int MaxActiveSpawns { get => _isWaveActive ? _waveSpawnSettings.MaxActiveSpawns : _defaultSpawnSettings.MaxActiveSpawns; }
+
+        public float DelayBetweenSpawns { get => _isWaveActive ? _waveSpawnSettings.DelayBetweenSpawns : _defaultSpawnSettings.DelayBetweenSpawns; }
+        public float DelayUntilRespawn { get => _isWaveActive ? _waveSpawnSettings.DelayUntilRespawn : _defaultSpawnSettings.DelayUntilRespawn; }
+        #endregion
 
         [Header("Custom")]
         [SerializeField]
@@ -64,7 +207,17 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         private void Awake()
         {
-            _runtimeTrySpawnAutomatically = _trySpawnAutomatically;
+            _runtimeSpawnSettings = new FAISpawnerSpawnSettings();
+
+            if (_waveCompletedOutputLogicGO)
+            {
+                _waveCompletedOutputLogicEntity = _waveCompletedOutputLogicGO.GetComponent<LogicEntity>();
+            }
+
+            if (_spawnKilledOutputLogicGO)
+            {
+                _spawnKilledOutputLogicEntity = _spawnKilledOutputLogicGO.GetComponent<LogicEntity>();
+            }
         }
 
         public void CreateSpawnPoint()
@@ -95,7 +248,7 @@ namespace _Scripts._Game.General.Spawning.AI{
                 spawnPoint.SpawnerID = _runtimeID.Id;
             }
 
-            _delayBetweenSpawnsTimer = _delayBetweenSpawns;
+            _delayBetweenSpawnsTimer = DelayBetweenSpawns;
         }
 
         private void OnDisable()
@@ -147,12 +300,12 @@ namespace _Scripts._Game.General.Spawning.AI{
         private bool GetActiveSpawnLimitReached()
         {
             bool activeSpawnLimitReached = false;
-            if (_maxActiveSpawns > 0)
+            if (MaxActiveSpawns > 0)
             {
                 int activeSpawnCount = 0;
                 foreach (SpawnPoint spawnPoint in _spawnPoints)
                 {
-                    if (activeSpawnCount >= _maxActiveSpawns)
+                    if (activeSpawnCount >= MaxActiveSpawns)
                     {
                         break;
                     }
@@ -163,7 +316,7 @@ namespace _Scripts._Game.General.Spawning.AI{
                     }
                 }
 
-                if (activeSpawnCount >= _maxActiveSpawns)
+                if (activeSpawnCount >= MaxActiveSpawns)
                 {
                     activeSpawnLimitReached = true;
                 }
@@ -176,9 +329,9 @@ namespace _Scripts._Game.General.Spawning.AI{
         {
             bool activeSpawnLimitReached = GetActiveSpawnLimitReached();
 
-            bool autoSpawnCheck = (autoSpawn && _runtimeTrySpawnAutomatically) || !autoSpawn;
+            bool autoSpawnCheck = (autoSpawn && SpawnAutomatically) || !autoSpawn;
 
-            bool noTimeDelay = _delayBetweenSpawns <= 0.0f || _delayBetweenSpawnsTimer <= 0.0f;
+            bool noTimeDelay = DelayBetweenSpawns <= 0.0f || _delayBetweenSpawnsTimer <= 0.0f;
 
             bool canAISpawnerSpawn = _spawnerControlsSpawning && !activeSpawnLimitReached && autoSpawnCheck && noTimeDelay;
 
@@ -226,7 +379,7 @@ namespace _Scripts._Game.General.Spawning.AI{
 
                 if (success)
                 {
-                    _delayBetweenSpawnsTimer = _delayBetweenSpawns;
+                    _delayBetweenSpawnsTimer = DelayBetweenSpawns;
                 }
             }
 
@@ -240,7 +393,7 @@ namespace _Scripts._Game.General.Spawning.AI{
 
         public void SetSpawnAutomatically(bool set)
         {
-            _runtimeTrySpawnAutomatically = set;
+            //_runtimeTrySpawnAutomatically = set;
         }
     }
     
