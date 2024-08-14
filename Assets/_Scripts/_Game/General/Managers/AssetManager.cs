@@ -83,7 +83,9 @@ namespace _Scripts._Game.General.Managers{
                 foreach (FAreaInfo area in areas)
                 {
                     int mainSceneIndex = SceneUtility.GetBuildIndexByScenePath(area.AreaName);
-                    _areaNameAreaInfoDict.TryAdd(area.AreaName, area);
+                    FAreaInfo newArea = new FAreaInfo();
+                    newArea = area;
+                    _areaNameAreaInfoDict.TryAdd(area.AreaName, newArea);
                 }
 
                 _zoneNameZoneSODict.TryAdd(zone.ZoneScene, zone);

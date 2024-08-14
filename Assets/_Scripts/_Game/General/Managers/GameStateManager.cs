@@ -97,7 +97,7 @@ namespace _Scripts._Game.General.Managers{
 
         public bool IsGameRunning
         {
-            get => GameType == EGameType.InGame && PlayerEntity.Instance != null;
+            get => GameType == EGameType.InGame && GameState == EGameState.PlayingGame && PlayerEntity.Instance != null;
         }
 
         private Coroutine _loadGameCoroutine;

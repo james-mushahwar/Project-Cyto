@@ -56,9 +56,3 @@ MonoBehaviour:
       _sceneName: Area1-3
     _areaMusic: 1
     _areaAmbience: 1
-  - _areaName:
-      _sceneAsset: {fileID: 102900000, guid: 3de06872060ee194b928d09355a57e49, type: 3}
-      _sceneName: Area1_ChallengeRoom1_1
-    _connectedAreas: []
-    _areaMusic: 1
-    _areaAmbience: 1

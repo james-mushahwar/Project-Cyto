@@ -576,10 +576,21 @@ MonoBehaviour:
   - {fileID: 1422377402}
   - {fileID: 850055109}
   - {fileID: 811325512}
+  _tickSequenceCompleteCheck: 1
   _useSpawnsKilledToCompleteCheck: 0
-  _spawnsKilledToComplete: 0
   _useNoRemainingSpawnsToCompleteCheck: 1
   _flagStopSpawningWhenKillCountReached: 0
+  _overrideWaveSpawnSettings: 0
+  _spawnsKilledToComplete: 0
+  _waveSpawnSettings:
+    _spawnAutomatically: 0
+    _spawnAutomaticallyInputsAllValidCheck: 0
+    _spawnOnInputChanged: 0
+    _spawnOnInputChangedToValid: 0
+    _spawnOnInputChangedToInvalid: 0
+    _maxActiveSpawns: 0
+    _delayBetweenSpawns: 0
+    _delayUntilRespawn: 0
 --- !u!114 &140873319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,10 +1167,21 @@ MonoBehaviour:
   _spawners: []
   _spawnPoints:
   - {fileID: 1200541256}
+  _tickSequenceCompleteCheck: 1
   _useSpawnsKilledToCompleteCheck: 0
-  _spawnsKilledToComplete: 0
   _useNoRemainingSpawnsToCompleteCheck: 1
   _flagStopSpawningWhenKillCountReached: 0
+  _overrideWaveSpawnSettings: 0
+  _spawnsKilledToComplete: 0
+  _waveSpawnSettings:
+    _spawnAutomatically: 0
+    _spawnAutomaticallyInputsAllValidCheck: 0
+    _spawnOnInputChanged: 0
+    _spawnOnInputChangedToValid: 0
+    _spawnOnInputChangedToInvalid: 0
+    _maxActiveSpawns: 0
+    _delayBetweenSpawns: 0
+    _delayUntilRespawn: 0
 --- !u!114 &259176456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1522,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7638632887986322252, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: _outputs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638632887986322252, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: _outputs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1198227598}
     - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: _maxActiveSpawns
       value: 4
@@ -1519,6 +1549,18 @@ PrefabInstance:
     - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: _spawnerControlsSpawning
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: _waveCompleteOnNoActiveSpawns
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: _waveCompleteOnKilledCountReached
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863327458832588649, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: _waveSpawnSettings._maxActiveSpawns
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9154678402007061726, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
       propertyPath: id
@@ -1566,6 +1608,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45fdc6413134e474cafe9ba1a20204f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &600568361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7638632887986322252, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+  m_PrefabInstance: {fileID: 600568357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &615234370
@@ -3187,7 +3240,7 @@ MonoBehaviour:
   _advancedInputs:
   - _conditionType: 1
     _logicEntities:
-    - {fileID: 1459578467}
+    - {fileID: 600568361}
   _outputLogicType: 1
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
@@ -3964,8 +4017,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 4.9925003, y: 3.9966002, z: 0}
-    m_Extent: {x: 42.7504, y: 27.248901, z: 0}
+    m_Center: {x: 5.001499, y: 3.99395, z: 0}
+    m_Extent: {x: 42.7565, y: 27.24835, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4561,7 +4614,6 @@ MonoBehaviour:
   - {fileID: 1783541601}
   - {fileID: 1783541602}
   - {fileID: 1783541606}
-  - {fileID: 1783541599}
 --- !u!114 &1783541605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4591,10 +4643,21 @@ MonoBehaviour:
   _spawners:
   - {fileID: 600568360}
   _spawnPoints: []
+  _tickSequenceCompleteCheck: 0
   _useSpawnsKilledToCompleteCheck: 1
-  _spawnsKilledToComplete: 8
   _useNoRemainingSpawnsToCompleteCheck: 1
   _flagStopSpawningWhenKillCountReached: 1
+  _overrideWaveSpawnSettings: 1
+  _spawnsKilledToComplete: 6
+  _waveSpawnSettings:
+    _spawnAutomatically: 1
+    _spawnAutomaticallyInputsAllValidCheck: 0
+    _spawnOnInputChanged: 0
+    _spawnOnInputChangedToValid: 0
+    _spawnOnInputChangedToInvalid: 0
+    _maxActiveSpawns: 3
+    _delayBetweenSpawns: 1
+    _delayUntilRespawn: 2
 --- !u!1 &1814072594
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,6 +58,7 @@ namespace _Scripts._Game.General.Managers{
         #region Doorways And Corridors
         private GameObject _doorwayGO;
         private string _doorwayGOID = "";
+        private int _doorwayIndex;
 
         public GameObject DoorWayGO
         {
@@ -85,6 +86,7 @@ namespace _Scripts._Game.General.Managers{
             }
         }
         public string DoorwayGOID { get => _doorwayGOID; set => _doorwayGOID = value; }
+        public int DoorwayIndex { get => _doorwayIndex; set => _doorwayIndex = value; }
         #endregion
 
         #region Safe respawn

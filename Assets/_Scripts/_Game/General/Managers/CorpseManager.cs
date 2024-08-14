@@ -93,12 +93,15 @@ namespace _Scripts._Game.General.Managers{
         public void TrySpawnTeleportCorpse(EEntity entity, Vector2 position)
         {
             TeleportCorpsePool pool = GetTeleportCorpsePool(entity);
-            TeleportCorpse teleportCorpse = pool.GetTeleportCorpse();
-            if (teleportCorpse != null)
+            if (pool != null)
             {
-                teleportCorpse.transform.position = position + pool.PositionOffset;
-                teleportCorpse.gameObject.SetActive(true);
-                _activeCorpses.Add(teleportCorpse);
+                TeleportCorpse teleportCorpse = pool.GetTeleportCorpse();
+                if (teleportCorpse != null)
+                {
+                    teleportCorpse.transform.position = position + pool.PositionOffset;
+                    teleportCorpse.gameObject.SetActive(true);
+                    _activeCorpses.Add(teleportCorpse);
+                }
             }
         }
 

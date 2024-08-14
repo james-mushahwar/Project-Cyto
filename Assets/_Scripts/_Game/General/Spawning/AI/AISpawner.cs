@@ -1,4 +1,5 @@
-﻿using _Scripts._Game.General.Identification;
+﻿using _Scripts._Game.AI;
+using _Scripts._Game.General.Identification;
 using _Scripts._Game.General.LogicController;
 using _Scripts._Game.General.Managers;
 using NaughtyAttributes;
@@ -134,6 +135,20 @@ namespace _Scripts._Game.General.Spawning.AI{
             }
         }
         #endregion
+
+        public void Copy(FAISpawnerSpawnSettings target)
+        {
+            _spawnAutomatically                     = target.SpawnAutomatically;
+            _spawnAutomaticallyInputsAllValidCheck  = target.SpawnAutomaticallyInputsAllValidCheck;
+            _spawnOnInputChanged                    = target.SpawnOnInputChanged;
+            _spawnOnInputChangedToValid             = target.SpawnOnInputChangedToValid;
+            _spawnOnInputChangedToInvalid           = target.SpawnOnInputChangedToInvalid;
+
+            _maxActiveSpawns                        = target.MaxActiveSpawns;
+
+            _delayBetweenSpawns                     = target.DelayBetweenSpawns;
+            _delayUntilRespawn                      = target.DelayUntilRespawn;
+        }
     }
 
     [RequireComponent(typeof(RuntimeID))]
@@ -163,6 +178,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         public List<SpawnPoint> SpawnPoints { get => _spawnPoints; }
 
         [Header("Spawn properties")]
+        [SerializeField]
         private bool _spawnerControlsSpawning = false;
         [SerializeField]
         private FAISpawnerSpawnSettings _defaultSpawnSettings;
@@ -177,6 +193,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         private bool _waveCompleteOnNoActiveSpawns; // complete when all active spawns in the wave are killed
         [SerializeField]
         private bool _waveCompleteOnKilledCountReached; // complete when x spawns are killed
+        private int _spawnsKilledToComplete;
 
         #region Runtime properties
         private FAISpawnerSpawnSettings _runtimeSpawnSettings;
@@ -184,16 +201,16 @@ namespace _Scripts._Game.General.Spawning.AI{
         private int _spawnsKilledCount;
         private int _waveSpawnsKilledCount;
 
-        private bool SpawnAutomatically { get => _isWaveActive ? _waveSpawnSettings.SpawnAutomatically : _defaultSpawnSettings.SpawnAutomatically; }
-        private bool SpawnAutomaticallyInputsAllValidCheck { get => _isWaveActive ? _waveSpawnSettings.SpawnAutomaticallyInputsAllValidCheck : _defaultSpawnSettings.SpawnAutomaticallyInputsAllValidCheck; }
-        private bool SpawnOnInputChanged { get => _isWaveActive ? _waveSpawnSettings.SpawnOnInputChanged : _defaultSpawnSettings.SpawnOnInputChanged; }
-        private bool SpawnOnInputChangedToValid { get => _isWaveActive ? _waveSpawnSettings.SpawnOnInputChangedToValid : _defaultSpawnSettings.SpawnOnInputChangedToValid; }
-        private bool SpawnOnInputChangedToInvalid { get => _isWaveActive ? _waveSpawnSettings.SpawnOnInputChangedToInvalid : _defaultSpawnSettings.SpawnOnInputChangedToInvalid; }
+        private bool SpawnAutomatically { get => _runtimeSpawnSettings.SpawnAutomatically; }
+        private bool SpawnAutomaticallyInputsAllValidCheck { get => _runtimeSpawnSettings.SpawnAutomaticallyInputsAllValidCheck; }
+        private bool SpawnOnInputChanged { get => _runtimeSpawnSettings.SpawnOnInputChanged; }
+        private bool SpawnOnInputChangedToValid { get => _runtimeSpawnSettings.SpawnOnInputChangedToValid; }
+        private bool SpawnOnInputChangedToInvalid { get => _runtimeSpawnSettings.SpawnOnInputChangedToInvalid; }
 
-        private int MaxActiveSpawns { get => _isWaveActive ? _waveSpawnSettings.MaxActiveSpawns : _defaultSpawnSettings.MaxActiveSpawns; }
+        private int MaxActiveSpawns { get => _runtimeSpawnSettings.MaxActiveSpawns; }
 
-        public float DelayBetweenSpawns { get => _isWaveActive ? _waveSpawnSettings.DelayBetweenSpawns : _defaultSpawnSettings.DelayBetweenSpawns; }
-        public float DelayUntilRespawn { get => _isWaveActive ? _waveSpawnSettings.DelayUntilRespawn : _defaultSpawnSettings.DelayUntilRespawn; }
+        public float DelayBetweenSpawns { get => _runtimeSpawnSettings.DelayBetweenSpawns; }
+        public float DelayUntilRespawn { get => _runtimeSpawnSettings.DelayUntilRespawn; }
         #endregion
 
         [Header("Custom")]
@@ -208,6 +225,9 @@ namespace _Scripts._Game.General.Spawning.AI{
         private void Awake()
         {
             _runtimeSpawnSettings = new FAISpawnerSpawnSettings();
+
+            _runtimeSpawnSettings.CanEditAtRuntime = true;
+            _runtimeSpawnSettings.Copy(_defaultSpawnSettings);
 
             if (_waveCompletedOutputLogicGO)
             {
@@ -254,11 +274,13 @@ namespace _Scripts._Game.General.Spawning.AI{
         private void OnDisable()
         {
             SpawnManager.Instance?.UnassignSpawner(this);
+
+            RuntimeIDManager.Instance?.UnregisterRuntimeSpawner(this);
         }
 
         private void OnLogicInputChanged()
         {
-            if (_spawnerControlsSpawning && _enableSpawnOnInputChanged)
+            if (_spawnerControlsSpawning && SpawnOnInputChanged)
             {
                 bool input = _logicEntity.IsInputLogicValid;
 
@@ -277,11 +299,9 @@ namespace _Scripts._Game.General.Spawning.AI{
         {
             TickTimers();
 
-            //bool canAISpawnerSpawn = CanAISpawnerSpawn(true);
-            //if (canAISpawnerSpawn)
-            //{
-            //}
             TrySpawnFromSpawnPoints();
+
+            TickWave();
         }
 
         private void TickTimers()
@@ -386,14 +406,106 @@ namespace _Scripts._Game.General.Spawning.AI{
             return success;
         }
 
+        private void TickWave()
+        {
+            if (_isWaveActive == false)
+            {
+                return;
+            }
+
+            bool hasWaveFinished = true;
+
+            bool spawnsKilledCheck = true;
+            bool noRemainingSpawnsCheck = true;
+
+            if (_waveCompleteOnKilledCountReached)
+            {
+                if (_spawnsKilledCount < _spawnsKilledToComplete)
+                {
+                    spawnsKilledCheck = false;
+                }
+            }
+
+            if (_waveCompleteOnNoActiveSpawns)
+            {
+                foreach (SpawnPoint spawnPoint in _spawnPoints)
+                {
+                    if (spawnPoint == null)
+                    {
+                        continue;
+                    }
+
+                    AIEntity entity = SpawnManager.Instance.TryGetRegisteredEntity(spawnPoint);
+
+                    if (entity == null)
+                    {
+                        continue;
+                    }
+                    if (entity != null)
+                    {
+                        if (spawnPoint.WaveCompleteOnAllAIExposed)
+                        {
+                            noRemainingSpawnsCheck = entity.IsExposed();
+                        }
+                        else
+                        {
+                            noRemainingSpawnsCheck = false;
+                        }
+                    }
+
+                    if (!noRemainingSpawnsCheck)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            hasWaveFinished = spawnsKilledCheck && noRemainingSpawnsCheck;
+
+            if (hasWaveFinished)
+            {
+                FinishWave(true);
+            }
+        }
+
         public void OnSpawnKilled(SpawnPoint spawnPoint)
         {
             _onSpawnKilledEvent.Invoke(_runtimeID.Id);
+            _spawnsKilledCount++;
+            if (_isWaveActive)
+            {
+                _waveSpawnsKilledCount++;
+
+                if (_waveCompleteOnKilledCountReached && _spawnsKilledCount >= _spawnsKilledToComplete)
+                {
+                    if (_runtimeSpawnSettings.SpawnAutomatically)
+                    {
+                        _runtimeSpawnSettings.SpawnAutomatically = false;
+                    }
+                }
+            }
         }
 
-        public void SetSpawnAutomatically(bool set)
+        public void StartWave(int spawnsKilledToComplete, bool overrideSettings, FAISpawnerSpawnSettings spawnSettings = default)
         {
-            //_runtimeTrySpawnAutomatically = set;
+            _isWaveActive = true;
+            _waveSpawnsKilledCount = 0;
+
+            _spawnsKilledToComplete = spawnsKilledToComplete;
+
+            _runtimeSpawnSettings.Copy(overrideSettings ? spawnSettings : _waveSpawnSettings);
+        }
+
+        public void FinishWave(bool success = false)
+        {
+            _isWaveActive = false;
+
+            if (success)
+            {
+                _waveCompletedOutputLogicEntity.IsOutputLogicValid = true;
+                LogicManager.Instance.OnOutputChanged(_waveCompletedOutputLogicEntity);
+                _waveCompletedOutputLogicEntity.IsOutputLogicValid = false; // pulse signal
+            }
         }
     }
     

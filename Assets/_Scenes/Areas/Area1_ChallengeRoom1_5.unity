@@ -2042,6 +2042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AISpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 9154678402007061726, guid: 9729210fef82cdf4992c20a5b0c2d090, type: 3}
+      propertyPath: id
+      value: a35885ee-27f2-498b-9a78-e5630117ff4c
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2911,13 +2915,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &809642761 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5286669058616426227, guid: f1ea1e5f4764697479d0decb35c20678, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4272529561150929595, guid: f1ea1e5f4764697479d0decb35c20678, type: 3}
   m_PrefabInstance: {fileID: 809642759}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 680ed901395ebda4a8e7ee31833fa439, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a33608dd8a7eb14b9b5649e371d82e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &812146535
@@ -4777,8 +4781,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 4.9989986, y: 4.0028496, z: 0}
-    m_Extent: {x: 42.7567, y: 27.25695, z: 0}
+    m_Center: {x: 4.9992504, y: 3.9929495, z: 0}
+    m_Extent: {x: 42.749847, y: 27.252949, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

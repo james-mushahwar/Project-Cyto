@@ -1,5 +1,7 @@
 ﻿using _Scripts._Game.AI;
+using _Scripts._Game.General.Managers;
 using _Scripts._Game.Player;
+using Assets._Scripts._Game.General.SceneLoading;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,10 +18,14 @@ namespace _Scripts._Game.General.SceneLoading{
         private int _colliderIndex;
 
         [SerializeField]
-        private UnityEvent<int> _collisionEnterEvent;
+        private SceneField _customEnterScene;
         [SerializeField]
-        private UnityEvent<int> _collisionExitEvent;
+        private SceneField _customExitScene;
 
+        [SerializeField]
+        private UnityEvent<int, string> _collisionEnterEvent;
+        [SerializeField]
+        private UnityEvent<int, string> _collisionExitEvent;
         private void OnDrawGizmos()
         {
             // shows right direction of scene switcher collider
@@ -57,6 +63,11 @@ namespace _Scripts._Game.General.SceneLoading{
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if (GameStateManager.Instance.IsGameRunning == false)
+            {
+                return;
+            }
+
             IPossessable possessable = collision.gameObject.GetComponent<IPossessable>();
             Rigidbody2D rb = null;
             if (possessable != null)
@@ -64,24 +75,42 @@ namespace _Scripts._Game.General.SceneLoading{
                 if (possessable is AIEntity)
                 {
                     AIEntity aiEntity = (AIEntity)possessable;
+                    if (aiEntity.IsPossessed() == false)
+                    {
+                        return;
+                    }
                     rb = aiEntity.MovementSM.Rb;
                 }
             }
             else
             {
+                if (PlayerEntity.Instance.IsPossessed() == false)
+                {
+                    return;
+                }
                 rb = PlayerEntity.Instance.MovementSM.Rb;
             }
 
             if (rb != null)
             {
                 float dotProduct = Vector3.Dot(rb.velocity.normalized, _collider.transform.right);
+
+                string newSceneName = "";
                 if (dotProduct > 0)
                 {
-                    _collisionEnterEvent.Invoke(_colliderIndex);
+                    if (_customEnterScene != null)
+                    {
+                        newSceneName = _customEnterScene.SceneName;
+                    }
+                    _collisionEnterEvent.Invoke(_colliderIndex, newSceneName);
                 }
                 else
                 {
-                    _collisionExitEvent.Invoke(_colliderIndex);
+                    if (_customExitScene != null)
+                    {
+                        newSceneName = _customExitScene.SceneName;
+                    }
+                    _collisionExitEvent.Invoke(_colliderIndex, newSceneName);
                 }
             }
         }

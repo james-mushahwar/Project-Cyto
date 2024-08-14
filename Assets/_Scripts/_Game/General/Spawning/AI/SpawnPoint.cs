@@ -30,7 +30,7 @@ namespace _Scripts._Game.General.Spawning.AI{
         #region General
         [Header("Spawn properties")]
         [SerializeField]
-        private EEntity _entity = (EEntity)1000;
+        private EEntity _entity = EEntity.BombDroid;
         [SerializeField]
         private bool _trySpawnAutomatically = true;
         [SerializeField]

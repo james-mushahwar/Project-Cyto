@@ -4,6 +4,10 @@ using Assets._Scripts._Game.General.SceneLoading;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using _Scripts._Game.General.Managers;
+using System;
+using UnityEditor.SearchService;
+using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace _Scripts._Game.General.SceneLoading{
 
@@ -16,9 +20,13 @@ namespace _Scripts._Game.General.SceneLoading{
 
         private IEnumerator[] _asyncSceneOperation = new IEnumerator[2];
 
+        private GameStateManager _gameStateManager;
+
         // Start is called before the first frame update
         void Start()
         {
+            _gameStateManager = GameStateManager.Instance;
+
             for (int i = 0; i < 2; ++i)
             {
                 SceneSwitcherCollider ssc = _colliders[i].gameObject.GetComponent<SceneSwitcherCollider>();
@@ -30,29 +38,17 @@ namespace _Scripts._Game.General.SceneLoading{
         }
 
         // used to unload scene on player exited collider event
-        public void OnPlayerEntered(int index)
+        public void OnPlayerEntered(int index, string sceneName = "")
         {
             //Debug.Log("Scene asset name is " + _sceneAssets[index]);
-            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index]);
+            string newSceneName = sceneName != "" ? sceneName : _sceneAssets[index];
 
-            if (targetScene != null)
-            {
-                if (!targetScene.isLoaded || _asyncSceneOperation[index] != null)
-                {
-                    //Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already unloaded");
-                    return;
-                }
-            }
-
-            _asyncSceneOperation[index] = UnloadSceneAsync(index, _sceneAssets[index]);
-            StartCoroutine(_asyncSceneOperation[index]);
+            LoadAdditiveScene(newSceneName, index);
         }
 
-        // used to load scene on on player exited collider event
-        public void OnPlayerExited(int index)
+        private void LoadAdditiveScene(string sceneName, int index)
         {
-            //Debug.Log("Scene asset name is " + _sceneAssets[index]);
-            Scene targetScene = SceneManager.GetSceneByName(_sceneAssets[index]);
+            Scene targetScene = SceneManager.GetSceneByName(sceneName);
 
             if (targetScene != null)
             {
@@ -63,7 +59,33 @@ namespace _Scripts._Game.General.SceneLoading{
                 }
             }
 
-            _asyncSceneOperation[index] = LoadSceneAsync(index, _sceneAssets[index]);
+            _asyncSceneOperation[index] = LoadSceneAsync(index, sceneName);
+            StartCoroutine(_asyncSceneOperation[index]);
+        }
+
+        // used to load scene on on player exited collider event
+        public void OnPlayerExited(int index, string sceneName = "")
+        {
+            //Debug.Log("Scene asset name is " + _sceneAssets[index]);
+            string newSceneName = sceneName != "" ? sceneName : _sceneAssets[index];
+
+            UnloadAdditiveScene(newSceneName, index);
+        }
+
+        private void UnloadAdditiveScene(string sceneName, int index)
+        {
+            Scene targetScene = SceneManager.GetSceneByName(sceneName);
+
+            if (targetScene != null)
+            {
+                if (!targetScene.isLoaded || _asyncSceneOperation[index] != null)
+                {
+                    //Debug.LogWarning(SceneManager.GetSceneByName(_sceneAssets[index]) + " is already unloaded");
+                    return;
+                }
+            }
+
+            _asyncSceneOperation[index] = UnloadSceneAsync(index, sceneName);
             StartCoroutine(_asyncSceneOperation[index]);
         }
 

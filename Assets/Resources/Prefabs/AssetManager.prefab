@@ -102,5 +102,5 @@ MonoBehaviour:
     _sceneAsset: {fileID: 102900000, guid: 96f8b068569c3af499a42faaa07b1b40, type: 3}
     _sceneName: Zone1_ChallengeRoom1
   _defaultNewSaveAreaScene:
-    _sceneAsset: {fileID: 102900000, guid: ee23d6e317d41e348b827be2f8a2b8e1, type: 3}
-    _sceneName: Area1_ChallengeRoom1_WaveSpawns
+    _sceneAsset: {fileID: 102900000, guid: 3de06872060ee194b928d09355a57e49, type: 3}
+    _sceneName: Area1_ChallengeRoom1_1
