@@ -717,9 +717,12 @@ MonoBehaviour:
   _inputLogicType: 1
   _inputConditionType: 0
   _inputs: []
-  _useAdvancedInputs: 0
+  _useAdvancedInputs: 1
   _advancedConditionType: 0
-  _advancedInputs: []
+  _advancedInputs:
+  - _conditionType: 0
+    _logicEntities:
+    - {fileID: 1529567166}
   _outputLogicType: 0
   _useSeparateOutputLogic: 0
   _isOutputLogicValid: 0
@@ -1192,7 +1195,7 @@ MonoBehaviour:
   _acceptInput: 0
   _activateGOs: []
   _deactivateGOs:
-  - {fileID: 1999571214}
+  - {fileID: 1874235804}
   _toggleGOs: []
   _activateMonobehaviours: []
   _deactivateMonobehaviours: []
@@ -2569,6 +2572,10 @@ PrefabInstance:
       propertyPath: m_Splines.Array.data[0].m_MetaData.Array.data[1].m_DistanceToInterpolation.Array.data[29].Distance
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4876110052613146032, guid: ed6e63735103c6a47ac6e46385a72d6e, type: 3}
+      propertyPath: m_Name
+      value: Spline Animation (SideScrollingRoom)
+      objectReference: {fileID: 0}
     - target: {fileID: 5456787801462302631, guid: ed6e63735103c6a47ac6e46385a72d6e, type: 3}
       propertyPath: m_Name
       value: Spline Container (SideScrollingRoom)
@@ -2621,6 +2628,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7967321366925020906, guid: ed6e63735103c6a47ac6e46385a72d6e, type: 3}
+      propertyPath: _outputs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967321366925020906, guid: ed6e63735103c6a47ac6e46385a72d6e, type: 3}
+      propertyPath: _outputs.Array.data[0]
+      value: 
+      objectReference: {fileID: 426130963}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2639,6 +2654,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2409216234741352152, guid: ed6e63735103c6a47ac6e46385a72d6e, type: 3}
   m_PrefabInstance: {fileID: 1529567163}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1529567166 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7967321366925020906, guid: ed6e63735103c6a47ac6e46385a72d6e, type: 3}
+  m_PrefabInstance: {fileID: 1529567163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b44dab5d53ac3479f8863deb598af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1603869162
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,11 +2946,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79d45966ce8c51a4e8d6f5dc8a4d33e6, type: 3}
---- !u!1 &1999571214 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 416694167506982299, guid: 79d45966ce8c51a4e8d6f5dc8a4d33e6, type: 3}
-  m_PrefabInstance: {fileID: 1999571213}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1999571215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 416694167506982298, guid: 79d45966ce8c51a4e8d6f5dc8a4d33e6, type: 3}

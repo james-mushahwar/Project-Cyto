@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using _Scripts._Game.General.LogicController;
+using _Scripts._Game.General.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -11,9 +13,25 @@ namespace _Scripts._Game.General.Movement{
         private IMoveableEntity _moveEntity;
         [SerializeField]
         private SplineAnimate _splineAnimate;
+        private bool _cachedSplinePlayChanged;
+
+        [SerializeField]
+        private LogicEntity _onSplineMovementStarted;
+        [SerializeField]
+        private LogicEntity _onSplineMovementStopped;
+
+        private void Awake()
+        {
+            
+        }
 
         private void OnEnable()
         {
+            if (_splineAnimate)
+            {
+                _cachedSplinePlayChanged = _splineAnimate.IsPlaying;
+            }
+
             if (_moveEntity == null)
             {
                 _moveEntity = GetComponentInChildren<IMoveableEntity>(true);
@@ -39,20 +57,24 @@ namespace _Scripts._Game.General.Movement{
         {
             if (_moveEntity != null)
             {
-                bool shouldBePlaying = _moveEntity.GetCanMove();
-                bool isPlaying = _splineAnimate.IsPlaying;
+                bool canPlay = _moveEntity.GetCanMove() && (_splineAnimate.Loop != SplineAnimate.LoopMode.Once || (_splineAnimate.Loop == SplineAnimate.LoopMode.Once && _splineAnimate.NormalizedTime < 1.0f));
 
-                if (shouldBePlaying != isPlaying)
+                bool isPlaying = _splineAnimate.IsPlaying;
+                bool splinePlayingChanged = _splineAnimate.IsPlaying != _cachedSplinePlayChanged;
+
+                if (!isPlaying)
                 {
-                    if (shouldBePlaying)
+                    if (canPlay)
                     {
                         OnMovementEnabled();
                     }
-                    else
+                    else if (splinePlayingChanged)
                     {
                         OnMovementDisabled();
                     }
                 }
+
+                _cachedSplinePlayChanged = isPlaying;
             }
         }
 
@@ -62,6 +84,13 @@ namespace _Scripts._Game.General.Movement{
             {
                 _splineAnimate.Play();
             }
+
+            if (_onSplineMovementStarted)
+            {
+                _onSplineMovementStarted.IsOutputLogicValid = true;
+                LogicManager.Instance.OnOutputChanged(_onSplineMovementStarted);
+                _onSplineMovementStarted.IsOutputLogicValid = false; // pulse signal
+            }
         }
 
         private void OnMovementDisabled()
@@ -69,6 +98,13 @@ namespace _Scripts._Game.General.Movement{
             if (_splineAnimate.IsPlaying)
             {
                 _splineAnimate.Pause();
+            }
+
+            if (_onSplineMovementStopped)
+            {
+                _onSplineMovementStopped.IsOutputLogicValid = true;
+                LogicManager.Instance.OnOutputChanged(_onSplineMovementStopped);
+                _onSplineMovementStopped.IsOutputLogicValid = false; // pulse signal
             }
         }
     }
