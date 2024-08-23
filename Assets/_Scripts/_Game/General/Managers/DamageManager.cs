@@ -47,8 +47,13 @@ namespace _Scripts._Game.General.Managers{
             return damage;
         }
 
-        public static bool CanBeDamaged(EDamageType damageType, IDamageable damageable)
+        public static bool CanBeDamaged(EDamageType damageType, EEntityType causerType, IDamageable damageable)
         {
+            if (causerType == damageable.EntityType)
+            {
+                return false;
+            }
+
             if (damageable.DamageTypesToAccept.Count > 0)
             {
                 if (damageable.DamageTypesToAccept.Contains(damageType) == false)

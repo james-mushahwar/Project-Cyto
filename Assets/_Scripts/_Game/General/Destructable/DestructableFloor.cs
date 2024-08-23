@@ -14,6 +14,7 @@ namespace _Scripts._Game.General.Destructable{
         public List<EDamageType> DamageTypesToIgnore => _damageTypesToIgnore;
         public List<EDamageType> DamageTypesToAccept => _damageTypesToAccept;
 
+        public EEntityType EntityType { get => EEntityType.Environment; }
         [SerializeField] 
         private int _maxHitPoints;
         private int _hitPoints;

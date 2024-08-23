@@ -45,7 +45,7 @@ namespace _Scripts._Game.Sequencer.Triggers{
             }
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             if (_logicEntity == null)
             {

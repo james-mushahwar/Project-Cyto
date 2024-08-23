@@ -945,6 +945,7 @@ MonoBehaviour:
     - {fileID: 2071292806}
     _sequenceSettings:
       _freezePlayer: 0
+      _disableDispossessEnemy: 1
       _canAlwaysRun: 0
       _canLoop: 1
   _reactToValidInput: 1
@@ -1391,6 +1392,7 @@ MonoBehaviour:
     - {fileID: 728809637}
     _sequenceSettings:
       _freezePlayer: 0
+      _disableDispossessEnemy: 0
       _canAlwaysRun: 0
       _canLoop: 0
   _reactToValidInput: 1
@@ -4643,11 +4645,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 746515081225711780, guid: 1813d9d59c9ba9047bf9ed6469c17d43, type: 3}
       propertyPath: _sequenceableSettings.Array.data[0]._sequenceSettings._freezePlayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 746515081225711780, guid: 1813d9d59c9ba9047bf9ed6469c17d43, type: 3}
       propertyPath: _sequenceableSettings.Array.data[1]._sequenceSettings._freezePlayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 746515081225711780, guid: 1813d9d59c9ba9047bf9ed6469c17d43, type: 3}
+      propertyPath: _sequenceableSettings.Array.data[0]._sequenceSettings._disableDispossessEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 746515081225711780, guid: 1813d9d59c9ba9047bf9ed6469c17d43, type: 3}
+      propertyPath: _sequenceableSettings.Array.data[1]._sequenceSettings._disableDispossessEnemy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2920776590150173388, guid: 1813d9d59c9ba9047bf9ed6469c17d43, type: 3}
       propertyPath: m_RootOrder
@@ -4781,8 +4791,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 5.0039005, y: 4.0043497, z: 0}
-    m_Extent: {x: 42.7554, y: 27.25175, z: 0}
+    m_Center: {x: 5.0057507, y: 4.0000505, z: 0}
+    m_Extent: {x: 42.75315, y: 27.259651, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -6322,6 +6332,7 @@ MonoBehaviour:
     - {fileID: 1115736757}
     _sequenceSettings:
       _freezePlayer: 0
+      _disableDispossessEnemy: 1
       _canAlwaysRun: 0
       _canLoop: 1
   _reactToValidInput: 1

@@ -10,6 +10,7 @@ using _Scripts._Game.AI.AttackStateMachine;
 using _Scripts._Game.General;
 using _Scripts._Game.General.Navigation;
 using Pathfinding;
+using _Scripts._Game.Sequencer;
 
 namespace _Scripts._Game.AI.MovementStateMachine{
     
@@ -266,7 +267,7 @@ namespace _Scripts._Game.AI.MovementStateMachine{
             _isNorthInputValid = _isNorthButtonPressed;
 
             //temp dispossess
-            if (_isNorthButtonPressed)
+            if (_isNorthButtonPressed && !SequencerManager.Instance.DisableDispossessAction)
             {
                 _entity.OnDispossess();
             }

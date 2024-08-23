@@ -232,7 +232,7 @@ namespace _Scripts._Game.General.Managers{
 
                         if (currentDamageable != null)
                         {
-                            if (DamageManager.CanBeDamaged(EDamageType.Player_BasicAttack, currentDamageable) == false)
+                            if (DamageManager.CanBeDamaged(EDamageType.Player_BasicAttack, EEntityType.Player, currentDamageable) == false)
                             {
                                 continue;
                             }

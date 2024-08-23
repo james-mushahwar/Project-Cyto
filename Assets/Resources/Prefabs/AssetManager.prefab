@@ -102,5 +102,5 @@ MonoBehaviour:
     _sceneAsset: {fileID: 102900000, guid: 96f8b068569c3af499a42faaa07b1b40, type: 3}
     _sceneName: Zone1_ChallengeRoom1
   _defaultNewSaveAreaScene:
-    _sceneAsset: {fileID: 102900000, guid: 557aae7f25d59c44295eac24acad4ee1, type: 3}
-    _sceneName: Area1_ChallengeRoom1_4
+    _sceneAsset: {fileID: 102900000, guid: e38854c1d2e44a04ca71bce2007d78a7, type: 3}
+    _sceneName: Area1_ChallengeRoom1_5

@@ -25,6 +25,8 @@ namespace _Scripts._Game.General.Interactable.Shootable
             get { return this; }
         }
 
+        public EEntityType EntityType { get => EEntityType.Environment; }
+
         #region Animation
         private readonly int _startup = Animator.StringToHash("ShootButton_Startup");
         private readonly int _onIdle = Animator.StringToHash("ShootButton_OnIdle");

@@ -29,6 +29,7 @@ namespace _Scripts._Game.General{
         Enemy               = 1000,
         BondedEnemy         = 2000,
         Hazard              = 3000,
+        Environment         = 4000,
     }
 
     public enum EDamageType
@@ -61,6 +62,8 @@ namespace _Scripts._Game.General{
         List<EDamageType> DamageTypesToAccept { get; }
         //Components
         Transform Transform { get; }
+
+        EEntityType EntityType { get; }
     }
 
     public interface IDamageCauser

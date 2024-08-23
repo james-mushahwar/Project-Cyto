@@ -99,6 +99,7 @@ namespace _Scripts._Game.AI{
         public List<EDamageType> DamageTypesToIgnore => _damageTypesToIgnore;
         public List<EDamageType> DamageTypesToAccept => _damageTypesToAccept;
 
+        public EEntityType EntityType { get => IsPossessed() ? EEntityType.BondedEnemy : EEntityType.Enemy; }
         //Exposable
         [Header("Exposable")]
         [SerializeField]
@@ -127,6 +128,7 @@ namespace _Scripts._Game.AI{
 
         public UnityEvent<GameObject> OnHitEvent { get => _onHitEvent; }
         public UnityEvent<GameObject> OnTakeDamageEvent { get => _onTakeDamageEvent; }
+
 
         protected virtual void Awake()
         {
@@ -259,7 +261,7 @@ namespace _Scripts._Game.AI{
 
         public virtual bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
-            if (DamageManager.CanBeDamaged(damageType, this) == false)
+            if (DamageManager.CanBeDamaged(damageType, causer, this) == false)
             {
                 return false;
             }

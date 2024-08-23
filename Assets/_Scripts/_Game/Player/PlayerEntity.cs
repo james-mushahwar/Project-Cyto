@@ -81,6 +81,8 @@ namespace _Scripts._Game.Player{
         public List<EDamageType> DamageTypesToIgnore => _damageTypesToIgnore;
         public List<EDamageType> DamageTypesToAccept => _damageTypesToAccept;
 
+        public EEntityType EntityType { get => IsPossessed() ? EEntityType.Player : EEntityType.BondedEnemy; }
+
         public bool FacingRight
         {
             get
@@ -228,7 +230,7 @@ namespace _Scripts._Game.Player{
 
         public virtual bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
-            if (DamageManager.CanBeDamaged(damageType, this) == false)
+            if (DamageManager.CanBeDamaged(damageType, causer, this) == false)
             {
                 return false;
             }

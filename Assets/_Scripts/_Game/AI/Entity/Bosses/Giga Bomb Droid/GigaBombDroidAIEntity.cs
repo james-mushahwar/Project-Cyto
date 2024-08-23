@@ -48,7 +48,7 @@ namespace _Scripts._Game.AI.Entity.Bosses.GigaBombDroid{
 
         public override bool TakeDamage(EDamageType damageType, EEntityType causer, Vector3 damagePosition)
         {
-            if(DamageManager.CanBeDamaged(damageType, this) == false)
+            if(DamageManager.CanBeDamaged(damageType, causer, this) == false)
             {
                 return false;
             }

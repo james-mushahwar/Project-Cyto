@@ -42,6 +42,11 @@ namespace _Scripts._Game.Sequencer.Triggers{
         {
             bool unregistered = true;
 
+            if (SequencerManager.Instance == null)
+            {
+                return false;
+            }
+
             foreach (SequenceableSettings seqSettings in _sequenceableSettings)
             {
                 bool unregister = SequencerManager.Instance.TryUnregisterSequence(seqSettings._sequenceable, seqSettings._sequenceSettings);
@@ -54,6 +59,11 @@ namespace _Scripts._Game.Sequencer.Triggers{
             }
 
             return unregistered;
+        }
+
+        public virtual void OnDestroy()
+        {
+            UnregisterSequences();
         }
     }
     

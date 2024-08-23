@@ -31,6 +31,11 @@ namespace _Scripts._Game.Sequencer.Gameplay{
             _runtimeID = GetComponent<RuntimeID>();
         }
 
+        private void OnDisable()
+        {
+            
+        }
+
         public override void Begin()
         {
             _isStarted = true;
