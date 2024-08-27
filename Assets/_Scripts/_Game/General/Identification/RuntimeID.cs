@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 
 namespace _Scripts._Game.General.Identification{
-    
+
     public class RuntimeID : MonoBehaviour
     {
         [SerializeField]
@@ -17,6 +17,15 @@ namespace _Scripts._Game.General.Identification{
             Debug.Log(id);
         }
 
+        public void GenerateId(RuntimeIDCustomInspector invoker)
+        {
+            if (invoker == null)
+            {
+                return;
+            }
+
+            GenerateId();
+        }
     }
     
 }
