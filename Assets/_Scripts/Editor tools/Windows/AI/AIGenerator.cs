@@ -17,7 +17,19 @@ namespace Editor.Windows.AI{
             DaggerMushroom,
             //Boss AI
             GigaBombDroid,
+            //Ally
+            //Environment
+            GeneralTurret,
             COUNT
+        }
+
+        private enum AIGeneralType
+        {
+            Flying,
+            Ground,
+            Boss,
+            Environment,
+            COUNT,
         }
 
         #region General
@@ -28,6 +40,7 @@ namespace Editor.Windows.AI{
 
         #region Chosen AI
         AIType _chosenAI = AIType.COUNT;
+        AIGeneralType _chosenBaseType = AIGeneralType.COUNT;
         bool _selectAll = false;
 
         string[] _namePrefixes = new string[(int)AIType.COUNT]
@@ -36,57 +49,81 @@ namespace Editor.Windows.AI{
             "MushroomArcher",   // Mushroom Archer
             "DaggerMushroom",   // Dagger Mushroom
             "GigaBombDroid",    // Giga BombdDroid
+            "GeneralTurret",    // General Turret
+        };
+
+        string[] _nameSpacedPrefixes = new string[(int)AIType.COUNT]
+        {
+            "Bomb Droid",        // Bomb Droid
+            "Mushroom Archer",   // Mushroom Archer
+            "Dagger Mushroom",   // Dagger Mushroom
+            "Giga Bomb Droid",    // Giga BombdDroid
+            "General Turret",    // General Turret
         };
 
         string[] _entityStatePaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/AI/Entity/Flying/Bomb droid",        // Bomb Droid
-            "Assets/_Scripts/_Game/AI/Entity/Ground/Mushroom Archer",   // Mushroom Archer
-            "Assets/_Scripts/_Game/AI/Entity/Ground/Dagger Mushroom",   // Dagger Mushroom
-            "Assets/_Scripts/_Game/AI/Entity/Bosses/Giga Bomb Droid",   // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Entity/Flying/Bomb Droid",            // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Entity/Ground/Mushroom Archer",       // Mushroom Archer
+            "Assets/_Scripts/_Game/AI/Entity/Ground/Dagger Mushroom",       // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Entity/Bosses/Giga Bomb Droid",       // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Entity/Environment/General Turret",   // General Turret
         };
 
         string[] _movementStatePaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Flying/Bomb droid",        // Bomb Droid
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Mushroom Archer",   // Mushroom Archer
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Dagger Mushroom",   // Dagger Mushroom
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Bosses/Giga Bomb Droid",   // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Flying/Bomb Droid",            // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Mushroom Archer",       // Mushroom Archer
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Dagger Mushroom",       // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Bosses/Giga Bomb Droid",       // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Environment/General Turret",   // General Turret
         };
 
         string[] _attackStatePaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb droid",      // Bomb Droid
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Mushroom Archer", // Mushroom Archer
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom", // Dagger Mushroom
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Bosses/Giga Bomb Droid", // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb Droid",          // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Mushroom Archer",     // Mushroom Archer
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom",     // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Bosses/Giga Bomb Droid",     // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Environment/General Turret", // General Turret
         };
 
         //Animator scripts
         string[] _animatorPaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/Animation/Character/AI/Flying/Bomb Droid",      // Bomb Droid
-            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Mushroom Archer", // Mushroom Archer
-            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Dagger Mushroom", // Dagger Mushroom
-            "Assets/_Scripts/_Game/Animation/Character/AI/Bosses/Giga Bomb Droid", // Giga Bomb Droid
+            "Assets/_Scripts/_Game/Animation/Character/AI/Flying/Bomb Droid",           // Bomb Droid
+            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Mushroom Archer",      // Mushroom Archer
+            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Dagger Mushroom",      // Dagger Mushroom
+            "Assets/_Scripts/_Game/Animation/Character/AI/Bosses/Giga Bomb Droid",      // Giga Bomb Droid
+            "Assets/_Scripts/_Game/Animation/Character/AI/Environment/General Turret",  // General Turret
         };
 
         //Animation assets
         string[] _animationPaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Animation/AI/Flying/Bomb Droid",      // Bomb Droid
-            "Assets/_Animation/AI/Ground/Mushroom Archer", // Mushroom Archer
-            "Assets/_Animation/AI/Ground/Dagger Mushroom", // Dagger Mushroom
-            "Assets/_Animation/AI/Bosses/Giga Bomb Droid", // Giga Bomb Droid 
+            "Assets/_Animation/AI/Flying/Bomb Droid",           // Bomb Droid
+            "Assets/_Animation/AI/Ground/Mushroom Archer",      // Mushroom Archer
+            "Assets/_Animation/AI/Ground/Dagger Mushroom",      // Dagger Mushroom
+            "Assets/_Animation/AI/Bosses/Giga Bomb Droid",      // Giga Bomb Droid 
+            "Assets/_Animation/AI/Environment/General Turret",  // General Turret
         };
 
         string[] _prefabPaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Prefabs/AI/Flying/Bomb Droid",      // Bomb Droid
-            "Assets/_Prefabs/AI/Ground/Mushroom Archer", // Mushroom Archer
-            "Assets/_Prefabs/AI/Ground/Dagger Mushroom", // Dagger Mushroom
-            "Assets/_Prefabs/AI/Bosses/Giga Bomb Droid", // Giga Bomb Droid
+            "Assets/_Prefabs/AI/Flying/Bomb Droid",             // Bomb Droid
+            "Assets/_Prefabs/AI/Ground/Mushroom Archer",        // Mushroom Archer
+            "Assets/_Prefabs/AI/Ground/Dagger Mushroom",        // Dagger Mushroom
+            "Assets/_Prefabs/AI/Bosses/Giga Bomb Droid",        // Giga Bomb Droid
+            "Assets/_Prefabs/AI/Environment/General Turret",    // General Turret
         };
+        string[] _prefabDirPaths = new string[(int)AIGeneralType.COUNT]
+        {
+            "Assets/_Prefabs/AI/Flying",         //Flying
+            "Assets/_Prefabs/AI/Ground",         //Ground
+            "Assets/_Prefabs/AI/Bosses",         //Bosses
+            "Assets/_Prefabs/AI/Environment",    //Environment
+        };
+
 
         #endregion
 
@@ -140,6 +177,11 @@ namespace Editor.Windows.AI{
                 EditorGUILayout.EndScrollView();
                 return;
             }
+
+            GUILayout.BeginHorizontal("box");
+            _chosenBaseType = (AIGeneralType) EditorGUILayout.EnumPopup("Chosen General AI type:", _chosenBaseType);
+            GUILayout.EndHorizontal();
+
             EditorGUILayout.LabelField("Movement State Path:", _movementStatePaths[(int)_chosenAI]);
             EditorGUILayout.LabelField("Attack State Path:", _attackStatePaths[(int)_chosenAI]);
             EditorGUILayout.LabelField("Sprite Animator Path:", _animatorPaths[(int)_chosenAI]);
@@ -216,6 +258,12 @@ namespace Editor.Windows.AI{
             {
                 Generate();
             }
+
+            string customMovementPath = _chosenBaseType == AIGeneralType.COUNT ? _movementStatePaths[(int)_chosenAI] : _prefabDirPaths[(int)_chosenBaseType] + "/" + _namePrefixes[(int)_chosenAI];
+            EditorGUILayout.LabelField("Movement State Path:", customMovementPath);
+            EditorGUILayout.LabelField("Attack State Path:", _attackStatePaths[(int)_chosenAI]);
+            EditorGUILayout.LabelField("Sprite Animator Path:", _animatorPaths[(int)_chosenAI]);
+
             EditorGUILayout.EndScrollView();
 
             this.Repaint();

@@ -336,6 +336,7 @@ namespace _Scripts._Game.General{
         // Ally
 
         //Environment
+        GeneralTurret                           = 30000,
 
         COUNT
     }
