@@ -34,6 +34,10 @@ namespace Editor.Windows.AI{
 
         #region General
         private const string _aiTemplatePath = "Assets/_Scripts/Editor tools/Templates/AI/";
+        private const string _entityPath = "Assets/_Scripts/Editor tools/Templates/AI/Entity/";
+        private const string _movementPath = "Assets/_Scripts/Editor tools/Templates/AI/Movement/";
+        private const string _attackPath = "Assets/_Scripts/Editor tools/Templates/AI/Attack/";
+        private const string _animPath = "Assets/_Scripts/Editor tools/Templates/AI/Animation/";
 
         private Vector2 _scrollPos = Vector2.zero;
         #endregion
@@ -67,7 +71,7 @@ namespace Editor.Windows.AI{
             "Assets/_Scripts/_Game/AI/Entity/Ground/Mushroom Archer",       // Mushroom Archer
             "Assets/_Scripts/_Game/AI/Entity/Ground/Dagger Mushroom",       // Dagger Mushroom
             "Assets/_Scripts/_Game/AI/Entity/Bosses/Giga Bomb Droid",       // Giga Bomb Droid
-            "Assets/_Scripts/_Game/AI/Entity/Environment/General Turret",   // General Turret
+            "Assets/_Scripts/_Game/AI/Entity/Environment/Turret/General Turret",   // General Turret
         };
 
         string[] _movementStatePaths = new string[(int)AIType.COUNT]
@@ -76,26 +80,35 @@ namespace Editor.Windows.AI{
             "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Mushroom Archer",       // Mushroom Archer
             "Assets/_Scripts/_Game/AI/Movement State Machine/Ground/Dagger Mushroom",       // Dagger Mushroom
             "Assets/_Scripts/_Game/AI/Movement State Machine/Bosses/Giga Bomb Droid",       // Giga Bomb Droid
-            "Assets/_Scripts/_Game/AI/Movement State Machine/Environment/General Turret",   // General Turret
+            "Assets/_Scripts/_Game/AI/Movement State Machine/Environment/Turret/General Turret",   // General Turret
         };
 
         string[] _attackStatePaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb Droid",          // Bomb Droid
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Mushroom Archer",     // Mushroom Archer
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom",     // Dagger Mushroom
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Bosses/Giga Bomb Droid",     // Giga Bomb Droid
-            "Assets/_Scripts/_Game/AI/Attack State Machine/Environment/General Turret", // General Turret
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb Droid",                  // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Mushroom Archer",             // Mushroom Archer
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom",             // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Bosses/Giga Bomb Droid",             // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Environment/Turret/General Turret",  // General Turret
+        };
+
+        string[] _baseClasses = new string[(int)AIType.COUNT]
+        {
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Flying/Bomb Droid",                  // Bomb Droid
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Mushroom Archer",             // Mushroom Archer
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Ground/Dagger Mushroom",             // Dagger Mushroom
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Bosses/Giga Bomb Droid",             // Giga Bomb Droid
+            "Assets/_Scripts/_Game/AI/Attack State Machine/Environment/Turret/General Turret",  // General Turret
         };
 
         //Animator scripts
         string[] _animatorPaths = new string[(int)AIType.COUNT]
         {
-            "Assets/_Scripts/_Game/Animation/Character/AI/Flying/Bomb Droid",           // Bomb Droid
-            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Mushroom Archer",      // Mushroom Archer
-            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Dagger Mushroom",      // Dagger Mushroom
-            "Assets/_Scripts/_Game/Animation/Character/AI/Bosses/Giga Bomb Droid",      // Giga Bomb Droid
-            "Assets/_Scripts/_Game/Animation/Character/AI/Environment/General Turret",  // General Turret
+            "Assets/_Scripts/_Game/Animation/Character/AI/Flying/Bomb Droid",                   // Bomb Droid
+            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Mushroom Archer",              // Mushroom Archer
+            "Assets/_Scripts/_Game/Animation/Character/AI/Ground/Dagger Mushroom",              // Dagger Mushroom
+            "Assets/_Scripts/_Game/Animation/Character/AI/Bosses/Giga Bomb Droid",              // Giga Bomb Droid
+            "Assets/_Scripts/_Game/Animation/Character/AI/Environment/Turret/General Turret",   // General Turret
         };
 
         //Animation assets
@@ -264,6 +277,11 @@ namespace Editor.Windows.AI{
             EditorGUILayout.LabelField("Attack State Path:", _attackStatePaths[(int)_chosenAI]);
             EditorGUILayout.LabelField("Sprite Animator Path:", _animatorPaths[(int)_chosenAI]);
 
+            //if (GUILayout.Button("New version Generate scripts!"))
+            //{
+            //    GenerateVersion2();
+            //}
+
             EditorGUILayout.EndScrollView();
 
             this.Repaint();
@@ -330,7 +348,7 @@ namespace Editor.Windows.AI{
                 string stateBaseType = "AIEntity";
 
                 Debug.Log("/////////// Generate AI entity ///////////");
-                CreateNewCSScript(i, _entityStatePaths[i], stateType, "", stateBaseType);
+                CreateNewCSScript(i, _entityStatePaths[i], _entityPath,stateType, "", stateBaseType);
                 #endregion
 
                 #region State Machines
@@ -340,12 +358,12 @@ namespace Editor.Windows.AI{
                 //movement state machine
                 stateType = IsFlyingEntity(i) ? "FlyingAIMovementStateMachine.cs.txt" : "GroundAIMovementStateMachine.cs.txt";
                 stateBaseType = "AIMovementStateMachine";
-                CreateNewCSScript(i, _movementStatePaths[i], stateType, "", stateBaseType);
+                CreateNewCSScript(i, _movementStatePaths[i], _movementPath, stateType, "", stateBaseType);
 
                 //attacking state machine
                 stateType = "AIAttackStateMachine.cs.txt";
                 stateBaseType = "AIAttackStateMachine";
-                CreateNewCSScript(i, _attackStatePaths[i], stateType, "", stateBaseType);
+                CreateNewCSScript(i, _attackStatePaths[i], _attackPath,  stateType, "", stateBaseType);
 
                 Debug.Log("////////////////////////////////////");
                 #endregion
@@ -358,31 +376,31 @@ namespace Editor.Windows.AI{
 
                     if (_movementStates[0])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Sleep", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Sleep", scriptBaseType);
                     }
                     if (_movementStates[1])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Wake", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Wake", scriptBaseType);
                     }
                     if (_movementStates[2])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Idle", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Idle", scriptBaseType);
                     }
                     if (_movementStates[3])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Patrol", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Patrol", scriptBaseType);
                     }
                     if (_movementStates[4])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Chase", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Chase", scriptBaseType);
                     }
                     if (_movementStates[5])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Attack", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Attack", scriptBaseType);
                     }
                     if (_movementStates[6])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Dead", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Dead", scriptBaseType);
                     }
                 }
 
@@ -394,27 +412,27 @@ namespace Editor.Windows.AI{
 
                     if (_bondedMovementStates[0])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Grounded", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Grounded", scriptBaseType);
                     }
                     if (_bondedMovementStates[1])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Jumping", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath, scriptType, "Jumping", scriptBaseType);
                     }
                     if (_bondedMovementStates[2])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Falling", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath,scriptType, "Falling", scriptBaseType);
                     }
                     if (_bondedMovementStates[3])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Flying", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath,scriptType, "Flying", scriptBaseType);
                     }
                     if (_bondedMovementStates[4])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Dashing", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath,scriptType, "Dashing", scriptBaseType);
                     }
                     if (_bondedMovementStates[5])
                     {
-                        CreateNewCSScript(i, _movementStatePaths[i], scriptType, "Attacking", scriptBaseType);
+                        CreateNewCSScript(i, _movementStatePaths[i], _movementPath,scriptType, "Attacking", scriptBaseType);
                     }
                 }
                 #endregion
@@ -425,20 +443,20 @@ namespace Editor.Windows.AI{
                     string scriptType = "AIAttackState.cs.txt";
                     string scriptBaseType = "AIAttackState";
 
-                    CreateNewCSScript(i,_attackStatePaths[i], scriptType, "Idle", scriptBaseType);
+                    CreateNewCSScript(i,_attackStatePaths[i], _attackPath, scriptType, "Idle", scriptBaseType);
                     if (_attackStates[0] != "")
                     {
-                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _attackStates[0], scriptBaseType);
+                        CreateNewCSScript(i, _attackStatePaths[i], _attackPath, scriptType, _attackStates[0], scriptBaseType);
                         _attackStates[0] = "";
                     }
                     if (_attackStates[1] != "")
                     {
-                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _attackStates[1], scriptBaseType);
+                        CreateNewCSScript(i, _attackStatePaths[i], _attackPath, scriptType, _attackStates[1], scriptBaseType);
                         _attackStates[1] = "";
                     }
                     if (_attackStates[2] != "")
                     {
-                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _attackStates[2], scriptBaseType);
+                        CreateNewCSScript(i, _attackStatePaths[i], _attackPath, scriptType, _attackStates[2], scriptBaseType);
                         _attackStates[2] = "";
                     }
                 }
@@ -448,20 +466,20 @@ namespace Editor.Windows.AI{
                     string scriptType = "AIBondedAttackState.cs.txt";
                     string scriptBaseType = "AIBondedAttackState";
 
-                    CreateNewCSScript(i, _attackStatePaths[i], scriptType, "Idle", scriptBaseType);
+                    CreateNewCSScript(i, _attackStatePaths[i], _attackPath, scriptType, "Idle", scriptBaseType);
                     if (_bondedAttackStates[0] != "")
                     {
-                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _bondedAttackStates[0], scriptBaseType);
+                        CreateNewCSScript(i, _attackStatePaths[i], _attackPath, scriptType, _bondedAttackStates[0], scriptBaseType);
                         _bondedAttackStates[0] = "";
                     }
                     if (_bondedAttackStates[1] != "")
                     {
-                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _bondedAttackStates[1], scriptBaseType);
+                        CreateNewCSScript(i, _attackStatePaths[i], _attackPath, scriptType, _bondedAttackStates[1], scriptBaseType);
                         _bondedAttackStates[1] = "";
                     }
                     if (_bondedAttackStates[2] != "")
                     {
-                        CreateNewCSScript(i, _attackStatePaths[i], scriptType, _bondedAttackStates[2], scriptBaseType);
+                        CreateNewCSScript(i, _attackStatePaths[i], _attackPath, scriptType, _bondedAttackStates[2], scriptBaseType);
                         _bondedAttackStates[2] = "";
                     }
                 }
@@ -474,7 +492,7 @@ namespace Editor.Windows.AI{
                     string scriptType = "SpriteAnimator.cs.txt";
                     string scriptBaseType = "SpriteAnimator";
 
-                    CreateNewCSScript(i, _animatorPaths[i], scriptType, "", scriptBaseType);
+                    CreateNewCSScript(i, _animatorPaths[i], _animPath, scriptType, "", scriptBaseType);
 
                     if (_animController)
                     {
@@ -602,13 +620,13 @@ namespace Editor.Windows.AI{
                 _createPrefab = false;
             }
 
-            void CreateNewCSScript(int index, string pathName, string templateType, string actionType, string baseType)
+            void CreateNewCSScript(int index, string pathName, string templatePath, string templateType, string actionType, string baseType)
             {
                 string newGenScriptName = _namePrefixes[index] + actionType + baseType + ".cs";
                 Debug.Log(pathName + "/" + newGenScriptName);
                 if (!System.IO.File.Exists(pathName + "/" + newGenScriptName))
                 {
-                    ProjectWindowUtil.CreateScriptAssetFromTemplateFile(_aiTemplatePath + templateType, pathName + "/" + newGenScriptName);
+                    ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath + templateType, pathName + "/" + newGenScriptName);
                     Debug.Log("Created C# script: " + newGenScriptName);
                 }
                 else
@@ -621,6 +639,11 @@ namespace Editor.Windows.AI{
             {
                 return _movementStatePaths[i].Contains("Flying");
             }
+        }
+
+        void GenerateVersion2()
+        {
+
         }
     }
     

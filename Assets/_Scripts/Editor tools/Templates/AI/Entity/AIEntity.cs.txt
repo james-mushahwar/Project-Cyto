@@ -13,11 +13,6 @@ public class #SCRIPTNAME# : AIEntity
    {
         base.Awake();
    }
-
-   protected override void FixedUpdate()
-   {
-        base.FixedUpdate();
-   }
 }
 
 

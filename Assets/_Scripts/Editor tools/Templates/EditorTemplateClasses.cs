@@ -8,6 +8,11 @@ namespace Editor.Templates{
     {
         #region AI
         private const string _aiPath = "Assets/_Scripts/Editor tools/Templates/AI/";
+        private const string _entityPath = "Assets/_Scripts/Editor tools/Templates/AI/Entity";
+        private const string _movementPath = "Assets/_Scripts/Editor tools/Templates/AI/Movement";
+        private const string _attackPath = "Assets/_Scripts/Editor tools/Templates/AI/Attack";
+        private const string _animPath = "Assets/_Scripts/Editor tools/Templates/AI/Animation";
+
 
         private const string _aiMovementState = "AIMovementState.cs.txt";
 
